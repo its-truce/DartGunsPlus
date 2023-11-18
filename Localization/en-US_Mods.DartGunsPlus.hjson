@@ -1,0 +1,178 @@
+Items: {
+	VolatileContraption: {
+		Tooltip: ""
+		DisplayName: Volatile Contraption
+	}
+
+	VioletVigilante: {
+		Tooltip: ""
+		DisplayName: Violet Vigilante
+	}
+
+	VerdantStalker: {
+		Tooltip: ""
+		DisplayName: Verdant Stalker
+	}
+
+	Scatterhook: {
+		Tooltip: ""
+		DisplayName: Scatterhook
+	}
+
+	RosemaryThyme: {
+		Tooltip: ""
+		DisplayName: Rosemary Thyme
+	}
+
+	OnyxStorm: {
+		Tooltip: ""
+		DisplayName: Onyx Storm
+	}
+
+	MidnightMarauder: {
+		Tooltip: ""
+		DisplayName: Midnight Marauder
+	}
+
+	Lilkraken: {
+		Tooltip: ""
+		DisplayName: Lilkraken
+	}
+
+	Katanakaze: {
+		Tooltip: ""
+		DisplayName: Katanakaze
+	}
+
+	Euphoria: {
+		Tooltip: ""
+		DisplayName: Euphoria
+	}
+
+	DartStorm: {
+		Tooltip: ""
+		DisplayName: Dart Storm
+	}
+
+	Dart: {
+		Tooltip: ""
+		DisplayName: Dart
+	}
+
+	CrimsonCobra: {
+		Tooltip: ""
+		DisplayName: Crimson Cobra
+	}
+
+	Blazebringer: {
+		Tooltip: ""
+		DisplayName: Blazebringer
+	}
+
+	AstralAmalgam: {
+		Tooltip: ""
+		DisplayName: Astral Amalgam
+	}
+
+	FrostburnDart: {
+		Tooltip: ""
+		DisplayName: Frostburn Dart
+	}
+
+	FlamingDart: {
+		Tooltip: ""
+		DisplayName: Flaming Dart
+	}
+
+	ChlorophyteDart: {
+		DisplayName: Chlorophyte Dart
+		Tooltip: ""
+	}
+
+	VenomDart: {
+		DisplayName: Venom Dart
+		Tooltip: ""
+	}
+
+	StellarFrenzy: {
+		DisplayName: Stellar Frenzy
+		Tooltip: ""
+	}
+
+	MeteorDart: {
+		DisplayName: Meteor Dart
+		Tooltip: ""
+	}
+
+	TrueEuphoria: {
+		DisplayName: True Euphoria
+		Tooltip: ""
+	}
+
+	DartZapper: {
+		DisplayName: Dart Zapper
+		Tooltip: ""
+	}
+
+	BumbleBarrage: {
+		DisplayName: Bumble Barrage
+		Tooltip: ""
+	}
+
+	HighVelocityDart: {
+		DisplayName: High Velocity Dart
+		Tooltip: ""
+	}
+
+	EndlessDartCase: {
+		DisplayName: Endless Dart Case
+		Tooltip: ""
+	}
+
+	SpectreDart: {
+		DisplayName: Spectre Dart
+		Tooltip: ""
+	}
+
+	EnchantedDartcaster: {
+		DisplayName: Enchanted Dartcaster
+		Tooltip: ""
+	}
+
+	DartLicense: {
+		DisplayName: Dart License
+		Tooltip:
+			'''
+			10% increased dart damage
+			5% increased dart critical strike chance
+			'''
+	}
+
+	MartianMarksman: {
+		DisplayName: Martian Marksman
+		Tooltip: ""
+	}
+}
+
+Projectiles: {
+	RedLaser.DisplayName: Red Laser
+	RedBomb.DisplayName: Red Bomb
+	PlanteraShooter.DisplayName: Plantera Shooter
+	PlanteraSeed.DisplayName: Plantera Seed
+	MidnightBolt.DisplayName: Midnight Bolt
+	GolemHook.DisplayName: Golem Hook
+	EuphoriaSword.DisplayName: Euphoria Sword
+	AstralBolt.DisplayName: Astral Bolt
+	FrostburnDartProj.DisplayName: Frostburn Dart Proj
+	FlamingDartProj.DisplayName: Flaming Dart Proj
+	DartProjectile.DisplayName: Dart Projectile
+	VenomDartProj.DisplayName: Venom Dart Proj
+	MeteorDartProj.DisplayName: Meteor Dart Proj
+	TrueEuphoriaSword.DisplayName: True Euphoria Sword
+	HighVelocityDartProj.DisplayName: High Velocity Dart Proj
+	ChlorophyteDartProj.DisplayName: Chlorophyte Dart Proj
+	SpectreDartProj.DisplayName: Spectre Dart Proj
+	EnchantedDart.DisplayName: Enchanted Dart
+	MartianLightning.DisplayName: Martian Lightning
+	MartianSpark.DisplayName: Martian Spark
+}

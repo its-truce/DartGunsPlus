@@ -1,0 +1,10 @@
+{
+  "version": 2,
+  "dgSpecHash": "7g1GetDGZmEr28sPDu2HkrEzk3tzjSkrIlUFLIHhNGKjpNWsZB6ZmiRxQFJ8iMo3/bgRi1w2z65eA0BUynXjQA==",
+  "success": true,
+  "projectFilePath": "C:\\Users\\Lenovo\\Documents\\My Games\\Terraria\\tModLoader\\ModSources\\DartGunsPlus\\DartGunsPlus.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\Lenovo\\.nuget\\packages\\tmodloader.codeassist\\0.1.5\\tmodloader.codeassist.0.1.5.nupkg.sha512"
+  ],
+  "logs": []
+}

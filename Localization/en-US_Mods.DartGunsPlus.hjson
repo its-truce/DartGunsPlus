@@ -1,0 +1,371 @@
+Items: {
+	VolatileContraption: {
+		Tooltip: ""
+		DisplayName: Volatile Contraption
+	}
+
+	VioletVigilante: {
+		Tooltip: Occasionally creates short-lived slash of darkness on hit.
+		DisplayName: Violet Vigilante
+	}
+
+	VerdantStalker: {
+		Tooltip: ""
+		DisplayName: Verdant Stalker
+	}
+
+	Scatterhook: {
+		Tooltip:
+			'''
+			Shoots a random spread of five to eight darts.
+			Chance to spawn [c/AD5517:Golem Fists] on hit which attack at your cursor when you attack.
+			'''
+		DisplayName: Scatterhook
+	}
+
+	RosemaryThyme: {
+		Tooltip:
+			'''
+			Shoots three darts in a burst.
+			Chance to spawn [c/17AD4E:Mini Planteras] on hit which periodically shoot leaves at your cursor.
+			'''
+		DisplayName: Rosemary & Thyme
+	}
+
+	OnyxStorm: {
+		Tooltip: Shoots a spread of four darts along with a single [c/A834EB:Black Bolt] projectile that explodes.
+		DisplayName: Onyx Storm
+	}
+
+	MidnightMarauder: {
+		Tooltip: ""
+		DisplayName: Midnight Marauder
+	}
+
+	Lilkraken: {
+		Tooltip: ""
+		DisplayName: Lilkraken
+	}
+
+	Katanakaze: {
+		Tooltip: ""
+		DisplayName: Katanakaze
+	}
+
+	Euphoria: {
+		Tooltip: ""
+		DisplayName: Euphoria
+	}
+
+	DartStorm: {
+		Tooltip: ""
+		DisplayName: Dart Storm
+	}
+
+	Dart: {
+		Tooltip: ""
+		DisplayName: Dart
+	}
+
+	CrimsonCobra: {
+		Tooltip: ""
+		DisplayName: Crimson Cobra
+	}
+
+	Blazebringer: {
+		Tooltip: ""
+		DisplayName: Blazebringer
+	}
+
+	AstralAmalgam: {
+		Tooltip: ""
+		DisplayName: Astral Amalgam
+	}
+
+	FrostburnDart: {
+		Tooltip: ""
+		DisplayName: Frostburn Dart
+	}
+
+	FlamingDart: {
+		Tooltip: ""
+		DisplayName: Flaming Dart
+	}
+
+	ChlorophyteDart: {
+		DisplayName: Chlorophyte Dart
+		Tooltip: ""
+	}
+
+	VenomDart: {
+		DisplayName: Venom Dart
+		Tooltip: ""
+	}
+
+	StellarFrenzy: {
+		DisplayName: Stellar Frenzy
+		Tooltip: ""
+	}
+
+	MeteorDart: {
+		DisplayName: Meteor Dart
+		Tooltip: ""
+	}
+
+	TrueEuphoria: {
+		DisplayName: True Euphoria
+		Tooltip: ""
+	}
+
+	DartZapper: {
+		DisplayName: Dart Zapper
+		Tooltip: ""
+	}
+
+	BumbleBarrage: {
+		DisplayName: Bumble Barrage
+		Tooltip: ""
+	}
+
+	HighVelocityDart: {
+		DisplayName: High Velocity Dart
+		Tooltip: ""
+	}
+
+	EndlessDartCase: {
+		DisplayName: Endless Dart Case
+		Tooltip: ""
+	}
+
+	SpectreDart: {
+		DisplayName: Spectre Dart
+		Tooltip: ""
+	}
+
+	EnchantedDartcaster: {
+		DisplayName: Enchanted Dartcaster
+		Tooltip: ""
+	}
+
+	DartLicense: {
+		DisplayName: Dart License
+		Tooltip:
+			'''
+			10% increased dart damage
+			5% increased dart critical strike chance
+			'''
+	}
+
+	MartianMarksman: {
+		DisplayName: Martian Marksman
+		Tooltip: ""
+	}
+
+	Gigakraken: {
+		DisplayName: Gigakraken
+		Tooltip: ""
+	}
+
+	LuminiteDart: {
+		DisplayName: Luminite Dart
+		Tooltip: ""
+	}
+
+	IcicleSurge: {
+		DisplayName: Icicle Surge
+		Tooltip: ""
+	}
+
+	CherryBlossom: {
+		DisplayName: Cherry Blossom
+		Tooltip: ""
+	}
+
+	CrownCascade: {
+		DisplayName: Crown Cascade
+		Tooltip: ""
+	}
+
+	HalloweenHex: {
+		DisplayName: Halloween Hex
+		Tooltip: ""
+	}
+
+	GlacialGeyser: {
+		DisplayName: Glacial Geyser
+		Tooltip: ""
+	}
+
+	Dysphoria: {
+		Tooltip: ""
+		DisplayName: Dysphoria
+	}
+
+	TrueDysphoria: {
+		DisplayName: True Dysphoria
+		Tooltip: ""
+	}
+
+	Serenity: {
+		DisplayName: Serenity
+		Tooltip: ""
+	}
+
+	HarpyQuillstorm: {
+		DisplayName: Harpy Quillstorm
+		Tooltip: ""
+	}
+
+	Luminescence: {
+		DisplayName: Luminescence
+		Tooltip: ""
+	}
+
+	Charybdis: {
+		DisplayName: Charybdis
+		Tooltip: ""
+	}
+
+	LaserTherapy: {
+		DisplayName: Laser Therapy
+		Tooltip: ""
+	}
+
+	SeekersSpyglass: {
+		DisplayName: Seeker's Spyglass
+		Tooltip: Makes dart weapons automatically aim towards the nearest enemy.
+	}
+
+	HeavenlyDart: {
+		DisplayName: Heavenly Dart
+		Tooltip: ""
+	}
+
+	Sporeflinger: {
+		DisplayName: Sporeflinger
+		Tooltip: ""
+	}
+
+	GoreNGlory: {
+		DisplayName: Gore & Glory
+		Tooltip: ""
+	}
+
+	StellarOutrage: {
+		DisplayName: Stellar Outrage
+		Tooltip: ""
+	}
+
+	Styx: {
+		DisplayName: Styx
+		Tooltip: ""
+	}
+
+	Dartarang: {
+		DisplayName: Dartarang
+		Tooltip: ""
+	}
+
+	TestSword: {
+		DisplayName: Test Sword
+		Tooltip: ""
+	}
+}
+
+Projectiles: {
+	RedLaser.DisplayName: Red Laser
+	RedBomb.DisplayName: Red Bomb
+	PlanteraShooter.DisplayName: Plantera Shooter
+	PlanteraSeed.DisplayName: Plantera Seed
+	MidnightBolt.DisplayName: Midnight Bolt
+	GolemHook.DisplayName: Golem Hook
+	EuphoriaSword.DisplayName: Euphoria Sword
+	AstralBolt.DisplayName: Astral Bolt
+	FrostburnDartProj.DisplayName: Frostburn Dart Proj
+	FlamingDartProj.DisplayName: Flaming Dart Proj
+	DartProjectile.DisplayName: Dart Projectile
+	VenomDartProj.DisplayName: Venom Dart Proj
+	MeteorDartProj.DisplayName: Meteor Dart Proj
+	TrueEuphoriaSword.DisplayName: True Euphoria Sword
+	HighVelocityDartProj.DisplayName: High Velocity Dart Proj
+	ChlorophyteDartProj.DisplayName: Chlorophyte Dart Proj
+	SpectreDartProj.DisplayName: Spectre Dart Proj
+	EnchantedDart.DisplayName: Enchanted Dart
+	MartianLightning.DisplayName: Martian Lightning
+	MartianSpark.DisplayName: Martian Spark
+	KrakenFish.DisplayName: Kraken Fish
+	LuminiteDartProj.DisplayName: Luminite Dart Proj
+	Icicle.DisplayName: Icicle
+	VisualShock.DisplayName: Visual Shock
+	Blossom.DisplayName: Blossom
+	CherryLeaf.DisplayName: Cherry Leaf
+	LightningIcon.DisplayName: Lightning Icon
+	HalloweenRitual.DisplayName: Halloween Ritual
+	HalloweenJack.DisplayName: Halloween Jack
+	Explosion.DisplayName: Explosion
+	GolemFist.DisplayName: Golem Fist
+	LuminiteStrike.DisplayName: Luminite Strike
+	FrostFire.DisplayName: Frost Fire
+	FreezeBolt.DisplayName: Freeze Bolt
+	FistFlash.DisplayName: Fist Flash
+	DysphoriaBolt.DisplayName: Dysphoria Bolt
+	DysphoriaShock.DisplayName: Dysphoria Shock
+	DysphoriaExplosion.DisplayName: Dysphoria Explosion
+	SereneBolt.DisplayName: Serene Bolt
+	SereneShock.DisplayName: Serene Shock
+	SereneSlash.DisplayName: Serene Slash
+	Feather.DisplayName: Feather
+	EmpressProjectile.DisplayName: Empress Projectile
+	EmpressLaser.DisplayName: Empress Laser
+	LilEmpress.DisplayName: Lil Empress
+	EmpressBolt.DisplayName: Empress Bolt
+	CharybdisLaser.DisplayName: Charybdis Laser
+	CharybdisHoldout.DisplayName: Charybdis Holdout
+	DukeWhirlpool.DisplayName: Duke Whirlpool
+	Star.DisplayName: Star
+	StarTrail.DisplayName: Star Trail
+	LaserLightning.DisplayName: Laser Lightning
+	HomingLightning.DisplayName: Homing Lightning
+	TargetCircle.DisplayName: Target Circle
+	HeavenlyDartProj.DisplayName: Heavenly Dart Proj
+	BouncingShroom.DisplayName: Bouncing Shroom
+	GoreHoldout.DisplayName: Gore Holdout
+	GoreMusket.DisplayName: Gore Musket
+	LargeStar.DisplayName: Large Star
+	StellarSlash.DisplayName: Stellar Slash
+	StyxRune.DisplayName: Styx Rune
+	RosemaryRevolving.DisplayName: Rosemary Revolving
+	BumbleRevolving.DisplayName: Bumble Revolving
+	EnchantedRevolving.DisplayName: Enchanted Revolving
+	FrenzyRevolving.DisplayName: Frenzy Revolving
+	LaserRevolving.DisplayName: Laser Revolving
+	MartianRevolving.DisplayName: Martian Revolving
+	OutrageRevolving.DisplayName: Outrage Revolving
+	SerenityRevolving.DisplayName: Serenity Revolving
+	ZapperRevolving.DisplayName: Zapper Revolving
+	BlackHole.DisplayName: Black Hole
+	ZapperLightning.DisplayName: Zapper Lightning
+	DartBoomerang.DisplayName: Dart Boomerang
+	MusketSmoke.DisplayName: Musket Smoke
+	OnyxMusket.DisplayName: Onyx Musket
+	VenomCloud.DisplayName: Venom Cloud
+	HalloweenRevolving.DisplayName: Halloween Revolving
+	EuphoriaCircle.DisplayName: Euphoria Circle
+	EuphoriaSlash.DisplayName: Euphoria Slash
+	EuphoriaSpear.DisplayName: Euphoria Spear
+	TestSwing.DisplayName: Test Swing
+}
+
+Buffs: {
+	ElectricShock: {
+		DisplayName: Electric Shock
+		Description: You have been shocked!
+	}
+
+	DysphoriaMarked: {
+		DisplayName: Dysphoria Marked
+		Description: You have been marked!
+	}
+}
+
+Conditions.downedSkeletronOrDeerclopsOrHardmode: After defeating Skeletron or Deerclops or Wall of Flesh

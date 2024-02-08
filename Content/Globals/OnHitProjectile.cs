@@ -1,0 +1,429 @@
+﻿using System;
+using DartGunsPlus.Content.Buffs;
+using DartGunsPlus.Content.Items.Weapons;
+using DartGunsPlus.Content.Items.Weapons.Styx;
+using DartGunsPlus.Content.Projectiles;
+using DartGunsPlus.Content.Systems;
+using DartGunsPlus.Content.UI;
+using Microsoft.Xna.Framework;
+using Terraria;
+using Terraria.Audio;
+using Terraria.DataStructures;
+using Terraria.GameContent.Drawing;
+using Terraria.ID;
+using Terraria.ModLoader;
+using Vector2 = Microsoft.Xna.Framework.Vector2;
+
+namespace DartGunsPlus.Content.Globals;
+
+public class OnHitProjectile : GlobalProjectile
+{
+    private int _itemType;
+    public override bool InstancePerEntity => true;
+
+    public override void OnSpawn(Projectile projectile, IEntitySource source)
+    {
+        if (source is EntitySource_ItemUse_WithAmmo use && ContentSamples.ItemsByType[use.AmmoItemIdUsed].ammo == AmmoID.Dart) _itemType = use.Item.type;
+    }
+
+    public override void OnHitNPC(Projectile projectile, NPC target, NPC.HitInfo hit, int damageDone)
+    {
+        if (_itemType == ModContent.ItemType<DartZapper>())
+            if (Main.rand.NextBool(6))
+            {
+                Projectile.NewProjectile(projectile.GetSource_OnHit(target), target.Center, Vector2.Zero, ModContent.ProjectileType<ZapperLightning>(),
+                    damageDone * 3, hit.Knockback, projectile.owner);
+                SoundEngine.PlaySound(SoundID.MaxMana, target.Center);
+            }
+
+        if (_itemType == ModContent.ItemType<Blazebringer>())
+        {
+            target.AddBuff(BuffID.OnFire, 180);
+
+            if (Main.rand.NextBool(3))
+                Projectile.NewProjectile(projectile.GetSource_OnHit(target), target.Center, Vector2.Zero, ModContent.ProjectileType<Explosion>(),
+                    damageDone / 2, hit.Knockback, projectile.owner);
+        }
+
+        else if (_itemType == ModContent.ItemType<VerdantStalker>() && projectile.type != ProjectileID.BladeOfGrass)
+        {
+            target.AddBuff(BuffID.Poisoned, 60);
+            Projectile.NewProjectile(projectile.GetSource_OnHit(target), target.Center - new Vector2(20, 0), Vector2.Zero,
+                ProjectileID.BladeOfGrass, (int)(damageDone * 0.75f), hit.Knockback / 2, projectile.owner, 50);
+        }
+
+        else if (_itemType == ModContent.ItemType<Katanakaze>())
+        {
+            Vector2 velocity = new(Main.rand.Next(-3, 4), Main.rand.Next(-3, 4));
+            Projectile.NewProjectile(projectile.GetSource_Death(), target.Center, velocity, ProjectileID.Muramasa, damageDone / 2,
+                hit.Knockback / 2, projectile.owner, 1);
+        }
+
+        else if (_itemType == ModContent.ItemType<VioletVigilante>())
+        {
+            Vector2 velocity = new(Main.rand.Next(-2, 3), Main.rand.Next(-2, 3));
+
+            if (Main.rand.NextBool(4))
+                Projectile.NewProjectile(projectile.GetSource_OnHit(target), target.Center, velocity, ProjectileID.LightsBane, damageDone,
+                    hit.Knockback, projectile.owner, 1);
+        }
+
+        else if (_itemType == ModContent.ItemType<CrimsonCobra>())
+        {
+            if (Main.rand.NextBool(2))
+            {
+                Player player = Main.player[projectile.owner];
+                target.AddBuff(BuffID.BloodButcherer, 540);
+                Projectile.NewProjectile(projectile.GetSource_OnHit(target), target.Center, Vector2.Zero, ProjectileID.BloodButcherer, 0,
+                    0, projectile.owner, 1, target.whoAmI);
+
+                Vector2 pointPosition = target.Center;
+                Vector2 alternatePoint = target.Center;
+
+                player.LimitPointToPlayerReachableArea(ref pointPosition);
+                Vector2 targetSpot = pointPosition + Main.rand.NextVector2Circular(8f, 8f);
+                Vector2 spawnPos = VisualSystem.FindSharpTearsSpot(targetSpot, player, alternatePoint).ToWorldCoordinates(Main.rand.Next(17),
+                    Main.rand.Next(17));
+                Vector2 velocity = (targetSpot - spawnPos).SafeNormalize(-Vector2.UnitY) * 16f;
+                Projectile.NewProjectile(projectile.GetSource_OnHit(target), spawnPos, velocity, ProjectileID.SharpTears,
+                    projectile.damage / 4, 5, projectile.owner, ai1: Main.rand.NextFloat() * 0.5f + 0.6f);
+            }
+
+            CameraSystem.Screenshake(4, 4);
+            int numParticles = 75;
+
+            for (int i = 0; i < numParticles; i++)
+                Dust.NewDust(target.position, target.width, target.height, DustID.Blood, Main.rand.NextFloat(-1f, 1f), Main.rand.NextFloat(-1f, 1f));
+        }
+
+        else if (_itemType == ModContent.ItemType<Dysphoria>() && projectile.type != ModContent.ProjectileType<DysphoriaBolt>())
+        {
+            VisualSystem.SpawnDustCircle(target.Center, DustID.RainbowRod, 30, color: new Color(185, 133, 240));
+
+            if (Main.rand.NextBool(3))
+                for (int i = 0; i < 4; i++)
+                {
+                    Vector2 position = target.Center + new Vector2(200, 200).RotatedByRandom(Math.Tau);
+                    Vector2 velocity = position.DirectionTo(target.Center) * 6;
+
+                    Projectile.NewProjectile(projectile.GetSource_OnHit(target), position, velocity, ModContent.ProjectileType<DysphoriaBolt>(), 
+                        projectile.damage, 3);
+
+                    Dust.NewDust(position, projectile.height, projectile.width, DustID.WhiteTorch, newColor: new Color(128, 104, 207), Scale: 0.9f);
+                }
+        }
+
+        else if (_itemType == ModContent.ItemType<TrueDysphoria>() && projectile.type != ModContent.ProjectileType<DysphoriaBolt>()
+                                                                   && projectile.type != ModContent.ProjectileType<DysphoriaShock>()
+                                                                   && projectile.type != ModContent.ProjectileType<DysphoriaExplosion>())
+        {
+            bool purple = projectile.ai[2] % 2 == 0;
+            Color color = purple ? new Color(185, 133, 240) : new Color(55, 224, 112);
+
+            if (purple)
+            {
+                target.AddBuff(ModContent.BuffType<DysphoriaMarked>(), 120);
+                if (Main.rand.NextBool(2))
+                    for (int i = 0; i < 4; i++)
+                    {
+                        VisualSystem.SpawnDustCircle(target.Center, DustID.RainbowRod, 30, color: color);
+
+                        Vector2 position = target.Center + new Vector2(200, 200).RotatedByRandom(Math.Tau);
+                        Vector2 velocity = position.DirectionTo(target.Center) * 6;
+
+                        Projectile.NewProjectile(projectile.GetSource_OnHit(target), position, velocity, ModContent.ProjectileType<DysphoriaBolt>(),
+                            projectile.damage / 2, 3);
+
+                        Dust.NewDust(position, projectile.height, projectile.width, DustID.WhiteTorch, newColor: new Color(128, 104, 207), Scale: 0.9f);
+                    }
+            }
+            else
+            {
+                if (Main.rand.NextBool(2))
+                {
+                    Projectile.NewProjectile(projectile.GetSource_OnHit(target), target.Center, Vector2.Zero, ModContent.ProjectileType<DysphoriaShock>(),
+                        projectile.damage, 6, projectile.owner, target.whoAmI);
+
+                    SoundEngine.PlaySound(SoundID.DD2_EtherianPortalOpen, target.Center);
+                }
+                else if (target.HasBuff<DysphoriaMarked>())
+                {
+                    Projectile.NewProjectile(projectile.GetSource_OnHit(target), target.Center, Vector2.Zero, ModContent.ProjectileType<DysphoriaExplosion>(),
+                        projectile.damage, 8, projectile.owner, target.whoAmI);
+                }
+            }
+        }
+
+        else if (_itemType == ModContent.ItemType<RosemaryThyme>())
+        {
+            if (Main.rand.NextBool(7))
+                Projectile.NewProjectile(projectile.GetSource_OnHit(target), target.Center, Vector2.Zero, ModContent.ProjectileType<PlanteraShooter>(),
+                    damageDone, 0, projectile.owner, Main.rand.NextFloat(0, MathF.Tau), ai2: damageDone);
+        }
+
+        else if (_itemType == ModContent.ItemType<Scatterhook>())
+        {
+            Player player = Main.player[projectile.owner];
+            if (Main.rand.NextBool(7) && player.ownedProjectileCounts[ModContent.ProjectileType<GolemFist>()] < 16)
+                Projectile.NewProjectile(projectile.GetSource_OnHit(target), target.Center, Vector2.Zero, ModContent.ProjectileType<GolemFist>(),
+                    damageDone, 0, projectile.owner, Main.rand.NextFloat(0, MathF.Tau));
+        }
+
+        else if (_itemType == ModContent.ItemType<Euphoria>())
+        {
+            ParticleOrchestraSettings settings = new()
+            {
+                PositionInWorld = target.Center,
+                MovementVector = Vector2.Zero,
+                IndexOfPlayerWhoInvokedThis = (byte)projectile.owner
+            };
+            ParticleOrchestrator.SpawnParticlesDirect(ParticleOrchestraType.TrueExcalibur, settings);
+
+            if (Main.rand.NextBool(3))
+            {
+                Vector2 spawnPos = target.Center + new Vector2(120, 0).RotatedByRandom(Math.Tau);
+                Projectile.NewProjectile(projectile.GetSource_OnHit(target), spawnPos, spawnPos.DirectionTo(target.Center) * 9,
+                    ModContent.ProjectileType<EuphoriaSlash>(), (int)(damageDone * 0.75f), 3, projectile.owner);
+            }
+        }
+
+        else if (_itemType == ModContent.ItemType<TrueEuphoria>())
+        {
+            ParticleOrchestraSettings settings = new()
+            {
+                PositionInWorld = target.Center,
+                MovementVector = Vector2.Zero,
+                IndexOfPlayerWhoInvokedThis = (byte)projectile.owner
+            };
+            ParticleOrchestrator.SpawnParticlesDirect(ParticleOrchestraType.TrueExcalibur, settings);
+            
+            if (Main.rand.NextBool(3))
+                Projectile.NewProjectile(projectile.GetSource_OnHit(target), target.Center + new Vector2(0, 30), Vector2.Zero,
+                    ModContent.ProjectileType<EuphoriaCircle>(), damageDone, 0, projectile.owner, target.whoAmI);
+        }
+
+        else if (_itemType == ModContent.ItemType<StellarFrenzy>())
+        {
+            ParticleOrchestraSettings settings = new()
+            {
+                PositionInWorld = target.Center,
+                MovementVector = Vector2.Zero,
+                IndexOfPlayerWhoInvokedThis = (byte)projectile.owner
+            };
+            ParticleOrchestrator.SpawnParticlesDirect(ParticleOrchestraType.StellarTune, settings);
+
+            Vector2 spawnPos = target.Center - new Vector2(Main.rand.Next(-500, 500), 900);
+            Vector2 velocity = spawnPos.DirectionTo(target.Center) * 10;
+
+            if (Main.rand.NextBool(3))
+                Projectile.NewProjectile(projectile.GetSource_OnHit(target), spawnPos, velocity, ProjectileID.Starfury, damageDone, 3,
+                    projectile.owner);
+        }
+
+        else if (_itemType == ModContent.ItemType<MartianMarksman>() && projectile.type != ModContent.ProjectileType<MartianLightning>())
+        {
+            MartianPlayer martianPlayer = Main.player[projectile.owner].GetModPlayer<MartianPlayer>();
+
+            if (martianPlayer.MartianCurrent < 10)
+                martianPlayer.MartianCurrent++;
+        }
+
+        else if (_itemType == ModContent.ItemType<Gigakraken>() && projectile.type != ModContent.ProjectileType<KrakenFish>())
+        {
+            Vector2 spawnPos = target.Center - new Vector2(Main.rand.Next(-50, 50), 200);
+
+            if (Main.rand.NextBool(6))
+                Projectile.NewProjectile(projectile.GetSource_OnHit(target), spawnPos, spawnPos.DirectionTo(target.Center) * 12,
+                    ModContent.ProjectileType<KrakenFish>(), damageDone * 2, 6, projectile.owner, Main.rand.Next(1, 27));
+        }
+
+        else if (_itemType == ModContent.ItemType<GlacialGeyser>() && projectile.type != ModContent.ProjectileType<Icicle>() &&
+                 projectile.type != ModContent.ProjectileType<FreezeBolt>())
+        {
+            if (Main.rand.NextBool(2))
+            {
+                Player owner = Main.player[projectile.owner];
+                Vector2 pointPosition = target.Center; // this is the target
+
+                owner.LimitPointToPlayerReachableArea(ref pointPosition);
+                Vector2 targetSpot = pointPosition + Main.rand.NextVector2Circular(8f, 8f);
+                Vector2 spawnPos = VisualSystem.FindSharpTearsSpot(targetSpot, owner, target.Center).ToWorldCoordinates(Main.rand.Next(17),
+                    Main.rand.Next(17));
+                Vector2 velocity = (targetSpot - spawnPos).SafeNormalize(-Vector2.UnitY) * 16f;
+                Projectile.NewProjectile(projectile.GetSource_OnHit(target), spawnPos, velocity, ModContent.ProjectileType<Icicle>(),
+                    damageDone * 3 / 4, 5, projectile.owner, ai1: Main.rand.NextFloat() * 0.5f + 0.6f);
+            }
+
+            FrostPlayer frostPlayer = Main.player[projectile.owner].GetModPlayer<FrostPlayer>();
+
+            if (frostPlayer.FrostCurrent < 10)
+                frostPlayer.FrostCurrent++;
+        }
+
+        else if (_itemType == ModContent.ItemType<HalloweenHex>() && projectile.type != ModContent.ProjectileType<HalloweenJack>()
+                                                                  && projectile.type != ModContent.ProjectileType<HalloweenRitual>() &&
+                                                                  projectile.type != ModContent.ProjectileType<Explosion>())
+        {
+            HalloweenPlayer halloweenPlayer = Main.player[projectile.owner].GetModPlayer<HalloweenPlayer>();
+
+            if (halloweenPlayer.HalloweenCurrent < 15)
+                halloweenPlayer.HalloweenCurrent++;
+
+            switch (halloweenPlayer.HalloweenCurrent)
+            {
+                case 5:
+                    SoundEngine.PlaySound(SoundID.DD2_EtherianPortalOpen, projectile.Center);
+                    Projectile.NewProjectile(projectile.GetSource_OnHit(target), projectile.Center, Vector2.Zero,
+                        ModContent.ProjectileType<HalloweenRitual>(), projectile.damage / 2, 1, projectile.owner);
+                    break;
+
+                case 10:
+                    SoundEngine.PlaySound(SoundID.DD2_DarkMageAttack, projectile.Center);
+                    for (int i = 0; i < 5; i++)
+                        Projectile.NewProjectile(projectile.GetSource_OnHit(target), projectile.Center, Vector2.Zero,
+                            ModContent.ProjectileType<HalloweenJack>(), projectile.damage, 4, projectile.owner, ai2: MathHelper.ToRadians(72 * i));
+                    break;
+
+                case 15:
+                    SoundEngine.PlaySound(SoundID.DD2_KoboldExplosion, projectile.Center);
+                    foreach (Projectile proj in Main.projectile)
+                    {
+                        if (proj.type == ModContent.ProjectileType<HalloweenJack>() && proj.owner == Main.myPlayer && proj.active)
+                        {
+                            proj.ai[1] = 1; // enables to move
+                            proj.velocity = proj.DirectionTo(Main.MouseWorld) * 12;
+                        }
+
+                        if (proj.type == ModContent.ProjectileType<HalloweenRitual>() && proj.owner == Main.myPlayer && proj.active)
+                            proj.Kill();
+                    }
+
+                    halloweenPlayer.HalloweenCurrent = 0;
+                    break;
+            }
+        }
+
+        else if (_itemType == ModContent.ItemType<Serenity>() && projectile.type != ModContent.ProjectileType<SereneBolt>()
+                                                              && projectile.type != ModContent.ProjectileType<SereneSlash>() &&
+                                                              projectile.type != ModContent.ProjectileType<SereneShock>())
+        {
+            ParticleOrchestraSettings settings = new()
+            {
+                PositionInWorld = target.Center,
+                MovementVector = Vector2.Zero,
+                IndexOfPlayerWhoInvokedThis = (byte)projectile.owner,
+                UniqueInfoPiece = (int)VisualSystem.HueForParticle(Color.Green)
+            };
+            ParticleOrchestrator.SpawnParticlesDirect(ParticleOrchestraType.ChlorophyteLeafCrystalShot, settings);
+
+            if (Main.rand.NextBool(2))
+            {
+                Vector2 spawnPos = target.Center + new Vector2(50, 0).RotatedByRandom(Math.Tau);
+                Projectile.NewProjectile(projectile.GetSource_OnHit(target), spawnPos, spawnPos.DirectionTo(target.Center) * 4,
+                    ModContent.ProjectileType<SereneSlash>(), (int)(projectile.damage * 0.75f), 3, projectile.owner);
+            }
+            else
+            {
+                Player player = Main.player[projectile.owner];
+
+                for (int i = 0; i < 2; i++)
+                {
+                    Vector2 spawnPos = player.position + new Vector2(Main.rand.Next(-10, 10) * player.direction * -1, Main.rand.Next(-10, 10));
+                    Vector2 velocity = spawnPos.DirectionTo(Main.MouseWorld).RotatedByRandom(MathHelper.ToRadians(45)) * 7;
+                    Dust.NewDust(spawnPos, projectile.height, projectile.width, DustID.TerraBlade);
+
+                    Projectile.NewProjectile(projectile.GetSource_OnHit(target), spawnPos, velocity,
+                        ModContent.ProjectileType<SereneBolt>(), projectile.damage / 3, 3, projectile.owner);
+                }
+            }
+        }
+
+        else if (_itemType == ModContent.ItemType<Luminescence>() && projectile.type != ModContent.ProjectileType<EmpressLaser>()
+                                                                  && projectile.type != ModContent.ProjectileType<EmpressBolt>() &&
+                                                                  projectile.type != ModContent.ProjectileType<LilEmpress>())
+        {
+            if (Main.rand.NextBool(2))
+            {
+                Vector2 spawnPos = target.Center + new Vector2(500, 0).RotatedByRandom(Math.Tau);
+                Vector2 velocity = spawnPos.DirectionTo(target.Center) * 10;
+
+                Projectile.NewProjectile(projectile.GetSource_OnHit(target), spawnPos, velocity,
+                    ModContent.ProjectileType<EmpressBolt>(), projectile.damage, 3, projectile.owner);
+            }
+
+            if (Main.rand.NextBool(8))
+            {
+                Projectile minion = Projectile.NewProjectileDirect(projectile.GetSource_OnHit(target), target.Center, Vector2.Zero,
+                    ModContent.ProjectileType<LilEmpress>(), projectile.damage * 2, 3, projectile.owner);
+                SoundEngine.PlaySound(SoundID.Shimmer1, minion.Center);
+            }
+        }
+
+        else if (_itemType == ModContent.ItemType<CrownCascade>())
+        {
+            if (target.life <= 0 || !target.active)
+                Projectile.NewProjectile(projectile.GetSource_OnHit(target), target.Center, Vector2.Zero, ModContent.ProjectileType<DukeWhirlpool>(),
+                    0, 0, projectile.owner);
+        }
+
+        else if (_itemType == ModContent.ItemType<LaserTherapy>() && projectile.type != ModContent.ProjectileType<LaserLightning>()
+                                                                  && projectile.type != ModContent.ProjectileType<HomingLightning>())
+        {
+            LaserPlayer martianPlayer = Main.player[projectile.owner].GetModPlayer<LaserPlayer>();
+
+            if (martianPlayer.LaserCurrent < 10)
+                martianPlayer.LaserCurrent++;
+        }
+
+        else if (_itemType == ModContent.ItemType<Sporeflinger>() && projectile.type != ModContent.ProjectileType<BouncingShroom>())
+        {
+            if (Main.rand.NextBool(4))
+                for (int i = 0; i < 3; i++)
+                {
+                    Vector2 spawnPos = target.Center + new Vector2(100, 100).RotatedBy(i * 90);
+                    Projectile.NewProjectile(projectile.GetSource_OnHit(target), spawnPos, spawnPos.DirectionTo(target.Center) * 5,
+                        ModContent.ProjectileType<BouncingShroom>(), projectile.damage / 4, 3, projectile.owner);
+                }
+        }
+
+        else if (_itemType == ModContent.ItemType<GoreNGlory>())
+        {
+            for (int i = 0; i < 10; i++)
+                Dust.NewDust(target.position, target.width, target.height, DustID.Blood, Main.rand.NextFloat(projectile.direction * 1, projectile.direction * 3),
+                    Main.rand.NextFloat(-3f, 3f));
+
+            CameraSystem.Screenshake(5, 6);
+        }
+
+        else if (_itemType == ModContent.ItemType<StellarOutrage>())
+        {
+            ParticleOrchestraSettings settings = new()
+            {
+                PositionInWorld = target.Center,
+                MovementVector = Vector2.Zero,
+                IndexOfPlayerWhoInvokedThis = (byte)projectile.owner
+            };
+            ParticleOrchestrator.SpawnParticlesDirect(ParticleOrchestraType.StellarTune, settings);
+
+            if (projectile.type != ModContent.ProjectileType<StellarSlash>())
+            {
+                Vector2 spawnPos = target.Center - new Vector2(Main.rand.Next(-500, 500), 500);
+                Vector2 velocity = spawnPos.DirectionTo(target.Center) * 14;
+
+                SoundEngine.PlaySound(SoundID.DD2_WitherBeastAuraPulse, target.Center);
+                Projectile.NewProjectile(projectile.GetSource_OnHit(target), spawnPos, velocity, ModContent.ProjectileType<LargeStar>(), damageDone,
+                    3, projectile.owner);
+            }
+        }
+
+        else if (_itemType == ModContent.ItemType<Styx>())
+        {
+            SoundEngine.PlaySound(SoundID.DD2_BookStaffCast, target.Center);
+            Projectile.NewProjectile(projectile.GetSource_OnHit(target), target.Center, Vector2.Zero, ModContent.ProjectileType<BlackHole>(), damageDone,
+                3, projectile.owner, target.whoAmI);
+
+            if (target.CanBeChasedBy())
+                target.velocity = target.DirectionTo(Main.player[projectile.owner].Center) * 5;
+        }
+    }
+}

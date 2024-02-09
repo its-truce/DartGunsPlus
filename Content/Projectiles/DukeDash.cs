@@ -93,7 +93,7 @@ public class DukeDash : ModProjectile
                 (Owner.DirectionTo(Projectile.Center) * 2).Y, newColor: color);
         }
 
-        SoundEngine.PlaySound(AudioSystem.ReturnSound("bubble", 0.3f), Projectile.Center);
+        SoundEngine.PlaySound(AudioSystem.ReturnSound("duke", 0.3f), Projectile.Center);
         VisualSystem.SpawnDustCircle(Projectile.Center, DustID.FishronWings, 20, 1.2f, color: color);
         
         Color color2 = new (24, 200, 119, 0);

@@ -39,7 +39,7 @@ public class Gigakraken : ModItem
     public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
     {
         Dust.NewDustDirect(position, 20, 20, DustID.FishronWings);
-        return true;
+        return base.Shoot(player, source, position, velocity, type, damage, knockback);
     }
 
     public override Vector2? HoldoutOffset()

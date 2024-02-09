@@ -59,7 +59,7 @@ public class LargeStar : ModProjectile
     public override bool PreDraw(ref Color lightColor)
     {
         Texture2D texture = TextureAssets.Projectile[Projectile.type].Value;
-        Texture2D texture2 = ModContent.Request<Texture2D>("DartGunsPlus/Content/Projectiles/Sparkle").Value;
+        Texture2D texture2 = ModContent.Request<Texture2D>("DartGunsPlus/Content/Projectiles/Trail").Value;
 
         Main.EntitySpriteDraw(texture, Projectile.Center - Main.screenPosition, null, LerpedColor, Projectile.rotation, texture.Size() / 2,
             Projectile.scale, SpriteEffects.None);
@@ -72,7 +72,7 @@ public class LargeStar : ModProjectile
             Color color2 = LerpedColor * ((Projectile.oldPos.Length - k) / (float)Projectile.oldPos.Length) *
                            Projectile.Opacity;
 
-            Main.EntitySpriteDraw(texture2, drawPos2, null, color2, 0, texture2.Size() / 2, sizec * 0.4f,
+            Main.EntitySpriteDraw(texture2, drawPos2, null, color2, Projectile.oldVelocity.ToRotation(), texture2.Size() / 2, sizec * 2,
                 SpriteEffects.None);
         }
 

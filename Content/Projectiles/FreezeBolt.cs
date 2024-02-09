@@ -1,5 +1,4 @@
-﻿using System;
-using DartGunsPlus.Content.Systems;
+﻿using DartGunsPlus.Content.Systems;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Terraria;
@@ -77,7 +76,7 @@ public class FreezeBolt : ModProjectile
     {
         VisualSystem.SpawnDustCircle(Projectile.Center, DustID.RainbowRod, 12, color: Color.CornflowerBlue, scale: 0.9f);
 
-        Vector2[] points = GetInterpolatedPoints(Owner.Center, Projectile.Center, 15);
+        Vector2[] points = VisualSystem.GetInterpolatedPoints(Owner.Center, Projectile.Center, 15);
 
         foreach (Vector2 point in points)
         {
@@ -95,23 +94,5 @@ public class FreezeBolt : ModProjectile
 
         SoundEngine.PlaySound(SoundID.DD2_BetsysWrathImpact, Projectile.Center);
         CameraSystem.Screenshake(4, 7);
-    }
-
-    private static Vector2[] GetInterpolatedPoints(Vector2 start, Vector2 end, int numberOfPoints)
-    {
-        // Ensure numberOfPoints is at least 2 to include start and end points
-        numberOfPoints = Math.Max(numberOfPoints, 2);
-
-        var points = new Vector2[numberOfPoints];
-
-        for (int i = 0; i < numberOfPoints; i++)
-        {
-            float t = i / (float)(numberOfPoints - 1); // Calculate interpolation factor
-
-            // Use Vector2.Lerp to calculate the interpolated point
-            points[i] = Vector2.Lerp(start, end, t);
-        }
-
-        return points;
     }
 }

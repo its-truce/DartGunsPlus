@@ -1,4 +1,5 @@
-﻿using DartGunsPlus.Content.Items.Weapons;
+﻿using System;
+using DartGunsPlus.Content.Items.Weapons;
 using DartGunsPlus.Content.Systems;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
@@ -14,7 +15,7 @@ public class HalloweenJack : ModProjectile
 
     public override void SetStaticDefaults()
     {
-        ProjectileID.Sets.TrailCacheLength[Projectile.type] = 40; // how long you want the trail to be
+        ProjectileID.Sets.TrailCacheLength[Projectile.type] = 20; // how long you want the trail to be
         ProjectileID.Sets.TrailingMode[Projectile.type] = 2; // recording mode
     }
 
@@ -65,16 +66,21 @@ public class HalloweenJack : ModProjectile
 
     public override bool PreDraw(ref Color lightColor)
     {
-        Texture2D texture = ModContent.Request<Texture2D>("DartGunsPlus/Content/Projectiles/Glowball").Value;
+        string path = Projectile.friendly ? "Trail" : "Glowball";
+        float scale = Projectile.friendly ? 0.5f : 0.07f;
+            
+        Texture2D texture = ModContent.Request<Texture2D>($"DartGunsPlus/Content/Projectiles/{path}").Value;
 
         for (int k = 0; k < Projectile.oldPos.Length; k++)
         {
             Vector2 offset = new(Projectile.width / 2f, Projectile.height / 2f);
             Rectangle frame = texture.Frame(1, Main.projFrames[Projectile.type], 0, Projectile.frame);
-            Vector2 drawPos = Projectile.oldPos[k] - Main.screenPosition + offset;
-            float sizec = Projectile.scale * (Projectile.oldPos.Length - k * 2) / (Projectile.oldPos.Length * 0.8f);
+            Vector2 drawPos = Projectile.oldPos[k] + offset - Main.screenPosition;
+            float sizec = Projectile.scale * Math.Clamp((Projectile.oldPos.Length - k * 2) / (Projectile.oldPos.Length * 0.8f), 0, 1);
             Color color = new Color(255, 82, 30, 0) * ((Projectile.oldPos.Length - k) / (float)Projectile.oldPos.Length);
-            Main.EntitySpriteDraw(texture, drawPos, frame, color, Projectile.oldRot[k], frame.Size() / 2, sizec * 0.07f, SpriteEffects.None);
+            
+            if (Projectile.Center.Distance(Projectile.oldPos[k] + offset) > 3)
+                Main.EntitySpriteDraw(texture, drawPos, frame, color, Projectile.velocity.ToRotation(), frame.Size() / 2, sizec * scale, SpriteEffects.None);
         }
 
         return true;

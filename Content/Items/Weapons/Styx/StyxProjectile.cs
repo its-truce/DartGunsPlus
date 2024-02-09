@@ -19,6 +19,7 @@ public class StyxProjectile : GlobalProjectile
     };
 
     private bool _increase = true;
+    private bool _styx;
     private int _itemType;
 
     private float _lerpTimer;
@@ -33,19 +34,28 @@ public class StyxProjectile : GlobalProjectile
 
     public override void OnSpawn(Projectile projectile, IEntitySource source)
     {
-        if (source is EntitySource_ItemUse_WithAmmo use && ContentSamples.ItemsByType[use.AmmoItemIdUsed].ammo == AmmoID.Dart &&
-            use.Item.type == ModContent.ItemType<Styx>() && !_excludedProjectiles.Contains(projectile.type))
+        switch (source)
         {
-            _itemType = use.Item.type;
-            ProjectileID.Sets.TrailCacheLength[projectile.type] = 16; // how long you want the trail to be
-            ProjectileID.Sets.TrailingMode[projectile.type] = 0; // recording mode
-        }
+            case EntitySource_ItemUse_WithAmmo use when ContentSamples.ItemsByType[use.AmmoItemIdUsed].ammo == AmmoID.Dart &&
+                                                        use.Item.type == ModContent.ItemType<Styx>() && !_excludedProjectiles.Contains(projectile.type):
+                _itemType = use.Item.type;
+                ProjectileID.Sets.TrailCacheLength[projectile.type] = 16; // how long you want the trail to be
+                ProjectileID.Sets.TrailingMode[projectile.type] = 0; // recording mode
+                break;
+            
+            case EntitySource_Misc { Context: "styx" }:
+                _styx = true;
+                projectile.usesLocalNPCImmunity = true;
+                projectile.localNPCHitCooldown = -1;
+                break;
+        }   
+    }
 
-        if (source is EntitySource_Misc { Context: "styx" })
-        {
-            projectile.usesIDStaticNPCImmunity = true;
-            projectile.idStaticNPCHitCooldown = 10;
-        }
+    public override void OnHitNPC(Projectile projectile, NPC target, NPC.HitInfo hit, int damageDone)
+    {
+        if (_styx)
+            target.immune[projectile.owner] = 0;
+        base.OnHitNPC(projectile, target, hit, damageDone);
     }
 
     public override void ModifyHitNPC(Projectile projectile, NPC target, ref NPC.HitModifiers modifiers)
@@ -57,8 +67,8 @@ public class StyxProjectile : GlobalProjectile
         {
             { 100f, 1.8f },
             { 200f, 1.5f },
-            { 1600f, 0.9f },
-            { 3200f, 0.7f }
+            { 1600f, 0.8f },
+            { 3200f, 0.6f }
         };
 
         foreach (float threshold in distanceMultipliers.Keys.OrderByDescending(d => d))
@@ -71,10 +81,12 @@ public class StyxProjectile : GlobalProjectile
         // for color lerping
         const float lerpingIncrement = 1f / 30;
 
-        if (_lerpTimer >= 1)
-            _increase = false;
-        else if (_lerpTimer <= 0)
-            _increase = true;
+        _increase = _lerpTimer switch
+        {
+            >= 1 => false,
+            <= 0 => true,
+            _ => _increase
+        };
 
         if (_increase)
             _lerpTimer += lerpingIncrement;

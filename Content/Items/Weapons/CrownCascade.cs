@@ -11,6 +11,11 @@ namespace DartGunsPlus.Content.Items.Weapons;
 
 public class CrownCascade : ModItem
 {
+    public override void SetStaticDefaults()
+    {
+        ItemID.Sets.ItemsThatAllowRepeatedRightClick[Item.type] = true;
+    }
+
     public override void SetDefaults()
     {
         Item.DefaultToRangedWeapon(ProjectileID.PurificationPowder, AmmoID.Dart, 16, 13, true);
@@ -39,6 +44,7 @@ public class CrownCascade : ModItem
                 int projType = Main.rand.NextBool(2) ? Main.rand.NextFromList(possibleProjectiles) : type;
 
                 Projectile.NewProjectileDirect(source, position, newVelocity, projType, damage, knockback, player.whoAmI);
+                Dust.NewDustDirect(position, 20, 20, DustID.FishronWings);
             }
         }
         else
@@ -57,14 +63,16 @@ public class CrownCascade : ModItem
                         }
                         else
                         {
-                            PopupSystem.PopUp("Can't teleport!", Color.Turquoise, player.Center - new Vector2(0, 40));
+                            Color color = Color.Turquoise;
+                            color.A = 0;
+                            PopupSystem.PopUp("Can't teleport!", color, proj.Center - new Vector2(0, 40));
+                            proj.Kill();
+                            Projectile.NewProjectile(source, position, Vector2.Zero, ModContent.ProjectileType<DukeDash>(), 0, 0, player.whoAmI);
                         }
                     }
             }
             else
-            {
-                PopupSystem.PopUp("Can't teleport!", Color.Turquoise, player.Center - new Vector2(0, 40));
-            }
+                Projectile.NewProjectile(source, position, Vector2.Zero, ModContent.ProjectileType<DukeDash>(), damage, knockback, player.whoAmI);
         }
 
         return false;
@@ -91,6 +99,10 @@ public class CrownCascade : ModItem
     public override bool CanUseItem(Player player)
     {
         Item.UseSound = player.altFunctionUse != 2 ? AudioSystem.ReturnSound("dart", 0.3f) : SoundID.QueenSlime;
+        Item.noUseGraphic = player.altFunctionUse == 2;
+        Item.useStyle = player.altFunctionUse != 2 ? ItemUseStyleID.Shoot : ItemUseStyleID.RaiseLamp;
+        Item.useTime = player.altFunctionUse != 2 ? 16 : 32;
+        
         return base.CanUseItem(player);
     }
 

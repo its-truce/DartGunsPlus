@@ -354,6 +354,8 @@ Projectiles: {
 	EuphoriaSlash.DisplayName: Euphoria Slash
 	EuphoriaSpear.DisplayName: Euphoria Spear
 	TestSwing.DisplayName: Test Swing
+	DukeDash.DisplayName: Duke Dash
+	DukeTrail.DisplayName: Duke Trail
 }
 
 Buffs: {

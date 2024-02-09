@@ -30,11 +30,11 @@ public class BumbleBarrage : ModItem
             Vector2 newVelocity = velocity.RotatedByRandom(MathHelper.ToRadians(20));
             newVelocity *= 1f - Main.rand.NextFloat(0.1f);
 
-            int projType = Main.rand.NextBool(2) ? ProjectileID.Bee : type;
-            if (player.strongBees && Main.rand.NextBool(3))
-                projType = ProjectileID.GiantBee;
+            int projType = Main.rand.NextBool(2) ? player.beeType() : type;
+            int projDamage = projType == player.beeType() ? player.beeDamage(damage) : damage;
+            float projKnockback = projType == player.beeType() ? player.beeKB(knockback) : knockback;
 
-            Projectile.NewProjectileDirect(source, position, newVelocity, projType, damage + Main.rand.Next(0, 5), knockback, player.whoAmI);
+            Projectile.NewProjectileDirect(source, position, newVelocity, projType, projDamage + Main.rand.Next(0, 5), projKnockback, player.whoAmI);
         }
 
         return false;

@@ -1,32 +1,29 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
 using Terraria;
 
 namespace DartGunsPlus.Content.Systems;
 
 public static class VisualSystem
 {
-    public static Texture2D ToGrayscale(this Texture2D originalTexture)
+    public static Vector2[] GetInterpolatedPoints(Vector2 start, Vector2 end, int numberOfPoints)
     {
-        GraphicsDevice graphicsDevice = Main.instance.GraphicsDevice;
+        // Ensure numberOfPoints is at least 2 to include start and end points
+        numberOfPoints = Math.Max(numberOfPoints, 2);
 
-        var originalPixels = new Color[originalTexture.Width * originalTexture.Height];
-        originalTexture.GetData(originalPixels);
+        var points = new Vector2[numberOfPoints];
 
-        var grayscalePixels = new Color[originalPixels.Length];
-
-        for (int i = 0; i < originalPixels.Length; i++)
+        for (int i = 0; i < numberOfPoints; i++)
         {
-            int grayscaleValue = (originalPixels[i].R + originalPixels[i].G + originalPixels[i].B) / 3;
-            grayscalePixels[i] = new Color(grayscaleValue, grayscaleValue, grayscaleValue, originalPixels[i].A);
+            float t = i / (float)(numberOfPoints - 1); // Calculate interpolation factor
+
+            // Use Vector2.Lerp to calculate the interpolated point
+            points[i] = Vector2.Lerp(start, end, t);
         }
 
-        Texture2D grayscaleTexture = new(graphicsDevice, originalTexture.Width, originalTexture.Height);
-        grayscaleTexture.SetData(grayscalePixels);
-
-        return grayscaleTexture;
+        return points;
     }
 
     public static void SpawnDustCircle(Vector2 center, int dust, int numDust = 10, float radius = 0.8f, float scale = 1f, Color color = default)
@@ -39,7 +36,7 @@ public static class VisualSystem
         }
     }
 
-    public static Vector2 PositionOffset(Vector2 position, Vector2 velocity, float offset)
+    private static Vector2 PositionOffset(Vector2 position, Vector2 velocity, float offset)
     {
         Vector2 offsetVector = velocity.SafeNormalize(Vector2.Zero) * offset;
         if (Collision.CanHitLine(position, 0, 0, position + offsetVector, 0, 0)) return position + offsetVector;

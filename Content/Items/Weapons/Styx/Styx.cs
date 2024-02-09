@@ -76,7 +76,7 @@ public class Styx : ModItem
 
     public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
     {
-        Dust.NewDust(position, Item.width, Item.height, DustID.RainbowRod, newColor: Color.Purple);
+        Dust.NewDustPerfect(position, DustID.WhiteTorch, newColor: Color.Purple);
         return base.Shoot(player, source, position, velocity, type, damage, knockback);
     }
 
@@ -113,7 +113,7 @@ public class Styx : ModItem
             Main.spriteBatch.Draw(glow, (line.X + bounds.X / 2) * Vector2.UnitX + (line.Y + bounds.Y / 2) * Vector2.UnitY - Vector2.UnitY * 3, null, 
                 glowColor, 0f, texSize / 2, new Vector2(1f, 0.3f), SpriteEffects.None, 0f);
             
-            if (Main.GameUpdateCount % 5 == 0)
+            if (Main.GameUpdateCount % 10 == 0)
             {
                 bounds.Y -= 10;
                 Vector2 pos = new Vector2(0, 5) + new Vector2(Main.rand.NextFloat(bounds.X), Main.rand.NextFloat(bounds.Y));

@@ -286,6 +286,7 @@ Projectiles: {
 	DartProjectile.DisplayName: Dart Projectile
 	VenomDartProj.DisplayName: Venom Dart Proj
 	MeteorDartProj.DisplayName: Meteor Dart Proj
+	Meteor.DisplayName: Meteor
 	TrueEuphoriaSword.DisplayName: True Euphoria Sword
 	HighVelocityDartProj.DisplayName: High Velocity Dart Proj
 	ChlorophyteDartProj.DisplayName: Chlorophyte Dart Proj

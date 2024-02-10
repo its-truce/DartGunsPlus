@@ -23,14 +23,13 @@ public class RedBomb : ModProjectile
         Projectile.height = DefaultWidthHeight;
         Projectile.friendly = true;
         Projectile.penetrate = -1;
-
         Projectile.timeLeft = 180;
     }
 
     public override void ModifyHitNPC(NPC target, ref NPC.HitModifiers modifiers)
     {
         if (Main.expertMode)
-            if (target.type >= NPCID.EaterofWorldsHead && target.type <= NPCID.EaterofWorldsTail)
+            if (target.type is >= NPCID.EaterofWorldsHead and <= NPCID.EaterofWorldsTail)
                 modifiers.FinalDamage /= 5;
     }
 

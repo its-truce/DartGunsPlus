@@ -3,6 +3,7 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Terraria;
 using Terraria.Audio;
+using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
 
@@ -11,8 +12,6 @@ namespace DartGunsPlus.Content.Projectiles;
 public class KrakenFish : ModProjectile
 {
     private int _currentFlop;
-
-    private bool _firstFrame = true;
     private int _flopCount = 4;
     private int _flopDirection = 1;
 
@@ -28,6 +27,12 @@ public class KrakenFish : ModProjectile
         get => (int)Projectile.ai[2];
         set => Projectile.ai[2] = value;
     }
+    
+    public override void SetStaticDefaults()
+    {
+        ProjectileID.Sets.TrailCacheLength[Projectile.type] = 8; // how long you want the trail to be
+        ProjectileID.Sets.TrailingMode[Projectile.type] = 2; // recording mode
+    }
 
     public override void SetDefaults()
     {
@@ -39,6 +44,13 @@ public class KrakenFish : ModProjectile
         Projectile.tileCollide = true;
         Projectile.friendly = true;
         Projectile.timeLeft = 600;
+    }
+
+    public override void OnSpawn(IEntitySource source)
+    {
+        _type = Fish;
+        _gravityDelay += (int)_type;
+        VisualSystem.SpawnDustPortal(Projectile.Center, Projectile.velocity, DustID.FishronWings);
     }
 
     private void StartFlopBehavior()
@@ -75,13 +87,6 @@ public class KrakenFish : ModProjectile
 
     public override void AI()
     {
-        if (_firstFrame)
-        {
-            _type = Fish;
-            _gravityDelay += (int)_type;
-            _firstFrame = false;
-        }
-
         if (_type == 0)
             _type = 1;
 
@@ -159,7 +164,17 @@ public class KrakenFish : ModProjectile
     public override bool PreDraw(ref Color lightColor)
     {
         Texture2D texture = (Texture2D)ModContent.Request<Texture2D>($"DartGunsPlus/Content/Projectiles/Fish/{_type}b");
-
+        
+        for (int k = 0; k < Projectile.oldPos.Length; k++)
+        {
+            Vector2 offset = texture.Size() / 2;
+            Vector2 drawPos = Projectile.oldPos[k] - Main.screenPosition + offset;
+            float sizec = 0.9f * (Projectile.oldPos.Length - k) / (Projectile.oldPos.Length * 0.8f);
+            Color color = lightColor * (1f - Projectile.alpha) * ((Projectile.oldPos.Length - k) / (float)Projectile.oldPos.Length);
+            color.A = 0;
+            Main.EntitySpriteDraw(texture, drawPos, null, color, Projectile.oldRot[k], offset, sizec, SpriteEffects.None);
+        }
+        
         Main.EntitySpriteDraw(texture, Projectile.Center - Main.screenPosition, null, Color.White, Projectile.rotation, texture.Size() / 2,
             Projectile.scale, SpriteEffects.None);
 

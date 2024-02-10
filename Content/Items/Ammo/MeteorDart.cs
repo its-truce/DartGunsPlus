@@ -1,3 +1,4 @@
+using DartGunsPlus.Content.Projectiles;
 using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.Audio;
@@ -42,8 +43,7 @@ public class MeteorDart : ModItem
 public class MeteorDartProj : DartProjectile
 {
     public override string Texture => "DartGunsPlus/Content/Items/Ammo/MeteorDart";
-    protected override int GravityDelay => 30;
-    protected override float GravityDecreaseY => 0.03f;
+    protected override float GravityDecreaseY => 0;
 
     public override void SetDefaults()
     {
@@ -64,7 +64,6 @@ public class MeteorDartProj : DartProjectile
         if (Projectile.penetrate > 1)
         {
             Projectile.velocity.Y *= -1;
-            Projectile.velocity *= 1.3f;
             Projectile.penetrate--;
             return false;
         }
@@ -72,6 +71,25 @@ public class MeteorDartProj : DartProjectile
         Collision.HitTiles(Projectile.Center, oldVelocity, Projectile.width, Projectile.height);
         SoundEngine.PlaySound(SoundID.Dig, Projectile.Center);
 
+        if (Main.rand.NextBool(3))
+        {
+            Vector2 spawnPos = Projectile.Center - new Vector2(Main.rand.Next(-300, 300), 600);
+            Projectile.NewProjectile(Projectile.GetSource_FromThis(), spawnPos, spawnPos.DirectionTo(Projectile.Center) * 8,
+                ModContent.ProjectileType<Meteor>(), Projectile.damage, 5, Projectile.owner);
+        }
+
         return true;
+    }
+
+    public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
+    {
+        if (Main.rand.NextBool(3))
+        {
+            Vector2 spawnPos = Projectile.Center - new Vector2(Main.rand.Next(-300, 300), 300);
+            Projectile.NewProjectile(Projectile.GetSource_FromThis(), spawnPos, spawnPos.DirectionTo(Projectile.Center) * 14,
+                ModContent.ProjectileType<Meteor>(), Projectile.damage/3, 5, Projectile.owner);
+        }
+        
+        Dust.NewDust(target.Center, target.width, target.height, DustID.Dirt);
     }
 }

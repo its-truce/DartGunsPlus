@@ -85,7 +85,7 @@ public class DukeDash : ModProjectile
 
         Color color = Color.Turquoise;
         color.A = 0;
-        Vector2[] points = VisualSystem.GetInterpolatedPoints(_initialPos, Owner.Center, 10);
+        Vector2[] points = DartUtils.GetInterpolatedPoints(_initialPos, Owner.Center, 10);
 
         foreach (Vector2 point in points)
         {

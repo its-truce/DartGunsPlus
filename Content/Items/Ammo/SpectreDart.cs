@@ -1,5 +1,5 @@
 using System;
-using System.Linq;
+using DartGunsPlus.Content.Systems;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Terraria;
@@ -72,7 +72,7 @@ public class SpectreDartProj : DartProjectile
         if (Projectile.ai[0] == 4)
             _velocityLength = Projectile.velocity.Length() * 0.8f;
 
-        NPC closestTarget = FindClosestTarget(1000);
+        NPC closestTarget = DartUtils.FindClosestTarget(1000, _alreadyHit, Projectile, 5);
 
         if (closestTarget is not null && Projectile.ai[0] >= 5)
             Projectile.velocity = Vector2.Lerp(Projectile.DirectionTo(closestTarget.Center),
@@ -113,29 +113,5 @@ public class SpectreDartProj : DartProjectile
     {
         Array.Resize(ref _alreadyHit, _alreadyHit.Length + 1);
         _alreadyHit[^1] = target;
-    }
-
-    private NPC FindClosestTarget(float maxDetectDistance)
-    {
-        NPC closest = null;
-
-        float sqrMaxDetectDistance = maxDetectDistance * maxDetectDistance;
-
-        for (int k = 0; k < Main.maxNPCs; k++)
-        {
-            NPC target = Main.npc[k];
-            if (target.CanBeChasedBy() && !_alreadyHit.Contains(target) && _alreadyHit.Length <= 5)
-            {
-                float sqrDistanceToTarget = Vector2.DistanceSquared(target.Center, Projectile.Center);
-
-                if (sqrDistanceToTarget < sqrMaxDetectDistance)
-                {
-                    sqrMaxDetectDistance = sqrDistanceToTarget;
-                    closest = target;
-                }
-            }
-        }
-
-        return closest;
     }
 }

@@ -116,7 +116,7 @@ public class DartProjectile : ModProjectile
 
     public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
     {
-        Dust.NewDust(target.Center, Projectile.width, Projectile.height, DustID.Dirt);
+        Dust.NewDust(target.Center, target.width, target.height, DustID.Dirt);
 
         // zenith
         if (Projectile.type == ModContent.ProjectileType<DartProjectile>() && Projectile.ai[2] == 5)

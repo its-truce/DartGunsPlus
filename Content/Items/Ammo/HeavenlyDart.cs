@@ -73,6 +73,8 @@ public class HeavenlyDartProj : DartProjectile
 
     public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
     {
+        Dust.NewDust(target.Center, target.width, target.height, DustID.Dirt);
+
         for (int i = 0; i < 2; i++)
         {
             Vector2 spawnPos = target.Center - new Vector2(Main.rand.Next(-200, 200), 1000);

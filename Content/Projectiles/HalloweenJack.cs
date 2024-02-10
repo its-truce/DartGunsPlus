@@ -15,7 +15,7 @@ public class HalloweenJack : ModProjectile
 
     public override void SetStaticDefaults()
     {
-        ProjectileID.Sets.TrailCacheLength[Projectile.type] = 20; // how long you want the trail to be
+        ProjectileID.Sets.TrailCacheLength[Projectile.type] = 40; // how long you want the trail to be
         ProjectileID.Sets.TrailingMode[Projectile.type] = 2; // recording mode
     }
 

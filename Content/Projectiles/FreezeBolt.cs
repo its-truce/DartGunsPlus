@@ -76,7 +76,7 @@ public class FreezeBolt : ModProjectile
     {
         VisualSystem.SpawnDustCircle(Projectile.Center, DustID.RainbowRod, 12, color: Color.CornflowerBlue, scale: 0.9f);
 
-        Vector2[] points = VisualSystem.GetInterpolatedPoints(Owner.Center, Projectile.Center, 15);
+        Vector2[] points = DartUtils.GetInterpolatedPoints(Owner.Center, Projectile.Center, 15);
 
         foreach (Vector2 point in points)
         {
@@ -85,7 +85,7 @@ public class FreezeBolt : ModProjectile
 
             Owner.LimitPointToPlayerReachableArea(ref pointPosition);
             Vector2 targetSpot = pointPosition + Main.rand.NextVector2Circular(8f, 8f);
-            Vector2 spawnPos = VisualSystem.FindSharpTearsSpot(targetSpot, Owner, alternatePoint).ToWorldCoordinates(Main.rand.Next(17),
+            Vector2 spawnPos = DartUtils.FindSharpTearsSpot(targetSpot, Owner, alternatePoint).ToWorldCoordinates(Main.rand.Next(17),
                 Main.rand.Next(17));
             Vector2 velocity = (targetSpot - spawnPos).SafeNormalize(-Vector2.UnitY) * 16f;
             Projectile.NewProjectile(Projectile.GetSource_Death(), spawnPos, velocity, ModContent.ProjectileType<Icicle>(),

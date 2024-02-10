@@ -1,3 +1,5 @@
+using DartGunsPlus.Content.Projectiles;
+using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -43,7 +45,14 @@ public class FlamingDartProj : DartProjectile
 
     public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
     {
+        Dust.NewDust(target.Center, target.width, target.height, DustID.Dirt);
+
         if (Main.rand.NextBool(3))
+        {
+            Projectile.NewProjectile(Projectile.GetSource_OnHit(target), target.Center, Vector2.Zero, ModContent.ProjectileType<Explosion>(),
+                damageDone / 2, hit.Knockback, Projectile.owner);
             target.AddBuff(BuffID.OnFire, 180);
+
+        }
     }
 }

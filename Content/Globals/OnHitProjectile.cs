@@ -48,8 +48,13 @@ public class OnHitProjectile : GlobalProjectile
         else if (_itemType == ModContent.ItemType<VerdantStalker>() && projectile.type != ProjectileID.BladeOfGrass)
         {
             target.AddBuff(BuffID.Poisoned, 60);
-            Projectile.NewProjectile(projectile.GetSource_OnHit(target), target.Center - new Vector2(20, 0), Vector2.Zero,
-                ProjectileID.BladeOfGrass, (int)(damageDone * 0.75f), hit.Knockback / 2, projectile.owner, 50);
+
+            if (Main.rand.NextBool(2))
+            {
+                Vector2 spawnPos = target.Center + new Vector2(Main.rand.Next(100, 200), 0).RotatedByRandom(Math.Tau);
+                Projectile.NewProjectile(projectile.GetSource_OnHit(target), spawnPos, spawnPos.DirectionTo(target.Center) * 8,
+                    ModContent.ProjectileType<PlanteraSeed>(), (int)(damageDone * 0.75f), hit.Knockback / 2, projectile.owner);
+            }
         }
 
         else if (_itemType == ModContent.ItemType<Katanakaze>())
@@ -82,7 +87,7 @@ public class OnHitProjectile : GlobalProjectile
 
                 player.LimitPointToPlayerReachableArea(ref pointPosition);
                 Vector2 targetSpot = pointPosition + Main.rand.NextVector2Circular(8f, 8f);
-                Vector2 spawnPos = VisualSystem.FindSharpTearsSpot(targetSpot, player, alternatePoint).ToWorldCoordinates(Main.rand.Next(17),
+                Vector2 spawnPos = DartUtils.FindSharpTearsSpot(targetSpot, player, alternatePoint).ToWorldCoordinates(Main.rand.Next(17),
                     Main.rand.Next(17));
                 Vector2 velocity = (targetSpot - spawnPos).SafeNormalize(-Vector2.UnitY) * 16f;
                 Projectile.NewProjectile(projectile.GetSource_OnHit(target), spawnPos, velocity, ProjectileID.SharpTears,
@@ -247,7 +252,7 @@ public class OnHitProjectile : GlobalProjectile
 
                 owner.LimitPointToPlayerReachableArea(ref pointPosition);
                 Vector2 targetSpot = pointPosition + Main.rand.NextVector2Circular(8f, 8f);
-                Vector2 spawnPos = VisualSystem.FindSharpTearsSpot(targetSpot, owner, target.Center).ToWorldCoordinates(Main.rand.Next(17),
+                Vector2 spawnPos = DartUtils.FindSharpTearsSpot(targetSpot, owner, target.Center).ToWorldCoordinates(Main.rand.Next(17),
                     Main.rand.Next(17));
                 Vector2 velocity = (targetSpot - spawnPos).SafeNormalize(-Vector2.UnitY) * 16f;
                 Projectile.NewProjectile(projectile.GetSource_OnHit(target), spawnPos, velocity, ModContent.ProjectileType<Icicle>(),

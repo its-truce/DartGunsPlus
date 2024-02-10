@@ -1,5 +1,6 @@
 using Microsoft.Xna.Framework;
 using Terraria;
+using Terraria.Audio;
 using Terraria.ID;
 using Terraria.ModLoader;
 
@@ -63,9 +64,13 @@ public class MeteorDartProj : DartProjectile
         if (Projectile.penetrate > 1)
         {
             Projectile.velocity.Y *= -1;
+            Projectile.velocity *= 1.3f;
             Projectile.penetrate--;
             return false;
         }
+        
+        Collision.HitTiles(Projectile.Center, oldVelocity, Projectile.width, Projectile.height);
+        SoundEngine.PlaySound(SoundID.Dig, Projectile.Center);
 
         return true;
     }

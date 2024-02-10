@@ -43,6 +43,8 @@ public class FrostburnDartProj : DartProjectile
 
     public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
     {
+        Dust.NewDust(target.Center, target.width, target.height, DustID.Dirt);
+
         if (Main.rand.NextBool(3))
             target.AddBuff(BuffID.Frostburn, 180);
     }

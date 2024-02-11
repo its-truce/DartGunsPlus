@@ -1,3 +1,5 @@
+using DartGunsPlus.Content.Projectiles;
+using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -46,6 +48,10 @@ public class FrostburnDartProj : DartProjectile
         Dust.NewDust(target.Center, target.width, target.height, DustID.Dirt);
 
         if (Main.rand.NextBool(3))
+        {
+            Projectile.NewProjectile(Projectile.GetSource_OnHit(target), target.Center, Vector2.Zero, ModContent.ProjectileType<Explosion>(),
+                damageDone / 2, hit.Knockback, Projectile.owner, 1); // ai0 = 1 for blue
             target.AddBuff(BuffID.Frostburn, 180);
+        }
     }
 }

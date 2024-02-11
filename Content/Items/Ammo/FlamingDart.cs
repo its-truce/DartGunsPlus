@@ -52,7 +52,6 @@ public class FlamingDartProj : DartProjectile
             Projectile.NewProjectile(Projectile.GetSource_OnHit(target), target.Center, Vector2.Zero, ModContent.ProjectileType<Explosion>(),
                 damageDone / 2, hit.Knockback, Projectile.owner);
             target.AddBuff(BuffID.OnFire, 180);
-
         }
     }
 }

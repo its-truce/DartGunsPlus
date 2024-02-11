@@ -71,11 +71,11 @@ public class MeteorDartProj : DartProjectile
         Collision.HitTiles(Projectile.Center, oldVelocity, Projectile.width, Projectile.height);
         SoundEngine.PlaySound(SoundID.Dig, Projectile.Center);
 
-        if (Main.rand.NextBool(3))
+        if (Main.rand.NextBool(2))
         {
             Vector2 spawnPos = Projectile.Center - new Vector2(Main.rand.Next(-300, 300), 600);
-            Projectile.NewProjectile(Projectile.GetSource_FromThis(), spawnPos, spawnPos.DirectionTo(Projectile.Center) * 8,
-                ModContent.ProjectileType<Meteor>(), Projectile.damage, 5, Projectile.owner);
+            Projectile.NewProjectile(Projectile.GetSource_FromThis(), spawnPos, spawnPos.DirectionTo(Projectile.Center) * 14,
+                ModContent.ProjectileType<Meteor>(), Projectile.damage, 5, Projectile.owner, spawnPos.X, spawnPos.Y);
         }
 
         return true;
@@ -83,11 +83,11 @@ public class MeteorDartProj : DartProjectile
 
     public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
     {
-        if (Main.rand.NextBool(3))
+        if (Main.rand.NextBool(2))
         {
             Vector2 spawnPos = Projectile.Center - new Vector2(Main.rand.Next(-300, 300), 300);
             Projectile.NewProjectile(Projectile.GetSource_FromThis(), spawnPos, spawnPos.DirectionTo(Projectile.Center) * 14,
-                ModContent.ProjectileType<Meteor>(), Projectile.damage/3, 5, Projectile.owner);
+                ModContent.ProjectileType<Meteor>(), Projectile.damage, 5, Projectile.owner, spawnPos.X, spawnPos.Y);
         }
         
         Dust.NewDust(target.Center, target.width, target.height, DustID.Dirt);

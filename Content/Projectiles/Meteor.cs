@@ -26,7 +26,7 @@ public class Meteor : ModProjectile
         Projectile.height = 36;
         Projectile.penetrate = 1;
         Projectile.ignoreWater = false;
-        Projectile.tileCollide = true;
+        Projectile.tileCollide = false;
         Projectile.friendly = true;
         Projectile.timeLeft = 300;
         Projectile.scale = 0.7f;
@@ -41,6 +41,9 @@ public class Meteor : ModProjectile
     {
         Lighting.AddLight(Projectile.Center, Color.Red.ToVector3());
         Projectile.rotation += MathHelper.ToRadians(4);
+
+        if (new Vector2(Projectile.ai[0], Projectile.ai[1]).Distance(Projectile.Center) < 80) // target
+            Projectile.tileCollide = true;
 
         Dust.NewDustDirect(Projectile.Center, Projectile.width, Projectile.height, DustID.Torch, Projectile.velocity.X * -1, Projectile.velocity.Y * -1);
     }

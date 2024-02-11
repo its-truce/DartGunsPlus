@@ -357,6 +357,7 @@ Projectiles: {
 	TestSwing.DisplayName: Test Swing
 	DukeDash.DisplayName: Duke Dash
 	DukeTrail.DisplayName: Duke Trail
+	ChlorophyteSpore.DisplayName: Chlorophyte Spore
 }
 
 Buffs: {

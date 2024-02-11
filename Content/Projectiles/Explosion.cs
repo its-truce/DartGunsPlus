@@ -46,7 +46,8 @@ public class Explosion : ModProjectile
         if (Projectile.timeLeft == 10)
             SoundEngine.PlaySound(SoundID.DD2_ExplosiveTrapExplode, Projectile.Center);
 
-        Lighting.AddLight(Projectile.Center, Color.OrangeRed.ToVector3());
+        Color color = Projectile.ai[0] == 0 ? Color.OrangeRed : Color.CornflowerBlue;
+        Lighting.AddLight(Projectile.Center, color.ToVector3());
     }
 
     public override bool PreDraw(ref Color lightColor)

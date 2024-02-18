@@ -14,10 +14,8 @@ public class RecipeSystem : ModSystem
             short[] dartItemIDs = { ItemID.PoisonDart, ItemID.CrystalDart, ItemID.IchorDart, ItemID.CursedDart };
 
             foreach (short dartItemID in dartItemIDs)
-            {
                 if (recipe.TryGetResult(dartItemID, out Item _))
                     recipe.AddIngredient<Dart>(100);
-            }
         }
     }
 }

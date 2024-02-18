@@ -50,16 +50,16 @@ public class ChlorophyteSpore : ModProjectile
 
         if (Projectile.timeLeft > 70)
             FadingSystem.FadeOut(Projectile, 9);
-        
+
         Lighting.AddLight(Projectile.Center, Color.LightGreen.ToVector3());
-        
+
         Projectile.rotation += MathHelper.ToRadians(2);
         _rot1 += MathHelper.ToRadians(1);
         _rot2 += MathHelper.ToRadians(3);
 
         if (Projectile.timeLeft < 50 && Projectile.FindTargetWithinRange(600) != null)
             Projectile.velocity = Vector2.Lerp(Projectile.DirectionTo(Projectile.FindTargetWithinRange(600).Center),
-                Vector2.Normalize(Projectile.velocity), 0.5f) * 8;
+                Projectile.velocity, 0.6f) * 1.2f;
         else
             Projectile.velocity = Vector2.Zero;
 
@@ -75,12 +75,12 @@ public class ChlorophyteSpore : ModProjectile
 
         Main.EntitySpriteDraw(texture3, Projectile.Center - Main.screenPosition, null, new Color(143, 215, 29, 0) * Projectile.Opacity,
             _rot2, texture.Size() / 2, 0.04f, SpriteEffects.None);
-        
+
         Main.EntitySpriteDraw(texture, Projectile.Center - Main.screenPosition, null, new Color(255, 255, 261, 0) * Projectile.Opacity,
-            _rot1, texture.Size() / 2, 0.01f, SpriteEffects.None);
+            _rot1, texture.Size() / 2, 0.05f, SpriteEffects.None);
 
         Main.EntitySpriteDraw(texture2, Projectile.Center - Main.screenPosition, null, new Color(28, 216, 94, 0) * Projectile.Opacity,
-            _rot2, texture2.Size() / 2, 0.03f, SpriteEffects.None);
+            _rot2, texture2.Size() / 2, 0.15f, SpriteEffects.None);
 
         return false;
     }
@@ -89,14 +89,14 @@ public class ChlorophyteSpore : ModProjectile
     {
         Texture2D texture = TextureAssets.Projectile[Projectile.type].Value;
         Texture2D texture2 = ModContent.Request<Texture2D>("DartGunsPlus/Content/Projectiles/Smoke5").Value;
-        
+
         Color color = new Color(79, 245, 137, 0) * (1f - Projectile.alpha) * (Projectile.oldPos.Length / (float)Projectile.oldPos.Length) * Projectile.Opacity;
 
         Main.EntitySpriteDraw(texture, Projectile.Center - Main.screenPosition, null, color, Projectile.rotation,
-            texture.Size() / 2, 0.03f, SpriteEffects.None);
+            texture.Size() / 2, 0.15f, SpriteEffects.None);
 
         Main.EntitySpriteDraw(texture2, Projectile.Center - Main.screenPosition, null, new Color(205, 239, 88, 0) * Projectile.Opacity,
-            Projectile.rotation, texture2.Size() / 2, 0.035f, SpriteEffects.None);
+            Projectile.rotation, texture2.Size() / 2, 0.175f, SpriteEffects.None);
     }
 
     public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)

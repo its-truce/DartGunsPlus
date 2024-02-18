@@ -49,7 +49,7 @@ public class EuphoriaCircle : ModProjectile
         float maxScale = Projectile.ai[1] == 1 ? 0.7f : 0.5f;
         if (Projectile.scale < maxScale)
             Projectile.scale += 0.016f;
-        
+
         Projectile.Center = Target.Center + new Vector2(0, 30);
 
         Lighting.AddLight(Projectile.Center, _color.ToVector3());
@@ -90,7 +90,7 @@ public class EuphoriaCircle : ModProjectile
         SoundEngine.PlaySound(SoundID.MaxMana, Projectile.Center);
 
         int projType = Projectile.ai[1] == 1 ? ModContent.ProjectileType<EuphoriaSword>() : ModContent.ProjectileType<EuphoriaSpear>();
-        Projectile.NewProjectile(Projectile.GetSource_Death(), Projectile.Center - new Vector2(0, 600), new Vector2(0, 10), projType, 
+        Projectile.NewProjectile(Projectile.GetSource_Death(), Projectile.Center - new Vector2(0, 600), new Vector2(0, 10), projType,
             Projectile.damage, 6, Projectile.owner);
     }
 }

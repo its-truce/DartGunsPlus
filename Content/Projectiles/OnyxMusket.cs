@@ -19,9 +19,9 @@ public class OnyxMusket : ModProjectile
     public override void SetDefaults()
     {
         Projectile.aiStyle = -1;
-        Projectile.width = 512;
-        Projectile.height = 512;
-        Projectile.scale = 0.15f; // 30
+        Projectile.width = 102;
+        Projectile.height = 102;
+        Projectile.scale = 0.75f; // 30
         Projectile.penetrate = -1;
         Projectile.ignoreWater = true;
         Projectile.tileCollide = false;
@@ -55,10 +55,10 @@ public class OnyxMusket : ModProjectile
         Texture2D texture2 = ModContent.Request<Texture2D>("DartGunsPlus/Content/Projectiles/Smoke4").Value;
 
         Main.EntitySpriteDraw(texture, Projectile.Center - Main.screenPosition, null, new Color(35, 35, 49, 0) * Projectile.Opacity,
-            _rot1, texture.Size() / 2, 0.06f, SpriteEffects.None);
+            _rot1, texture.Size() / 2, 0.3f, SpriteEffects.None);
 
         Main.EntitySpriteDraw(texture2, Projectile.Center - Main.screenPosition, null, new Color(162, 0, 255, 0) * Projectile.Opacity,
-            _rot2, texture2.Size() / 2, 0.08f, SpriteEffects.None);
+            _rot2, texture2.Size() / 2, 0.4f, SpriteEffects.None);
 
         return false;
     }
@@ -70,9 +70,9 @@ public class OnyxMusket : ModProjectile
         Color color = new Color(195, 65, 255, 0) * (1f - Projectile.alpha) * (Projectile.oldPos.Length / (float)Projectile.oldPos.Length);
 
         Main.EntitySpriteDraw(texture, Projectile.Center - Main.screenPosition, null, color, Projectile.rotation,
-            texture.Size() / 2, 0.1f, SpriteEffects.None);
+            texture.Size() / 2, 0.5f, SpriteEffects.None);
 
         Main.EntitySpriteDraw(texture2, Projectile.Center - Main.screenPosition, null, new Color(228, 121, 255, 0), Projectile.rotation,
-            texture2.Size() / 2, 0.1f, SpriteEffects.None);
+            texture2.Size() / 2, 0.5f, SpriteEffects.None);
     }
 }

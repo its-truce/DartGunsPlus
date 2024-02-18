@@ -146,8 +146,7 @@ public class LaserLightning : ModProjectile
     public override void OnKill(int timeLeft)
     {
         SoundEngine.TryGetActiveSound(_soundSlot, out ActiveSound activeSound);
-        if (activeSound is not null)
-            activeSound.Stop();
+        activeSound?.Stop();
     }
 
     private NPC[] FindClosestTargets(float maxDetectDistance, int numTargets)

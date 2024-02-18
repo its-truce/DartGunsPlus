@@ -67,7 +67,7 @@ public class MeteorDartProj : DartProjectile
             Projectile.penetrate--;
             return false;
         }
-        
+
         Collision.HitTiles(Projectile.Center, oldVelocity, Projectile.width, Projectile.height);
         SoundEngine.PlaySound(SoundID.Dig, Projectile.Center);
 
@@ -89,7 +89,7 @@ public class MeteorDartProj : DartProjectile
             Projectile.NewProjectile(Projectile.GetSource_FromThis(), spawnPos, spawnPos.DirectionTo(Projectile.Center) * 14,
                 ModContent.ProjectileType<Meteor>(), Projectile.damage, 5, Projectile.owner, spawnPos.X, spawnPos.Y);
         }
-        
+
         Dust.NewDust(target.Center, target.width, target.height, DustID.Dirt);
     }
 }

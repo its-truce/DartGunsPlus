@@ -90,9 +90,7 @@ public class Icicle : ModProjectile
                 Main.rand.NextVector2Circular(3f, 3f), newColor: new Color(201, 195, 255), Scale: 0.4f);
 
             dust.velocity.Y += -0.3f;
-            Dust dust2 = dust;
-            Dust dust3 = dust2;
-            dust3.velocity += Projectile.velocity * 0.2f;
+            dust.velocity += Projectile.velocity * 0.2f;
             dust.alpha = 100;
         }
     }

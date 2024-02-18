@@ -68,7 +68,7 @@ public class HalloweenJack : ModProjectile
     {
         string path = Projectile.friendly ? "Trail" : "Glowball";
         float scale = Projectile.friendly ? 0.5f : 0.07f;
-            
+
         Texture2D texture = ModContent.Request<Texture2D>($"DartGunsPlus/Content/Projectiles/{path}").Value;
 
         for (int k = 0; k < Projectile.oldPos.Length; k++)
@@ -78,7 +78,7 @@ public class HalloweenJack : ModProjectile
             Vector2 drawPos = Projectile.oldPos[k] + offset - Main.screenPosition;
             float sizec = Projectile.scale * Math.Clamp((Projectile.oldPos.Length - k * 2) / (Projectile.oldPos.Length * 0.8f), 0, 1);
             Color color = new Color(255, 82, 30, 0) * ((Projectile.oldPos.Length - k) / (float)Projectile.oldPos.Length);
-            
+
             if (Projectile.Center.Distance(Projectile.oldPos[k] + offset) > 3)
                 Main.EntitySpriteDraw(texture, drawPos, frame, color, Projectile.velocity.ToRotation(), frame.Size() / 2, sizec * scale, SpriteEffects.None);
         }

@@ -22,9 +22,9 @@ public class VenomCloud : ModProjectile
     public override void SetDefaults()
     {
         Projectile.aiStyle = -1;
-        Projectile.width = 512;
-        Projectile.height = 512;
-        Projectile.scale = 0.15f; // 30
+        Projectile.width = 102;
+        Projectile.height = 102;
+        Projectile.scale = 0.75f; // 30
         Projectile.penetrate = -1;
         Projectile.ignoreWater = true;
         Projectile.tileCollide = false;
@@ -64,10 +64,10 @@ public class VenomCloud : ModProjectile
         Texture2D texture2 = ModContent.Request<Texture2D>("DartGunsPlus/Content/Projectiles/Smoke4").Value;
 
         Main.EntitySpriteDraw(texture, Projectile.Center - Main.screenPosition, null, new Color(210, 164, 236, 0) * Projectile.Opacity,
-            _rot1, texture.Size() / 2, 0.12f, SpriteEffects.None);
+            _rot1, texture.Size() / 2, 0.6f, SpriteEffects.None);
 
         Main.EntitySpriteDraw(texture2, Projectile.Center - Main.screenPosition, null, new Color(28, 15, 43, 0) * Projectile.Opacity,
-            _rot2, texture2.Size() / 2, 0.1f, SpriteEffects.None);
+            _rot2, texture2.Size() / 2, 0.5f, SpriteEffects.None);
 
         return false;
     }
@@ -79,10 +79,10 @@ public class VenomCloud : ModProjectile
         Color color = new Color(59, 34, 79, 0) * (1f - Projectile.alpha) * (Projectile.oldPos.Length / (float)Projectile.oldPos.Length) * Projectile.Opacity;
 
         Main.EntitySpriteDraw(texture, Projectile.Center - Main.screenPosition, null, color, Projectile.rotation,
-            texture.Size() / 2, 0.15f, SpriteEffects.None);
+            texture.Size() / 2, 0.75f, SpriteEffects.None);
 
         Main.EntitySpriteDraw(texture2, Projectile.Center - Main.screenPosition, null, new Color(185, 131, 216, 0) * Projectile.Opacity,
-            Projectile.rotation, texture2.Size() / 2, 0.15f, SpriteEffects.None);
+            Projectile.rotation, texture2.Size() / 2, 0.75f, SpriteEffects.None);
     }
 
     public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)

@@ -32,8 +32,8 @@ public class DartUtils : ModSystem
 
         return closest;
     }
-    
-    public static Vector2[] GetInterpolatedPoints(Vector2 start, Vector2 end, int numberOfPoints)
+
+    public static IEnumerable<Vector2> GetInterpolatedPoints(Vector2 start, Vector2 end, int numberOfPoints)
     {
         // Ensure numberOfPoints is at least 2 to include start and end points
         numberOfPoints = Math.Max(numberOfPoints, 2);
@@ -50,7 +50,7 @@ public class DartUtils : ModSystem
 
         return points;
     }
-    
+
     public static Point FindSharpTearsSpot(Vector2 targetSpot, Player player, Vector2 alternatePoint)
     {
         targetSpot.ToTileCoordinates();

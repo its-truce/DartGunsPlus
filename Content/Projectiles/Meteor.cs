@@ -18,7 +18,7 @@ public class Meteor : ModProjectile
         ProjectileID.Sets.TrailCacheLength[Projectile.type] = 16; // how long you want the trail to be
         ProjectileID.Sets.TrailingMode[Projectile.type] = 2; // recording mode
     }
-    
+
     public override void SetDefaults()
     {
         Projectile.aiStyle = 0;
@@ -59,13 +59,13 @@ public class Meteor : ModProjectile
             Vector2 drawPos = Projectile.oldPos[k] - Main.screenPosition + offset;
             float sizec = 1.3f * (Projectile.oldPos.Length - k) / (Projectile.oldPos.Length * 0.8f);
             Color color = new Color(255, 44, 44, 0) * (1f - Projectile.alpha) * ((Projectile.oldPos.Length - k) / (float)Projectile.oldPos.Length);
-            Main.EntitySpriteDraw(texture2, drawPos, null, color, Projectile.oldRot[k], texture2.Size()/2,
+            Main.EntitySpriteDraw(texture2, drawPos, null, color, Projectile.oldRot[k], texture2.Size() / 2,
                 sizec * 0.07f, SpriteEffects.None);
         }
 
-        Main.EntitySpriteDraw(texture, Projectile.Center - Main.screenPosition, null, Color.White, Projectile.rotation, texture.Size()/2, 
+        Main.EntitySpriteDraw(texture, Projectile.Center - Main.screenPosition, null, Color.White, Projectile.rotation, texture.Size() / 2,
             Projectile.scale, SpriteEffects.None);
-        
+
         return true;
     }
 
@@ -77,7 +77,7 @@ public class Meteor : ModProjectile
             Dust dust = Dust.NewDustDirect(Projectile.position, Projectile.width, Projectile.height, DustID.Smoke, 0f, 0f, 100, default, 2f);
             dust.velocity *= 1.4f;
         }
-        
+
         for (int i = 0; i < 30; i++)
         {
             Dust dust = Dust.NewDustDirect(Projectile.position, Projectile.width, Projectile.height, DustID.Torch, 0f, 0f, 100, default, 3f);

@@ -12,8 +12,8 @@ namespace DartGunsPlus.Content.Projectiles;
 
 public class EuphoriaSword : ModProjectile
 {
-    private Color _color = new Color(255, 255, 100);
-    
+    private Color _color = new(255, 255, 100);
+
     public override void SetDefaults()
     {
         Projectile.tileCollide = false;
@@ -70,16 +70,16 @@ public class EuphoriaSword : ModProjectile
         Vector2 drawOrigin = texture.Size() / 2;
         Color color = _color;
         color.A = 0;
-        
+
         Main.EntitySpriteDraw(texture, drawPos, null, color, 0, drawOrigin, Projectile.scale * 0.4f, SpriteEffects.None);
-        
+
         return false;
     }
 
     public override void OnKill(int timeLeft)
     {
         Collision.HitTiles(Projectile.position, Projectile.velocity, Projectile.width, Projectile.height);
-        
+
         for (int i = 0; i < 20; i++)
         {
             int dust2 = Dust.NewDust(Projectile.position, Projectile.width / 3, Projectile.height / 3, DustID.RainbowRod, Projectile.velocity.X,
@@ -93,7 +93,7 @@ public class EuphoriaSword : ModProjectile
     public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
     {
         SoundEngine.PlaySound(AudioSystem.ReturnSound("boom"), target.Center);
-        
+
         int randDust = Main.rand.Next(15, 31);
         for (int i = 0; i < randDust; i++)
         {

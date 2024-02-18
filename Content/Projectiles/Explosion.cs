@@ -15,6 +15,7 @@ public class Explosion : ModProjectile
 {
     private float _rot1;
     private float _rot2;
+    public override string Texture => "DartGunsPlus/Content/Projectiles/Smoke6";
 
     public override void SetDefaults()
     {
@@ -57,12 +58,12 @@ public class Explosion : ModProjectile
 
         Color color1 = Projectile.ai[0] == 0 ? new Color(255, 140, 0, 0) : new Color(0, 140, 255, 0);
         Color color2 = Projectile.ai[0] == 0 ? new Color(255, 255, 0, 0) : new Color(0, 255, 255, 0);
-        
-        Main.EntitySpriteDraw(texture, Projectile.Center - Main.screenPosition, null, color1 * Projectile.Opacity, _rot1, 
-            texture.Size() / 2, 0.18f, SpriteEffects.None);
 
-        Main.EntitySpriteDraw(texture2, Projectile.Center - Main.screenPosition, null, color2 * Projectile.Opacity, _rot2, 
-            texture2.Size() / 2, 0.1f, SpriteEffects.None);
+        Main.EntitySpriteDraw(texture, Projectile.Center - Main.screenPosition, null, color1 * Projectile.Opacity, _rot1,
+            texture.Size() / 2, 0.9f, SpriteEffects.None);
+
+        Main.EntitySpriteDraw(texture2, Projectile.Center - Main.screenPosition, null, color2 * Projectile.Opacity, _rot2,
+            texture2.Size() / 2, 0.5f, SpriteEffects.None);
 
         return false;
     }
@@ -73,11 +74,11 @@ public class Explosion : ModProjectile
         Texture2D texture2 = ModContent.Request<Texture2D>("DartGunsPlus/Content/Projectiles/Sparkle").Value;
         Color color1 = Projectile.ai[0] == 0 ? new Color(255, 82, 30, 0) : new Color(30, 82, 255, 0);
         Color color2 = Projectile.ai[0] == 0 ? new Color(255, 10, 0, 0) : new Color(60, 70, 255, 0);
-        
+
         Main.EntitySpriteDraw(texture, Projectile.Center - Main.screenPosition, null, color1 * Projectile.Opacity, Projectile.rotation,
-            texture.Size() / 2, 0.15f, SpriteEffects.None);
+            texture.Size() / 2, 0.75f, SpriteEffects.None);
 
         Main.EntitySpriteDraw(texture2, Projectile.Center - Main.screenPosition, null, color2 * Projectile.Opacity, Projectile.rotation,
-            texture2.Size() / 2, 0.15f, SpriteEffects.None);
+            texture2.Size() / 2, 0.75f, SpriteEffects.None);
     }
 }

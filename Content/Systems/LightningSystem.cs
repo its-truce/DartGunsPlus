@@ -7,27 +7,27 @@ namespace DartGunsPlus.Content.Systems;
 
 public class LightningSystem : ModSystem
 {
-    public static void MakeDust(Vector2 source, Vector2 dest, float scale, short dustId, float sway = 80f, float jagednessNumerator = 1f)
-    {
-        List<Vector2> dustPoints = CreateBolt(source, dest, sway, jagednessNumerator);
-
-        for (int i = 1; i < dustPoints.Count; i++)
-        {
-            Vector2 start = dustPoints[i - 1];
-            Vector2 end = dustPoints[i];
-            float numDust = (end - start).Length() * 0.4f;
-
-            for (int j = 0; j < numDust; j++)
-            {
-                float lerp = j / numDust;
-                Vector2 dustPosition = Vector2.Lerp(start, end, lerp);
-
-                Dust d = Dust.NewDustPerfect(dustPosition, dustId, Scale: scale);
-                d.noGravity = true;
-                d.velocity = Main.rand.NextVector2Circular(0.3f, 0.3f);
-            }
-        }
-    }
+    // public static void MakeDust(Vector2 source, Vector2 dest, float scale, short dustId, float sway = 80f, float jagednessNumerator = 1f)
+    // {
+    //     List<Vector2> dustPoints = CreateBolt(source, dest, sway, jagednessNumerator);
+    //
+    //     for (int i = 1; i < dustPoints.Count; i++)
+    //     {
+    //         Vector2 start = dustPoints[i - 1];
+    //         Vector2 end = dustPoints[i];
+    //         float numDust = (end - start).Length() * 0.4f;
+    //
+    //         for (int j = 0; j < numDust; j++)
+    //         {
+    //             float lerp = j / numDust;
+    //             Vector2 dustPosition = Vector2.Lerp(start, end, lerp);
+    //
+    //             Dust d = Dust.NewDustPerfect(dustPosition, dustId, Scale: scale);
+    //             d.noGravity = true;
+    //             d.velocity = Main.rand.NextVector2Circular(0.3f, 0.3f);
+    //         }
+    //     }
+    // }
 
     public static List<Vector2> CreateBolt(Vector2 source, Vector2 dest, float sway = 80f, float jagednessNumerator = 1f)
     {

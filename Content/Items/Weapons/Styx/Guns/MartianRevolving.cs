@@ -17,5 +17,5 @@ public class MartianRevolving : RevolvingGun
 
     private Vector2 SpawnPos => Projectile.Center + new Vector2(ProjTexture.Width * Projectile.direction, 0).RotatedBy(Projectile.rotation) / 2;
 
-    protected override float[] InputsAI => new [] { 0, SpawnPos.X, SpawnPos.Y };
+    protected override float[] InputsAI => new[] { 0, SpawnPos.X, SpawnPos.Y };
 }

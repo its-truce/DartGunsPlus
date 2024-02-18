@@ -57,7 +57,7 @@ public class DysphoriaShock : ModProjectile
         color.A = 0;
 
         Main.EntitySpriteDraw(texture, drawPos, null, color, Projectile.oldVelocity.ToRotation(), texture.Size() / 2,
-            Projectile.scale * 0.2f, SpriteEffects.None);
+            Projectile.scale, SpriteEffects.None);
         return false;
     }
 

@@ -12,7 +12,7 @@ using Terraria.ModLoader;
 namespace DartGunsPlus.Content.Projectiles;
 
 public class EuphoriaSlash : ModProjectile
-{ 
+{
     private Player Owner => Main.player[Projectile.owner];
 
     public override void SetDefaults()

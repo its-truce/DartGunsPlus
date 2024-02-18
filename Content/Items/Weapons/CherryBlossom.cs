@@ -10,16 +10,17 @@ namespace DartGunsPlus.Content.Items.Weapons;
 
 public class CherryBlossom : ModItem
 {
+    private float _initialItemRot;
     private int _shootCount;
 
     public override void SetDefaults()
     {
-        Item.DefaultToRangedWeapon(ProjectileID.PurificationPowder, AmmoID.Dart, 42, 9.5f, true);
-        Item.width = 56;
-        Item.height = 18;
+        Item.DefaultToRangedWeapon(ProjectileID.PurificationPowder, AmmoID.Dart, 42, 13, true);
+        Item.width = 66;
+        Item.height = 24;
         Item.rare = ItemRarityID.Orange;
 
-        Item.UseSound = SoundID.DD2_ExplosiveTrapExplode;
+        Item.UseSound = AudioSystem.ReturnSound("shotgun", 0.4f, 0.75f);
 
         Item.damage = 22;
         Item.knockBack = 6.5f;
@@ -37,11 +38,14 @@ public class CherryBlossom : ModItem
             Projectile.NewProjectileDirect(source, position, newVelocity, type, damage, knockback, player.whoAmI);
         }
 
+        Projectile.NewProjectile(source, position, Vector2.Zero, ModContent.ProjectileType<ShotgunMusket>(), 0, 0, player.whoAmI, 
+            velocity.ToRotation(), 5);
         velocity.Normalize();
         player.velocity = velocity * -2.5f;
         CameraSystem.Screenshake(4, 3);
 
         _shootCount++;
+        _initialItemRot = player.itemRotation;
         return false;
     }
 
@@ -62,5 +66,10 @@ public class CherryBlossom : ModItem
     public override Vector2? HoldoutOffset()
     {
         return new Vector2(-2f, -2f);
+    }
+
+    public override void UseStyle(Player player, Rectangle heldItemFrame)
+    {
+        VisualSystem.RecoilAnimation(player, _initialItemRot, 30);
     }
 }

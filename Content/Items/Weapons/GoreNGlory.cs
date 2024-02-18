@@ -10,12 +10,13 @@ namespace DartGunsPlus.Content.Items.Weapons;
 
 public class GoreNGlory : ModItem
 {
+    private float _initialItemRot;
     private int _shootCount;
     private int _swingDirection = 1;
 
     public override void SetDefaults()
     {
-        Item.DefaultToRangedWeapon(ProjectileID.PurificationPowder, AmmoID.Dart, 30, 16, true);
+        Item.DefaultToRangedWeapon(ProjectileID.PurificationPowder, AmmoID.Dart, 30, 14, true);
         Item.width = 84;
         Item.height = 30;
         Item.rare = ItemRarityID.Lime;
@@ -47,15 +48,15 @@ public class GoreNGlory : ModItem
                 Projectile.NewProjectileDirect(source, position, newVelocity, type, damage, knockback, player.whoAmI);
             }
 
-            Projectile.NewProjectile(source, position + Vector2.Normalize(velocity) * Item.width * 0.7f, Vector2.Zero, ModContent.ProjectileType<GoreMusket>(), 0, 0,
-                player.whoAmI,
-                velocity.ToRotation());
+            Projectile.NewProjectile(source, position + Vector2.Normalize(velocity) * Item.width * 0.7f, Vector2.Zero, ModContent.ProjectileType<ShotgunMusket>(),
+                0, 0, player.whoAmI, velocity.ToRotation(), -2);
 
             velocity.Normalize();
             player.velocity = velocity * -4;
             CameraSystem.Screenshake(4, 5);
         }
 
+        _initialItemRot = player.itemRotation;
         _shootCount++;
         return false;
     }
@@ -99,5 +100,10 @@ public class GoreNGlory : ModItem
         }
 
         return base.CanUseItem(player);
+    }
+
+    public override void UseStyle(Player player, Rectangle heldItemFrame)
+    { 
+        VisualSystem.RecoilAnimation(player, _initialItemRot, 40);
     }
 }

@@ -17,8 +17,8 @@ public class DukeWhirlpool : ModProjectile
     {
         Projectile.ignoreWater = true;
         Projectile.tileCollide = false;
-        Projectile.width = 640;
-        Projectile.height = 640;
+        Projectile.width = 128;
+        Projectile.height = 128;
         Projectile.penetrate = -1;
         Projectile.friendly = false;
         Projectile.timeLeft = 600;
@@ -66,7 +66,7 @@ public class DukeWhirlpool : ModProjectile
         Vector2 drawPos = Projectile.Center - Main.screenPosition;
         Color color = new(24, 200, 119, 0);
 
-        Main.EntitySpriteDraw(texture, drawPos, null, color, Projectile.rotation, texture.Size() / 2, Projectile.scale * 0.15f,
+        Main.EntitySpriteDraw(texture, drawPos, null, color, Projectile.rotation, texture.Size() / 2, Projectile.scale * 0.75f,
             SpriteEffects.None);
 
         return false;

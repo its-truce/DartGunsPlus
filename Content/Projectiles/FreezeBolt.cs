@@ -1,4 +1,5 @@
-﻿using DartGunsPlus.Content.Systems;
+﻿using System.Collections.Generic;
+using DartGunsPlus.Content.Systems;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Terraria;
@@ -76,7 +77,7 @@ public class FreezeBolt : ModProjectile
     {
         VisualSystem.SpawnDustCircle(Projectile.Center, DustID.RainbowRod, 12, color: Color.CornflowerBlue, scale: 0.9f);
 
-        Vector2[] points = DartUtils.GetInterpolatedPoints(Owner.Center, Projectile.Center, 15);
+        IEnumerable<Vector2> points = DartUtils.GetInterpolatedPoints(Owner.Center, Projectile.Center, 15);
 
         foreach (Vector2 point in points)
         {

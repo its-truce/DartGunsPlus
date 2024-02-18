@@ -1,3 +1,4 @@
+using DartGunsPlus.Content.Projectiles;
 using DartGunsPlus.Content.Systems;
 using Microsoft.Xna.Framework;
 using Terraria;
@@ -9,17 +10,19 @@ namespace DartGunsPlus.Content.Items.Weapons;
 
 public class DartStorm : ModItem
 {
+    private float _initialItemRot;
     public override void SetDefaults()
     {
-        Item.DefaultToRangedWeapon(ProjectileID.PurificationPowder, AmmoID.Dart, 40, 14, true);
+        Item.DefaultToRangedWeapon(ProjectileID.PurificationPowder, AmmoID.Dart, 20, 11, true);
         Item.width = 38;
         Item.height = 22;
         Item.rare = ItemRarityID.Green;
 
-        Item.UseSound = SoundID.DD2_ExplosiveTrapExplode;
+        Item.UseSound = AudioSystem.ReturnSound("shotgun", 0.4f, 0.6f);
 
         Item.damage = 14;
         Item.knockBack = 6f;
+        Item.reuseDelay = 20;
     }
 
     public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
@@ -34,10 +37,13 @@ public class DartStorm : ModItem
             Projectile.NewProjectileDirect(source, position, newVelocity, type, damage, knockback, player.whoAmI);
         }
 
+        Projectile.NewProjectile(source, position, Vector2.Zero, ModContent.ProjectileType<ShotgunMusket>(), 0, 0, player.whoAmI, 
+            velocity.ToRotation(), 14);
         velocity.Normalize();
         player.velocity = velocity * -2;
         CameraSystem.Screenshake(4, 3);
 
+        _initialItemRot = player.itemRotation;
         return false;
     }
 
@@ -51,5 +57,10 @@ public class DartStorm : ModItem
     public override Vector2? HoldoutOffset()
     {
         return new Vector2(-2f, -2f);
+    }
+    
+    public override void UseStyle(Player player, Rectangle heldItemFrame)
+    { 
+        VisualSystem.RecoilAnimation(player, _initialItemRot, 15);
     }
 }

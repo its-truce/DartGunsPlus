@@ -79,7 +79,7 @@ public class RedBomb : ModProjectile
             Projectile.ai[0] = 10f;
             if (Projectile.velocity.Y == 0f && Projectile.velocity.X != 0f)
             {
-                Projectile.velocity.X = Projectile.velocity.X * 0.96f;
+                Projectile.velocity.X *= 0.96f;
 
                 if (Projectile.velocity.X > -0.01 && Projectile.velocity.X < 0.01)
                 {
@@ -88,12 +88,12 @@ public class RedBomb : ModProjectile
                 }
             }
 
-            Projectile.velocity.Y = Projectile.velocity.Y + 0.2f;
+            Projectile.velocity.Y += 0.2f;
         }
 
         Projectile.rotation += Projectile.velocity.X * 0.1f;
 
-        int frameSpeed = 4;
+        const int frameSpeed = 4;
 
         Projectile.frameCounter++;
 

@@ -56,7 +56,7 @@ public class SpyglassItem : GlobalItem
         return base.Shoot(item, player, source, position, velocity, type, damage, knockback);
     }
 
-    private NPC FindClosestTarget(float maxDetectDistance)
+    private static NPC FindClosestTarget(float maxDetectDistance)
     {
         NPC closestTarget = null;
         float sqrMaxDetectDistance = maxDetectDistance * maxDetectDistance;

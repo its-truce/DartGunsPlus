@@ -50,15 +50,7 @@ public class VolatileContraption : ModItem
             position.Y -= 2;
         }
 
-        switch (_shootCount)
-        {
-            case > 6 and < 10:
-                type = ModContent.ProjectileType<RedBomb>();
-                break;
-            case 10:
-                type = ModContent.ProjectileType<RedLaser>();
-                break;
-        }
+        type = _shootCount is > 6 and < 10 ? ModContent.ProjectileType<RedBomb>() : _shootCount == 10 ? ModContent.ProjectileType<RedLaser>() : type;
     }
 
     public override Vector2? HoldoutOffset()

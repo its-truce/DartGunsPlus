@@ -121,7 +121,7 @@ public class LilEmpress : ModProjectile
         Vector2 drawPos = Projectile.Center - new Vector2(0, 10) - Main.screenPosition;
 
         // sparkle
-        Main.EntitySpriteDraw(texture, drawPos, null, color, MathHelper.ToRadians(Projectile.ai[1]), origin, 0.08f, SpriteEffects.None);
+        Main.EntitySpriteDraw(texture, drawPos, null, color, MathHelper.ToRadians(Projectile.ai[1]), origin, 0.4f, SpriteEffects.None);
 
         Texture2D texture2 = ModContent.Request<Texture2D>("DartGunsPlus/Content/Projectiles/Glowball").Value;
 

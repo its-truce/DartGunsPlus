@@ -11,12 +11,13 @@ namespace DartGunsPlus.Content.Projectiles;
 public class EnchantedDart : ModProjectile
 {
     private float _scale = 0.4f;
+
     public override void SetStaticDefaults()
     {
         ProjectileID.Sets.TrailCacheLength[Projectile.type] = 8; // how long you want the trail to be
         ProjectileID.Sets.TrailingMode[Projectile.type] = 2; // recording mode
     }
-    
+
     public override void SetDefaults()
     {
         Projectile.CloneDefaults(ModContent.ProjectileType<DartProjectile>());
@@ -59,14 +60,11 @@ public class EnchantedDart : ModProjectile
             Rectangle frame = texture.Frame(1, Main.projFrames[Projectile.type], 0, Projectile.frame);
             Vector2 drawPos = Projectile.oldPos[k] - Main.screenPosition + offset;
             float sizec = Projectile.scale * (Projectile.oldPos.Length - k) / (Projectile.oldPos.Length * 0.8f);
-            Color color = new Color(88, 101, 242, 0);
+            Color color = new(88, 101, 242, 0);
 
             if (Vector2.Distance(Projectile.oldPos[k], Projectile.Center) > 20)
-            {
                 Main.EntitySpriteDraw(texture, drawPos, frame, color, Projectile.oldVelocity.ToRotation(), frame.Size() / 2,
                     sizec * 0.15f * new Vector2(1, _scale), SpriteEffects.None);
-            }
-
         }
 
         return true;

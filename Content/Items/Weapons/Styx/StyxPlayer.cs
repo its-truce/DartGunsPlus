@@ -30,8 +30,8 @@ public class StyxPlayer : ModPlayer
             foreach (int projType in _revolvingProjectiles)
             {
                 if (Player.ownedProjectileCounts[projType] == 0)
-                    Projectile.NewProjectile(Player.GetSource_Misc("revolve"), Player.Center, Vector2.Zero, projType, 
-                        Player.inventory[Player.selectedItem].damage, Player.inventory[Player.selectedItem].knockBack, Player.whoAmI, 
+                    Projectile.NewProjectile(Player.GetSource_Misc("revolve"), Player.Center, Vector2.Zero, projType,
+                        Player.inventory[Player.selectedItem].damage, Player.inventory[Player.selectedItem].knockBack, Player.whoAmI,
                         MathHelper.ToRadians(i * 360 / _revolvingProjectiles.Length));
 
                 i++;

@@ -270,6 +270,11 @@ Items: {
 		DisplayName: Test Sword
 		Tooltip: ""
 	}
+
+	ExplosiveDart: {
+		DisplayName: Explosive Dart
+		Tooltip: ""
+	}
 }
 
 Projectiles: {
@@ -358,6 +363,15 @@ Projectiles: {
 	DukeDash.DisplayName: Duke Dash
 	DukeTrail.DisplayName: Duke Trail
 	ChlorophyteSpore.DisplayName: Chlorophyte Spore
+	Explosive.DisplayName: Explosive
+	ExplosiveDartProj.DisplayName: Explosive Dart Proj
+	RocketExplosion.DisplayName: Rocket Explosion
+	SmallTrail.DisplayName: Small Trail
+	Crystals.DisplayName: Crystals
+	CrystalShard.DisplayName: Crystal Shard
+	CrystalShock.DisplayName: Crystal Shock
+	ShockwaveProjectile.DisplayName: Shockwave Projectile
+	ShotgunMusket.DisplayName: Shotgun Musket
 }
 
 Buffs: {

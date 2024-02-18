@@ -13,7 +13,7 @@ public class PlanteraSeed : ModProjectile
 {
     private NPC[] _alreadyHit = new NPC[1];
     private float _velocityLength;
-    
+
     public override void SetStaticDefaults()
     {
         ProjectileID.Sets.TrailCacheLength[Projectile.type] = 20; // how long you want the trail to be
@@ -31,7 +31,7 @@ public class PlanteraSeed : ModProjectile
         Projectile.usesLocalNPCImmunity = true;
         Projectile.localNPCHitCooldown = 10;
     }
-    
+
     public override void AI()
     {
         if (Projectile.ai[0] == 4)
@@ -60,7 +60,7 @@ public class PlanteraSeed : ModProjectile
             Color color = Projectile.GetAlpha(lightColor) * ((Projectile.oldPos.Length - k) / (float)Projectile.oldPos.Length) * Projectile.Opacity * 0.5f;
             color.A = 0;
             float sizec = Projectile.scale * (Projectile.oldPos.Length - k) / (Projectile.oldPos.Length * 0.9f);
-            
+
             for (int i = 0; i < 2; i++)
                 Main.EntitySpriteDraw(texture, drawPos, null, color, Projectile.rotation, drawOrigin, sizec, SpriteEffects.None);
         }
@@ -72,7 +72,7 @@ public class PlanteraSeed : ModProjectile
     {
         return Color.White;
     }
-    
+
     public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
     {
         Array.Resize(ref _alreadyHit, _alreadyHit.Length + 1);

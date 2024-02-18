@@ -44,7 +44,7 @@ public class ZapperLightning : ModProjectile
         Color col = Color.Yellow;
         col.A = 0;
         DrawLightning(texture, texture2, col, _startLocation, Projectile.Center, 0.022f);
-        
+
         Vector2 drawPos = Projectile.Center - Main.screenPosition;
         Vector2 drawOrigin = texture.Size() / 2;
 

@@ -44,11 +44,11 @@ public class HighVelocityDart : ModItem
 
 public class HighVelocityDartProj : DartProjectile
 {
+    private NPC[] _alreadyHit = new NPC[1];
     public override string Texture => "DartGunsPlus/Content/Projectiles/Bolt";
     protected override int GravityDelay => 300;
     protected override bool EmitLight => true;
     protected override Color LightColor => Color.Gold;
-    private NPC[] _alreadyHit = new NPC[1];
 
     public override void SetStaticDefaults()
     {
@@ -81,10 +81,10 @@ public class HighVelocityDartProj : DartProjectile
         }
 
         Projectile.damage = (int)(Projectile.damage * 0.85f);
-        
+
         Array.Resize(ref _alreadyHit, _alreadyHit.Length + 1);
         _alreadyHit[^1] = target;
-        
+
         NPC closestTarget = DartUtils.FindClosestTarget(600, _alreadyHit, Projectile, 4);
         if (closestTarget is not null)
             Projectile.velocity = Projectile.DirectionTo(closestTarget.Center) * Projectile.velocity.Length() * 0.85f;

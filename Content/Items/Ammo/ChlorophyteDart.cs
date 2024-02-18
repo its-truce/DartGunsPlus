@@ -84,13 +84,8 @@ public class ChlorophyteDartProj : DartProjectile
         Lighting.AddLight(Projectile.Center, LightColor.ToVector3());
 
         if (Projectile.ai[0] % 15 == 0)
-        {
-            for (int i = 0; i < 3; i++)
-            {
-                Projectile.NewProjectile(Projectile.GetSource_FromThis(), Projectile.Center + new Vector2(30).RotatedByRandom(Math.Tau), Vector2.Zero,
-                    ModContent.ProjectileType<ChlorophyteSpore>(), Projectile.damage / 2, 3, Projectile.owner);
-            }
-        }
+            Projectile.NewProjectile(Projectile.GetSource_FromThis(), Projectile.Center + new Vector2(30).RotatedByRandom(Math.Tau), Vector2.Zero,
+                ModContent.ProjectileType<ChlorophyteSpore>(), Projectile.damage / 2, 3, Projectile.owner);
     }
 
     public override bool PreDraw(ref Color lightColor)
@@ -128,15 +123,13 @@ public class ChlorophyteDartProj : DartProjectile
     public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
     {
         if (Main.rand.NextBool(3))
-        {
             for (int i = 0; i < 3; i++)
             {
                 Vector2 velocity = Main.rand.NextVector2CircularEdge(1.2f, 1.2f);
                 Projectile.NewProjectile(Projectile.GetSource_OnHit(target), Projectile.Center + velocity * 20, velocity, ModContent.ProjectileType<ChlorophyteSpore>(),
-                    Projectile.damage/2, 3, Projectile.owner);
+                    Projectile.damage / 2, 3, Projectile.owner);
             }
-        }
-        
+
         Dust.NewDust(target.Center, target.width, target.height, DustID.Dirt);
     }
 }

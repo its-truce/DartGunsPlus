@@ -17,12 +17,13 @@ public class DartTrailProjectile : GlobalProjectile
     {
         ModContent.ProjectileType<DysphoriaBolt>(), ModContent.ProjectileType<AstralBolt>(), ModContent.ProjectileType<RedLaser>(),
         ModContent.ProjectileType<RedBomb>(), ModContent.ProjectileType<EuphoriaSlash>(), ModContent.ProjectileType<HighVelocityDartProj>(),
-        ModContent.ProjectileType<LuminiteDartProj>(), ModContent.ProjectileType<MartianLightning>(), ModContent.ProjectileType<HalloweenRitual>(),
-        ModContent.ProjectileType<HalloweenJack>(), ModContent.ProjectileType<Explosion>(), ModContent.ProjectileType<Icicle>(), ModContent.ProjectileType<FreezeBolt>(),
-        ModContent.ProjectileType<DysphoriaBolt>(), ModContent.ProjectileType<DysphoriaShock>(), ModContent.ProjectileType<DysphoriaExplosion>(),
-        ModContent.ProjectileType<SereneBolt>(), ModContent.ProjectileType<SereneShock>(), ModContent.ProjectileType<SereneSlash>(),
-        ModContent.ProjectileType<EmpressLaser>(), ModContent.ProjectileType<EmpressBolt>(), ModContent.ProjectileType<LilEmpress>(),
-        ModContent.ProjectileType<LaserLightning>(), ModContent.ProjectileType<HomingLightning>()
+        ModContent.ProjectileType<LuminiteDartProj>(), ModContent.ProjectileType<ExplosiveDartProj>(), ModContent.ProjectileType<MartianLightning>(),
+        ModContent.ProjectileType<HalloweenRitual>(), ModContent.ProjectileType<HalloweenJack>(), ModContent.ProjectileType<Explosion>(),
+        ModContent.ProjectileType<Icicle>(), ModContent.ProjectileType<FreezeBolt>(), ModContent.ProjectileType<DysphoriaBolt>(),
+        ModContent.ProjectileType<DysphoriaShock>(), ModContent.ProjectileType<DysphoriaExplosion>(), ModContent.ProjectileType<SereneBolt>(),
+        ModContent.ProjectileType<SereneShock>(), ModContent.ProjectileType<SereneSlash>(), ModContent.ProjectileType<EmpressLaser>(),
+        ModContent.ProjectileType<EmpressBolt>(), ModContent.ProjectileType<LilEmpress>(), ModContent.ProjectileType<LaserLightning>(),
+        ModContent.ProjectileType<HomingLightning>()
     };
 
     private readonly int[] _validItems =

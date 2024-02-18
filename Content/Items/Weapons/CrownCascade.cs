@@ -72,7 +72,9 @@ public class CrownCascade : ModItem
                     }
             }
             else
+            {
                 Projectile.NewProjectile(source, position, Vector2.Zero, ModContent.ProjectileType<DukeDash>(), damage, knockback, player.whoAmI);
+            }
         }
 
         return false;
@@ -102,7 +104,7 @@ public class CrownCascade : ModItem
         Item.noUseGraphic = player.altFunctionUse == 2;
         Item.useStyle = player.altFunctionUse != 2 ? ItemUseStyleID.Shoot : ItemUseStyleID.RaiseLamp;
         Item.useTime = player.altFunctionUse != 2 ? 16 : 32;
-        
+
         return base.CanUseItem(player);
     }
 

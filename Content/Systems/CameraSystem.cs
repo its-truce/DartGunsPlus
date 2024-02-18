@@ -6,20 +6,20 @@ namespace DartGunsPlus.Content.Systems;
 
 public class CameraSystem : ModSystem
 {
-    public int ScreenshakeMagnitude;
-    public int ScreenshakeTimer;
+    private int _screenshakeMagnitude;
+    private int _screenshakeTimer;
 
     public override void ModifyScreenPosition()
     {
-        ScreenshakeTimer--;
-        if (ScreenshakeTimer > 0)
-            Main.screenPosition += new Vector2(Main.rand.Next(ScreenshakeMagnitude * -1, ScreenshakeMagnitude + 1),
-                Main.rand.Next(ScreenshakeMagnitude * -1, ScreenshakeMagnitude + 1));
+        _screenshakeTimer--;
+        if (_screenshakeTimer > 0)
+            Main.screenPosition += new Vector2(Main.rand.Next(_screenshakeMagnitude * -1, _screenshakeMagnitude + 1),
+                Main.rand.Next(_screenshakeMagnitude * -1, _screenshakeMagnitude + 1));
     }
 
     public static void Screenshake(int timer, int magnitude)
     {
-        ModContent.GetInstance<CameraSystem>().ScreenshakeTimer = timer;
-        ModContent.GetInstance<CameraSystem>().ScreenshakeMagnitude = magnitude;
+        ModContent.GetInstance<CameraSystem>()._screenshakeTimer = timer;
+        ModContent.GetInstance<CameraSystem>()._screenshakeMagnitude = magnitude;
     }
 }

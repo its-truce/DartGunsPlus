@@ -37,10 +37,12 @@ public class LargeStar : ModProjectile
         Projectile.ai[0]++;
         const float lerpingIncrement = 1f / 10;
 
-        if (Projectile.ai[1] >= 1)
-            _increase = false;
-        else if (Projectile.ai[1] <= 0)
-            _increase = true;
+        _increase = Projectile.ai[1] switch
+        {
+            >= 1 => false,
+            <= 0 => true,
+            _ => _increase
+        };
 
         if (_increase)
             Projectile.ai[1] += lerpingIncrement;

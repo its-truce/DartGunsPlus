@@ -17,8 +17,8 @@ public class DysphoriaExplosion : ModProjectile
     {
         Projectile.ignoreWater = true;
         Projectile.tileCollide = false;
-        Projectile.width = 150;
-        Projectile.height = 150;
+        Projectile.width = 102;
+        Projectile.height = 102;
         Projectile.penetrate = -1;
         Projectile.friendly = true;
         Projectile.timeLeft = 30;
@@ -69,14 +69,14 @@ public class DysphoriaExplosion : ModProjectile
 
         for (int i = 0; i < 2; i++)
             Main.EntitySpriteDraw(texture, drawPos, null, color, Projectile.oldVelocity.ToRotation(), texture.Size() / 2,
-                Projectile.scale * 0.3f, SpriteEffects.None);
+                Projectile.scale * 1.5f, SpriteEffects.None);
 
         return false;
     }
 
     public override void PostDraw(Color lightColor)
     {
-        Texture2D texture = ModContent.Request<Texture2D>("DartGunsPlus/Content/Projectiles/Explosion").Value;
+        Texture2D texture = ModContent.Request<Texture2D>("DartGunsPlus/Content/Projectiles/Smoke6").Value;
         Texture2D texture2 = ModContent.Request<Texture2D>("DartGunsPlus/Content/Projectiles/Sparkle").Value;
 
         Vector2 drawPos = Projectile.Center - Main.screenPosition;

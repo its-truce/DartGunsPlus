@@ -25,9 +25,9 @@ public class DartLicenseNPC : GlobalNPC
 {
     public override void ModifyShop(NPCShop shop)
     {
-        Condition downedSkeletronOrDeerclopsOrHardmode = new Condition("Mods.DartGunsPlus.Conditions.downedSkeletronOrDeerclopsOrHardmode",
+        Condition downedSkeletronOrDeerclopsOrHardmode = new("Mods.DartGunsPlus.Conditions.downedSkeletronOrDeerclopsOrHardmode",
             () => Condition.DownedSkeletron.IsMet() || Condition.DownedDeerclops.IsMet() || Condition.Hardmode.IsMet());
-        
+
         if (shop.NpcType == NPCID.Merchant)
             shop.Add<DartLicense>(downedSkeletronOrDeerclopsOrHardmode);
     }

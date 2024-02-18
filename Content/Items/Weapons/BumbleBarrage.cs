@@ -68,9 +68,9 @@ public class BeeTrail : GlobalProjectile
 
     public override bool AppliesToEntity(Projectile entity, bool lateInstantiation)
     {
-        return entity.type == ProjectileID.Bee || entity.type == ProjectileID.GiantBee;
+        return entity.type is ProjectileID.Bee or ProjectileID.GiantBee;
     }
-    
+
     public override void OnSpawn(Projectile projectile, IEntitySource source)
     {
         if (source is EntitySource_ItemUse_WithAmmo use && use.Item.type == ModContent.ItemType<BumbleBarrage>())
@@ -85,7 +85,7 @@ public class BeeTrail : GlobalProjectile
     {
         Main.instance.LoadProjectile(projectile.type);
         Texture2D texture = TextureAssets.Projectile[projectile.type].Value;
-        
+
         for (int k = 0; k < projectile.oldPos.Length; k++)
         {
             Vector2 offset = new(projectile.width / 2f, projectile.height / 2f);
@@ -93,7 +93,7 @@ public class BeeTrail : GlobalProjectile
             Vector2 drawPos = projectile.oldPos[k] - Main.screenPosition + offset;
             float sizec = projectile.scale * (projectile.oldPos.Length - k) / (projectile.oldPos.Length * 0.8f);
             Color color = new Color(255, 172, 12, 0) * (1f - projectile.alpha) * ((projectile.oldPos.Length - k) / (float)projectile.oldPos.Length);
-            
+
             if (_active)
                 Main.EntitySpriteDraw(texture, drawPos, frame, color, projectile.oldRot[k], frame.Size() / 2,
                     sizec, SpriteEffects.None);

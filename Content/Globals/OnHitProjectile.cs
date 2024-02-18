@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using DartGunsPlus.Content.Buffs;
 using DartGunsPlus.Content.Items.Weapons;
 using DartGunsPlus.Content.Items.Weapons.Styx;
@@ -19,6 +20,13 @@ namespace DartGunsPlus.Content.Globals;
 public class OnHitProjectile : GlobalProjectile
 {
     private int _itemType;
+
+    private readonly int[] _shotguns =
+    {
+        ModContent.ItemType<DartStorm>(), ModContent.ItemType<CherryBlossom>(), ModContent.ItemType<GoreNGlory>(),
+        ModContent.ItemType<OnyxStorm>(), ModContent.ItemType<Scatterhook>()
+    };
+
     public override bool InstancePerEntity => true;
 
     public override void OnSpawn(Projectile projectile, IEntitySource source)
@@ -28,6 +36,21 @@ public class OnHitProjectile : GlobalProjectile
 
     public override void OnHitNPC(Projectile projectile, NPC target, NPC.HitInfo hit, int damageDone)
     {
+        if (_shotguns.Contains(_itemType) && projectile.type != ModContent.ProjectileType<GoreHoldout>())
+        {
+            SoundEngine.PlaySound(AudioSystem.ReturnSound("hit", 0.4f), projectile.Center);
+
+            int randDust = Main.rand.Next(20, 30);
+            for (int i = 0; i < randDust; i++)
+            {
+                Dust dust = Dust.NewDustDirect(target.Center, 0, 0, DustID.Blood, 0f, 0f, 100, default, 0.8f);
+                dust.velocity *= 1.6f;
+                dust.velocity.Y -= 1f;
+                dust.velocity += projectile.velocity;
+                dust.noGravity = true;
+            }
+        }
+
         if (_itemType == ModContent.ItemType<DartZapper>())
             if (Main.rand.NextBool(6))
             {
@@ -95,9 +118,8 @@ public class OnHitProjectile : GlobalProjectile
             }
 
             CameraSystem.Screenshake(4, 4);
-            int numParticles = 75;
 
-            for (int i = 0; i < numParticles; i++)
+            for (int i = 0; i < 75; i++)
                 Dust.NewDust(target.position, target.width, target.height, DustID.Blood, Main.rand.NextFloat(-1f, 1f), Main.rand.NextFloat(-1f, 1f));
         }
 
@@ -111,7 +133,7 @@ public class OnHitProjectile : GlobalProjectile
                     Vector2 position = target.Center + new Vector2(200, 200).RotatedByRandom(Math.Tau);
                     Vector2 velocity = position.DirectionTo(target.Center) * 6;
 
-                    Projectile.NewProjectile(projectile.GetSource_OnHit(target), position, velocity, ModContent.ProjectileType<DysphoriaBolt>(), 
+                    Projectile.NewProjectile(projectile.GetSource_OnHit(target), position, velocity, ModContent.ProjectileType<DysphoriaBolt>(),
                         projectile.damage, 3);
 
                     Dust.NewDust(position, projectile.height, projectile.width, DustID.WhiteTorch, newColor: new Color(128, 104, 207), Scale: 0.9f);
@@ -201,7 +223,7 @@ public class OnHitProjectile : GlobalProjectile
                 IndexOfPlayerWhoInvokedThis = (byte)projectile.owner
             };
             ParticleOrchestrator.SpawnParticlesDirect(ParticleOrchestraType.TrueExcalibur, settings);
-            
+
             if (Main.rand.NextBool(3))
                 Projectile.NewProjectile(projectile.GetSource_OnHit(target), target.Center + new Vector2(0, 30), Vector2.Zero,
                     ModContent.ProjectileType<EuphoriaCircle>(), damageDone, 0, projectile.owner, target.whoAmI);

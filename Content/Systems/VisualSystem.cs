@@ -38,4 +38,11 @@ public static class VisualSystem
     {
         return Main.rgbToHsl(color).X * 255;
     }
+
+    public static void RecoilAnimation(Player player, float initialItemRot, float degrees)
+    {
+        float progress = (float)player.itemAnimation / player.itemAnimationMax;
+        player.itemRotation = (float)Utils.Lerp(player.itemRotation, initialItemRot - MathHelper.ToRadians(degrees * player.direction),
+            1 - progress);
+    }
 }

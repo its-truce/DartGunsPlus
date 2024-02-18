@@ -16,21 +16,21 @@ public class RedLaser : ModProjectile
 
     // The actual distance is stored in the ai0 field
     // By making a property to handle this it makes our life easier, and the accessibility more readable
-    public float Distance
+    private float Distance
     {
         get => Projectile.ai[0];
         set => Projectile.ai[0] = value;
     }
 
     // The actual charge value is stored in the localAI0 field
-    public float Charge
+    private float Charge
     {
         get => Projectile.localAI[0];
         set => Projectile.localAI[0] = value;
     }
 
     // Are we at max charge? With c#6 you can simply use => which indicates this is a get only property
-    public bool IsAtMaxCharge => Charge == MaxCharge;
+    private bool IsAtMaxCharge => Charge == MaxCharge;
 
     public override void SetDefaults()
     {
@@ -48,20 +48,20 @@ public class RedLaser : ModProjectile
         // We start drawing the laser if we have charged up
         if (IsAtMaxCharge)
             DrawLaser(Main.spriteBatch, TextureAssets.Projectile[Projectile.type].Value, Main.player[Projectile.owner].Center,
-                Projectile.velocity, 10, Projectile.damage, -1.57f, 1f, 1000f, Color.White, (int)MoveDistance);
+                Projectile.velocity, 10, -1.57f, 1f, Color.White, (int)MoveDistance);
         return false;
     }
 
     // The core function of drawing a laser
-    public void DrawLaser(SpriteBatch spriteBatch, Texture2D texture, Vector2 start, Vector2 unit, float step, int damage, float rotation = 0f, float scale = 1f,
-        float maxDist = 2000f, Color color = default, int transDist = 50)
+    private void DrawLaser(SpriteBatch spriteBatch, Texture2D texture, Vector2 start, Vector2 unit, float step, float rotation = 0f, float scale = 1f,
+        Color color = default, int transDist = 50)
     {
         float r = unit.ToRotation() + rotation;
 
         // Draws the laser 'body'
         for (float i = transDist; i <= Distance; i += step)
         {
-            Color c = Color.White;
+            Color c = color;
             Vector2 origin = start + i * unit;
             spriteBatch.Draw(texture, origin - Main.screenPosition,
                 new Rectangle(0, 26, 28, 26), i < transDist ? Color.Transparent : c, r,
@@ -70,11 +70,11 @@ public class RedLaser : ModProjectile
 
         // Draws the laser 'tail'
         spriteBatch.Draw(texture, start + unit * (transDist - step) - Main.screenPosition,
-            new Rectangle(0, 0, 28, 26), Color.White, r, new Vector2(28 * .5f, 26 * .5f), scale, 0, 0);
+            new Rectangle(0, 0, 28, 26), color, r, new Vector2(28 * .5f, 26 * .5f), scale, 0, 0);
 
         // Draws the laser 'head'
         spriteBatch.Draw(texture, start + (Distance + step) * unit - Main.screenPosition,
-            new Rectangle(0, 52, 28, 26), Color.White, r, new Vector2(28 * .5f, 26 * .5f), scale, 0, 0);
+            new Rectangle(0, 52, 28, 26), color, r, new Vector2(28 * .5f, 26 * .5f), scale, 0, 0);
     }
 
     // Change the way of collision check of the Projectile
@@ -144,7 +144,7 @@ public class RedLaser : ModProjectile
             unit = dustPos - Main.player[Projectile.owner].Center;
             unit.Normalize();
             dust = Main.dust[Dust.NewDust(Main.player[Projectile.owner].Center + 55 * unit, 8, 8, DustID.Smoke, 0.0f, 0.0f, 100, new Color(), 1.5f)];
-            dust.velocity = dust.velocity * 0.5f;
+            dust.velocity *= 0.5f;
             dust.velocity.Y = -Math.Abs(dust.velocity.Y);
         }
     }

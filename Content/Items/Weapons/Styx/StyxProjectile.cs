@@ -15,14 +15,14 @@ public class StyxProjectile : GlobalProjectile
     private readonly int[] _excludedProjectiles =
     {
         ModContent.ProjectileType<HighVelocityDartProj>(),
-        ModContent.ProjectileType<LuminiteDartProj>()
+        ModContent.ProjectileType<LuminiteDartProj>(), ModContent.ProjectileType<ExplosiveDartProj>()
     };
 
     private bool _increase = true;
-    private bool _styx;
     private int _itemType;
 
     private float _lerpTimer;
+    private bool _styx;
     private Color LerpedColor => Color.Lerp(new Color(85, 105, 181, 0), new Color(42, 34, 80, 0), _lerpTimer);
 
     public override bool InstancePerEntity => true;
@@ -42,13 +42,13 @@ public class StyxProjectile : GlobalProjectile
                 ProjectileID.Sets.TrailCacheLength[projectile.type] = 16; // how long you want the trail to be
                 ProjectileID.Sets.TrailingMode[projectile.type] = 0; // recording mode
                 break;
-            
+
             case EntitySource_Misc { Context: "styx" }:
                 _styx = true;
                 projectile.usesLocalNPCImmunity = true;
                 projectile.localNPCHitCooldown = -1;
                 break;
-        }   
+        }
     }
 
     public override void OnHitNPC(Projectile projectile, NPC target, NPC.HitInfo hit, int damageDone)
@@ -101,7 +101,7 @@ public class StyxProjectile : GlobalProjectile
             Vector2 drawPos = projectile.oldPos[k] - Main.screenPosition + offset;
             float sizec = projectile.scale * (projectile.oldPos.Length - k) / (projectile.oldPos.Length * 0.8f);
             Color color = LerpedColor * (1f - projectile.alpha) * ((projectile.oldPos.Length - k) / (float)projectile.oldPos.Length);
-            
+
             if (Vector2.Distance(projectile.oldPos[k], projectile.Center) > 90 && _itemType == ModContent.ItemType<Styx>())
                 Main.EntitySpriteDraw(texture, drawPos, frame, color, projectile.oldVelocity.ToRotation(), frame.Size() / 2,
                     sizec * 0.18f, SpriteEffects.None);

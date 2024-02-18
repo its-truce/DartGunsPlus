@@ -60,8 +60,8 @@ public class SereneShock : ModProjectile
         Color color = Color.Lerp(new Color(233, 233, 82, 0), new Color(62, 240, 93, 0), 1 - Projectile.ai[1]);
 
         for (int i = 0; i < 2; i++)
-            Main.EntitySpriteDraw(texture, drawPos, null, color, Projectile.oldVelocity.ToRotation(), texture.Size() / 2, Projectile.scale * 0.15f,
-                SpriteEffects.None);
+            Main.EntitySpriteDraw(texture, drawPos, null, color, Projectile.oldVelocity.ToRotation(), texture.Size() / 2,
+                Projectile.scale * 0.75f, SpriteEffects.None);
         return false;
     }
 

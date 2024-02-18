@@ -16,9 +16,9 @@ public class GoreMusket : ModProjectile
     public override void SetDefaults()
     {
         Projectile.aiStyle = -1;
-        Projectile.width = 512;
-        Projectile.height = 512;
-        Projectile.scale = 0.15f; // 30
+        Projectile.width = 102;
+        Projectile.height = 102;
+        Projectile.scale = 0.75f; // 30
         Projectile.penetrate = -1;
         Projectile.ignoreWater = true;
         Projectile.tileCollide = false;

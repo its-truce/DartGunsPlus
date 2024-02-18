@@ -53,10 +53,12 @@ public class StyxRune : ModProjectile
         // for color lerping
         const float lerpingIncrement = 1f / 30;
 
-        if (Projectile.ai[1] >= 1)
-            _increase = false;
-        else if (Projectile.ai[1] <= 0)
-            _increase = true;
+        _increase = Projectile.ai[1] switch
+        {
+            >= 1 => false,
+            <= 0 => true,
+            _ => _increase
+        };
 
         if (_increase)
             Projectile.ai[1] += lerpingIncrement;

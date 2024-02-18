@@ -27,7 +27,7 @@ public class KrakenFish : ModProjectile
         get => (int)Projectile.ai[2];
         set => Projectile.ai[2] = value;
     }
-    
+
     public override void SetStaticDefaults()
     {
         ProjectileID.Sets.TrailCacheLength[Projectile.type] = 8; // how long you want the trail to be
@@ -69,14 +69,16 @@ public class KrakenFish : ModProjectile
 
             Projectile.velocity.Y += _flopDirection * 0.4f; // Adjust the vertical velocity
 
-            if (_flopDirection == 1 && Projectile.velocity.Y > 32f)
+            switch (_flopDirection)
             {
-                Projectile.velocity.Y = 8f; // Cap the upward velocity
-                _flopDirection *= -1; // Reverse the flop direction
-            }
-            else if (_flopDirection == -1 && Projectile.velocity.Y < 32F)
-            {
-                Projectile.velocity.Y = 8f; // Cap the downward velocity
+                case 1 when Projectile.velocity.Y > 32f:
+                    Projectile.velocity.Y = 8f; // Cap the upward velocity
+                    _flopDirection *= -1; // Reverse the flop direction
+                    break;
+
+                case -1 when Projectile.velocity.Y < 32F:
+                    Projectile.velocity.Y = 8f; // Cap the downward velocity
+                    break;
             }
 
             if (Projectile.velocity.Y * _flopDirection > 0f && Projectile.oldVelocity.Y * _flopDirection <= 0f) _flopDirection *= -1; // Reverse the flop direction
@@ -164,7 +166,7 @@ public class KrakenFish : ModProjectile
     public override bool PreDraw(ref Color lightColor)
     {
         Texture2D texture = (Texture2D)ModContent.Request<Texture2D>($"DartGunsPlus/Content/Projectiles/Fish/{_type}b");
-        
+
         for (int k = 0; k < Projectile.oldPos.Length; k++)
         {
             Vector2 offset = texture.Size() / 2;
@@ -174,7 +176,7 @@ public class KrakenFish : ModProjectile
             color.A = 0;
             Main.EntitySpriteDraw(texture, drawPos, null, color, Projectile.oldRot[k], offset, sizec, SpriteEffects.None);
         }
-        
+
         Main.EntitySpriteDraw(texture, Projectile.Center - Main.screenPosition, null, Color.White, Projectile.rotation, texture.Size() / 2,
             Projectile.scale, SpriteEffects.None);
 

@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using DartGunsPlus.Content.Systems;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
@@ -27,49 +28,48 @@ public class DukeDash : ModProjectile
         Projectile.tileCollide = false;
         Projectile.friendly = true;
         Projectile.timeLeft = 10;
-        
+
         _manager = new CompactParticleManager(
             particle =>
             {
                 particle.Rotation = 0;
-                
+
                 switch (particle.TimeAlive)
                 {
                     case 0:
                         particle.Scale = 0f;
                         particle.Opacity = 1f;
                         break;
-                    
+
                     case < 30:
                         particle.Scale = MathHelper.Lerp(particle.Scale, 1f, 0.1f);
                         particle.Opacity = MathHelper.Lerp(particle.Opacity, 0f, 0.1f);
                         break;
-                    
+
                     case < 60:
                         particle.Scale = MathHelper.Lerp(particle.Scale, 0f, 0.1f);
                         particle.Opacity = MathHelper.Lerp(particle.Opacity, 1f, 0.1f);
                         break;
-                    
+
                     default:
                         particle.Dead = true;
                         break;
                 }
             },
-            
             (particle, spriteBatch, _) =>
             {
                 Texture2D texture = ModContent.Request<Texture2D>("Terraria/Images/Projectile_" + ProjectileID.RainbowCrystalExplosion).Value;
-                
-                spriteBatch.Draw(texture, particle.Position - Main.screenPosition, null, particle.Color * particle.Opacity, 0f, 
+
+                spriteBatch.Draw(texture, particle.Position - Main.screenPosition, null, particle.Color * particle.Opacity, 0f,
                     texture.Size() / 2, particle.Scale * 0.25f, SpriteEffects.None, 0f);
-                
+
                 spriteBatch.Draw(texture, particle.Position - Main.screenPosition, null, particle.Color * particle.Opacity, MathHelper.PiOver2,
                     texture.Size() / 2, particle.Scale * 0.25f, SpriteEffects.None, 0f);
-                
+
                 spriteBatch.Draw(texture, particle.Position - Main.screenPosition, null, particle.Color * particle.Opacity * 0.5f, 0f,
                     texture.Size() / 2, particle.Scale * 0.5f, SpriteEffects.None, 0f);
-                
-                spriteBatch.Draw(texture, particle.Position - Main.screenPosition, null, particle.Color * particle.Opacity * 0.5f, 
+
+                spriteBatch.Draw(texture, particle.Position - Main.screenPosition, null, particle.Color * particle.Opacity * 0.5f,
                     MathHelper.PiOver2, texture.Size() / 2, particle.Scale * 0.5f, SpriteEffects.None, 0f);
             }
         );
@@ -78,25 +78,23 @@ public class DukeDash : ModProjectile
     public override void OnSpawn(IEntitySource source)
     {
         _initialPos = Owner.Center;
-        
+
         Owner.velocity = Owner.DirectionTo(Main.MouseWorld - new Vector2(0, 20)) * 25;
         Projectile.NewProjectile(Projectile.GetSource_FromThis(), Projectile.Center, Owner.velocity, ModContent.ProjectileType<DukeTrail>(), 0, 0,
             Owner.whoAmI);
 
         Color color = Color.Turquoise;
         color.A = 0;
-        Vector2[] points = DartUtils.GetInterpolatedPoints(_initialPos, Owner.Center, 10);
+        IEnumerable<Vector2> points = DartUtils.GetInterpolatedPoints(_initialPos, Owner.Center, 10);
 
         foreach (Vector2 point in points)
-        {
-            Dust.NewDust(point, Owner.width, Owner.height, DustID.FishronWings, (Owner.DirectionTo(Projectile.Center) * 2).X, 
+            Dust.NewDust(point, Owner.width, Owner.height, DustID.FishronWings, (Owner.DirectionTo(Projectile.Center) * 2).X,
                 (Owner.DirectionTo(Projectile.Center) * 2).Y, newColor: color);
-        }
 
         SoundEngine.PlaySound(AudioSystem.ReturnSound("duke", 0.3f), Projectile.Center);
         VisualSystem.SpawnDustCircle(Projectile.Center, DustID.FishronWings, 20, 1.2f, color: color);
-        
-        Color color2 = new (24, 200, 119, 0);
+
+        Color color2 = new(24, 200, 119, 0);
 
         for (int i = 0; i < 6; i++)
         {
@@ -118,11 +116,11 @@ public class DukeDash : ModProjectile
     public override bool PreDraw(ref Color lightColor)
     {
         Texture2D texture = TextureAssets.Projectile[Projectile.type].Value;
-        Color color = new (24, 200, 119, 0);
-        
+        Color color = new(24, 200, 119, 0);
+
         Main.EntitySpriteDraw(texture, Projectile.Center - Main.screenPosition, null, color, Projectile.rotation, texture.Size() / 2,
             0.4f, SpriteEffects.None);
-        
+
         Main.EntitySpriteDraw(texture, Projectile.Center - Main.screenPosition, null, new Color(255, 255, 255, 0) * Projectile.Opacity,
             Projectile.rotation, texture.Size() / 2, 0.25f, SpriteEffects.None); // white center
         return false;
@@ -142,11 +140,11 @@ public class DukeDash : ModProjectile
     public override bool? Colliding(Rectangle projHitbox, Rectangle targetHitbox)
     {
         float point = 0f;
-        
+
         return Collision.CheckAABBvLineCollision(targetHitbox.TopLeft(), targetHitbox.Size(), _initialPos,
             Owner.Center, 50, ref point);
     }
-    
+
     public override bool? CanCutTiles()
     {
         return true;
@@ -161,7 +159,7 @@ public class DukeDash : ModProjectile
 public class DukePlayer : ModPlayer
 {
     public bool DukeDash;
-    
+
     public override void ResetEffects()
     {
         DukeDash = false;
@@ -171,8 +169,10 @@ public class DukePlayer : ModPlayer
     {
         if (DukeDash)
         {
-            Player.maxRunSpeed += 2.5f;
-            Player.accRunSpeed += 2.5f;
+            Player.runAcceleration += 10f;
+            Player.maxRunSpeed += 10f;
+            Player.accRunSpeed += 10f;
+            Player.maxFallSpeed += 2000f;
         }
     }
 }

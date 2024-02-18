@@ -13,8 +13,8 @@ public class Euphoria : ModItem
     public override void SetDefaults()
     {
         Item.DefaultToRangedWeapon(ProjectileID.PurificationPowder, AmmoID.Dart, 14, 16, true);
-        Item.width = 66;
-        Item.height = 32;
+        Item.width = 44;
+        Item.height = 26;
         Item.rare = ItemRarityID.Pink;
 
         Item.UseSound = AudioSystem.ReturnSound("dart", 0.3f);

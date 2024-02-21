@@ -7,10 +7,11 @@ using Terraria.ModLoader;
 
 namespace DartGunsPlus.Content.Projectiles;
 
-public class DysphoriaBolt : ModProjectile
+public class DysphoriaNail : ModProjectile
 {
     private float _scale = 0.2f;
     public override string Texture => "DartGunsPlus/Content/Projectiles/Bolt";
+    private Player Owner => Main.player[Projectile.owner];
 
     public override void SetStaticDefaults()
     {
@@ -24,13 +25,11 @@ public class DysphoriaBolt : ModProjectile
         Projectile.aiStyle = 0;
         Projectile.width = 30;
         Projectile.height = 30;
-        Projectile.penetrate = 1;
+        Projectile.penetrate = -1;
         Projectile.ignoreWater = true;
         Projectile.tileCollide = false;
-        Projectile.friendly = true;
+        Projectile.friendly = false;
         Projectile.timeLeft = 600;
-        Projectile.usesLocalNPCImmunity = true;
-        Projectile.localNPCHitCooldown = 20;
     }
 
     public override void AI()
@@ -39,17 +38,23 @@ public class DysphoriaBolt : ModProjectile
 
         if (_scale < 1)
             _scale *= 1.03f;
-        
-        if (Projectile.FindTargetWithinRange(1000) != null && Projectile.ai[1] != 1)
-            Projectile.velocity = Vector2.Lerp(Projectile.DirectionTo(Projectile.FindTargetWithinRange(1000).Center) * 10,
-                Projectile.velocity, 0.3f);
-        else
-            Projectile.velocity = Vector2.Lerp(Projectile.velocity.SafeNormalize(Projectile.velocity) * 10,
-                Projectile.velocity, 0.3f);
+
+        if (Owner.ownedProjectileCounts[ModContent.ProjectileType<DysphoriaMagnet>()] > 0)
+        {
+            foreach (Projectile proj in Main.projectile)
+            {
+                if (proj.type == ModContent.ProjectileType<DysphoriaMagnet>() && proj.active && proj.owner == Projectile.owner && proj.timeLeft > 10)
+                {
+                    Projectile.velocity = Vector2.Lerp(Projectile.DirectionTo(proj.Center) * 9, Projectile.velocity, 0.3f);
+                    Projectile.penetrate = -1;
+                    Projectile.friendly = false;
+                }
+            }
+        }
 
         Projectile.rotation = Projectile.velocity.ToRotation();
 
-        Lighting.AddLight(Projectile.Center, new Color(185, 133, 240).ToVector3());
+        Lighting.AddLight(Projectile.Center, new Color(55, 224, 112).ToVector3());
     }
 
     public override bool PreDraw(ref Color lightColor)
@@ -61,7 +66,7 @@ public class DysphoriaBolt : ModProjectile
             Rectangle frame = texture.Frame(1, Main.projFrames[Projectile.type], 0, Projectile.frame);
             Vector2 drawPos = Projectile.oldPos[k] - Main.screenPosition + offset;
             float sizec = Projectile.scale * (Projectile.oldPos.Length - k) / (Projectile.oldPos.Length * 0.8f);
-            Color color = new Color(185, 133, 240, 0) * (1f - Projectile.alpha) * ((Projectile.oldPos.Length - k) / (float)Projectile.oldPos.Length);
+            Color color = new Color(55, 224, 112, 0) * (1f - Projectile.alpha) * ((Projectile.oldPos.Length - k) / (float)Projectile.oldPos.Length);
             Main.EntitySpriteDraw(texture, drawPos, frame, color, Projectile.oldRot[k], frame.Size() / 2, sizec * 0.18f * new Vector2(_scale, 1),
                 SpriteEffects.None);
         }

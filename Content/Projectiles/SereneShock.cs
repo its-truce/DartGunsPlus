@@ -11,7 +11,6 @@ public class SereneShock : ModProjectile
 {
     private float _rotSpeed = 0.6f;
     private NPC Target => Main.npc[(int)Projectile.ai[0]];
-    public override string Texture => "DartGunsPlus/Content/Projectiles/DysphoriaShock";
 
     public override void SetDefaults()
     {

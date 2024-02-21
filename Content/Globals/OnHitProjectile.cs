@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Linq;
-using DartGunsPlus.Content.Buffs;
 using DartGunsPlus.Content.Items.Weapons;
 using DartGunsPlus.Content.Items.Weapons.Styx;
 using DartGunsPlus.Content.Projectiles;
@@ -141,15 +140,12 @@ public class OnHitProjectile : GlobalProjectile
         }
 
         else if (_itemType == ModContent.ItemType<TrueDysphoria>() && projectile.type != ModContent.ProjectileType<DysphoriaBolt>()
-                                                                   && projectile.type != ModContent.ProjectileType<DysphoriaShock>()
+                                                                   && projectile.type != ModContent.ProjectileType<DysphoriaBoom>()
                                                                    && projectile.type != ModContent.ProjectileType<DysphoriaExplosion>())
         {
             bool purple = projectile.ai[2] % 2 == 0;
             Color color = purple ? new Color(185, 133, 240) : new Color(55, 224, 112);
-
-            // if (purple)
-            // {
-            target.AddBuff(ModContent.BuffType<DysphoriaMarked>(), 120);
+            
             if (Main.rand.NextBool(2))
                 for (int i = 0; i < 4; i++)
                 {
@@ -157,28 +153,15 @@ public class OnHitProjectile : GlobalProjectile
 
                     Vector2 position = target.Center + new Vector2(200, 200).RotatedByRandom(Math.Tau);
                     Vector2 velocity = position.DirectionTo(target.Center) * 6;
+                    int projType = Main.player[projectile.owner].ownedProjectileCounts[ModContent.ProjectileType<DysphoriaMagnet>()] < 1
+                        ? ModContent.ProjectileType<DysphoriaBolt>()
+                        : ModContent.ProjectileType<DysphoriaNail>();
 
-                    Projectile.NewProjectile(projectile.GetSource_OnHit(target), position, velocity, ModContent.ProjectileType<DysphoriaBolt>(),
-                        projectile.damage / 2, 3);
+                    Projectile.NewProjectile(projectile.GetSource_OnHit(target), position, velocity, projType,
+                        projectile.damage / 2, 3, projectile.owner, 1);
 
                     Dust.NewDust(position, projectile.height, projectile.width, DustID.WhiteTorch, newColor: new Color(128, 104, 207), Scale: 0.9f);
                 }
-            // }
-            // else
-            // {
-            //     if (Main.rand.NextBool(2))
-            //     {
-            //         Projectile.NewProjectile(projectile.GetSource_OnHit(target), target.Center, Vector2.Zero, ModContent.ProjectileType<DysphoriaShock>(),
-            //             projectile.damage, 6, projectile.owner, target.whoAmI);
-            //
-            //         SoundEngine.PlaySound(SoundID.DD2_EtherianPortalOpen, target.Center);
-            //     }
-            //     else if (target.HasBuff<DysphoriaMarked>())
-            //     {
-            //         Projectile.NewProjectile(projectile.GetSource_OnHit(target), target.Center, Vector2.Zero, ModContent.ProjectileType<DysphoriaExplosion>(),
-            //             projectile.damage, 8, projectile.owner, target.whoAmI);
-            //     }
-            // }
         }
 
         else if (_itemType == ModContent.ItemType<RosemaryThyme>())

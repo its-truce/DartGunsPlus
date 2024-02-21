@@ -58,14 +58,14 @@ public class DysphoriaBoom : ModProjectile
                 Main.EntitySpriteDraw(texture, drawPos + Main.rand.NextVector2Circular(i / 2, i / 2), frame,
                     new Color(col.R, col.G - i * 8, col.B, 0) * (1 - i * 0.04f), Projectile.oldRot[i] + Main.rand.NextFloat(-i * 0.01f, i * 0.01f),
                     frameOrigin, new Vector2(stretchscale.X - i * 0.05f, stretchscale.Y * Main.rand.NextFloat(0.1f, 0.05f) * Vector2.Distance(Projectile.oldPos[i],
-                        Projectile.oldPos[i + 1]) - i * 0.05f), SpriteEffects.None);
+                        Projectile.oldPos[i + 1]) - i * 0.05f) * new Vector2(1, 0.5f), SpriteEffects.None);
         }
 
         Main.EntitySpriteDraw(texture2, Projectile.Center - Main.screenPosition, frame2, new Color(255, 0, 0, 0), Projectile.rotation, frameOrigin2,
-            stretchscale, SpriteEffects.None);
+            stretchscale * new Vector2(1, 0.5f), SpriteEffects.None);
         col.A = 255;
         Main.EntitySpriteDraw(texture2, Projectile.Center - Main.screenPosition, frame2, col2 * Projectile.Opacity, Projectile.rotation, frameOrigin2,
-            Projectile.scale, SpriteEffects.None);
+            Projectile.scale * new Vector2(1, 0.5f), SpriteEffects.None);
 
         return true;
     }

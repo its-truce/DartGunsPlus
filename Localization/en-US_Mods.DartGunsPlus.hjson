@@ -374,6 +374,7 @@ Projectiles: {
 	ShotgunMusket.DisplayName: Shotgun Musket
 	DysphoriaBoom.DisplayName: Dysphoria Boom
 	DysphoriaMagnet.DisplayName: Dysphoria Magnet
+	DysphoriaNail.DisplayName: Dysphoria Nail
 }
 
 Buffs: {

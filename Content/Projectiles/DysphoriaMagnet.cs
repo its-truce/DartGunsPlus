@@ -63,10 +63,7 @@ public class DysphoriaMagnet : ModProjectile
             SoundEngine.PlaySound(AudioSystem.ReturnSound("timebomb"), Projectile.Center);
 
         if (Projectile.timeLeft == 10)
-        {
-            PopupSystem.PopUp("OVERLOADED!", _color, Projectile.Center - new Vector2(0, 80));
             SoundEngine.PlaySound(AudioSystem.ReturnSound("magnet"), Projectile.Center);
-        }
         
         if (Projectile.ai[0] != 666) // arbitary number that says not attached to npc
         {
@@ -77,12 +74,12 @@ public class DysphoriaMagnet : ModProjectile
             Projectile.rotation = _initialRot * dir;
 
             if (!Target.active)
-                Projectile.timeLeft = 10;
+                Projectile.timeLeft = 1;
         }
 
         foreach (Projectile proj in Main.projectile)
         {
-            if (proj.type == ModContent.ProjectileType<DysphoriaBolt>() && proj.active && proj.owner == Projectile.owner && proj.Hitbox.Intersects(Projectile.Hitbox))
+            if (proj.type == ModContent.ProjectileType<DysphoriaNail>() && proj.active && proj.owner == Projectile.owner && proj.Hitbox.Intersects(Projectile.Hitbox))
             {
                 proj.Kill();
                 Projectile.timeLeft -= 3;
@@ -121,7 +118,10 @@ public class DysphoriaMagnet : ModProjectile
         for (int i = 0; i < _magnetCount; i++)
         {
             Projectile.NewProjectile(Projectile.GetSource_Death(), Projectile.Center, new Vector2(4).RotatedByRandom(MathF.Tau),
-                ModContent.ProjectileType<DysphoriaBolt>(), Projectile.damage, 3, Projectile.owner);
+                ModContent.ProjectileType<DysphoriaBolt>(), Projectile.damage, 3, Projectile.owner, ai1: 1);
         }
+
+        Projectile.NewProjectile(Projectile.GetSource_Death(), Projectile.Center, Vector2.Zero, ModContent.ProjectileType<DysphoriaExplosion>(),
+            Projectile.damage * 2 + _magnetCount / 2, 9, Projectile.owner);
     }
 }

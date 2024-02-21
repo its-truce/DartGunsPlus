@@ -84,7 +84,7 @@ public class Crystals : ModProjectile
 
         Main.EntitySpriteDraw(textureGlow, Projectile.Center - Main.screenPosition, null, _color * 0.1f, Projectile.rotation,
             textureGlow.Size() / 2, Projectile.scale * 0.12f * _scale, effects);
-        Main.EntitySpriteDraw(texture, drawPos, frame, Color.White, Projectile.rotation,
+        Main.EntitySpriteDraw(texture, drawPos, frame, Color.White * Projectile.Opacity, Projectile.rotation,
             frame.Size() / 2, Projectile.scale * _scale, effects);
 
         return false;

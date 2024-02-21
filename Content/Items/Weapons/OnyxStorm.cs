@@ -14,7 +14,7 @@ public class OnyxStorm : ModItem
 
     public override void SetDefaults()
     {
-        Item.DefaultToRangedWeapon(ProjectileID.PurificationPowder, AmmoID.Dart, 28, 13, true);
+        Item.DefaultToRangedWeapon(ProjectileID.PurificationPowder, AmmoID.Dart, 48, 13, true);
         Item.width = 44;
         Item.height = 18;
         Item.rare = ItemRarityID.LightRed;
@@ -23,7 +23,6 @@ public class OnyxStorm : ModItem
 
         Item.damage = 40;
         Item.knockBack = 6.5f;
-        Item.reuseDelay = 20;
     }
 
     public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)

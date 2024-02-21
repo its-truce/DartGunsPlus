@@ -16,8 +16,8 @@ public class CherryBlossom : ModItem
     public override void SetDefaults()
     {
         Item.DefaultToRangedWeapon(ProjectileID.PurificationPowder, AmmoID.Dart, 42, 13, true);
-        Item.width = 66;
-        Item.height = 24;
+        Item.width = 68;
+        Item.height = 26;
         Item.rare = ItemRarityID.Orange;
 
         Item.UseSound = AudioSystem.ReturnSound("shotgun", 0.4f, 0.75f);
@@ -65,7 +65,7 @@ public class CherryBlossom : ModItem
 
     public override Vector2? HoldoutOffset()
     {
-        return new Vector2(-2f, -2f);
+        return new Vector2(-8f, -2f);
     }
 
     public override void UseStyle(Player player, Rectangle heldItemFrame)

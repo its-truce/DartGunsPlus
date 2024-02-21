@@ -13,7 +13,7 @@ public class DartStorm : ModItem
     private float _initialItemRot;
     public override void SetDefaults()
     {
-        Item.DefaultToRangedWeapon(ProjectileID.PurificationPowder, AmmoID.Dart, 20, 11, true);
+        Item.DefaultToRangedWeapon(ProjectileID.PurificationPowder, AmmoID.Dart, 40, 11, true);
         Item.width = 38;
         Item.height = 22;
         Item.rare = ItemRarityID.Green;
@@ -22,7 +22,6 @@ public class DartStorm : ModItem
 
         Item.damage = 14;
         Item.knockBack = 6f;
-        Item.reuseDelay = 20;
     }
 
     public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)

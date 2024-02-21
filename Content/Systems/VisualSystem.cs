@@ -1,4 +1,5 @@
-﻿using Microsoft.Xna.Framework;
+﻿using System;
+using Microsoft.Xna.Framework;
 using Terraria;
 
 namespace DartGunsPlus.Content.Systems;
@@ -41,8 +42,16 @@ public static class VisualSystem
 
     public static void RecoilAnimation(Player player, float initialItemRot, float degrees)
     {
-        float progress = (float)player.itemAnimation / player.itemAnimationMax;
+        float progress = Math.Clamp((float)player.itemAnimation / player.itemAnimationMax * 0.7f, 0, 1);
+        
         player.itemRotation = (float)Utils.Lerp(player.itemRotation, initialItemRot - MathHelper.ToRadians(degrees * player.direction),
             1 - progress);
+
+        if (player.itemAnimation < player.itemAnimationMax * 0.3f)
+        {
+            float downProgress = Math.Clamp((player.itemAnimationMax * 0.7f - player.itemAnimation) / player.itemAnimationMax * 1.5f, 0, 1);
+            player.itemRotation = (float)Utils.Lerp(player.itemRotation, initialItemRot,
+                downProgress);
+        }
     }
 }

@@ -372,6 +372,8 @@ Projectiles: {
 	CrystalShock.DisplayName: Crystal Shock
 	ShockwaveProjectile.DisplayName: Shockwave Projectile
 	ShotgunMusket.DisplayName: Shotgun Musket
+	DysphoriaBoom.DisplayName: Dysphoria Boom
+	DysphoriaMagnet.DisplayName: Dysphoria Magnet
 }
 
 Buffs: {

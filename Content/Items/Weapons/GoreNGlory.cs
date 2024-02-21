@@ -91,12 +91,14 @@ public class GoreNGlory : ModItem
             Item.knockBack = 8;
             Item.UseSound = AudioSystem.ReturnSound("slash", 0.3f);
             Item.noUseGraphic = true;
+            Item.reuseDelay = 6;
         }
         else
         {
             Item.knockBack = 6;
             Item.UseSound = AudioSystem.ReturnSound("ping", 0.3f);
             Item.noUseGraphic = false;
+            Item.reuseDelay = 0;
         }
 
         return base.CanUseItem(player);

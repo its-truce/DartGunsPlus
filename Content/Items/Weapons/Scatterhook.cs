@@ -14,7 +14,7 @@ public class Scatterhook : ModItem
 
     public override void SetDefaults()
     {
-        Item.DefaultToRangedWeapon(ProjectileID.PurificationPowder, AmmoID.Dart, 25, 16, true);
+        Item.DefaultToRangedWeapon(ProjectileID.PurificationPowder, AmmoID.Dart, 45, 16, true);
         Item.width = 72;
         Item.height = 20;
         Item.rare = ItemRarityID.Lime;
@@ -23,7 +23,6 @@ public class Scatterhook : ModItem
 
         Item.damage = 40;
         Item.knockBack = 8f;
-        Item.reuseDelay = 20;
     }
 
     public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)

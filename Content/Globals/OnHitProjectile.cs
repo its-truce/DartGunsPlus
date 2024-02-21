@@ -147,38 +147,38 @@ public class OnHitProjectile : GlobalProjectile
             bool purple = projectile.ai[2] % 2 == 0;
             Color color = purple ? new Color(185, 133, 240) : new Color(55, 224, 112);
 
-            if (purple)
-            {
-                target.AddBuff(ModContent.BuffType<DysphoriaMarked>(), 120);
-                if (Main.rand.NextBool(2))
-                    for (int i = 0; i < 4; i++)
-                    {
-                        VisualSystem.SpawnDustCircle(target.Center, DustID.RainbowRod, 30, color: color);
-
-                        Vector2 position = target.Center + new Vector2(200, 200).RotatedByRandom(Math.Tau);
-                        Vector2 velocity = position.DirectionTo(target.Center) * 6;
-
-                        Projectile.NewProjectile(projectile.GetSource_OnHit(target), position, velocity, ModContent.ProjectileType<DysphoriaBolt>(),
-                            projectile.damage / 2, 3);
-
-                        Dust.NewDust(position, projectile.height, projectile.width, DustID.WhiteTorch, newColor: new Color(128, 104, 207), Scale: 0.9f);
-                    }
-            }
-            else
-            {
-                if (Main.rand.NextBool(2))
+            // if (purple)
+            // {
+            target.AddBuff(ModContent.BuffType<DysphoriaMarked>(), 120);
+            if (Main.rand.NextBool(2))
+                for (int i = 0; i < 4; i++)
                 {
-                    Projectile.NewProjectile(projectile.GetSource_OnHit(target), target.Center, Vector2.Zero, ModContent.ProjectileType<DysphoriaShock>(),
-                        projectile.damage, 6, projectile.owner, target.whoAmI);
+                    VisualSystem.SpawnDustCircle(target.Center, DustID.RainbowRod, 30, color: color);
 
-                    SoundEngine.PlaySound(SoundID.DD2_EtherianPortalOpen, target.Center);
+                    Vector2 position = target.Center + new Vector2(200, 200).RotatedByRandom(Math.Tau);
+                    Vector2 velocity = position.DirectionTo(target.Center) * 6;
+
+                    Projectile.NewProjectile(projectile.GetSource_OnHit(target), position, velocity, ModContent.ProjectileType<DysphoriaBolt>(),
+                        projectile.damage / 2, 3);
+
+                    Dust.NewDust(position, projectile.height, projectile.width, DustID.WhiteTorch, newColor: new Color(128, 104, 207), Scale: 0.9f);
                 }
-                else if (target.HasBuff<DysphoriaMarked>())
-                {
-                    Projectile.NewProjectile(projectile.GetSource_OnHit(target), target.Center, Vector2.Zero, ModContent.ProjectileType<DysphoriaExplosion>(),
-                        projectile.damage, 8, projectile.owner, target.whoAmI);
-                }
-            }
+            // }
+            // else
+            // {
+            //     if (Main.rand.NextBool(2))
+            //     {
+            //         Projectile.NewProjectile(projectile.GetSource_OnHit(target), target.Center, Vector2.Zero, ModContent.ProjectileType<DysphoriaShock>(),
+            //             projectile.damage, 6, projectile.owner, target.whoAmI);
+            //
+            //         SoundEngine.PlaySound(SoundID.DD2_EtherianPortalOpen, target.Center);
+            //     }
+            //     else if (target.HasBuff<DysphoriaMarked>())
+            //     {
+            //         Projectile.NewProjectile(projectile.GetSource_OnHit(target), target.Center, Vector2.Zero, ModContent.ProjectileType<DysphoriaExplosion>(),
+            //             projectile.damage, 8, projectile.owner, target.whoAmI);
+            //     }
+            // }
         }
 
         else if (_itemType == ModContent.ItemType<RosemaryThyme>())

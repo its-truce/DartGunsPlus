@@ -1,3 +1,4 @@
+using DartGunsPlus.Content.Projectiles;
 using DartGunsPlus.Content.Systems;
 using Microsoft.Xna.Framework;
 using Terraria;
@@ -14,7 +15,7 @@ public class TrueDysphoria : ModItem
 
     public override void SetDefaults()
     {
-        Item.DefaultToRangedWeapon(ProjectileID.PurificationPowder, AmmoID.Dart, 20, 16, true);
+        Item.DefaultToRangedWeapon(ProjectileID.PurificationPowder, AmmoID.Dart, 12, 16, true);
         Item.width = 60;
         Item.height = 36;
         Item.rare = ItemRarityID.Yellow;
@@ -23,6 +24,11 @@ public class TrueDysphoria : ModItem
 
         Item.damage = 54;
         Item.knockBack = 4.5f;
+    }
+
+    public override bool AltFunctionUse(Player player)
+    {
+        return true;
     }
 
     public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
@@ -34,7 +40,7 @@ public class TrueDysphoria : ModItem
             IndexOfPlayerWhoInvokedThis = (byte)player.whoAmI
         };
         ParticleOrchestrator.SpawnParticlesDirect(ParticleOrchestraType.NightsEdge, settings);
-
+        
         Projectile.NewProjectile(source, position, velocity, type, damage, knockback, player.whoAmI, ai2: _shootCount);
         _shootCount++;
         return false;
@@ -48,6 +54,20 @@ public class TrueDysphoria : ModItem
         {
             position += muzzleOffset;
             position.Y--;
+        }
+
+        if (player.altFunctionUse == 2)
+        {
+            if (player.ownedProjectileCounts[ModContent.ProjectileType<DysphoriaBoom>()] == 0 &&
+                player.ownedProjectileCounts[ModContent.ProjectileType<DysphoriaMagnet>()] == 0)
+            {
+                type = ModContent.ProjectileType<DysphoriaBoom>();
+                damage += damage / 2;
+                knockback *= 1.5f;
+                velocity *= 0.75f;
+            }
+            else
+                PopupSystem.PopUp("Magnet already deployed!", new Color(55, 224, 112), player.Center - new Vector2(0, 70));
         }
     }
 

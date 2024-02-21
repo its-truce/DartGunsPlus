@@ -23,7 +23,7 @@ public class DartTrailProjectile : GlobalProjectile
         ModContent.ProjectileType<DysphoriaShock>(), ModContent.ProjectileType<DysphoriaExplosion>(), ModContent.ProjectileType<SereneBolt>(),
         ModContent.ProjectileType<SereneShock>(), ModContent.ProjectileType<SereneSlash>(), ModContent.ProjectileType<EmpressLaser>(),
         ModContent.ProjectileType<EmpressBolt>(), ModContent.ProjectileType<LilEmpress>(), ModContent.ProjectileType<LaserLightning>(),
-        ModContent.ProjectileType<HomingLightning>()
+        ModContent.ProjectileType<HomingLightning>(), ModContent.ProjectileType<DysphoriaBoom>()
     };
 
     private readonly int[] _validItems =

@@ -10,6 +10,7 @@ namespace DartGunsPlus.Content.Projectiles;
 public class DysphoriaBolt : ModProjectile
 {
     private float _scale = 0.2f;
+    private Projectile _proj;
     public override string Texture => "DartGunsPlus/Content/Projectiles/Bolt";
 
     public override void SetStaticDefaults()
@@ -29,6 +30,8 @@ public class DysphoriaBolt : ModProjectile
         Projectile.tileCollide = false;
         Projectile.friendly = true;
         Projectile.timeLeft = 600;
+        Projectile.usesLocalNPCImmunity = true;
+        Projectile.localNPCHitCooldown = 20;
     }
 
     public override void AI()
@@ -38,12 +41,27 @@ public class DysphoriaBolt : ModProjectile
         if (_scale < 1)
             _scale *= 1.03f;
 
-        if (Projectile.FindTargetWithLineOfSight(1000f) != -1)
-            Projectile.velocity = Vector2.Lerp(Projectile.DirectionTo(Main.npc[Projectile.FindTargetWithLineOfSight(1000f)].Center) * 10,
+        foreach (Projectile proj in Main.projectile)
+        {
+            if (proj.type == ModContent.ProjectileType<DysphoriaMagnet>() && proj.active && proj.owner == Projectile.owner)
+                _proj = proj;
+        }
+
+        if (_proj != null)
+        {
+            Projectile.velocity = Vector2.Lerp(Projectile.DirectionTo(_proj.Center) * 10,
+                Projectile.velocity, 0.4f);
+        }
+        else if (Projectile.FindTargetWithinRange(1000) != null)
+        {
+            Projectile.velocity = Vector2.Lerp(Projectile.DirectionTo(Projectile.FindTargetWithinRange(1000).Center) * 10,
                 Projectile.velocity, 0.3f);
+        }
         else
+        {
             Projectile.velocity = Vector2.Lerp(Projectile.velocity.SafeNormalize(Projectile.velocity) * 10,
                 Projectile.velocity, 0.3f);
+        }
 
         Projectile.rotation = Projectile.velocity.ToRotation();
 

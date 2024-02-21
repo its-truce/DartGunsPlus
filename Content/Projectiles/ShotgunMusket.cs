@@ -30,7 +30,7 @@ public class ShotgunMusket : ModProjectile
 
     public override void OnSpawn(IEntitySource source)
     {
-        Projectile.timeLeft = Owner.inventory[Owner.selectedItem].useTime;
+        Projectile.timeLeft = (int)(Owner.inventory[Owner.selectedItem].useTime * 0.7f);
     }
 
     public override void AI()

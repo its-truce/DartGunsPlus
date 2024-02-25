@@ -1,4 +1,5 @@
 using System;
+using DartGunsPlus.Content.Systems;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Terraria;
@@ -100,5 +101,7 @@ public class DysphoriaBoom : ModProjectile
         Projectile proj = Projectile.NewProjectileDirect(Projectile.GetSource_Death(), Projectile.Center, Vector2.Zero, ModContent.ProjectileType<DysphoriaMagnet>(),
             Projectile.damage, 8, Projectile.owner, target.whoAmI);
         proj.rotation = target.DirectionTo(Projectile.Center).ToRotation();
+        
+        VisualSystem.SpawnDustCircle(target.Center, DustID.RainbowRod, 30, color: _color);
     }
 }

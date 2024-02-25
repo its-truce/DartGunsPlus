@@ -1,5 +1,4 @@
 using System;
-using System.Collections.Generic;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Terraria;
@@ -31,7 +30,7 @@ class EuphoriaRay : Deathray
         Projectile.tileCollide = false;
         Projectile.hostile = false;
         Projectile.friendly = false;
-        Projectile.timeLeft = 600;
+        Projectile.timeLeft = 420;
         Projectile.usesLocalNPCImmunity = true;
         Projectile.localNPCHitCooldown = 15;
         MoveDistance = 0f;
@@ -46,7 +45,7 @@ class EuphoriaRay : Deathray
         Scale = 0.1f;
         RealMaxDistance = Size;
 
-        Color[] colors = { new Color(255, 238, 80, 50), new Color(255, 122, 200, 50), new Color(66, 66, 200, 50) };
+        Color[] colors = { new Color(255, 238, 80, 50), new Color(255, 122, 200, 50), new Color(90, 90, 200, 50) };
         _color = Main.rand.NextFromList(colors);
     }
 
@@ -64,6 +63,7 @@ class EuphoriaRay : Deathray
     {
         Projectile.rotation = Projectile.velocity.ToRotation();
         Projectile.localAI[0]++;
+        RealMaxDistance = MaxDistance = Size;
 
         if (Expand != 0)
         {

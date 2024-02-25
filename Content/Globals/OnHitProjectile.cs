@@ -214,13 +214,24 @@ public class OnHitProjectile : GlobalProjectile
                 List<Projectile> rays = new List<Projectile>();
                 foreach (Projectile proj in Main.projectile)
                 {
-                    if (proj.active && proj.type == ModContent.ProjectileType<EuphoriaRay>() && proj.owner == projectile.owner && proj.localAI[1] == target.whoAmI && 
-                        proj.ai[2] == 0)
-                        rays.Add(proj);
+                    if (proj.active && proj.type == ModContent.ProjectileType<EuphoriaRay>() && proj.owner == projectile.owner && proj.localAI[1] == target.whoAmI)
+                    {
+                        if (proj.ai[2] == 0)
+                            rays.Add(proj);
+                        
+                        if (proj.ai[1] < 160)
+                            proj.ai[1] += 10; // size
+                    }
                 }
                 
                 Projectile targetProj = Main.rand.NextFromCollection(rays);
                 targetProj.ai[2] = 1; // expand
+                
+                foreach (Projectile proj in Main.projectile)
+                {
+                    if (proj.active && proj.type == ModContent.ProjectileType<RevolvingSword>() && proj.owner == projectile.owner && proj.ai[2] == target.whoAmI)
+                        proj.ai[1] += 5; // rot dist
+                }
             }
         }
 

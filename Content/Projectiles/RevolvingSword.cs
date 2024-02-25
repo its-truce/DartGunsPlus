@@ -27,26 +27,26 @@ public class RevolvingSword : ModProjectile
         Projectile.ignoreWater = true;
         Projectile.tileCollide = false;
         Projectile.friendly = true;
-        Projectile.timeLeft = 600;
+        Projectile.timeLeft = 420;
         Projectile.Opacity = 0;
     }
 
     public override void OnSpawn(IEntitySource source)
     {
         DeathrayOffset = MathHelper.ToRadians(Main.rand.Next(-45, 45));
-        RotationDist = 90;
+        RotationDist = 70;
         _deathray = Projectile.NewProjectileDirect(Projectile.GetSource_ReleaseEntity(), Target.Center, new Vector2(-1, 0), 
-            ModContent.ProjectileType<EuphoriaRay>(), Projectile.damage, 3, Projectile.owner, 0.1f, 140);
+            ModContent.ProjectileType<EuphoriaRay>(), Projectile.damage, 3, Projectile.owner, 0.1f, 100);
     }
 
     public override void AI()
     {
-        if (Projectile.timeLeft > 579)
+        if (Projectile.timeLeft > 399)
             FadingSystem.FadeIn(Projectile, 20);
         if (Projectile.timeLeft < 21)
             FadingSystem.FadeOut(Projectile, 20);
         
-        RotationOffset += MathHelper.ToRadians(1.5f);
+        RotationOffset += MathHelper.ToRadians(2);
         Projectile.Center = Target.Center + new Vector2(RotationDist, 0).RotatedBy(RotationOffset);
         Projectile.velocity = Vector2.Zero;
         
@@ -79,5 +79,15 @@ public class RevolvingSword : ModProjectile
 
         Main.EntitySpriteDraw(texture, drawPos, null, color, Projectile.rotation, drawOrigin, Projectile.scale * 0.8f, SpriteEffects.None);
         return false;
+    }
+
+    public override void OnKill(int timeLeft)
+    {
+        if (Main.rand.NextBool(6))
+        {
+            Projectile.NewProjectile(Projectile.GetSource_Death(), Target.Center, Vector2.Zero, ModContent.ProjectileType<DysphoriaExplosion>(),
+                Projectile.damage * 2, 9, Projectile.owner, ai1: 1);
+            CameraSystem.Screenshake(8, 6);
+        }
     }
 }

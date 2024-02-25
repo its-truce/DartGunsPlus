@@ -9,7 +9,7 @@ namespace DartGunsPlus.Content.Projectiles;
 	
 abstract class Deathray : ModProjectile
 {
-	protected float MoveDistance = 20f;
+	protected float MoveDistance = 100f;
 	protected float RealMaxDistance = 100f;
 	protected float MaxDistance = 100f;
 	protected Rectangle BodyRect = new();

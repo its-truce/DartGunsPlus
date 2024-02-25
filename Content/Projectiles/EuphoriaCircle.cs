@@ -88,9 +88,5 @@ public class EuphoriaCircle : ModProjectile
     public override void OnKill(int timeLeft)
     {
         SoundEngine.PlaySound(SoundID.MaxMana, Projectile.Center);
-
-        int projType = Projectile.ai[1] == 1 ? ModContent.ProjectileType<EuphoriaSword>() : ModContent.ProjectileType<EuphoriaSpear>();
-        Projectile.NewProjectile(Projectile.GetSource_Death(), Projectile.Center - new Vector2(0, 600), new Vector2(0, 10), projType,
-            Projectile.damage, 6, Projectile.owner);
     }
 }

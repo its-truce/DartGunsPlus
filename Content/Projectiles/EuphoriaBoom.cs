@@ -87,7 +87,7 @@ public class EuphoriaBoom : ModProjectile
         for (int i = 0; i < 6; i++)
         {
             Projectile.NewProjectile(Projectile.GetSource_Death(), target.Center, Vector2.Zero, ModContent.ProjectileType<RevolvingSword>(),
-                Projectile.damage, 7, Projectile.owner, MathHelper.ToRadians(60 * i), 90, target.whoAmI);
+                Projectile.damage, 7, Projectile.owner, MathHelper.ToRadians(60 * i), 70, target.whoAmI);
         }
         
         VisualSystem.SpawnDustCircle(target.Center, DustID.RainbowRod, 30, color: Color.Lerp(new Color(255, 255, 125), Color.LightBlue, 

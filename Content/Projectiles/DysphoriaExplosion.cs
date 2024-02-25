@@ -11,7 +11,7 @@ namespace DartGunsPlus.Content.Projectiles;
 
 public class DysphoriaExplosion : ModProjectile
 {
-    private readonly Color _color = Color.Lerp(new Color(185, 133, 240), new Color(55, 224, 112), Main.masterColor) * 0.4f;
+    private Color _color = Color.Lerp(new Color(185, 133, 240), new Color(55, 224, 112), Main.masterColor) * 0.4f;
     public override string Texture => "DartGunsPlus/Content/Systems/Spotlight";
     private Player Owner => Main.player[Projectile.owner];
 
@@ -62,6 +62,8 @@ public class DysphoriaExplosion : ModProjectile
             SoundEngine.PlaySound(AudioSystem.ReturnSound("rocket"), Projectile.Center);
 
         Projectile.ai[0] += 1 / 40; // for lerp
+        _color = Projectile.ai[1] == 0 ? Color.Lerp(new Color(185, 133, 240), new Color(55, 224, 112), Main.masterColor) * 0.4f
+                : Color.Lerp(new Color(255, 255, 125), Color.LightBlue, Main.masterColor) * 0.4f;
     }
 
     public override bool PreDraw(ref Color lightColor)
@@ -74,7 +76,9 @@ public class DysphoriaExplosion : ModProjectile
         Color color = _color;
         color.A = 0;
 
-        Main.EntitySpriteDraw(texture2, drawPos, null, Color.Lerp(new Color(32, 206, 117, 0), color, 0.4f),
+        Color color2 = Projectile.ai[1] == 0 ? new Color(32, 206, 117, 0) : new Color(255, 122, 200, 0);
+
+        Main.EntitySpriteDraw(texture2, drawPos, null, Color.Lerp(color2, color, 0.4f),
             Projectile.rotation, texture2.Size() / 2, 2f - Projectile.scale, SpriteEffects.None);
         Main.EntitySpriteDraw(texture, drawPos, null, Color.Lerp(new Color(255, 255, 255, 0), color, 0.3f),
             Projectile.rotation, texture.Size() / 2, Projectile.scale, SpriteEffects.None);
@@ -95,9 +99,9 @@ public class DysphoriaExplosion : ModProjectile
         Color color = _color;
         color.A = 0;
 
-        Color color1 = Color.Lerp(new Color(32, 206, 117, 0), color, Projectile.ai[0]);
-        Color color2 = Color.Lerp(Color.BlueViolet, color, 0.6f);
-        Color color3 = Color.Lerp(Color.SeaGreen, color, 0.1f);
+        Color color1 = Color.Lerp(Projectile.ai[1] == 0 ? new Color(32, 206, 117, 0) : Color.LightPink, color, Projectile.ai[0]);
+        Color color2 = Color.Lerp(Projectile.ai[1] == 0 ? Color.BlueViolet : Color.Yellow, color, 0.6f);
+        Color color3 = Color.Lerp(Projectile.ai[1] == 0 ? Color.SeaGreen : Color.LightBlue, color, 0.1f);
         color1.A = 0;
         color2.A = 0;
         color3.A = 0;

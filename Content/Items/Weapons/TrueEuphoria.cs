@@ -12,6 +12,7 @@ namespace DartGunsPlus.Content.Items.Weapons;
 public class TrueEuphoria : ModItem
 {
     private int _shootCount;
+    private float _initialItemRot;
 
     public override void SetDefaults()
     {
@@ -43,7 +44,7 @@ public class TrueEuphoria : ModItem
 
         Projectile.NewProjectile(source, position, velocity, type, damage, knockback, player.whoAmI, ai2: _shootCount);
         _shootCount++;
-        
+        _initialItemRot = player.itemRotation;
         return false;
     }
 
@@ -74,6 +75,12 @@ public class TrueEuphoria : ModItem
     public override Vector2? HoldoutOffset()
     {
         return new Vector2(-2f, -2f);
+    }
+    
+    public override void UseStyle(Player player, Rectangle heldItemFrame)
+    {
+        if (player.altFunctionUse == 2)
+            VisualSystem.RecoilAnimation(player, _initialItemRot, 20);
     }
 
     public override void AddRecipes()

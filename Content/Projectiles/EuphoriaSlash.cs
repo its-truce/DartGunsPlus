@@ -39,12 +39,12 @@ public class EuphoriaSlash : ModProjectile
 
     public override void AI()
     {
-        FadingSystem.FadeOut(Projectile, 10);
+        FadingSystem.FadeIn(Projectile, 5);
 
         if (Projectile.timeLeft <= 7)
             FadingSystem.FadeOut(Projectile, 7);
 
-        Projectile.velocity *= 0.97f;
+        Projectile.velocity *= 0.96f;
         Projectile.rotation = Projectile.velocity.ToRotation() + MathHelper.ToRadians(47);
 
         Lighting.AddLight(Projectile.Center, Color.Gold.ToVector3());
@@ -63,11 +63,11 @@ public class EuphoriaSlash : ModProjectile
 
         Vector2 drawOrigin = texture.Size() / 2;
         Vector2 drawPos = Projectile.Center - Main.screenPosition;
-        Color color = new Color(255, 255, 100) * Projectile.Opacity;
+        Color color = new Color(255, 255, 120) * Projectile.Opacity;
 
         color.A = 0;
 
-        Main.EntitySpriteDraw(texture, drawPos, null, color, Projectile.rotation, drawOrigin, Projectile.scale, SpriteEffects.None);
+        Main.EntitySpriteDraw(texture, drawPos, null, color, Projectile.rotation, drawOrigin, Projectile.scale * 0.8f, SpriteEffects.None);
         return false;
     }
 

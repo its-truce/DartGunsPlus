@@ -10,5 +10,5 @@ public class ZapperRevolving : RevolvingGun
     protected override int ProjectileToShoot => ModContent.ProjectileType<DartProjectile>();
     protected override float ShotVelocity => 8;
     protected override Color LightColor => Color.Brown;
-    protected override float[] InputsAI => new float[] { default, default, 5 };
+    protected override float[] InputsAI => new float[] { default, default, -1 };
 }

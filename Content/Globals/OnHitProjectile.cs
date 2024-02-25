@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using DartGunsPlus.Content.Items.Weapons;
 using DartGunsPlus.Content.Items.Weapons.Styx;
@@ -192,7 +193,7 @@ public class OnHitProjectile : GlobalProjectile
             if (Main.rand.NextBool(3))
             {
                 Vector2 spawnPos = target.Center + new Vector2(120, 0).RotatedByRandom(Math.Tau);
-                Projectile.NewProjectile(projectile.GetSource_OnHit(target), spawnPos, spawnPos.DirectionTo(target.Center) * 9,
+                Projectile.NewProjectile(projectile.GetSource_OnHit(target), spawnPos, spawnPos.DirectionTo(target.Center) * 12,
                     ModContent.ProjectileType<EuphoriaSlash>(), (int)(damageDone * 0.75f), 3, projectile.owner);
             }
         }
@@ -207,9 +208,20 @@ public class OnHitProjectile : GlobalProjectile
             };
             ParticleOrchestrator.SpawnParticlesDirect(ParticleOrchestraType.TrueExcalibur, settings);
 
-            if (Main.rand.NextBool(3))
-                Projectile.NewProjectile(projectile.GetSource_OnHit(target), target.Center + new Vector2(0, 30), Vector2.Zero,
-                    ModContent.ProjectileType<EuphoriaCircle>(), damageDone, 0, projectile.owner, target.whoAmI);
+            Player owner = Main.player[projectile.owner];
+            if (owner.ownedProjectileCounts[ModContent.ProjectileType<RevolvingSword>()] != 0)
+            {
+                List<Projectile> rays = new List<Projectile>();
+                foreach (Projectile proj in Main.projectile)
+                {
+                    if (proj.active && proj.type == ModContent.ProjectileType<EuphoriaRay>() && proj.owner == projectile.owner && proj.localAI[1] == target.whoAmI && 
+                        proj.ai[2] == 0)
+                        rays.Add(proj);
+                }
+                
+                Projectile targetProj = Main.rand.NextFromCollection(rays);
+                targetProj.ai[2] = 1; // expand
+            }
         }
 
         else if (_itemType == ModContent.ItemType<StellarFrenzy>())

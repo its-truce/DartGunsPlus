@@ -1,4 +1,4 @@
-using System;
+using DartGunsPlus.Content.Systems;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Terraria;
@@ -9,11 +9,10 @@ using Terraria.ModLoader;
 
 namespace DartGunsPlus.Content.Projectiles;
 
-public class DysphoriaBoom : ModProjectile
+public class EuphoriaBoom : ModProjectile
 {
-    private readonly Color _color = Color.Lerp(new Color(185, 133, 240), new Color(55, 224, 112), Main.masterColor) * 0.4f;
     public override string Texture => "DartGunsPlus/Content/Projectiles/EmptyTexture";
-
+    
     public override void SetStaticDefaults()
     {
         ProjectileID.Sets.TrailCacheLength[Projectile.type] = 30;
@@ -23,8 +22,8 @@ public class DysphoriaBoom : ModProjectile
     public override void SetDefaults()
     {
         Projectile.tileCollide = true;
-        Projectile.width = 16;
-        Projectile.height = 16;
+        Projectile.width = 12;
+        Projectile.height = 12;
         Projectile.aiStyle = -1;
         Projectile.friendly = true;
         Projectile.penetrate = 1;
@@ -45,7 +44,7 @@ public class DysphoriaBoom : ModProjectile
         Rectangle frame2 = texture2.Frame();
         Vector2 frameOrigin2 = frame2.Size() / 2f;
 
-        Color col = _color;
+        Color col = Color.Lerp(new Color(255, 255, 125), Color.LightBlue, Main.masterColor) * 0.4f;
         Color col2 = Color.Lerp(Color.White, Color.Black, Main.masterColor);
         Vector2 stretchscale = new(Projectile.scale * 1.4f + Main.masterColor / 2);
 
@@ -53,52 +52,45 @@ public class DysphoriaBoom : ModProjectile
         {
             col.A = 0;
             Vector2 drawPos = Projectile.oldPos[i] - Main.screenPosition + new Vector2(Projectile.width / 2);
-            
-            if (drawPos.Distance(Projectile.Center) > 15)
-                Main.EntitySpriteDraw(texture, drawPos + Main.rand.NextVector2Circular(i / 2, i / 2), frame,
-                    new Color(col.R, col.G - i * 8, col.B, 0) * (1 - i * 0.04f), Projectile.oldRot[i] + Main.rand.NextFloat(-i * 0.01f, i * 0.01f),
-                    frameOrigin, new Vector2(stretchscale.X - i * 0.05f, stretchscale.Y * Main.rand.NextFloat(0.1f, 0.05f) * Vector2.Distance(Projectile.oldPos[i],
-                        Projectile.oldPos[i + 1]) - i * 0.05f) * new Vector2(1, 0.5f), SpriteEffects.None);
+            Main.EntitySpriteDraw(texture, drawPos + Main.rand.NextVector2Circular(i / 2, i / 2), frame,
+                new Color(col.R, col.G - i * 8, col.B, 0) * (1 - i * 0.04f), Projectile.oldRot[i] + Main.rand.NextFloat(-i * 0.01f, i * 0.01f),
+                frameOrigin, new Vector2(stretchscale.X - i * 0.05f, stretchscale.Y * Main.rand.NextFloat(0.1f, 0.05f) * Vector2.Distance(Projectile.oldPos[i],
+                    Projectile.oldPos[i + 1]) - i * 0.05f) * new Vector2(0.5f, 1.3f), SpriteEffects.None);
         }
 
         Main.EntitySpriteDraw(texture2, Projectile.Center - Main.screenPosition, frame2, new Color(255, 0, 0, 0), Projectile.rotation, frameOrigin2,
-            stretchscale * new Vector2(1, 0.5f), SpriteEffects.None);
+            stretchscale * new Vector2(0.8f, 1.3f), SpriteEffects.None);
         col.A = 255;
         Main.EntitySpriteDraw(texture2, Projectile.Center - Main.screenPosition, frame2, col2 * Projectile.Opacity, Projectile.rotation, frameOrigin2,
-            Projectile.scale * new Vector2(1, 0.5f), SpriteEffects.None);
+            Projectile.scale * new Vector2(0.7f, 1.3f), SpriteEffects.None);
 
         return true;
     }
 
     public override void OnSpawn(IEntitySource source)
     {
-        for (int k = 0; k < Projectile.oldPos.Length; k++) 
-            Projectile.oldPos[k] = Projectile.position;
-    }
-
-    public override void AI()
-    {
-        Projectile.rotation = Projectile.velocity.ToRotation() + MathHelper.ToRadians(90);
+        for (int k = 0; k < Projectile.oldPos.Length; k++) Projectile.oldPos[k] = Projectile.position;
     }
 
     public override Color? GetAlpha(Color lightColor)
     {
         return Color.White * Projectile.Opacity;
     }
-
-    public override bool OnTileCollide(Vector2 oldVelocity)
+    
+    public override void AI()
     {
-        Projectile proj = Projectile.NewProjectileDirect(Projectile.GetSource_Death(), Projectile.Center + Projectile.oldVelocity, Vector2.Zero, ModContent.ProjectileType<DysphoriaMagnet>(),
-            Projectile.damage, 8, Projectile.owner, 666);
-        proj.rotation = Projectile.oldVelocity.ToRotation() + MathF.PI;
-        
-        return true;
+        Projectile.rotation = Projectile.velocity.ToRotation() + MathHelper.ToRadians(90);
     }
 
     public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
     {
-        Projectile proj = Projectile.NewProjectileDirect(Projectile.GetSource_Death(), Projectile.Center, Vector2.Zero, ModContent.ProjectileType<DysphoriaMagnet>(),
-            Projectile.damage, 8, Projectile.owner, target.whoAmI);
-        proj.rotation = target.DirectionTo(Projectile.Center).ToRotation();
+        for (int i = 0; i < 6; i++)
+        {
+            Projectile.NewProjectile(Projectile.GetSource_Death(), target.Center, Vector2.Zero, ModContent.ProjectileType<RevolvingSword>(),
+                Projectile.damage, 7, Projectile.owner, MathHelper.ToRadians(60 * i), 90, target.whoAmI);
+        }
+        
+        VisualSystem.SpawnDustCircle(target.Center, DustID.RainbowRod, 30, color: Color.Lerp(new Color(255, 255, 125), Color.LightBlue, 
+            Main.masterColor) * 0.4f);
     }
 }

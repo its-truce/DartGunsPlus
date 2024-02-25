@@ -123,5 +123,6 @@ public class DysphoriaMagnet : ModProjectile
 
         Projectile.NewProjectile(Projectile.GetSource_Death(), Projectile.Center, Vector2.Zero, ModContent.ProjectileType<DysphoriaExplosion>(),
             Projectile.damage * 2 + _magnetCount / 2, 9, Projectile.owner);
+        CameraSystem.Screenshake(8, 6);
     }
 }

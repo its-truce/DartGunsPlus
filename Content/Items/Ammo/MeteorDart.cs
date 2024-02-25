@@ -23,7 +23,7 @@ public class MeteorDart : ModItem
         Item.maxStack = Item.CommonMaxStack;
         Item.consumable = true;
         Item.knockBack = 1.3f;
-        Item.value = Item.sellPrice(copper: 1);
+        Item.value = Item.sellPrice(copper: 3);
         Item.rare = ItemRarityID.Blue;
         Item.shoot = ModContent.ProjectileType<MeteorDartProj>();
         Item.shootSpeed = 3.5f;

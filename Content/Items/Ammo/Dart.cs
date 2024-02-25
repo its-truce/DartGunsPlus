@@ -119,7 +119,7 @@ public class DartProjectile : ModProjectile
         Dust.NewDust(target.Center, target.width, target.height, DustID.Dirt);
 
         // zenith
-        if (Projectile.type == ModContent.ProjectileType<DartProjectile>() && Projectile.ai[2] == 5)
+        if (Projectile.type == ModContent.ProjectileType<DartProjectile>() && Projectile.ai[2] == -1)
             Projectile.NewProjectile(Projectile.GetSource_OnHit(target), target.Center, Vector2.Zero, ModContent.ProjectileType<ZapperLightning>(),
                 damageDone * 3, hit.Knockback, Projectile.owner);
     }

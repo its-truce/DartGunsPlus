@@ -43,17 +43,8 @@ public class PlanteraShooter : ModProjectile
 
     public override bool PreDraw(ref Color lightColor)
     {
-        DrawLine(Main.spriteBatch, _chainTexture, Projectile.Center, Owner.Center, Color.White * Projectile.Opacity);
+        VisualSystem.DrawLine(Main.spriteBatch, _chainTexture, Projectile.Center, Owner.Center, Color.White * Projectile.Opacity);
         return true;
-    }
-
-    private static void DrawLine(SpriteBatch spriteBatch, Texture2D texture, Vector2 start, Vector2 end, Color col)
-    {
-        float rotation = start.DirectionTo(end).ToRotation();
-        float scale = Vector2.Distance(start, end) / texture.Height;
-        Vector2 origin = Vector2.Zero;
-
-        spriteBatch.Draw(texture, start + new Vector2(0, 2) - Main.screenPosition, texture.Bounds, col, rotation, origin, new Vector2(scale, 1f), SpriteEffects.None, 0);
     }
 
     public override Color? GetAlpha(Color lightColor)

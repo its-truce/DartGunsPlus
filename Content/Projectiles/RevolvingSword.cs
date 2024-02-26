@@ -65,7 +65,7 @@ public class RevolvingSword : ModProjectile
             _deathray.Kill();
         }
 
-        if (Projectile.timeLeft == 1)
+        if (Projectile.timeLeft == 1) // explosion
         {
             List<Projectile> swords = Main.projectile
                 .Where(proj => proj.active && proj.type == Projectile.type && proj.owner == Projectile.owner)

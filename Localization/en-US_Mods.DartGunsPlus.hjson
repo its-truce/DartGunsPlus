@@ -280,6 +280,11 @@ Items: {
 		DisplayName: Trapping Dart
 		Tooltip: ""
 	}
+
+	GrappleGun: {
+		DisplayName: Grapple Gun
+		Tooltip: ""
+	}
 }
 
 Projectiles: {
@@ -385,6 +390,7 @@ Projectiles: {
 	RevolvingSword.DisplayName: Revolving Sword
 	EuphoriaRay.DisplayName: Euphoria Ray
 	EuphoriaBoom.DisplayName: Euphoria Boom
+	Hook.DisplayName: Hook
 }
 
 Buffs: {

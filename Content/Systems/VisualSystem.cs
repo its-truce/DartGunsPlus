@@ -1,5 +1,6 @@
 ﻿using System;
 using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
 using Terraria;
 
 namespace DartGunsPlus.Content.Systems;
@@ -53,5 +54,15 @@ public static class VisualSystem
             player.itemRotation = (float)Utils.Lerp(player.itemRotation, initialItemRot,
                 downProgress);
         }
+    }
+    
+    public static void DrawLine(SpriteBatch spriteBatch, Texture2D texture, Vector2 start, Vector2 end, Color col)
+    {
+        float rotation = start.DirectionTo(end).ToRotation();
+        float scale = Vector2.Distance(start, end) / texture.Height;
+        Vector2 origin = Vector2.Zero;
+
+        spriteBatch.Draw(texture, start + new Vector2(0, 2) - Main.screenPosition, texture.Bounds, col, rotation, origin, new Vector2(scale, 1f),
+            SpriteEffects.None, 0);
     }
 }

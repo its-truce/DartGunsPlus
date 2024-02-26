@@ -1,5 +1,6 @@
 using System;
 using DartGunsPlus.Content.Systems;
+using DartGunsPlus.Content.UI;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Terraria;
@@ -14,6 +15,8 @@ public class DysphoriaBoom : ModProjectile
 {
     private readonly Color _color = Color.Lerp(new Color(185, 133, 240), new Color(55, 224, 112), Main.masterColor) * 0.4f;
     public override string Texture => "DartGunsPlus/Content/Projectiles/EmptyTexture";
+    private ref float TimeLeft => ref Projectile.ai[0];
+    private Player Owner => Main.player[Projectile.owner];
 
     public override void SetStaticDefaults()
     {
@@ -29,7 +32,7 @@ public class DysphoriaBoom : ModProjectile
         Projectile.aiStyle = -1;
         Projectile.friendly = true;
         Projectile.penetrate = 1;
-        Projectile.timeLeft = 600;
+        Projectile.timeLeft = 30;
         Projectile.DamageType = DamageClass.Ranged;
         Projectile.extraUpdates = 1;
     }
@@ -75,6 +78,10 @@ public class DysphoriaBoom : ModProjectile
     {
         for (int k = 0; k < Projectile.oldPos.Length; k++) 
             Projectile.oldPos[k] = Projectile.position;
+        
+        DysphoriaPlayer dysphoriaPlayer = Owner.GetModPlayer<DysphoriaPlayer>();
+        Projectile.timeLeft = (int)TimeLeft;
+        dysphoriaPlayer.DysphoriaCurrent = 0;
     }
 
     public override void AI()
@@ -85,6 +92,20 @@ public class DysphoriaBoom : ModProjectile
     public override Color? GetAlpha(Color lightColor)
     {
         return Color.White * Projectile.Opacity;
+    }
+    
+    public override void OnKill(int timeLeft)
+    {
+        for (int i = 0; i < 30; i++)
+        {
+            Dust dust = Dust.NewDustDirect(Projectile.position, 100, 100, DustID.WhiteTorch, 0f, 0f, 100,
+                new Color(185, 133, 240), 2f);
+            dust.noGravity = true;
+            dust.velocity *= 5f;
+            dust = Dust.NewDustDirect(Projectile.position, 100, 100, DustID.WhiteTorch, 0f, 0f, 100,
+                new Color(55, 224, 112));
+            dust.velocity *= 3f;
+        }
     }
 
     public override bool OnTileCollide(Vector2 oldVelocity)
@@ -101,7 +122,5 @@ public class DysphoriaBoom : ModProjectile
         Projectile proj = Projectile.NewProjectileDirect(Projectile.GetSource_Death(), Projectile.Center, Vector2.Zero, ModContent.ProjectileType<DysphoriaMagnet>(),
             Projectile.damage, 8, Projectile.owner, target.whoAmI);
         proj.rotation = target.DirectionTo(Projectile.Center).ToRotation();
-        
-        VisualSystem.SpawnDustCircle(target.Center, DustID.RainbowRod, 30, color: _color);
     }
 }

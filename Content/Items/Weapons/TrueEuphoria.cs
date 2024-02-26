@@ -1,5 +1,6 @@
 using DartGunsPlus.Content.Projectiles;
 using DartGunsPlus.Content.Systems;
+using DartGunsPlus.Content.UI;
 using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.DataStructures;
@@ -42,7 +43,10 @@ public class TrueEuphoria : ModItem
         };
         ParticleOrchestrator.SpawnParticlesDirect(ParticleOrchestraType.Excalibur, settings);
 
-        Projectile.NewProjectile(source, position, velocity, type, damage, knockback, player.whoAmI, ai2: _shootCount);
+        EuphoriaPlayer euphoriaPlayer = player.GetModPlayer<EuphoriaPlayer>();
+        Projectile.NewProjectile(source, position, velocity, type, damage, knockback, player.whoAmI,
+            type == ModContent.ProjectileType<EuphoriaBoom>() ? 10 + euphoriaPlayer.EuphoriaCurrent * 20 : 0, 0, _shootCount);
+        
         _shootCount++;
         _initialItemRot = player.itemRotation;
         return false;
@@ -57,19 +61,38 @@ public class TrueEuphoria : ModItem
             position += muzzleOffset;
             position.Y--;
         }
-        
+
+        if (Item.shoot == ModContent.ProjectileType<EuphoriaBoom>())
+        {
+            EuphoriaPlayer euphoriaPlayer = player.GetModPlayer<EuphoriaPlayer>();
+            type = ModContent.ProjectileType<EuphoriaBoom>();
+            damage += euphoriaPlayer.EuphoriaCurrent * 20;
+            knockback *= 1.5f;
+            velocity *= 0.9f;
+            Item.shoot = ProjectileID.PurificationPowder;
+        }
+    }
+
+    public override bool CanUseItem(Player player)
+    {
         if (player.altFunctionUse == 2)
         {
             if (player.ownedProjectileCounts[ModContent.ProjectileType<RevolvingSword>()] == 0)
             {
-                type = ModContent.ProjectileType<EuphoriaBoom>();
-                damage += damage / 2;
-                knockback *= 1.5f;
-                velocity *= 0.9f;
+                EuphoriaPlayer euphoriaPlayer = player.GetModPlayer<EuphoriaPlayer>();
+                if (euphoriaPlayer.EuphoriaCurrent < 3)
+                    euphoriaPlayer.EuphoriaCurrent++;
+                Item.shoot = ModContent.ProjectileType<EuphoriaBoom>();
+                Item.reuseDelay = 30;
             }
             else
                 PopupSystem.PopUp("Swords already deployed!", new Color(255, 255, 200), player.Center - new Vector2(0, 70));
+            
+            return false;
         }
+
+        Item.reuseDelay = 0;
+        return base.CanUseItem(player);
     }
 
     public override Vector2? HoldoutOffset()
@@ -79,7 +102,7 @@ public class TrueEuphoria : ModItem
     
     public override void UseStyle(Player player, Rectangle heldItemFrame)
     {
-        if (player.altFunctionUse == 2)
+        if (player.ownedProjectileCounts[ModContent.ProjectileType<EuphoriaBoom>()] > 0)
             VisualSystem.RecoilAnimation(player, _initialItemRot, 20);
     }
 

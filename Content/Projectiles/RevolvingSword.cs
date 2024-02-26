@@ -1,3 +1,5 @@
+using System.Collections.Generic;
+using System.Linq;
 using DartGunsPlus.Content.Systems;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
@@ -62,6 +64,20 @@ public class RevolvingSword : ModProjectile
             Projectile.Kill();
             _deathray.Kill();
         }
+
+        if (Projectile.timeLeft == 1)
+        {
+            List<Projectile> swords = Main.projectile
+                .Where(proj => proj.active && proj.type == Projectile.type && proj.owner == Projectile.owner)
+                .ToList();
+
+            if (swords[^1] == Projectile)
+            {
+                Projectile.NewProjectile(Projectile.GetSource_Death(), Target.Center, Vector2.Zero, ModContent.ProjectileType<DysphoriaExplosion>(),
+                    Projectile.damage * 2, 9, Projectile.owner, ai1: 1);
+                CameraSystem.Screenshake(8, 6);
+            }
+        }
     }
 
     public override Color? GetAlpha(Color lightColor)
@@ -79,15 +95,5 @@ public class RevolvingSword : ModProjectile
 
         Main.EntitySpriteDraw(texture, drawPos, null, color, Projectile.rotation, drawOrigin, Projectile.scale * 0.8f, SpriteEffects.None);
         return false;
-    }
-
-    public override void OnKill(int timeLeft)
-    {
-        if (Main.rand.NextBool(6))
-        {
-            Projectile.NewProjectile(Projectile.GetSource_Death(), Target.Center, Vector2.Zero, ModContent.ProjectileType<DysphoriaExplosion>(),
-                Projectile.damage * 2, 9, Projectile.owner, ai1: 1);
-            CameraSystem.Screenshake(8, 6);
-        }
     }
 }

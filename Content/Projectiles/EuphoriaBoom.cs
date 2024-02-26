@@ -1,4 +1,4 @@
-using DartGunsPlus.Content.Systems;
+using DartGunsPlus.Content.UI;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Terraria;
@@ -12,10 +12,12 @@ namespace DartGunsPlus.Content.Projectiles;
 public class EuphoriaBoom : ModProjectile
 {
     public override string Texture => "DartGunsPlus/Content/Projectiles/EmptyTexture";
+    private ref float TimeLeft => ref Projectile.ai[0];
+    private Player Owner => Main.player[Projectile.owner];
     
     public override void SetStaticDefaults()
     {
-        ProjectileID.Sets.TrailCacheLength[Projectile.type] = 30;
+        ProjectileID.Sets.TrailCacheLength[Projectile.type] = 20;
         ProjectileID.Sets.TrailingMode[Projectile.type] = 2;
     }
 
@@ -27,7 +29,7 @@ public class EuphoriaBoom : ModProjectile
         Projectile.aiStyle = -1;
         Projectile.friendly = true;
         Projectile.penetrate = 1;
-        Projectile.timeLeft = 600;
+        Projectile.timeLeft = 30;
         Projectile.DamageType = DamageClass.Ranged;
         Projectile.extraUpdates = 1;
     }
@@ -69,7 +71,12 @@ public class EuphoriaBoom : ModProjectile
 
     public override void OnSpawn(IEntitySource source)
     {
-        for (int k = 0; k < Projectile.oldPos.Length; k++) Projectile.oldPos[k] = Projectile.position;
+        for (int k = 0; k < Projectile.oldPos.Length; k++)
+            Projectile.oldPos[k] = Projectile.position;
+        
+        EuphoriaPlayer euphoriaPlayer = Owner.GetModPlayer<EuphoriaPlayer>();
+        Projectile.timeLeft = (int)TimeLeft;
+        euphoriaPlayer.EuphoriaCurrent = 0;
     }
 
     public override Color? GetAlpha(Color lightColor)
@@ -82,6 +89,20 @@ public class EuphoriaBoom : ModProjectile
         Projectile.rotation = Projectile.velocity.ToRotation() + MathHelper.ToRadians(90);
     }
 
+    public override void OnKill(int timeLeft)
+    { 
+        for (int i = 0; i < 30; i++)
+        {
+            Dust dust = Dust.NewDustDirect(Projectile.position, 100, 100, DustID.WhiteTorch, 0f, 0f, 100,
+                new Color(255, 255, 125), 2f);
+            dust.noGravity = true;
+            dust.velocity *= 5f;
+            dust = Dust.NewDustDirect(Projectile.position, 100, 100, DustID.WhiteTorch, 0f, 0f, 100,
+                Color.CornflowerBlue);
+            dust.velocity *= 3f;
+        }
+    }
+
     public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
     {
         for (int i = 0; i < 6; i++)
@@ -89,8 +110,5 @@ public class EuphoriaBoom : ModProjectile
             Projectile.NewProjectile(Projectile.GetSource_Death(), target.Center, Vector2.Zero, ModContent.ProjectileType<RevolvingSword>(),
                 Projectile.damage, 7, Projectile.owner, MathHelper.ToRadians(60 * i), 70, target.whoAmI);
         }
-        
-        VisualSystem.SpawnDustCircle(target.Center, DustID.RainbowRod, 30, color: Color.Lerp(new Color(255, 255, 125), Color.LightBlue, 
-            Main.masterColor) * 0.4f);
     }
 }

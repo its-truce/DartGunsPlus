@@ -1,5 +1,6 @@
 using DartGunsPlus.Content.Projectiles;
 using DartGunsPlus.Content.Systems;
+using DartGunsPlus.Content.UI;
 using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.DataStructures;
@@ -42,7 +43,10 @@ public class TrueDysphoria : ModItem
         };
         ParticleOrchestrator.SpawnParticlesDirect(ParticleOrchestraType.NightsEdge, settings);
         
-        Projectile.NewProjectile(source, position, velocity, type, damage, knockback, player.whoAmI, ai2: _shootCount);
+        DysphoriaPlayer dysphoriaPlayer = player.GetModPlayer<DysphoriaPlayer>();
+        Projectile.NewProjectile(source, position, velocity, type, damage, knockback, player.whoAmI,
+            type == ModContent.ProjectileType<DysphoriaBoom>() ? 10 + dysphoriaPlayer.DysphoriaCurrent * 20 : 0, 0, _shootCount);
+        
         _shootCount++;
         _initialItemRot = player.itemRotation;
         return false;
@@ -58,19 +62,37 @@ public class TrueDysphoria : ModItem
             position.Y--;
         }
 
+        if (Item.shoot == ModContent.ProjectileType<EuphoriaBoom>())
+        {
+            DysphoriaPlayer dysphoriaPlayer = player.GetModPlayer<DysphoriaPlayer>();
+            type = ModContent.ProjectileType<DysphoriaBoom>();
+            damage += dysphoriaPlayer.DysphoriaCurrent * 20;
+            knockback *= 1.5f;
+            velocity *= 0.9f;
+            Item.shoot = ProjectileID.PurificationPowder;
+        }
+    }
+    
+    public override bool CanUseItem(Player player)
+    {
         if (player.altFunctionUse == 2)
         {
-            if (player.ownedProjectileCounts[ModContent.ProjectileType<DysphoriaBoom>()] == 0 &&
-                player.ownedProjectileCounts[ModContent.ProjectileType<DysphoriaMagnet>()] == 0)
+            if (player.ownedProjectileCounts[ModContent.ProjectileType<DysphoriaMagnet>()] == 0)
             {
-                type = ModContent.ProjectileType<DysphoriaBoom>();
-                damage += damage / 2;
-                knockback *= 1.5f;
-                velocity *= 0.75f;
+                DysphoriaPlayer dysphoriaPlayer = player.GetModPlayer<DysphoriaPlayer>();
+                if (dysphoriaPlayer.DysphoriaCurrent < 3)
+                    dysphoriaPlayer.DysphoriaCurrent++;
+                Item.shoot = ModContent.ProjectileType<EuphoriaBoom>();
+                Item.reuseDelay = 30;
             }
             else
                 PopupSystem.PopUp("Magnet already deployed!", new Color(55, 224, 112), player.Center - new Vector2(0, 70));
+            
+            return false;
         }
+
+        Item.reuseDelay = 0;
+        return base.CanUseItem(player);
     }
 
     public override Vector2? HoldoutOffset()
@@ -80,7 +102,7 @@ public class TrueDysphoria : ModItem
     
     public override void UseStyle(Player player, Rectangle heldItemFrame)
     {
-        if (player.altFunctionUse == 2)
+        if (player.ownedProjectileCounts[ModContent.ProjectileType<DysphoriaBoom>()] > 0)
             VisualSystem.RecoilAnimation(player, _initialItemRot, 20);
     }
 

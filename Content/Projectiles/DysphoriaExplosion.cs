@@ -12,7 +12,7 @@ namespace DartGunsPlus.Content.Projectiles;
 public class DysphoriaExplosion : ModProjectile
 {
     private Color _color = Color.Lerp(new Color(185, 133, 240), new Color(55, 224, 112), Main.masterColor) * 0.4f;
-    public override string Texture => "DartGunsPlus/Content/Systems/Spotlight";
+    public override string Texture => "DartGunsPlus/Content/Projectiles/Spotlight";
     private Player Owner => Main.player[Projectile.owner];
 
     public override void SetDefaults()

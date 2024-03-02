@@ -3,23 +3,17 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Terraria;
 using Terraria.DataStructures;
-using Terraria.ID;
 using Terraria.ModLoader;
 
 namespace DartGunsPlus.Content.Projectiles;
     
-class EuphoriaRay : Deathray
+public class EuphoriaRay : Deathray
 {
     private float _rayAlpha;
     private ref float Scale => ref Projectile.ai[0];
     private ref float Size => ref Projectile.ai[1];
     private ref float Expand => ref Projectile.ai[2];
     private Color _color = Color.White;
-    
-    public override void SetStaticDefaults()
-    {
-        ProjectileID.Sets.DrawScreenCheckFluff[Projectile.type] = 100000;
-    }
 
     public override string Texture => "DartGunsPlus/Content/Projectiles/Deathray";
     public override void SetDefaults()

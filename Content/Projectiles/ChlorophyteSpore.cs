@@ -74,7 +74,7 @@ public class ChlorophyteSpore : ModProjectile
         Texture2D texture3 = ModContent.Request<Texture2D>("DartGunsPlus/Content/Projectiles/Sparkle2").Value;
 
         Main.EntitySpriteDraw(texture3, Projectile.Center - Main.screenPosition, null, new Color(143, 215, 29, 0) * Projectile.Opacity,
-            _rot2, texture.Size() / 2, 0.04f, SpriteEffects.None);
+            _rot2, texture3.Size() / 2, 0.04f, SpriteEffects.None);
 
         Main.EntitySpriteDraw(texture, Projectile.Center - Main.screenPosition, null, new Color(255, 255, 261, 0) * Projectile.Opacity,
             _rot1, texture.Size() / 2, 0.05f, SpriteEffects.None);

@@ -15,8 +15,8 @@ public class HarpyQuillstorm : ModItem
     public override void SetDefaults()
     {
         Item.DefaultToRangedWeapon(ProjectileID.PurificationPowder, AmmoID.Dart, 22, 11, true);
-        Item.width = 54;
-        Item.height = 34;
+        Item.width = 52;
+        Item.height = 20;
         Item.rare = ItemRarityID.LightRed;
 
         Item.UseSound = SoundID.DD2_BetsyWindAttack;
@@ -36,7 +36,7 @@ public class HarpyQuillstorm : ModItem
         if (_numProjectiles > 1)
         {
             float rotation = MathHelper.ToRadians(15);
-            position += Vector2.Normalize(new Vector2(velocity.X, velocity.Y)) * 45f;
+            position += Vector2.Normalize(new Vector2(velocity.X, velocity.Y));
             for (int i = 0; i < _numProjectiles; i++)
             {
                 Vector2 perturbedSpeed =

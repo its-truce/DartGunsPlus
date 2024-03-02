@@ -105,7 +105,7 @@ public class Styx : ModItem
             Color color = Main.hslToRgb(Main.GlobalTimeWrappedHourly / 20f % 1f, 1f, 0.5f);
 
             Vector2 bounds = FontAssets.MouseText.Value.MeasureString(line.Text);
-            Texture2D glow = ModContent.Request<Texture2D>("DartGunsPlus/Content/Systems/Spotlight").Value;
+            Texture2D glow = ModContent.Request<Texture2D>("DartGunsPlus/Content/Projectiles/Spotlight").Value;
             Vector2 texSize = glow.Size();
             Color glowColor = Main.hslToRgb((Main.GlobalTimeWrappedHourly / 20f + 0.1f) % 1f, 1f, 0.5f) * 0.6f;
             glowColor.A = 0;

@@ -8,11 +8,17 @@ public class AccessoryPlayer : ModPlayer
 {
     public bool HasDartLicense;
     public bool HasSpyglass;
+    public bool HasKite;
+    public bool HasShield;
+    public bool IncrementShield;
+    public int ShieldTimer;
 
     public override void ResetEffects()
     {
         HasDartLicense = false;
         HasSpyglass = false;
+        HasKite = false;
+        HasShield = false;
     }
 
     public override void ModifyWeaponDamage(Item item, ref StatModifier damage)
@@ -30,5 +36,16 @@ public class AccessoryPlayer : ModPlayer
 
         if (item.useAmmo == AmmoID.Dart || item.ammo == AmmoID.Dart)
             crit += 5;
+    }
+
+    public override void UpdateEquips()
+    {
+        if (IncrementShield)
+            ShieldTimer++;
+        if (ShieldTimer == 60)
+        {
+            IncrementShield = false;
+            ShieldTimer = 0;
+        }
     }
 }

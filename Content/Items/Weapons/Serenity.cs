@@ -14,8 +14,8 @@ public class Serenity : ModItem
     public override void SetDefaults()
     {
         Item.DefaultToRangedWeapon(ProjectileID.PurificationPowder, AmmoID.Dart, 10, 18, true);
-        Item.width = 48;
-        Item.height = 20;
+        Item.width = 58;
+        Item.height = 36;
         Item.rare = ItemRarityID.Yellow;
 
         Item.UseSound = SoundID.DD2_DarkMageAttack;

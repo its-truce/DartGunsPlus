@@ -12,7 +12,7 @@ namespace DartGunsPlus.Content.Projectiles;
 public class RocketExplosion : ModProjectile
 {
     private readonly Color _color = Color.Lerp(new Color(255, 200, 48), new Color(255, 190, 65), Main.masterColor) * 0.4f;
-    public override string Texture => "DartGunsPlus/Content/Systems/Spotlight";
+    public override string Texture => "DartGunsPlus/Content/Projectiles/Spotlight";
 
     public override void SetDefaults()
     {

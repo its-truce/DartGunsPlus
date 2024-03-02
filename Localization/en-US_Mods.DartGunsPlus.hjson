@@ -285,6 +285,16 @@ Items: {
 		DisplayName: Grapple Gun
 		Tooltip: ""
 	}
+
+	AltitudeAnnihilator: {
+		DisplayName: Altitude Annihilator
+		Tooltip: ""
+	}
+
+	ReflectiveCoating: {
+		DisplayName: Reflective Coating
+		Tooltip: ""
+	}
 }
 
 Projectiles: {
@@ -391,6 +401,8 @@ Projectiles: {
 	EuphoriaRay.DisplayName: Euphoria Ray
 	EuphoriaBoom.DisplayName: Euphoria Boom
 	Hook.DisplayName: Hook
+	Shield.DisplayName: Shield
+	VolatileLaser.DisplayName: Volatile Laser
 }
 
 Buffs: {

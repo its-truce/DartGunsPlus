@@ -15,8 +15,8 @@ public class VolatileContraption : ModItem
     public override void SetDefaults()
     {
         Item.DefaultToRangedWeapon(ProjectileID.PurificationPowder, AmmoID.Dart, 32, 12, true);
-        Item.width = 66;
-        Item.height = 28;
+        Item.width = 72;
+        Item.height = 42;
         Item.rare = ItemRarityID.Orange;
 
         Item.UseSound = SoundID.DD2_BallistaTowerShot;
@@ -47,15 +47,15 @@ public class VolatileContraption : ModItem
         if (Collision.CanHit(position, 0, 0, position + muzzleOffset, 0, 0))
         {
             position += muzzleOffset;
-            position.Y -= 2;
+            position.Y -= 4;
         }
 
-        type = _shootCount is > 6 and < 10 ? ModContent.ProjectileType<RedBomb>() : _shootCount == 10 ? ModContent.ProjectileType<RedLaser>() : type;
+        type = _shootCount is > 6 and < 10 ? ModContent.ProjectileType<RedBomb>() : _shootCount == 10 ? ModContent.ProjectileType<VolatileLaser>() : type;
     }
 
     public override Vector2? HoldoutOffset()
     {
-        return new Vector2(-2f, -1f);
+        return new Vector2(-2f, 5);
     }
 
     public override void AddRecipes()

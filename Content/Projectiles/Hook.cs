@@ -51,6 +51,8 @@ public class Hook : ModProjectile
         Projectile.direction = Projectile.velocity.X > 0 ? 1 : -1;
         Owner.ChangeDir(Projectile.direction);
         
+        // need to add right click delete functionality
+        
         if (Owner.Center.Distance(Projectile.Center) > 600)
             Projectile.Kill();
         

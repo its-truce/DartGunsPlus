@@ -109,7 +109,7 @@ public class RedLaser : ModProjectile
 
         if (Charge < MaxCharge) return;
 
-        SetLaserPosition(player);
+        SetLaserPosition(player);   
         SpawnDusts(player);
         CastLights();
     }
@@ -182,7 +182,7 @@ public class RedLaser : ModProjectile
             Vector2 spawnPos = Projectile.Center + dustVelocity;
             for (int k = 0; k < chargeFact + 1; k++)
             {
-                Vector2 spawn = spawnPos + ((float)Main.rand.NextDouble() * 6.28f).ToRotationVector2() * (12f - chargeFact * 2);
+                Vector2 spawn = spawnPos + ((float)Main.rand.NextDouble() * MathF.Tau).ToRotationVector2() * (12f - chargeFact * 2);
                 Dust dust = Main.dust[Dust.NewDust(pos, 20, 20, DustID.Firework_Red, Projectile.velocity.X / 2f, Projectile.velocity.Y / 2f)];
                 dust.velocity = Vector2.Normalize(spawnPos - spawn) * 1.5f * (10f - chargeFact * 2f) / 10f;
                 dust.noGravity = true;

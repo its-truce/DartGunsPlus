@@ -15,7 +15,7 @@ public class DartTrailProjectile : GlobalProjectile
 {
     private readonly int[] _excludedProjectiles =
     {
-        ModContent.ProjectileType<DysphoriaBolt>(), ModContent.ProjectileType<AstralBolt>(), ModContent.ProjectileType<RedLaser>(),
+        ModContent.ProjectileType<DysphoriaBolt>(), ModContent.ProjectileType<AstralBolt>(), ModContent.ProjectileType<VolatileLaser>(),
         ModContent.ProjectileType<RedBomb>(), ModContent.ProjectileType<EuphoriaSlash>(), ModContent.ProjectileType<HighVelocityDartProj>(),
         ModContent.ProjectileType<LuminiteDartProj>(), ModContent.ProjectileType<ExplosiveDartProj>(), ModContent.ProjectileType<MartianLightning>(),
         ModContent.ProjectileType<HalloweenRitual>(), ModContent.ProjectileType<HalloweenJack>(), ModContent.ProjectileType<Explosion>(),

@@ -2,6 +2,7 @@ using DartGunsPlus.Content.Projectiles;
 using DartGunsPlus.Content.Systems;
 using Microsoft.Xna.Framework;
 using Terraria;
+using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
 
@@ -23,6 +24,22 @@ public class GrappleGun : ModItem
         Item.knockBack = 3;
     }
 
+    public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
+    {
+        if (player.altFunctionUse == 2 && player.ownedProjectileCounts[ModContent.ProjectileType<Hook>()] > 0)
+        {
+            Main.NewText("hi");
+            foreach (Projectile proj in Main.projectile)
+            {
+                if (proj.active && proj.owner == player.whoAmI && proj.type == ModContent.ProjectileType<Hook>())
+                    proj.Kill();
+            }
+
+            return false;
+        }
+        return true;
+    }
+
     public override void ModifyShootStats(Player player, ref Vector2 position, ref Vector2 velocity, ref int type, ref int damage, ref float knockback)
     {
         velocity *= 1f - Main.rand.NextFloat(0.2f);
@@ -34,6 +51,11 @@ public class GrappleGun : ModItem
             position += muzzleOffset;
             position.Y -= 2;
         }
+    }
+
+    public override bool AltFunctionUse(Player player)
+    {
+        return true;
     }
 
     public override Vector2? HoldoutOffset()

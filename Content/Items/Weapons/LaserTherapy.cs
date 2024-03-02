@@ -13,8 +13,8 @@ public class LaserTherapy : ModItem
     public override void SetDefaults()
     {
         Item.DefaultToRangedWeapon(ProjectileID.PurificationPowder, AmmoID.Dart, 22, 15, true);
-        Item.width = 66;
-        Item.height = 22;
+        Item.width = 72;
+        Item.height = 24;
         Item.rare = ItemRarityID.Red;
 
         Item.UseSound = AudioSystem.ReturnSound("dart", 0.3f);

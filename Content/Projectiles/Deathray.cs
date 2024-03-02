@@ -2,12 +2,12 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Terraria;
 using Terraria.Enums;
+using Terraria.ID;
 using Terraria.ModLoader;
-using static Terraria.ModLoader.ModContent;
 
 namespace DartGunsPlus.Content.Projectiles;
-	
-abstract class Deathray : ModProjectile
+
+public abstract class Deathray : ModProjectile
 {
 	protected float MoveDistance = 100f;
 	protected float RealMaxDistance = 100f;
@@ -17,9 +17,14 @@ abstract class Deathray : ModProjectile
 	protected Rectangle HeadRect = new();
 	protected Color DrawColor = Color.White;
 
+	public override void SetStaticDefaults()
+	{
+		ProjectileID.Sets.DrawScreenCheckFluff[Projectile.type] = 100000;
+	}
+	
 	public override void PostDraw(Color lightColor)
 	{
-		DrawLaser(Main.spriteBatch, Request<Texture2D>(Texture).Value, Position(), Projectile.velocity, BodyRect.Height, -1.57f, 1f, 
+		DrawLaser(Main.spriteBatch, ModContent.Request<Texture2D>(Texture).Value, Position(), Projectile.velocity, BodyRect.Height, -1.57f, 1f, 
 			MaxDistance, (int)MoveDistance);
 	}
 
@@ -52,7 +57,7 @@ abstract class Deathray : ModProjectile
 		for (float i = transDist; i <= maxDist; i += step)
 		{
 			Color c = DrawColor;
-			var origin = startPoint + i * unit;
+			Vector2 origin = startPoint + i * unit;
 			Rectangle newBodyRectangle = BodyRect;
 			spriteBatch.Draw(texture, origin - Main.screenPosition, newBodyRectangle, i < transDist ? Color.Transparent : c, r, 
 				newBodyRectangle.Size() / 2, new Vector2(scale, 1), 0, 0);
@@ -62,9 +67,12 @@ abstract class Deathray : ModProjectile
 		spriteBatch.Draw(texture, startPoint + unit * (transDist - step + 2) + unit - Main.screenPosition, newTailRectangle, DrawColor, r, 
 			newTailRectangle.Size() / 2, new Vector2(scale * 2, 1), SpriteEffects.FlipVertically, 0);
 
-		Rectangle newHeadRectangle = HeadRect;
-		spriteBatch.Draw(texture, startPoint + maxDist * unit - Main.screenPosition, newHeadRectangle, DrawColor, r, newHeadRectangle.Size() / 2,
-			new Vector2(scale * 2, 1), SpriteEffects.FlipVertically, 0);
+		if (Projectile.type == ModContent.ProjectileType<VolatileLaser>())
+		{
+			Rectangle newHeadRectangle = HeadRect;
+			spriteBatch.Draw(texture, startPoint + maxDist * unit - Main.screenPosition, newHeadRectangle, DrawColor, r, newHeadRectangle.Size() / 2,
+				new Vector2(scale * 2, 1), SpriteEffects.FlipVertically, 0);
+		}
 	}
 
 	public override bool? Colliding(Rectangle projHitbox, Rectangle targetHitbox)
@@ -97,7 +105,7 @@ abstract class Deathray : ModProjectile
 		{
 			for (MaxDistance = MoveDistance; MaxDistance <= RealMaxDistance; MaxDistance += 5f)
 			{
-				var start = Position() + Projectile.velocity * MaxDistance;
+				Vector2 start = Position() + Projectile.velocity * MaxDistance;
 				if (Collision.SolidCollision(start, 1, 1))
 				{
 					MaxDistance -= 5f;

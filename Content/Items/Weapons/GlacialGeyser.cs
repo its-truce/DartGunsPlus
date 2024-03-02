@@ -15,8 +15,8 @@ public class GlacialGeyser : ModItem
     public override void SetDefaults()
     {
         Item.DefaultToRangedWeapon(ProjectileID.PurificationPowder, AmmoID.Dart, 18, 12.5f, true);
-        Item.width = 68;
-        Item.height = 36;
+        Item.width = 60;
+        Item.height = 26;
         Item.rare = ItemRarityID.Yellow;
 
         Item.UseSound = AudioSystem.ReturnSound("dart", 0.3f);

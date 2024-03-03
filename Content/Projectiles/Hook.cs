@@ -48,10 +48,11 @@ public class Hook : ModProjectile
 
         float offset = Owner.direction == 1 ? 0 : MathF.PI;
         Owner.itemRotation = Projectile.rotation + offset;
-        Projectile.direction = Projectile.velocity.X > 0 ? 1 : -1;
+        Projectile.direction = Projectile.Center.X > Owner.Center.X ? 1 : -1;
         Owner.ChangeDir(Projectile.direction);
         
-        // need to add right click delete functionality
+        if (Main.mouseRight && Main.mouseRightRelease)
+            Projectile.Kill();
         
         if (Owner.Center.Distance(Projectile.Center) > 600)
             Projectile.Kill();

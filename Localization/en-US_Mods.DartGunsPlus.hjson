@@ -403,6 +403,8 @@ Projectiles: {
 	Hook.DisplayName: Hook
 	Shield.DisplayName: Shield
 	VolatileLaser.DisplayName: Volatile Laser
+	Probe.DisplayName: Probe
+	VolatileBolt.DisplayName: Volatile Bolt
 }
 
 Buffs: {

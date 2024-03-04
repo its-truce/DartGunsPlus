@@ -405,6 +405,10 @@ Projectiles: {
 	VolatileLaser.DisplayName: Volatile Laser
 	Probe.DisplayName: Probe
 	VolatileBolt.DisplayName: Volatile Bolt
+	Retinazer.DisplayName: Retinazer
+	RetinazerDash.DisplayName: Retinazer Dash
+	Spaz.DisplayName: Spaz
+	SpazFlame.DisplayName: Spaz Flame
 }
 
 Buffs: {

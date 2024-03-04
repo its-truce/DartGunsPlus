@@ -55,7 +55,7 @@ public class VolatileContraption : ModItem
 
     public override Vector2? HoldoutOffset()
     {
-        return new Vector2(-2f, 5);
+        return new Vector2(-2f, 5);        
     }
 
     public override void AddRecipes()

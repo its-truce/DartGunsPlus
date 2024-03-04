@@ -28,7 +28,7 @@ public class Probe : ModProjectile
         Projectile.aiStyle = -1;
         Projectile.width = 22;
         Projectile.height = 22;
-        Projectile.penetrate = 1;
+        Projectile.penetrate = -1;
         Projectile.ignoreWater = false;
         Projectile.tileCollide = false;
         Projectile.friendly = true;
@@ -56,16 +56,16 @@ public class Probe : ModProjectile
         if (RecoilTimer == 15)
             RecoilTimer = 0;
         
-        if (Projectile.localAI[1] % 120 == 0)
+        if (Projectile.localAI[1] % 140 == 0)
         {
             Projectile.NewProjectile(Projectile.GetSource_FromThis(), Projectile.Center, Projectile.DirectionTo(Target.Center) * 6,
-                ModContent.ProjectileType<VolatileBolt>(), 100, 2, Projectile.owner);
+                ModContent.ProjectileType<VolatileBolt>(), Projectile.damage, 2, Projectile.owner);
             VisualSystem.SpawnDustCircle(Projectile.Center, DustID.RainbowRod, 12, color: Color.HotPink, scale: 0.9f);
             SoundEngine.PlaySound(AudioSystem.ReturnSound("shoot1"), Projectile.Center);
             
             Projectile.velocity = Projectile.DirectionFrom(Target.Center) * 6;
             RecoilTimer++;
-            RotationGoal *= -1;
+            RotationGoal *= Main.rand.Next(-3, -1);
         }
 
         if (RecoilTimer == 0)

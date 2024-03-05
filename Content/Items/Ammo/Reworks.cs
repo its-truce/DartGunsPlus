@@ -1,4 +1,5 @@
 using System;
+using DartGunsPlus.Content.Dusts;
 using DartGunsPlus.Content.Effects;
 using DartGunsPlus.Content.Projectiles;
 using DartGunsPlus.Content.Systems;
@@ -42,7 +43,7 @@ public class Reworks : GlobalProjectile
             {
                 SoundEngine.PlaySound(AudioSystem.ReturnSound("shatter", 0.4f), projectile.Center);
                 CameraSystem.Screenshake(4, 6);
-                VisualSystem.SpawnDustCircle(target.Center, DustID.RainbowRod, 30, color: new Color(200, 86, 135));
+                VisualSystem.SpawnDustCircle(target.Center, ModContent.DustType<GlowFastDecelerate>(), 30, color: new Color(200, 86, 135));
 
                 Projectile.NewProjectile(projectile.GetSource_OnHit(target), projectile.Center, Vector2.Zero, ModContent.ProjectileType<CrystalShock>(),
                     projectile.damage * 2, 4, projectile.owner);
@@ -59,7 +60,7 @@ public class Reworks : GlobalProjectile
                 int randDust = Main.rand.Next(20, 30);
                 for (int i = 0; i < randDust; i++)
                 {
-                    Dust dust = Dust.NewDustDirect(target.Center, 0, 0, DustID.RainbowRod, 0f, 0f, 100, Color.Pink, 0.8f);
+                    Dust dust = Dust.NewDustDirect(target.Center, 0, 0, ModContent.DustType<GlowFastDecelerate>(), 0f, 0f, 100, Color.Pink, 0.8f);
                     dust.velocity *= 1.6f;
                     dust.velocity.Y -= 1f;
                     dust.velocity += projectile.velocity;

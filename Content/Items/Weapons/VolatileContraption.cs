@@ -11,6 +11,7 @@ namespace DartGunsPlus.Content.Items.Weapons;
 public class VolatileContraption : ModItem
 {
     private int _shootCount;
+    private int _bombCount;
 
     public override void SetDefaults()
     {
@@ -21,7 +22,7 @@ public class VolatileContraption : ModItem
 
         Item.UseSound = SoundID.DD2_BallistaTowerShot;
 
-        Item.damage = 55;
+        Item.damage = 72;
         Item.knockBack = 4;
         Item.channel = true;
     }
@@ -29,12 +30,21 @@ public class VolatileContraption : ModItem
     public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
     {
         _shootCount++;
+        
         if (_shootCount > 10)
         {
             CameraSystem.Screenshake(10, 4);
             _shootCount = 0;
         }
 
+        if (type == ModContent.ProjectileType<VolatileBomb>())
+        {
+            _bombCount++;
+            Projectile.NewProjectile(source, position, velocity, type, damage, knockback, player.whoAmI, ai2: _bombCount);
+            return false;
+        }
+        
+        _bombCount = 0;
         return true;
     }
 
@@ -50,7 +60,7 @@ public class VolatileContraption : ModItem
             position.Y -= 4;
         }
 
-        type = _shootCount is > 6 and < 10 ? ModContent.ProjectileType<RedBomb>() : _shootCount == 10 ? ModContent.ProjectileType<VolatileLaser>() : type;
+        type = _shootCount is > 6 and < 10 ? ModContent.ProjectileType<VolatileBomb>() : _shootCount == 10 ? ModContent.ProjectileType<VolatileLaser>() : type;
     }
 
     public override Vector2? HoldoutOffset()
@@ -61,7 +71,9 @@ public class VolatileContraption : ModItem
     public override void AddRecipes()
     {
         CreateRecipe()
-            .AddIngredient(ItemID.SoulofFright, 15)
+            .AddIngredient(ItemID.SoulofFright, 10)
+            .AddIngredient(ItemID.SoulofMight, 10)
+            .AddIngredient(ItemID.SoulofSight, 10)
             .AddIngredient(ItemID.HallowedBar, 10)
             .AddTile(TileID.MythrilAnvil)
             .Register();

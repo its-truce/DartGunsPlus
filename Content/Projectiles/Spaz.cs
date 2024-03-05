@@ -1,8 +1,8 @@
+using DartGunsPlus.Content.Dusts;
 using DartGunsPlus.Content.Systems;
 using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.Audio;
-using Terraria.ID;
 using Terraria.ModLoader;
 using Vector2 = Microsoft.Xna.Framework.Vector2;
 
@@ -56,31 +56,39 @@ public class Spaz : ModProjectile
         Projectile.rotation = Projectile.DirectionTo(Target.Center).ToRotation();
 
         if (!Target.active)
-            Projectile.Kill();
+        {
+            if (Projectile.FindTargetWithinRange(2000) is not null)
+                Projectile.ai[0] = Projectile.FindTargetWithinRange(2000).whoAmI; // target
+            else
+                Projectile.Kill();
+        }
         
         const int dist = 120;
         
         if (RelaxTimer != 0)
+        {
             RelaxTimer++;
+
+            if (RelaxTimer % 3 == 0)
+                Projectile.NewProjectile(Projectile.GetSource_FromThis(), Projectile.Center + Projectile.DirectionTo(Target.Center) * 22, 
+                    Projectile.DirectionTo(Target.Center) * 6, ModContent.ProjectileType<SpazFlame>(), Projectile.damage, 2, Projectile.owner);
+        }
         if (RelaxTimer == 30)
             RelaxTimer = 0;
         
         if (Projectile.localAI[1] % 180 == 0)
         {
-            Projectile.NewProjectile(Projectile.GetSource_FromThis(), Projectile.Center + Projectile.DirectionTo(Target.Center) * 22, 
-                Projectile.DirectionTo(Target.Center) * 6, ModContent.ProjectileType<SpazFlame>(), Projectile.damage, 2, Projectile.owner);
-            VisualSystem.SpawnDustCircle(Projectile.Center, DustID.RainbowRod, 12, color: Color.LightGreen, scale: 0.9f);
-            //SoundEngine.PlaySound(AudioSystem.ReturnSound("dash"), Projectile.Center);
-            
+            VisualSystem.SpawnDustCircle(Projectile.Center, ModContent.DustType<GlowFastDecelerate>(), 12, color: Color.LightGreen, scale: 0.9f);
+            SoundEngine.PlaySound(AudioSystem.ReturnSound("flame"), Projectile.Center);
             RelaxTimer++;
-            RotationGoal *= Main.rand.Next(-3, -1);
+            RotationGoal *= -1;
         }
 
         if (RelaxTimer == 0)
         {
             Projectile.Center = Vector2.Lerp(Projectile.Center, Target.Center + new Vector2(dist, 0).RotatedBy(RotationOffset), 0.04f);
             Projectile.velocity = Vector2.Zero;
-            RotationOffset = (float)Utils.Lerp(RotationOffset, RotationGoal, 0.01f);
+            RotationOffset = (float)Utils.Lerp(RotationOffset, RotationGoal, 0.04f);
         }
     }
 }

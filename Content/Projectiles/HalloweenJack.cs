@@ -1,4 +1,5 @@
 ﻿using System;
+using DartGunsPlus.Content.Dusts;
 using DartGunsPlus.Content.Items.Weapons;
 using DartGunsPlus.Content.Systems;
 using Microsoft.Xna.Framework;
@@ -61,7 +62,7 @@ public class HalloweenJack : ModProjectile
     public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
     {
         Projectile.Kill();
-        VisualSystem.SpawnDustCircle(target.Center, DustID.RainbowRod, 12, color: Color.OrangeRed, scale: 0.9f);
+        VisualSystem.SpawnDustCircle(target.Center, ModContent.DustType<GlowFastDecelerate>(), 12, color: Color.OrangeRed, scale: 0.9f);
     }
 
     public override bool PreDraw(ref Color lightColor)

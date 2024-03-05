@@ -1,4 +1,5 @@
-﻿using DartGunsPlus.Content.Systems;
+﻿using DartGunsPlus.Content.Dusts;
+using DartGunsPlus.Content.Systems;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Terraria;
@@ -86,7 +87,7 @@ public class EmpressBolt : ModProjectile
 
     public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
     {
-        VisualSystem.SpawnDustCircle(Projectile.Center, DustID.RainbowRod, 12, color: Main.DiscoColor, scale: 0.9f);
+        VisualSystem.SpawnDustCircle(Projectile.Center, ModContent.DustType<GlowFastDecelerate>(), 12, color: Main.DiscoColor, scale: 0.9f);
         SoundEngine.PlaySound(SoundID.DD2_BetsyWindAttack, Projectile.Center);
         _hit = true;
     }

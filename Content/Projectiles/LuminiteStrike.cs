@@ -1,4 +1,5 @@
-﻿using DartGunsPlus.Content.Systems;
+﻿using DartGunsPlus.Content.Dusts;
+using DartGunsPlus.Content.Systems;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Terraria;
@@ -68,6 +69,6 @@ public class LuminiteStrike : ModProjectile
 
     public override void OnKill(int timeLeft)
     {
-        VisualSystem.SpawnDustCircle(Projectile.Center, DustID.RainbowRod, 12, color: Color.DarkTurquoise);
+        VisualSystem.SpawnDustCircle(Projectile.Center, ModContent.DustType<GlowFastDecelerate>(), 12, color: Color.DarkTurquoise);
     }
 }

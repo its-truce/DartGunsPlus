@@ -16,14 +16,14 @@ public class DartTrailProjectile : GlobalProjectile
     private readonly int[] _excludedProjectiles =
     {
         ModContent.ProjectileType<DysphoriaBolt>(), ModContent.ProjectileType<AstralBolt>(), ModContent.ProjectileType<VolatileLaser>(),
-        ModContent.ProjectileType<RedBomb>(), ModContent.ProjectileType<EuphoriaSlash>(), ModContent.ProjectileType<HighVelocityDartProj>(),
-        ModContent.ProjectileType<LuminiteDartProj>(), ModContent.ProjectileType<ExplosiveDartProj>(), ModContent.ProjectileType<MartianLightning>(),
-        ModContent.ProjectileType<HalloweenRitual>(), ModContent.ProjectileType<HalloweenJack>(), ModContent.ProjectileType<Explosion>(),
-        ModContent.ProjectileType<Icicle>(), ModContent.ProjectileType<FreezeBolt>(), ModContent.ProjectileType<DysphoriaBolt>(),
-        ModContent.ProjectileType<DysphoriaBoom>(), ModContent.ProjectileType<DysphoriaExplosion>(), ModContent.ProjectileType<DysphoriaNail>(),
-        ModContent.ProjectileType<SereneBolt>(), ModContent.ProjectileType<SereneShock>(), ModContent.ProjectileType<SereneSlash>(), 
-        ModContent.ProjectileType<EmpressLaser>(), ModContent.ProjectileType<EmpressBolt>(), ModContent.ProjectileType<LilEmpress>(),
-        ModContent.ProjectileType<LaserLightning>(), ModContent.ProjectileType<HomingLightning>(), ModContent.ProjectileType<EuphoriaBoom>()
+        ModContent.ProjectileType<EuphoriaSlash>(), ModContent.ProjectileType<HighVelocityDartProj>(), ModContent.ProjectileType<LuminiteDartProj>(), 
+        ModContent.ProjectileType<ExplosiveDartProj>(), ModContent.ProjectileType<MartianLightning>(), ModContent.ProjectileType<HalloweenRitual>(),
+        ModContent.ProjectileType<HalloweenJack>(), ModContent.ProjectileType<Explosion>(), ModContent.ProjectileType<Icicle>(), ModContent.ProjectileType<FreezeBolt>(),
+        ModContent.ProjectileType<DysphoriaBolt>(), ModContent.ProjectileType<DysphoriaBoom>(), ModContent.ProjectileType<DysphoriaExplosion>(),
+        ModContent.ProjectileType<DysphoriaNail>(), ModContent.ProjectileType<SereneBolt>(), ModContent.ProjectileType<SereneShock>(), 
+        ModContent.ProjectileType<SereneSlash>(), ModContent.ProjectileType<EmpressLaser>(), ModContent.ProjectileType<EmpressBolt>(),
+        ModContent.ProjectileType<LilEmpress>(), ModContent.ProjectileType<LaserLightning>(), ModContent.ProjectileType<HomingLightning>(),
+        ModContent.ProjectileType<EuphoriaBoom>()
     };
 
     private readonly int[] _validItems =

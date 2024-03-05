@@ -24,7 +24,7 @@ public class VolatileLaser : Deathray
         Projectile.penetrate = -1;
         Projectile.tileCollide = true;
         Projectile.friendly = false;
-        Projectile.timeLeft = 420;
+        Projectile.timeLeft = 210;
         Projectile.usesLocalNPCImmunity = true;
         Projectile.localNPCHitCooldown = 5;
         MoveDistance = 0f;

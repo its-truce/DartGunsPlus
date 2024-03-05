@@ -1,4 +1,5 @@
 ﻿using System;
+using DartGunsPlus.Content.Dusts;
 using DartGunsPlus.Content.Systems;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
@@ -56,7 +57,7 @@ public class Blossom : ModProjectile
 
     public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
     {
-        VisualSystem.SpawnDustCircle(target.Center, DustID.RainbowRod, 12, color: Color.Pink, scale: 0.9f);
+        VisualSystem.SpawnDustCircle(target.Center, ModContent.DustType<GlowFastDecelerate>(), 12, color: Color.Pink, scale: 0.9f);
     }
 
     public override bool PreDraw(ref Color lightColor)

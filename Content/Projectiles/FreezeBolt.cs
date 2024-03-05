@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using DartGunsPlus.Content.Dusts;
+using System.Collections.Generic;
 using DartGunsPlus.Content.Systems;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
@@ -75,7 +76,7 @@ public class FreezeBolt : ModProjectile
 
     public override void OnKill(int timeLeft)
     {
-        VisualSystem.SpawnDustCircle(Projectile.Center, DustID.RainbowRod, 12, color: Color.CornflowerBlue, scale: 0.9f);
+        VisualSystem.SpawnDustCircle(Projectile.Center, ModContent.DustType<GlowFastDecelerate>(), 12, color: Color.CornflowerBlue, scale: 0.9f);
 
         IEnumerable<Vector2> points = DartUtils.GetInterpolatedPoints(Owner.Center, Projectile.Center, 15);
 

@@ -1,4 +1,5 @@
 using System;
+using DartGunsPlus.Content.Dusts;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Terraria;
@@ -108,7 +109,7 @@ public class EmpressLaser : ModProjectile
             float num1 = Projectile.velocity.ToRotation() + (Main.rand.NextBool(2) ? -1.0f : 1.0f) * 1.57f;
             float num2 = (float)(Main.rand.NextDouble() * 0.8f + 1.0f);
             Vector2 dustVel = new((float)Math.Cos(num1) * num2, (float)Math.Sin(num1) * num2);
-            Dust dust = Main.dust[Dust.NewDust(dustPos, 0, 0, DustID.RainbowRod, dustVel.X, dustVel.Y, newColor: Main.DiscoColor)];
+            Dust dust = Main.dust[Dust.NewDust(dustPos, 0, 0, ModContent.DustType<GlowFastDecelerate>(), dustVel.X, dustVel.Y, newColor: Main.DiscoColor)];
             dust.noGravity = true;
             dust.scale = 1.2f;
         }

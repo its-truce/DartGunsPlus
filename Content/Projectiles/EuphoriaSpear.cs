@@ -1,3 +1,4 @@
+using DartGunsPlus.Content.Dusts;
 using DartGunsPlus.Content.Systems;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
@@ -82,7 +83,7 @@ public class EuphoriaSpear : ModProjectile
 
         for (int i = 0; i < 20; i++)
         {
-            int dust2 = Dust.NewDust(Projectile.position, Projectile.width / 3, Projectile.height / 3, DustID.RainbowRod, Projectile.velocity.X,
+            int dust2 = Dust.NewDust(Projectile.position, Projectile.width / 3, Projectile.height / 3, ModContent.DustType<GlowFastDecelerate>(), Projectile.velocity.X,
                 Projectile.velocity.Y, 100, _color);
             Main.dust[dust2].noGravity = true;
             Main.dust[dust2].velocity *= 2f;
@@ -97,7 +98,7 @@ public class EuphoriaSpear : ModProjectile
         int randDust = Main.rand.Next(15, 31);
         for (int i = 0; i < randDust; i++)
         {
-            Dust dust = Dust.NewDustDirect(Projectile.Center, 0, 0, DustID.RainbowRod, 0f, 0f, 100, _color, 0.8f);
+            Dust dust = Dust.NewDustDirect(Projectile.Center, 0, 0, ModContent.DustType<GlowFastDecelerate>(), 0f, 0f, 100, _color, 0.8f);
             dust.velocity *= 1.6f;
             dust.velocity.Y -= 1f;
             dust.velocity += Projectile.velocity;

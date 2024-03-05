@@ -1,5 +1,4 @@
 using System;
-using DartGunsPlus.Content.Systems;
 using DartGunsPlus.Content.UI;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;

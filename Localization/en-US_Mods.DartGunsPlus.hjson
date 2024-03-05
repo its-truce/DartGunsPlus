@@ -409,6 +409,8 @@ Projectiles: {
 	RetinazerDash.DisplayName: Retinazer Dash
 	Spaz.DisplayName: Spaz
 	SpazFlame.DisplayName: Spaz Flame
+	VolatileBomb.DisplayName: Volatile Bomb
+	VolatileExplosion.DisplayName: Volatile Explosion
 }
 
 Buffs: {

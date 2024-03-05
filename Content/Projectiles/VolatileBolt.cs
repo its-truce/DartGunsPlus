@@ -1,4 +1,5 @@
-﻿using DartGunsPlus.Content.Systems;
+﻿using DartGunsPlus.Content.Dusts;
+using DartGunsPlus.Content.Systems;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Terraria;
@@ -72,10 +73,10 @@ public class VolatileBolt : ModProjectile
 
     public override void OnKill(int timeLeft)
     {
-        int randDust = Main.rand.Next(15, 31);
+        int randDust = Main.rand.Next(15, 20);
         for (int i = 0; i < randDust; i++)
         {
-            Dust dust = Dust.NewDustDirect(Projectile.Center, 0, 0, DustID.RainbowRod, 0f, 0f, 100, Color.HotPink, 0.8f);
+            Dust dust = Dust.NewDustDirect(Projectile.Center, 0, 0, ModContent.DustType<GlowFastDecelerate>(), 0f, 0f, 100, Color.Red, 0.6f);
             dust.velocity *= 3.2f;
             dust.velocity.Y -= 1f;
             dust.velocity += Projectile.velocity;

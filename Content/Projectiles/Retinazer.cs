@@ -1,8 +1,9 @@
+using DartGunsPlus.Content.Dusts;
 using DartGunsPlus.Content.Systems;
 using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
 using Terraria;
 using Terraria.Audio;
-using Terraria.ID;
 using Terraria.ModLoader;
 using Vector2 = Microsoft.Xna.Framework.Vector2;
 
@@ -56,7 +57,12 @@ public class Retinazer : ModProjectile
         Projectile.rotation = Projectile.DirectionTo(Target.Center).ToRotation();
 
         if (!Target.active)
-            Projectile.Kill();
+        {
+            if (Projectile.FindTargetWithinRange(2000) is not null)
+                Projectile.ai[0] = Projectile.FindTargetWithinRange(2000).whoAmI; // target
+            else
+                Projectile.Kill();
+        }
         
         const int dist = 120;
         
@@ -65,24 +71,41 @@ public class Retinazer : ModProjectile
         if (RelaxTimer == 25)
             RelaxTimer = 0;
         
-        if (Projectile.localAI[1] % 90 == 0)
+        if (Projectile.localAI[1] % 90 == 0 && Projectile.Center.Distance(Target.Center) < 240)
         {
             Projectile.NewProjectile(Projectile.GetSource_FromThis(), Projectile.Center + Projectile.DirectionTo(Target.Center) * 90, 
                 Vector2.Zero, ModContent.ProjectileType<RetinazerDash>(), Projectile.damage, 2, Projectile.owner, 
                 Projectile.DirectionTo(Target.Center).X, Projectile.DirectionTo(Target.Center).Y, ai2: Projectile.rotation);
-            VisualSystem.SpawnDustCircle(Projectile.Center, DustID.RainbowRod, 12, color: Color.HotPink, scale: 0.9f);
+            VisualSystem.SpawnDustCircle(Projectile.Center, ModContent.DustType<GlowFastDecelerate>(), 12, color: Color.Red, scale: 0.9f);
             SoundEngine.PlaySound(AudioSystem.ReturnSound("dash"), Projectile.Center);
 
-            Projectile.Center += Projectile.DirectionTo(Target.Center) * 240;
+            Projectile.Center += Projectile.DirectionTo(Target.Center) * 200;
             RelaxTimer++;
-            RotationGoal *= Main.rand.Next(-3, -1);
+            RotationGoal *= -1;
         }
 
         if (RelaxTimer == 0)
         {
             Projectile.Center = Vector2.Lerp(Projectile.Center, Target.Center + new Vector2(dist, 0).RotatedBy(RotationOffset), 0.04f);
             Projectile.velocity = Vector2.Zero;
-            RotationOffset = (float)Utils.Lerp(RotationOffset, RotationGoal, 0.01f);
+            RotationOffset = (float)Utils.Lerp(RotationOffset, RotationGoal, 0.04f);
         }
+    }
+
+    public override bool PreDraw(ref Color lightColor)
+    {
+        Texture2D texture = ModContent.Request<Texture2D>("DartGunsPlus/Content/Projectiles/Glowball").Value;
+        Color color = new(255, 100, 100, 0);
+
+        if (RelaxTimer != 0)
+        {
+            Main.EntitySpriteDraw(texture, Projectile.Center - Main.screenPosition, null, color, Projectile.rotation, texture.Size() / 2,
+                0.1f, SpriteEffects.None);
+
+            Main.EntitySpriteDraw(texture, Projectile.Center - Main.screenPosition, null, new Color(255, 255, 255, 0) * Projectile.Opacity,
+                Projectile.rotation, texture.Size() / 2, 0.05f, SpriteEffects.None); // white center
+        }
+        
+        return true;
     }
 }

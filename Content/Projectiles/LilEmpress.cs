@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using DartGunsPlus.Content.Dusts;
 using DartGunsPlus.Content.Systems;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
@@ -90,7 +91,7 @@ public class LilEmpress : ModProjectile
         if (Projectile.ai[1] % 300 == 0 && Projectile.ai[1] != 0)
         {
             SoundEngine.PlaySound(SoundID.MaxMana, Projectile.Center);
-            VisualSystem.SpawnDustCircle(Projectile.Center, DustID.RainbowRod, 30, color: Main.DiscoColor);
+            VisualSystem.SpawnDustCircle(Projectile.Center, ModContent.DustType<GlowFastDecelerate>(), 30, color: Main.DiscoColor);
 
             Vector2 spawnPos = Projectile.Center - new Vector2(10 * Owner.direction, 0);
             Projectile.NewProjectile(Projectile.GetSource_FromAI(), spawnPos, spawnPos.DirectionTo(Main.MouseWorld), ModContent.ProjectileType<EmpressLaser>(),

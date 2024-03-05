@@ -30,12 +30,12 @@ public class DartGunsPlus : Mod
 
                     if (file != null)
                     {
-                        IEnumerable<TmodFile.FileEntry> shaders = file.Where(n => n.Name.StartsWith("Contents/Effects/") &&
+                        IEnumerable<TmodFile.FileEntry> shaders = file.Where(n => n.Name.StartsWith("DartGunsPlus/Content/Effects/") &&
                                                                                   n.Name.EndsWith(".xnb"));
 
                         foreach (TmodFile.FileEntry entry in shaders)
                         {
-                            string name = entry.Name.Replace(".xnb", "").Replace("Content/Effects/", "");
+                            string name = entry.Name.Replace(".xnb", "").Replace("DartGunsPlus/Content/Effects/", "");
                             string path = entry.Name.Replace(".xnb", "");
                             LoadShader(name, path);
                         }

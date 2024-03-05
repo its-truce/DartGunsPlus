@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using DartGunsPlus.Content.Dusts;
 using DartGunsPlus.Content.Systems;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
@@ -92,7 +93,7 @@ public class DukeDash : ModProjectile
                 (Owner.DirectionTo(Projectile.Center) * 2).Y, newColor: color);
 
         SoundEngine.PlaySound(AudioSystem.ReturnSound("duke", 0.3f), Projectile.Center);
-        VisualSystem.SpawnDustCircle(Projectile.Center, DustID.FishronWings, 20, 1.2f, color: color);
+        VisualSystem.SpawnDustCircle(Projectile.Center, ModContent.DustType<GlowFastDecelerate>(), 8, color: color, scale: 0.5f);
 
         Color color2 = new(24, 200, 119, 0);
 

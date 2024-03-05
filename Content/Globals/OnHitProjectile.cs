@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using DartGunsPlus.Content.Dusts;
 using DartGunsPlus.Content.Items.Weapons;
 using DartGunsPlus.Content.Items.Weapons.Styx;
 using DartGunsPlus.Content.Projectiles;
@@ -125,7 +126,7 @@ public class OnHitProjectile : GlobalProjectile
 
         else if (_itemType == ModContent.ItemType<Dysphoria>() && projectile.type != ModContent.ProjectileType<DysphoriaBolt>())
         {
-            VisualSystem.SpawnDustCircle(target.Center, DustID.RainbowRod, 30, color: new Color(185, 133, 240));
+            VisualSystem.SpawnDustCircle(target.Center, ModContent.DustType<GlowFastDecelerate>(), 5, color: new Color(185, 133, 240), scale: 0.6f);
 
             if (Main.rand.NextBool(3))
                 for (int i = 0; i < 4; i++)
@@ -150,7 +151,7 @@ public class OnHitProjectile : GlobalProjectile
             if (Main.rand.NextBool(2))
                 for (int i = 0; i < 4; i++)
                 {
-                    VisualSystem.SpawnDustCircle(target.Center, DustID.RainbowRod, 30, color: color);
+                    VisualSystem.SpawnDustCircle(target.Center, ModContent.DustType<GlowFastDecelerate>(), 5, color: color, scale: 0.6f);
 
                     Vector2 position = target.Center + new Vector2(200, 200).RotatedByRandom(Math.Tau);
                     Vector2 velocity = position.DirectionTo(target.Center) * 6;

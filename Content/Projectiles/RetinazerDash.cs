@@ -62,7 +62,7 @@ public class RetinazerDash : ModProjectile
         Texture2D texture = TextureAssets.Projectile[Projectile.type].Value;
         Vector2 drawPos = Projectile.Center - Main.screenPosition;
         Vector2 drawOrigin = texture.Size() / 2;
-        Color color = new(255, 100, 100, 0);
+        Color color = new Color(255, 50, 50, 0) * 1.5f;
         
         Main.EntitySpriteDraw(texture, drawPos, null, color, Projectile.rotation, drawOrigin, new Vector2(_scale, 0.15f),
             SpriteEffects.None);

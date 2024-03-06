@@ -35,7 +35,7 @@ public class VerdantStalker : ModItem
         ParticleOrchestrator.SpawnParticlesDirect(ParticleOrchestraType.SilverBulletSparkle, settings);
 
         velocity.Normalize();
-        player.velocity = velocity * -5;
+        player.velocity += velocity * -5;
         CameraSystem.Screenshake(5, 4);
 
         return true;

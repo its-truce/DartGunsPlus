@@ -42,7 +42,7 @@ public class Scatterhook : ModItem
         Dust.NewDustDirect(position, 20, 20, DustID.SolarFlare);
 
         velocity.Normalize();
-        player.velocity = velocity * -4;
+        player.velocity += velocity * -4;
         CameraSystem.Screenshake(4, 5);
 
         _initialItemRot = player.itemRotation;

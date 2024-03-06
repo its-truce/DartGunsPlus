@@ -1,7 +1,12 @@
 using System;
+using DartGunsPlus.Content.Dusts;
+using DartGunsPlus.Content.Systems;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using ReLogic.Utilities;
 using Terraria;
+using Terraria.Audio;
+using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
 
@@ -9,13 +14,16 @@ namespace DartGunsPlus.Content.Projectiles;
 
 public class VolatileLaser : Deathray
 {
+    private SlotId _soundSlot;
     public override string Texture => "DartGunsPlus/Content/Projectiles/Deathray";
     private Player Owner => Main.player[Projectile.owner];
 
     private float _rayAlpha;
-    private const float MaxCharge = 50f;
+    private const float MaxCharge = 130f;
     private ref float Charge => ref Projectile.localAI[0];
     private bool IsAtMaxCharge => Charge == MaxCharge;
+    private Vector2 Nozzle => Owner.MountedCenter + new Vector2(Owner.inventory[Owner.selectedItem].width * Owner.direction, -8).RotatedBy
+        ((float)Math.Atan2(Projectile.velocity.Y * Projectile.direction, Projectile.velocity.X * Projectile.direction));
     
     public override void SetDefaults()
     {
@@ -24,7 +32,7 @@ public class VolatileLaser : Deathray
         Projectile.penetrate = -1;
         Projectile.tileCollide = true;
         Projectile.friendly = false;
-        Projectile.timeLeft = 210;
+        Projectile.timeLeft = 430;
         Projectile.usesLocalNPCImmunity = true;
         Projectile.localNPCHitCooldown = 5;
         MoveDistance = 0f;
@@ -33,7 +41,12 @@ public class VolatileLaser : Deathray
         HeadRect = new Rectangle(0, 0, Projectile.width, Projectile.height);
         TailRect = new Rectangle(0, 0, Projectile.width, Projectile.height);
     }
-    
+
+    public override void OnSpawn(IEntitySource source)
+    {
+        _soundSlot = SoundEngine.PlaySound(AudioSystem.ReturnSound("lasercharge", volume: 0.6f));
+    }
+
     public override void PostDraw(Color lightColor)
     {
         if (IsAtMaxCharge)
@@ -77,8 +90,21 @@ public class VolatileLaser : Deathray
 
         if (IsAtMaxCharge)
         {
+            Projectile.ai[2] = 1;
             CastLights();
             Projectile.friendly = true;
+        }
+        
+        switch (Projectile.timeLeft)
+        {
+            case 300:
+                SoundEngine.PlaySound(SoundID.MaxMana);
+                VisualSystem.SpawnDustCircle(Nozzle, ModContent.DustType<GlowFastDecelerate>(), 14, color: Color.Red, scale: 0.6f);
+                break;
+            
+            case 310:
+                _soundSlot = SoundEngine.PlaySound(AudioSystem.ReturnSound("laserbeam", volume: 0.6f));
+                break;
         }
     }
     
@@ -113,21 +139,17 @@ public class VolatileLaser : Deathray
             Projectile.Kill();
         else
         {
-            Vector2 offset = Projectile.velocity;
-            offset *= MoveDistance - 20;
-            Vector2 pos = player.Center + offset - new Vector2(10, 10);
             if (Charge < MaxCharge) Charge++;
             int chargeFact = (int)(Charge / 20f);
-            Vector2 dustVelocity = Vector2.UnitX * 18f;
-            dustVelocity = dustVelocity.RotatedBy(Projectile.rotation - 1.57f);
-            Vector2 spawnPos = Projectile.Center + dustVelocity;
+            
             for (int k = 0; k < chargeFact + 1; k++)
             {
-                Vector2 spawn = spawnPos + ((float)Main.rand.NextDouble() * MathF.Tau).ToRotationVector2() * (12f - chargeFact * 2);
-                Dust dust = Main.dust[Dust.NewDust(pos, 20, 20, DustID.Firework_Red, Projectile.velocity.X / 2f, Projectile.velocity.Y / 2f)];
-                dust.velocity = Vector2.Normalize(spawnPos - spawn) * 1.5f * (10f - chargeFact * 2f) / 10f;
+                Vector2 spawn = Nozzle + ((float)Main.rand.NextDouble() * MathF.Tau).ToRotationVector2() * (12f - chargeFact * 2);
+                Dust dust = Dust.NewDustDirect(Nozzle, 20, 20, ModContent.DustType<GlowFastDecelerate>(), Projectile.velocity.X / 2f,
+                    Projectile.velocity.Y / 2f, newColor: Color.Red);
+                dust.velocity = Vector2.Normalize(Nozzle - spawn) * 1.5f * (10f - chargeFact * 2f) / 10f;
                 dust.noGravity = true;
-                dust.scale = Main.rand.Next(10, 20) * 0.05f;
+                dust.scale = Main.rand.Next(10, 20) * 0.03f;
             }
         }
     }
@@ -143,5 +165,13 @@ public class VolatileLaser : Deathray
         // Cast a light along the line of the laser
         DelegateMethods.v3_1 = Color.HotPink.ToVector3();
         Utils.PlotTileLine(Projectile.Center, Position(), 26, DelegateMethods.CastLight);
+    }
+
+    public override void OnKill(int timeLeft)
+    {
+        SoundEngine.TryGetActiveSound(_soundSlot, out ActiveSound activeSound);
+        activeSound?.Stop();
+        VisualSystem.SpawnDustCircle(Projectile.Center, ModContent.DustType<GlowFastDecelerate>(), 14, color: Color.Red, scale: 0.6f);
+        SoundEngine.PlaySound(SoundID.DD2_DarkMageCastHeal, Projectile.Center);
     }
 }

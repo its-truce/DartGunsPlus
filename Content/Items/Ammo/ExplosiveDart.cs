@@ -1,4 +1,5 @@
 using System;
+using DartGunsPlus.Content.Dusts;
 using DartGunsPlus.Content.Projectiles;
 using DartGunsPlus.Content.Systems;
 using Microsoft.Xna.Framework;
@@ -46,13 +47,13 @@ public class ExplosiveDart : ModItem
 
 public class ExplosiveDartProj : DartProjectile
 {
-    private readonly Color _color = Color.Lerp(new Color(255, 200, 48), new Color(255, 190, 65), Main.masterColor) * 0.4f;
+    private static Color Color => Color.Lerp(new Color(255, 200, 48), new Color(255, 190, 65), Main.masterColor) * 0.4f;
     private Player Owner => Main.player[Projectile.owner];
     public override string Texture => "DartGunsPlus/Content/Projectiles/EmptyTexture";
     protected override int GravityDelay => 40;
     protected override float GravityDecreaseY => 0.09f;
     protected override bool EmitLight => true;
-    protected override Color LightColor => _color;
+    protected override Color LightColor => Color;
 
     public override void SetStaticDefaults()
     {
@@ -85,7 +86,7 @@ public class ExplosiveDartProj : DartProjectile
         Rectangle frame2 = texture2.Frame();
         Vector2 frameOrigin2 = frame2.Size() / 2f;
 
-        Color col = _color;
+        Color col = Color;
         Color col2 = Color.Lerp(Color.White, Color.Black, Main.masterColor);
         Vector2 stretchscale = new(Projectile.scale * 1.4f + Main.masterColor / 2);
 
@@ -115,6 +116,7 @@ public class ExplosiveDartProj : DartProjectile
 
     public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
     {
+        VisualSystem.SpawnDustCircle(target.Center, ModContent.DustType<GlowFastDecelerate>(), color: Color, scale: 0.6f);
         target.velocity.Y -= 7 * target.knockBackResist;
     }
 
@@ -128,8 +130,11 @@ public class ExplosiveDartProj : DartProjectile
             Owner.runAcceleration += 3f;
 
             float length = Projectile.oldVelocity.Length();
-            Owner.velocity = new Vector2(length * 0.7f, 0).RotatedBy(Projectile.DirectionTo(Owner.Center).ToRotation());
-            Owner.velocity.Y -= 3f;
+            if (Owner.velocity.Length() < new Vector2(length * 0.7f, 0).RotatedBy(Projectile.DirectionTo(Owner.Center).ToRotation()).Length() * 1.1f)
+            {
+                Owner.velocity += new Vector2(length * 0.7f, 0).RotatedBy(Projectile.DirectionTo(Owner.Center).ToRotation()); 
+                Owner.velocity.Y -= 3f;
+            }
         }
 
         for (int i = 0; i < 4; i++)

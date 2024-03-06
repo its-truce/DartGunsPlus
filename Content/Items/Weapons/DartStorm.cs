@@ -39,7 +39,7 @@ public class DartStorm : ModItem
         Projectile.NewProjectile(source, position, Vector2.Zero, ModContent.ProjectileType<ShotgunMusket>(), 0, 0, player.whoAmI, 
             velocity.ToRotation(), 14);
         velocity.Normalize();
-        player.velocity = velocity * -2;
+        player.velocity += velocity * -2;
         CameraSystem.Screenshake(4, 3);
 
         _initialItemRot = player.itemRotation;

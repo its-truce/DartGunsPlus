@@ -52,7 +52,7 @@ public class GoreNGlory : ModItem
                 0, 0, player.whoAmI, velocity.ToRotation(), -2);
 
             velocity.Normalize();
-            player.velocity = velocity * -4;
+            player.velocity += velocity * -4;
             CameraSystem.Screenshake(4, 5);
         }
 

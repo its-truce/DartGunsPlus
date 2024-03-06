@@ -98,9 +98,7 @@ public abstract class Deathray : ModProjectile
 	protected virtual void SetLaserPosition()
 	{
 		if (!Projectile.tileCollide)
-		{
 			MaxDistance = RealMaxDistance;
-		}
 		else
 		{
 			for (MaxDistance = MoveDistance; MaxDistance <= RealMaxDistance; MaxDistance += 5f)

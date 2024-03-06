@@ -45,7 +45,7 @@ public class OnyxStorm : ModItem
         Dust.NewDustDirect(position, 20, 20, DustID.PurpleMoss);
 
         velocity.Normalize();
-        player.velocity = velocity * -3;
+        player.velocity += velocity * -3;
         CameraSystem.Screenshake(5, 4);
 
         _initialItemRot = player.itemRotation;

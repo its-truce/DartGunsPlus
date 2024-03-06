@@ -112,15 +112,16 @@ public class VolatileBomb : ModProjectile
     {
         SoundEngine.PlaySound(AudioSystem.ReturnSound("mechaboom", volume: 0.6f));
         VisualSystem.SpawnDustCircle(Projectile.Center, ModContent.DustType<GlowFastDecelerate>(), scale: 0.6f, color: Color.Red);
+        CameraSystem.Screenshake(4, 5);
     }
     
     public override void PostDraw(Color lightColor)
     {
         Texture2D texture = ModContent.Request<Texture2D>("DartGunsPlus/Content/Projectiles/VolatileFlash").Value;
         Color color = new(255, 50, 50, 0);
-        
+
         if (Projectile.ai[1] % 5 == 0)
-            Main.EntitySpriteDraw(texture, Projectile.Center - Main.screenPosition, null, color, Projectile.rotation, texture.Size()/2, 
+            Main.EntitySpriteDraw(texture, Projectile.Center - Main.screenPosition, null, color, Projectile.rotation, texture.Size() / 2,
                 Projectile.scale, SpriteEffects.None);
     }
 }

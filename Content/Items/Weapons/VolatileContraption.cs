@@ -20,9 +20,10 @@ public class VolatileContraption : ModItem
         Item.height = 42;
         Item.rare = ItemRarityID.Orange;
 
-        Item.UseSound = SoundID.DD2_BallistaTowerShot;
+        Item.UseSound = AudioSystem.ReturnSound("volatileshoot");
 
         Item.damage = 72;
+        Item.crit = 20;
         Item.knockBack = 4;
         Item.channel = true;
     }
@@ -61,6 +62,9 @@ public class VolatileContraption : ModItem
         }
 
         type = _shootCount is > 6 and < 10 ? ModContent.ProjectileType<VolatileBomb>() : _shootCount == 10 ? ModContent.ProjectileType<VolatileLaser>() : type;
+
+        if (_shootCount > 6)
+            damage += damage / 2;
     }
 
     public override Vector2? HoldoutOffset()

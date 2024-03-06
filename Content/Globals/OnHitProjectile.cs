@@ -208,6 +208,13 @@ public class OnHitProjectile : GlobalProjectile
                 IndexOfPlayerWhoInvokedThis = (byte)projectile.owner
             };
             ParticleOrchestrator.SpawnParticlesDirect(ParticleOrchestraType.TrueExcalibur, settings);
+            
+            if (Main.rand.NextBool(3))
+            {
+                Vector2 spawnPos = target.Center + new Vector2(120, 0).RotatedByRandom(Math.Tau);
+                Projectile.NewProjectile(projectile.GetSource_OnHit(target), spawnPos, spawnPos.DirectionTo(target.Center) * 12,
+                    ModContent.ProjectileType<EuphoriaSlash>(), (int)(damageDone * 0.75f), 3, projectile.owner);
+            }
 
             Player owner = Main.player[projectile.owner];
             if (owner.ownedProjectileCounts[ModContent.ProjectileType<RevolvingSword>()] != 0)

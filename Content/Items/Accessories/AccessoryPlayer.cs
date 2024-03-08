@@ -1,3 +1,7 @@
+using System;
+using System.Linq;
+using DartGunsPlus.Content.Systems;
+using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -8,6 +12,7 @@ public class AccessoryPlayer : ModPlayer
 {
     public bool HasDartLicense;
     public bool HasSpyglass;
+    private NPC[] _alreadySpawned = new NPC[1];
     public bool HasKite;
     public bool HasShield;
     public bool IncrementShield;
@@ -19,6 +24,7 @@ public class AccessoryPlayer : ModPlayer
         HasSpyglass = false;
         HasKite = false;
         HasShield = false;
+        _alreadySpawned = new NPC[1];
     }
 
     public override void ModifyWeaponDamage(Item item, ref StatModifier damage)
@@ -40,12 +46,31 @@ public class AccessoryPlayer : ModPlayer
 
     public override void UpdateEquips()
     {
-        if (IncrementShield)
-            ShieldTimer++;
-        if (ShieldTimer == 60)
+        if (HasShield && IncrementShield)
         {
-            IncrementShield = false;
-            ShieldTimer = 0;
+            ShieldTimer++;
+            
+            if (ShieldTimer == 60)
+            {
+                IncrementShield = false;
+                ShieldTimer = 0;
+            }
+        }
+
+        if (HasSpyglass)
+        {
+            NPC closestTarget = DartUtils.FindClosestTarget(1600, _alreadySpawned, Player, 8);
+
+            if (closestTarget != null && 
+                !Main.projectile.Any(proj => proj.active && proj.owner == Player.whoAmI && proj.type == ModContent.ProjectileType<TargetCircle>() && 
+                                            proj.ai[0] == closestTarget.whoAmI))
+            {
+                Projectile.NewProjectile(Player.GetSource_Misc("spyglass"), closestTarget.Center, Vector2.Zero,
+                    ModContent.ProjectileType<TargetCircle>(), 0, 0, Player.whoAmI, closestTarget.whoAmI);
+                
+                Array.Resize(ref _alreadySpawned, _alreadySpawned.Length + 1);
+                _alreadySpawned[^1] = closestTarget;
+            }
         }
     }
 }

@@ -25,7 +25,7 @@ public class OnHitProjectile : GlobalProjectile
     private readonly int[] _shotguns =
     {
         ModContent.ItemType<DartStorm>(), ModContent.ItemType<CherryBlossom>(), ModContent.ItemType<GoreNGlory>(),
-        ModContent.ItemType<OnyxStorm>(), ModContent.ItemType<Scatterhook>()
+        ModContent.ItemType<OnyxStorm>(), ModContent.ItemType<Scatterhook>(), ModContent.ItemType<Scylla>()
     };
 
     public override bool InstancePerEntity => true;

@@ -21,14 +21,16 @@ public class DartTrailProjectile : GlobalProjectile
         ModContent.ProjectileType<DysphoriaExplosion>(), ModContent.ProjectileType<DysphoriaNail>(), ModContent.ProjectileType<SereneBolt>(), 
         ModContent.ProjectileType<SereneShock>(), ModContent.ProjectileType<SereneSlash>(), ModContent.ProjectileType<EmpressLaser>(),
         ModContent.ProjectileType<EmpressBolt>(), ModContent.ProjectileType<LilEmpress>(), ModContent.ProjectileType<LaserLightning>(), 
-        ModContent.ProjectileType<HomingLightning>(), ModContent.ProjectileType<EuphoriaBoom>()
+        ModContent.ProjectileType<HomingLightning>(), ModContent.ProjectileType<EuphoriaBoom>(), ModContent.ProjectileType<ShotgunMusket>(),
+        ModContent.ProjectileType<LuminiteStrike>()
     };
 
     private readonly int[] _validItems =
     {
         ModContent.ItemType<Dysphoria>(), ModContent.ItemType<TrueDysphoria>(), ModContent.ItemType<AstralAmalgam>(), ModContent.ItemType<VolatileContraption>(),
         ModContent.ItemType<Euphoria>(), ModContent.ItemType<TrueEuphoria>(), ModContent.ItemType<MartianMarksman>(), ModContent.ItemType<HalloweenHex>(),
-        ModContent.ItemType<GlacialGeyser>(), ModContent.ItemType<Serenity>(), ModContent.ItemType<Luminescence>(), ModContent.ItemType<LaserTherapy>()
+        ModContent.ItemType<GlacialGeyser>(), ModContent.ItemType<Serenity>(), ModContent.ItemType<Luminescence>(), ModContent.ItemType<LaserTherapy>(),
+        ModContent.ItemType<Scylla>()
     };
 
     private int _itemType;
@@ -116,6 +118,11 @@ public class DartTrailProjectile : GlobalProjectile
         else if (_itemType == ModContent.ItemType<LaserTherapy>())
         {
             drawColor = Color.PaleVioletRed;
+        }
+        else if (_itemType == ModContent.ItemType<Scylla>())
+        {
+            drawColor = Color.Turquoise;
+            defaultScale = 0.4f;
         }
 
         Texture2D texture = (Texture2D)ModContent.Request<Texture2D>("DartGunsPlus/Content/Globals/DartGrayscale");

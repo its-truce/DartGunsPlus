@@ -295,6 +295,11 @@ Items: {
 		DisplayName: Reflective Coating
 		Tooltip: ""
 	}
+
+	Scylla: {
+		DisplayName: Scylla
+		Tooltip: ""
+	}
 }
 
 Projectiles: {

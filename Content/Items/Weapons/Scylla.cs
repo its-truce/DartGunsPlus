@@ -1,3 +1,4 @@
+using DartGunsPlus.Content.Dusts;
 using DartGunsPlus.Content.Projectiles;
 using DartGunsPlus.Content.Systems;
 using Microsoft.Xna.Framework;
@@ -8,42 +9,45 @@ using Terraria.ModLoader;
 
 namespace DartGunsPlus.Content.Items.Weapons;
 
-public class Scatterhook : ModItem
+public class Scylla : ModItem
 {
     private float _initialItemRot;
-
+    
     public override void SetDefaults()
     {
-        Item.DefaultToRangedWeapon(ProjectileID.PurificationPowder, AmmoID.Dart, 45, 16, true);
+        Item.DefaultToRangedWeapon(ProjectileID.PurificationPowder, AmmoID.Dart, 35, 18, true);
         Item.width = 72;
         Item.height = 20;
-        Item.rare = ItemRarityID.Lime;
+        Item.rare = ItemRarityID.Red;
 
-        Item.UseSound = AudioSystem.ReturnSound("shotgun", 0.4f);
+        Item.UseSound = AudioSystem.ReturnSound("scyllashoot", 0.4f);
 
-        Item.damage = 40;
+        Item.damage = 81;
         Item.knockBack = 8f;
     }
 
     public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
     {
-        int numProjectiles = Main.rand.Next(5, 9);
+        int numProjectiles = Main.rand.Next(7, 10);
 
         for (int i = 0; i < numProjectiles; i++)
         {
             Vector2 newVelocity = velocity.RotatedByRandom(MathHelper.ToRadians(30));
-            newVelocity *= 1f - Main.rand.NextFloat(0.5f);
+            newVelocity *= 1f - Main.rand.NextFloat(0.4f);
 
-            Projectile.NewProjectileDirect(source, position, newVelocity, type, damage, knockback, player.whoAmI);
+            int projToShoot = Main.rand.NextBool(4) ? ModContent.ProjectileType<LuminiteStrike>() : type;
+
+            Projectile.NewProjectileDirect(source, position, newVelocity, projToShoot, damage, knockback, player.whoAmI);
         }
 
         Projectile.NewProjectile(source, position, Vector2.Zero, ModContent.ProjectileType<ShotgunMusket>(),
-            0, 0, player.whoAmI, velocity.ToRotation(), 5);
-        Dust.NewDustDirect(position, 20, 20, DustID.SolarFlare);
+            0, 0, player.whoAmI, velocity.ToRotation(), 0, 2);
+        
+        Dust.NewDustDirect(position, 20, 20, ModContent.DustType<GlowFastDecelerate>(), newColor: Color.Turquoise, Scale: 0.5f);
 
         velocity.Normalize();
-        player.velocity += velocity * -6;
-        CameraSystem.Screenshake(4, 5);
+        player.velocity += velocity * -5;
+        CameraSystem.Screenshake(6, 6);
 
         _initialItemRot = player.itemRotation;
         return false;

@@ -49,10 +49,10 @@ public class GoreNGlory : ModItem
             }
 
             Projectile.NewProjectile(source, position + Vector2.Normalize(velocity) * Item.width * 0.7f, Vector2.Zero, ModContent.ProjectileType<ShotgunMusket>(),
-                0, 0, player.whoAmI, velocity.ToRotation(), -2);
+                0, 0, player.whoAmI, velocity.ToRotation(), -2, 1);
 
             velocity.Normalize();
-            player.velocity += velocity * -4;
+            player.velocity += velocity * -6;
             CameraSystem.Screenshake(4, 5);
         }
 

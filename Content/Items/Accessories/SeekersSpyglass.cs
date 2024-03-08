@@ -8,6 +8,7 @@ namespace DartGunsPlus.Content.Items.Accessories;
 
 public class SeekersSpyglass : ModItem
 {
+
     public override void SetDefaults()
     {
         Item.width = 72;
@@ -24,58 +25,34 @@ public class SeekersSpyglass : ModItem
     }
 }
 
-public class SpyglassItem : GlobalItem
+public class SpyglassProjectile : GlobalProjectile
 {
-    private bool _seeking;
     public override bool InstancePerEntity => true;
-
-    public override void ModifyShootStats(Item item, Player player, ref Vector2 position, ref Vector2 velocity, ref int type, ref int damage, ref float knockback)
+    private bool _eligible;
+    
+    public override void OnSpawn(Projectile projectile, IEntitySource source)
     {
-        NPC target = FindClosestTarget(800);
-        if (target != null && player.GetModPlayer<AccessoryPlayer>().HasSpyglass)
-        {
-            float velocityLength = velocity.Length();
-            velocity = position.DirectionTo(target.Center) * velocityLength;
-            _seeking = true;
-            int dir = velocity.X > 0 ? 1 : -1;
-            player.ChangeDir(dir);
-            position = player.MountedCenter + new Vector2(item.width, 0).RotatedBy(velocity.ToRotation());
-        }
+        if (source is EntitySource_ItemUse_WithAmmo use && ContentSamples.ItemsByType[use.AmmoItemIdUsed].ammo == AmmoID.Dart)
+            _eligible = true;
     }
 
-    public override bool Shoot(Item item, Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
+    public override void ModifyHitNPC(Projectile projectile, NPC target, ref NPC.HitModifiers modifiers)
     {
-        if (_seeking)
+        Player player = Main.player[projectile.owner];
+        AccessoryPlayer accessoryPlayer = player.GetModPlayer<AccessoryPlayer>();
+        
+        if (!_eligible || !accessoryPlayer.HasSpyglass)
+            return;
+
+        foreach (Projectile proj in Main.projectile)
         {
-            NPC target = FindClosestTarget(800);
-            Projectile.NewProjectile(player.GetSource_FromThis(), target.Center, Vector2.Zero,
-                ModContent.ProjectileType<TargetCircle>(), 0, 0, player.whoAmI, target.whoAmI);
-            _seeking = false;
-        }
-
-        return base.Shoot(item, player, source, position, velocity, type, damage, knockback);
-    }
-
-    private static NPC FindClosestTarget(float maxDetectDistance)
-    {
-        NPC closestTarget = null;
-        float sqrMaxDetectDistance = maxDetectDistance * maxDetectDistance;
-
-        for (int k = 0; k < Main.maxNPCs; k++)
-        {
-            NPC target = Main.npc[k];
-            if (target.CanBeChasedBy())
+            if (proj.active && proj.type == ModContent.ProjectileType<TargetCircle>() && proj.owner == projectile.owner &&
+                new Rectangle((int)proj.position.X, (int)proj.position.Y, proj.width + proj.width / 2, proj.height + proj.height / 2).Intersects(projectile.Hitbox)
+                && proj.ai[0] == target.whoAmI)
             {
-                float sqrDistanceToTarget = Vector2.DistanceSquared(target.Center, Main.MouseWorld);
-
-                if (sqrDistanceToTarget < sqrMaxDetectDistance)
-                {
-                    sqrMaxDetectDistance = sqrDistanceToTarget;
-                    closestTarget = target;
-                }
+                Main.NewText("hi");
+                modifiers.SetCrit();
             }
         }
-
-        return closestTarget;
     }
 }

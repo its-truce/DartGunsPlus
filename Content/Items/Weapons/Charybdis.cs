@@ -12,7 +12,7 @@ public class Charybdis : ModItem
 {
     public override void SetDefaults()
     {
-        Item.DefaultToRangedWeapon(ProjectileID.PurificationPowder, AmmoID.Dart, 12, 13, true);
+        Item.DefaultToRangedWeapon(ProjectileID.PurificationPowder, AmmoID.Dart, 12, 14, true);
         Item.width = 58;
         Item.height = 30;
         Item.rare = ItemRarityID.Red;

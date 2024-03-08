@@ -17,7 +17,7 @@ public class LaserTherapy : ModItem
         Item.height = 24;
         Item.rare = ItemRarityID.Red;
 
-        Item.UseSound = AudioSystem.ReturnSound("dart", 0.3f);
+        Item.UseSound = AudioSystem.ReturnSound("scifishoot", 0.3f);
 
         Item.damage = 144;
         Item.crit = 28;

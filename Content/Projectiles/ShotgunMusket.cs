@@ -40,11 +40,11 @@ public class ShotgunMusket : ModProjectile
         if (Projectile.timeLeft < 5)
             FadingSystem.FadeOut(Projectile, 4);
 
-        Lighting.AddLight(Projectile.Center, Color.OrangeRed.ToVector3());
+        Lighting.AddLight(Projectile.Center, Color.White.ToVector3());
 
         float offset = Owner.direction == -1 ? MathF.PI : 0;
         Projectile.rotation = Owner.itemRotation + offset;
-        Projectile.Center = Owner.MountedCenter + new Vector2(Owner.inventory[Owner.selectedItem].width * Owner.direction, 0).RotatedBy(Owner.itemRotation -
+        Projectile.Center = Owner.MountedCenter + new Vector2((Owner.inventory[Owner.selectedItem].width + Owner.MountXOffset) * Owner.direction, 0).RotatedBy(Owner.itemRotation -
             MathHelper.ToRadians(Projectile.ai[1] * Owner.direction));
     }
 
@@ -53,11 +53,34 @@ public class ShotgunMusket : ModProjectile
         Texture2D texture = TextureAssets.Projectile[Projectile.type].Value;
         Texture2D texture2 = ModContent.Request<Texture2D>("DartGunsPlus/Content/Projectiles/Musket2").Value;
 
-        Main.EntitySpriteDraw(texture, Projectile.Center - Main.screenPosition, null, new Color(255, 140, 0, 0) * Projectile.Opacity,
-            Projectile.rotation, texture.Size() / 2, Projectile.scale, SpriteEffects.None);
+        Color color1;
+        Color color2;
+
+        switch (Projectile.ai[2])
+        {
+            case 1:
+                color1 = new Color(255, 204, 20, 0);
+                color2 = new Color(255, 231, 143, 0);
+                break;
+
+            case 2:
+                color1 = new Color(20, 255, 203, 0);
+                color2 = new Color(143, 255, 206, 0);
+                break;
+
+            default:
+                color1 = new Color(255, 140, 0, 0);
+                color2 = new Color(255, 112, 0, 0); 
+                break;
+        }
+
+        float scaleFactor = Projectile.ai[2] == 1 ? 1.3f : 1f;
+
+        Main.EntitySpriteDraw(texture, Projectile.Center - Main.screenPosition, null, color1 * Projectile.Opacity,
+            Projectile.rotation, texture.Size() / 2, Projectile.scale * scaleFactor, SpriteEffects.None);
         
-        Main.EntitySpriteDraw(texture2, Projectile.Center - Main.screenPosition, null, new Color(255, 112, 0, 0) * Projectile.Opacity,
-            Projectile.rotation, texture2.Size() / 2, Projectile.scale * 0.7f, SpriteEffects.None);
+        Main.EntitySpriteDraw(texture2, Projectile.Center - Main.screenPosition, null, color2 * Projectile.Opacity,
+            Projectile.rotation, texture2.Size() / 2, Projectile.scale * 0.7f * scaleFactor, SpriteEffects.None);
 
         return false;
     }

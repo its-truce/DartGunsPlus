@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Terraria;
@@ -44,7 +45,7 @@ public static class VisualSystem
     public static void RecoilAnimation(Player player, float initialItemRot, float degrees)
     {
         float progress = Math.Clamp((float)player.itemAnimation / player.itemAnimationMax * 0.7f, 0, 1);
-        
+
         player.itemRotation = (float)Utils.Lerp(player.itemRotation, initialItemRot - MathHelper.ToRadians(degrees * player.direction),
             1 - progress);
 
@@ -55,14 +56,19 @@ public static class VisualSystem
                 downProgress);
         }
     }
-    
-    public static void DrawLine(SpriteBatch spriteBatch, Texture2D texture, Vector2 start, Vector2 end, Color col)
-    {
-        float rotation = start.DirectionTo(end).ToRotation();
-        float scale = Vector2.Distance(start, end) / texture.Height;
-        Vector2 origin = Vector2.Zero;
 
-        spriteBatch.Draw(texture, start + new Vector2(0, 2) - Main.screenPosition, texture.Bounds, col, rotation, origin, new Vector2(scale, 1f),
-            SpriteEffects.None, 0);
+    public static void DrawLine(SpriteBatch spriteBatch, Texture2D texture, Vector2 start, Vector2 end, Color color, float scale = 1f, bool spriteFacingUpwards = true)
+    {
+        float offset = spriteFacingUpwards ? MathF.PI / 2 : 0;
+        float rotation = start.DirectionTo(end).ToRotation() + offset;
+        float distance = Vector2.Distance(start, end);
+        
+        IEnumerable<Vector2> points = DartUtils.GetInterpolatedPoints(start, end, (int)(distance / (texture.Height * scale)) + 1);
+
+        foreach (Vector2 point in points)
+        {
+            spriteBatch.Draw(texture, point - Main.screenPosition, texture.Bounds, color, rotation, texture.Size()/2,
+                scale, SpriteEffects.None, 0);
+        }
     }
 }

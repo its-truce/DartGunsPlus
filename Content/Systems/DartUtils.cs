@@ -9,19 +9,19 @@ namespace DartGunsPlus.Content.Systems;
 
 public class DartUtils : ModSystem
 {
-    public static NPC FindClosestTarget(float maxDetectDistance, NPC[] alreadyHit, Projectile proj, int maxLength)
+    public static NPC FindClosestTarget(float maxDetectDistance, NPC[] alreadyHit, Entity entity, int maxLength)
     {
         NPC closest = null;
-
+        
         float sqrMaxDetectDistance = maxDetectDistance * maxDetectDistance;
-
+        
         for (int k = 0; k < Main.maxNPCs; k++)
         {
             NPC target = Main.npc[k];
             if (target.CanBeChasedBy() && !alreadyHit.Contains(target) && alreadyHit.Length <= maxLength)
             {
-                float sqrDistanceToTarget = Vector2.DistanceSquared(target.Center, proj.Center);
-
+                float sqrDistanceToTarget = Vector2.DistanceSquared(target.Center, entity.Center);
+                
                 if (sqrDistanceToTarget < sqrMaxDetectDistance)
                 {
                     sqrMaxDetectDistance = sqrDistanceToTarget;
@@ -33,16 +33,16 @@ public class DartUtils : ModSystem
         return closest;
     }
 
-    public static IEnumerable<Vector2> GetInterpolatedPoints(Vector2 start, Vector2 end, int numberOfPoints)
+    public static IEnumerable<Vector2> GetInterpolatedPoints(Vector2 start, Vector2 end, float numberOfPoints)
     {
         // Ensure numberOfPoints is at least 2 to include start and end points
         numberOfPoints = Math.Max(numberOfPoints, 2);
 
-        var points = new Vector2[numberOfPoints];
+        var points = new Vector2[(int)numberOfPoints];
 
         for (int i = 0; i < numberOfPoints; i++)
         {
-            float t = i / (float)(numberOfPoints - 1); // Calculate interpolation factor
+            float t = i / (numberOfPoints - 1); // Calculate interpolation factor
 
             // Use Vector2.Lerp to calculate the interpolated point
             points[i] = Vector2.Lerp(start, end, t);

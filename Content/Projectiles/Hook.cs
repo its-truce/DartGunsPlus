@@ -99,7 +99,7 @@ public class Hook : ModProjectile
                 if (!target.active)
                     Projectile.ai[2] = (int)TargetIndicator.Retract;
 
-                if (target.width + target.height < 130 && target.CanBeChasedBy()) // threshold for large enemy
+                if (target.width + target.height < 130 && target.CanBeChasedBy() || target.boss) // threshold for large enemy
                 {
                     Projectile.velocity = Vector2.Lerp(Projectile.velocity.SafeNormalize(Projectile.velocity) * 8, Projectile.DirectionTo(Owner.Center) * 16,
                         0.6f);

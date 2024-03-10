@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using DartGunsPlus.Content.Dusts;
 using DartGunsPlus.Content.Systems;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
@@ -41,8 +42,8 @@ public class ZapperLightning : ModProjectile
     {
         Texture2D texture = TextureAssets.Projectile[Projectile.type].Value;
         Texture2D texture2 = ModContent.Request<Texture2D>("DartGunsPlus/Content/Projectiles/Glowball").Value;
-        Color col = Color.Yellow;
-        col.A = 0;
+        Color col = new Color(255, 246, 72, 0);
+        
         DrawLightning(texture, texture2, col, _startLocation, Projectile.Center, 0.022f);
 
         Vector2 drawPos = Projectile.Center - Main.screenPosition;
@@ -87,5 +88,19 @@ public class ZapperLightning : ModProjectile
     public override void OnKill(int timeLeft)
     {
         SoundEngine.PlaySound(AudioSystem.ReturnSound("boom"), Projectile.Center);
+    }
+
+    public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
+    {
+        int randDust = Main.rand.Next(15, 20);
+        for (int i = 0; i < randDust; i++)
+        {
+            Dust dust = Dust.NewDustDirect(Projectile.Center, 0, 0, ModContent.DustType<GlowFastDecelerate>(), 0f, 0f, 100, Color.Gold, 
+                0.6f);
+            dust.velocity *= 3.2f;
+            dust.velocity.Y -= 1f;
+            dust.velocity += Projectile.velocity;
+            dust.noGravity = true;
+        }
     }
 }

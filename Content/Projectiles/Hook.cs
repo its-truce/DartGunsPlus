@@ -108,16 +108,19 @@ public class Hook : ModProjectile
                         0.6f);
                 }
                 else
-                    Owner.velocity = Vector2.Lerp(Owner.velocity.SafeNormalize(Owner.velocity) * 7, Owner.DirectionTo(Projectile.Center) * 14, 0.7f);
+                    MoveOwner();
             }
             
-
             if (Projectile.ai[2] == (int)TargetIndicator.Tile)
-            {
-                Owner.velocity = Vector2.Lerp(Owner.velocity.SafeNormalize(Owner.velocity) * 7, Owner.DirectionTo(Projectile.Center) * 14, 0.7f);
-                Projectile.velocity = Vector2.Zero;
-            }
-            
+                MoveOwner();
+        }
+        return;
+
+        void MoveOwner()
+        {
+            Owner.velocity = Vector2.Lerp(Owner.velocity.SafeNormalize(Owner.velocity) * 7, Owner.DirectionTo(Projectile.Center) * 14, 0.7f);
+            Projectile.velocity = Vector2.Zero;
+
             const int moveAmount = 2;
 
             if (Owner.controlLeft)

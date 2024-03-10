@@ -24,8 +24,8 @@ public class ZapperLightning : ModProjectile
         Projectile.friendly = true;
         Projectile.penetrate = -1;
         Projectile.ignoreWater = true;
-        Projectile.usesIDStaticNPCImmunity = true;
-        Projectile.idStaticNPCHitCooldown = 5;
+        Projectile.usesLocalNPCImmunity = true;
+        Projectile.localNPCHitCooldown = 5;
     }
 
     public override void OnSpawn(IEntitySource source)
@@ -99,7 +99,8 @@ public class ZapperLightning : ModProjectile
                 0.6f);
             dust.velocity *= 3.2f;
             dust.velocity.Y -= 1f;
-            dust.velocity += Projectile.velocity;
+            Vector2 velocity = new Vector2(0, 10);
+            dust.velocity += velocity;
             dust.noGravity = true;
         }
     }

@@ -62,9 +62,6 @@ public static class VisualSystem
     {
         float offset = spriteFacingUpwards ? MathF.PI / 2 : 0;
         float rotation = start.DirectionTo(end).ToRotation() + offset;
-        
-        Vector2 direction = end - start;
-        float bendingRotation = MathF.Atan2(direction.Y, direction.X) + bendingFactor;
 
         float distance = Vector2.Distance(start, end);
 
@@ -72,7 +69,7 @@ public static class VisualSystem
 
         foreach (Vector2 point in points)
         {
-            spriteBatch.Draw(texture, point - Main.screenPosition, texture.Bounds, color, rotation + bendingRotation, texture.Size() / 2,
+            spriteBatch.Draw(texture, point - Main.screenPosition, texture.Bounds, color, rotation, texture.Size() / 2,
                 scale, SpriteEffects.None, 0);
         }
     }

@@ -50,8 +50,7 @@ public class Hook : ModProjectile
     {
         Owner.itemTime = 2;
         Owner.itemAnimation = 2;
-        _startLocation = Owner.MountedCenter + new Vector2((Owner.HeldItem.width * 0.8f + Owner.MountXOffset) * Owner.direction, 0).RotatedBy(
-            Owner.itemRotation);
+        _startLocation = Owner.MountedCenter + new Vector2((Owner.HeldItem.width * 0.8f + Owner.MountXOffset) * Owner.direction, 0).RotatedBy(Owner.itemRotation);
         Projectile.rotation = Owner.DirectionTo(Projectile.Center).ToRotation();
 
         float offset = Owner.direction == 1 ? 0 : MathF.PI;
@@ -99,11 +98,25 @@ public class Hook : ModProjectile
 
                 if (!target.active)
                     Projectile.ai[2] = (int)TargetIndicator.Retract;
+
+                if (target.width + target.height < 130 && target.CanBeChasedBy()) // threshold for large enemy
+                {
+                    Projectile.velocity = Vector2.Lerp(Projectile.velocity.SafeNormalize(Projectile.velocity) * 8, Projectile.DirectionTo(Owner.Center) * 16,
+                        0.6f);
+                    
+                    target.velocity = Vector2.Lerp(target.velocity.SafeNormalize(target.velocity) * 8, target.DirectionTo(Owner.Center) * 16,
+                        0.6f);
+                }
+                else
+                    Owner.velocity = Vector2.Lerp(Owner.velocity.SafeNormalize(Owner.velocity) * 7, Owner.DirectionTo(Projectile.Center) * 14, 0.7f);
             }
             
-            Projectile.velocity = Vector2.Zero;
-            
-            Owner.velocity = Vector2.Lerp(Owner.velocity.SafeNormalize(Owner.velocity) * 7, Owner.DirectionTo(Projectile.Center) * 14, 0.7f);
+
+            if (Projectile.ai[2] == (int)TargetIndicator.Tile)
+            {
+                Owner.velocity = Vector2.Lerp(Owner.velocity.SafeNormalize(Owner.velocity) * 7, Owner.DirectionTo(Projectile.Center) * 14, 0.7f);
+                Projectile.velocity = Vector2.Zero;
+            }
             
             const int moveAmount = 2;
 
@@ -123,7 +136,7 @@ public class Hook : ModProjectile
         Texture2D chainTexture = ModContent.Request<Texture2D>("DartGunsPlus/Content/Projectiles/HookChain").Value;
         Color color = Color.Turquoise;
         color.A = 0;
-        VisualSystem.DrawLine(Main.spriteBatch, chainTexture, Projectile.Center, _startLocation, color * Projectile.Opacity, bendingFactor: 0.3f);
+        VisualSystem.DrawLine(Main.spriteBatch, chainTexture, Projectile.Center, _startLocation, color * Projectile.Opacity);
         return true;
     }
 

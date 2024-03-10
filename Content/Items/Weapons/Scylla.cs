@@ -13,6 +13,11 @@ public class Scylla : ModItem
 {
     private float _initialItemRot;
     
+    public override void SetStaticDefaults()
+    {
+        ItemID.Sets.ItemsThatAllowRepeatedRightClick[Item.type] = true;
+    }
+
     public override void SetDefaults()
     {
         Item.DefaultToRangedWeapon(ProjectileID.PurificationPowder, AmmoID.Dart, 35, 18, true);
@@ -26,28 +31,38 @@ public class Scylla : ModItem
         Item.knockBack = 8f;
     }
 
+    public override bool AltFunctionUse(Player player)
+    {
+        return true;
+    }
+
     public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
     {
-        int numProjectiles = Main.rand.Next(7, 10);
-
-        for (int i = 0; i < numProjectiles; i++)
+        if (player.altFunctionUse != 2)
         {
-            Vector2 newVelocity = velocity.RotatedByRandom(MathHelper.ToRadians(30));
-            newVelocity *= 1f - Main.rand.NextFloat(0.4f);
+            int numProjectiles = Main.rand.Next(7, 10);
 
-            int projToShoot = Main.rand.NextBool(4) ? ModContent.ProjectileType<LuminiteStrike>() : type;
+            for (int i = 0; i < numProjectiles; i++)
+            {
+                Vector2 newVelocity = velocity.RotatedByRandom(MathHelper.ToRadians(30));
+                newVelocity *= 1f - Main.rand.NextFloat(0.4f);
 
-            Projectile.NewProjectileDirect(source, position, newVelocity, projToShoot, damage, knockback, player.whoAmI);
+                int projToShoot = Main.rand.NextBool(4) ? ModContent.ProjectileType<LuminiteStrike>() : type;
+
+                Projectile.NewProjectileDirect(source, position, newVelocity, projToShoot, damage, knockback, player.whoAmI);
+            }
+
+            Projectile.NewProjectile(source, position, Vector2.Zero, ModContent.ProjectileType<ShotgunMusket>(),
+                0, 0, player.whoAmI, velocity.ToRotation(), 0, 2);
+
+            Dust.NewDustDirect(position, 20, 20, ModContent.DustType<GlowFastDecelerate>(), newColor: Color.Turquoise, Scale: 0.5f);
+
+            velocity.Normalize();
+            player.velocity += velocity * -5;
+            CameraSystem.Screenshake(6, 6);
         }
-
-        Projectile.NewProjectile(source, position, Vector2.Zero, ModContent.ProjectileType<ShotgunMusket>(),
-            0, 0, player.whoAmI, velocity.ToRotation(), 0, 2);
-        
-        Dust.NewDustDirect(position, 20, 20, ModContent.DustType<GlowFastDecelerate>(), newColor: Color.Turquoise, Scale: 0.5f);
-
-        velocity.Normalize();
-        player.velocity += velocity * -5;
-        CameraSystem.Screenshake(6, 6);
+        else
+            Projectile.NewProjectile(source, position, velocity, ModContent.ProjectileType<Hook>(), damage, 0, player.whoAmI);
 
         _initialItemRot = player.itemRotation;
         return false;
@@ -67,6 +82,7 @@ public class Scylla : ModItem
 
     public override void UseStyle(Player player, Rectangle heldItemFrame)
     {
-        VisualSystem.RecoilAnimation(player, _initialItemRot, 30);
+        if (player.altFunctionUse != 2)
+            VisualSystem.RecoilAnimation(player, _initialItemRot, 30);
     }
 }

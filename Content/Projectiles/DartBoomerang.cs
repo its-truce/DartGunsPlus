@@ -49,12 +49,12 @@ public class DartBoomerang : ModProjectile
         if (Projectile.Hitbox.Intersects(Owner.Hitbox) && Projectile.ai[0] > 35)
             Projectile.Kill();
 
-        if (Projectile.ai[0] < 60 && Projectile.velocity.Length() < Owner.inventory[Owner.selectedItem].shootSpeed)
+        if (Projectile.ai[0] < 60 && Projectile.velocity.Length() < Owner.HeldItem.shootSpeed)
             Projectile.velocity *= 1.1f;
         if (Projectile.ai[0] == 30)
             Projectile.velocity = Vector2.Zero;
         if (Projectile.ai[0] > 35)
-            Projectile.velocity = Vector2.Lerp(Projectile.velocity, Projectile.DirectionTo(Owner.Center) * Owner.inventory[Owner.selectedItem].shootSpeed,
+            Projectile.velocity = Vector2.Lerp(Projectile.velocity, Projectile.DirectionTo(Owner.Center) * Owner.HeldItem.shootSpeed,
                 0.3f);
 
         if (Owner.HeldItem.ModItem is not Dartarang)

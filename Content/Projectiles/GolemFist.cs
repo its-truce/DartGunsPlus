@@ -104,7 +104,7 @@ public class GolemFist : ModProjectile
         foreach (Projectile proj in Main.projectile)
         {
             if (proj.active && proj.owner == Projectile.owner && proj.type == ModContent.ProjectileType<FistFlash>() && proj.rotation == Projectile.rotation)
-                behindProjectiles.Add(proj.whoAmI);
+                behindProjectiles.Add(index);
         }
     } // Resharper restore All
 

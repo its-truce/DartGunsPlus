@@ -50,25 +50,31 @@ public static class VisualSystem
             1 - progress);
 
         if (player.itemAnimation < player.itemAnimationMax * 0.3f)
-        {
+        {   
             float downProgress = Math.Clamp((player.itemAnimationMax * 0.7f - player.itemAnimation) / player.itemAnimationMax * 1.5f, 0, 1);
             player.itemRotation = (float)Utils.Lerp(player.itemRotation, initialItemRot,
                 downProgress);
         }
     }
 
-    public static void DrawLine(SpriteBatch spriteBatch, Texture2D texture, Vector2 start, Vector2 end, Color color, float scale = 1f, bool spriteFacingUpwards = true)
+    public static void DrawLine(SpriteBatch spriteBatch, Texture2D texture, Vector2 start, Vector2 end, Color color, float scale = 1f, bool spriteFacingUpwards = true, 
+        float bendingFactor = 0f)
     {
         float offset = spriteFacingUpwards ? MathF.PI / 2 : 0;
         float rotation = start.DirectionTo(end).ToRotation() + offset;
-        float distance = Vector2.Distance(start, end);
         
+        Vector2 direction = end - start;
+        float bendingRotation = MathF.Atan2(direction.Y, direction.X) + bendingFactor;
+
+        float distance = Vector2.Distance(start, end);
+
         IEnumerable<Vector2> points = DartUtils.GetInterpolatedPoints(start, end, (int)(distance / (texture.Height * scale)) + 1);
 
         foreach (Vector2 point in points)
         {
-            spriteBatch.Draw(texture, point - Main.screenPosition, texture.Bounds, color, rotation, texture.Size()/2,
+            spriteBatch.Draw(texture, point - Main.screenPosition, texture.Bounds, color, rotation + bendingRotation, texture.Size() / 2,
                 scale, SpriteEffects.None, 0);
         }
     }
+
 }

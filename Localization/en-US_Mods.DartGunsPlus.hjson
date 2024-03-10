@@ -416,6 +416,7 @@ Projectiles: {
 	SpazFlame.DisplayName: Spaz Flame
 	VolatileBomb.DisplayName: Volatile Bomb
 	VolatileExplosion.DisplayName: Volatile Explosion
+	ScyllaShoot.DisplayName: Scylla Shoot
 }
 
 Buffs: {

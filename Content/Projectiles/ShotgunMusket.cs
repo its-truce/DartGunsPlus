@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using DartGunsPlus.Content.Systems;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
@@ -30,7 +31,7 @@ public class ShotgunMusket : ModProjectile
 
     public override void OnSpawn(IEntitySource source)
     {
-        Projectile.timeLeft = (int)(Owner.inventory[Owner.selectedItem].useTime * 0.7f);
+        Projectile.timeLeft = (int)(Owner.HeldItem.useTime * 0.7f);
     }
 
     public override void AI()
@@ -44,8 +45,8 @@ public class ShotgunMusket : ModProjectile
 
         float offset = Owner.direction == -1 ? MathF.PI : 0;
         Projectile.rotation = Owner.itemRotation + offset;
-        Projectile.Center = Owner.MountedCenter + new Vector2((Owner.inventory[Owner.selectedItem].width + Owner.MountXOffset) * Owner.direction, 0).RotatedBy(Owner.itemRotation -
-            MathHelper.ToRadians(Projectile.ai[1] * Owner.direction));
+        Projectile.Center = Owner.MountedCenter + new Vector2((Owner.HeldItem.width + Owner.MountXOffset) * Owner.direction, 0).RotatedBy(
+            Owner.itemRotation - MathHelper.ToRadians(Projectile.ai[1] * Owner.direction));
     }
 
     public override bool PreDraw(ref Color lightColor)
@@ -83,5 +84,10 @@ public class ShotgunMusket : ModProjectile
             Projectile.rotation, texture2.Size() / 2, Projectile.scale * 0.7f * scaleFactor, SpriteEffects.None);
 
         return false;
+    }
+
+    public override void DrawBehind(int index, List<int> behindNPCsAndTiles, List<int> behindNPCs, List<int> behindProjectiles, List<int> overPlayers, List<int> overWiresUI)
+    {
+        behindProjectiles.Add(index);
     }
 }

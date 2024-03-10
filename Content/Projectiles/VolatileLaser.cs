@@ -22,7 +22,7 @@ public class VolatileLaser : Deathray
     private const float MaxCharge = 130f;
     private ref float Charge => ref Projectile.localAI[0];
     private bool IsAtMaxCharge => Charge == MaxCharge;
-    private Vector2 Nozzle => Owner.MountedCenter + new Vector2(Owner.inventory[Owner.selectedItem].width * Owner.direction, -8).RotatedBy
+    private Vector2 Nozzle => Owner.MountedCenter + new Vector2(Owner.HeldItem.width * Owner.direction, -8).RotatedBy
         ((float)Math.Atan2(Projectile.velocity.Y * Projectile.direction, Projectile.velocity.X * Projectile.direction));
     
     public override void SetDefaults()
@@ -110,7 +110,7 @@ public class VolatileLaser : Deathray
     
     protected override Vector2 Position()
     {
-        return Owner.MountedCenter + new Vector2(Owner.inventory[Owner.selectedItem].width * Owner.direction * 0.2f, 0).RotatedBy
+        return Owner.MountedCenter + new Vector2(Owner.HeldItem.width * Owner.direction * 0.2f, 0).RotatedBy
             ((float)Math.Atan2(Projectile.velocity.Y * Projectile.direction, Projectile.velocity.X * Projectile.direction));
     }
     

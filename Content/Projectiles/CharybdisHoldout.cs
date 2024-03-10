@@ -84,7 +84,7 @@ public class CharybdisHoldout : ModProjectile
 
         Vector2 mountOffset = Owner.RotatedRelativePoint(Owner.MountedCenter);
 
-        float shootSpeed = Owner.inventory[Owner.selectedItem].shootSpeed * Projectile.scale;
+        float shootSpeed = Owner.HeldItem.shootSpeed * Projectile.scale;
         Vector2 targetPosition = Main.screenPosition + new Vector2(Main.mouseX, Main.mouseY) - mountOffset;
 
         if (Owner.gravDir == -1f)

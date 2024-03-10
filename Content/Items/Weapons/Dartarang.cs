@@ -12,6 +12,11 @@ namespace DartGunsPlus.Content.Items.Weapons;
 
 public class Dartarang : ModItem
 {
+    public override void SetStaticDefaults()
+    {
+        ItemID.Sets.ItemsThatAllowRepeatedRightClick[Item.type] = true;
+    }
+
     public override void SetDefaults()
     {
         Item.DefaultToRangedWeapon(ProjectileID.PurificationPowder, AmmoID.Dart, 25, 9, true);

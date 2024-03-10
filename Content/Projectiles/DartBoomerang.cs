@@ -1,8 +1,10 @@
+using DartGunsPlus.Content.Dusts;
 using DartGunsPlus.Content.Items.Weapons;
 using DartGunsPlus.Content.Systems;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Terraria;
+using Terraria.Audio;
 using Terraria.GameContent;
 using Terraria.GameContent.Drawing;
 using Terraria.ID;
@@ -44,7 +46,7 @@ public class DartBoomerang : ModProjectile
         if (_rotSpeed < 8)
             _rotSpeed *= 1.2f;
 
-        Projectile.rotation += MathHelper.ToRadians(_rotSpeed);
+        Projectile.rotation += Projectile.ai[0] >= 30 && Projectile.ai[0] <= 35 ? 0 : MathHelper.ToRadians(_rotSpeed);
 
         if (Projectile.Hitbox.Intersects(Owner.Hitbox) && Projectile.ai[0] > 35)
             Projectile.Kill();
@@ -105,6 +107,21 @@ public class DartBoomerang : ModProjectile
     public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
     {
         Projectile.friendly = false;
-        Projectile.ai[0] = 34;
+        Projectile.ai[0] = 30;
+        Projectile.velocity = Vector2.Zero;
+        
+        CameraSystem.Screenshake(6, 5);
+        int randDust = Main.rand.Next(7, 12);
+        for (int i = 0; i < randDust; i++)
+        {
+            Dust dust = Dust.NewDustDirect(target.Center, 0, 0, ModContent.DustType<GlowFastDecelerate>(), 0f, 0f, 100, Color.Wheat, 
+                0.6f);
+            dust.velocity *= 3.2f;
+            dust.velocity.Y -= 1f;
+            dust.velocity += Projectile.oldVelocity;
+            dust.noGravity = true;
+        }
+
+        SoundEngine.PlaySound(AudioSystem.ReturnSound("hit"), target.Center);
     }
 }

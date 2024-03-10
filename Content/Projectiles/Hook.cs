@@ -83,7 +83,7 @@ public class Hook : ModProjectile
 
         if (Projectile.ai[2] == (int)TargetIndicator.Retract)
         {
-            Projectile.velocity = Vector2.Lerp(Projectile.velocity.SafeNormalize(Projectile.velocity) * 8, Projectile.DirectionTo(Owner.Center) * 16,
+            Projectile.velocity = Vector2.Lerp(Projectile.velocity.SafeNormalize(Projectile.velocity) * 12, Projectile.DirectionTo(Owner.Center) * 20,
                 0.6f);
             Projectile.velocity *= 1.1f;
         }
@@ -99,18 +99,18 @@ public class Hook : ModProjectile
                 if (!target.active)
                     Projectile.ai[2] = (int)TargetIndicator.Retract;
 
-                if (target.width + target.height < 130 && target.CanBeChasedBy() || target.boss) // threshold for large enemy
+                if (target.width + target.height > 130 && target.CanBeChasedBy()) // threshold for large enemy
+                    MoveOwner();
+                else
                 {
                     Projectile.velocity = Vector2.Lerp(Projectile.velocity.SafeNormalize(Projectile.velocity) * 8, Projectile.DirectionTo(Owner.Center) * 16,
                         0.6f);
-                    
+
                     target.velocity = Vector2.Lerp(target.velocity.SafeNormalize(target.velocity) * 8, target.DirectionTo(Owner.Center) * 16,
                         0.6f);
                 }
-                else
-                    MoveOwner();
             }
-            
+
             if (Projectile.ai[2] == (int)TargetIndicator.Tile)
                 MoveOwner();
         }
@@ -153,5 +153,11 @@ public class Hook : ModProjectile
     {
         Projectile.ai[2] = (int)TargetIndicator.Tile;
         return false;
+    }
+
+    public override bool TileCollideStyle(ref int width, ref int height, ref bool fallThrough, ref Vector2 hitboxCenterFrac)
+    {
+        fallThrough = false;
+        return base.TileCollideStyle(ref width, ref height, ref fallThrough, ref hitboxCenterFrac);
     }
 }

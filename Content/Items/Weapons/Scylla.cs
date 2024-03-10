@@ -49,7 +49,7 @@ public class Scylla : ModItem
 
                 int projToShoot = Main.rand.NextBool(4) ? ModContent.ProjectileType<LuminiteStrike>() : type;
 
-                Projectile.NewProjectileDirect(source, position, newVelocity, projToShoot, damage, knockback, player.whoAmI);
+                Projectile.NewProjectileDirect(source, position - Vector2.Normalize(velocity) * Item.width * 0.8f, newVelocity, projToShoot, damage, knockback, player.whoAmI);
             }
 
             Projectile.NewProjectile(source, position, Vector2.Zero, ModContent.ProjectileType<ShotgunMusket>(),

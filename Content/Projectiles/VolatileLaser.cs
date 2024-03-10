@@ -100,6 +100,7 @@ public class VolatileLaser : Deathray
             case 300:
                 SoundEngine.PlaySound(SoundID.MaxMana);
                 VisualSystem.SpawnDustCircle(Nozzle, ModContent.DustType<GlowFastDecelerate>(), 14, color: Color.Red, scale: 0.6f);
+                CameraSystem.Screenshake(5, 4);
                 break;
             
             case 310:

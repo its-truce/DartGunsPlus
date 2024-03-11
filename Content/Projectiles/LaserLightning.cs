@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using DartGunsPlus.Content.Dusts;
 using DartGunsPlus.Content.Systems;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
@@ -9,6 +10,7 @@ using Terraria;
 using Terraria.Audio;
 using Terraria.DataStructures;
 using Terraria.GameContent;
+using Terraria.ID;
 using Terraria.ModLoader;
 
 namespace DartGunsPlus.Content.Projectiles;
@@ -18,15 +20,20 @@ public class LaserLightning : ModProjectile
     private SlotId _soundSlot;
     private Vector2 _startLocation;
     private Player Owner => Main.player[Projectile.owner];
+    private const float MaxCharge = 80f;
+    private ref float Charge => ref Projectile.localAI[0];
+    private bool IsAtMaxCharge => Charge == MaxCharge;
+
+    private Vector2 Nozzle => Owner.MountedCenter + new Vector2(Owner.HeldItem.width * Owner.direction, -6).RotatedBy
+        ((float)Math.Atan2(Projectile.velocity.Y * Projectile.direction, Projectile.velocity.X * Projectile.direction));
 
     public override void SetDefaults()
     {
         Projectile.width = 40;
         Projectile.height = 40;
         Projectile.aiStyle = -1;
-        Projectile.timeLeft = 60;
-        Projectile.extraUpdates = 10;
-        Projectile.friendly = true;
+        Projectile.timeLeft = 300;
+        Projectile.friendly = false;
         Projectile.penetrate = -1;
         Projectile.ignoreWater = true;
     }
@@ -34,37 +41,65 @@ public class LaserLightning : ModProjectile
     public override void OnSpawn(IEntitySource source)
     {
         _startLocation = Projectile.Center;
+        _soundSlot = SoundEngine.PlaySound(AudioSystem.ReturnSound("electriccharge", volume: 0.6f));
     }
 
     public override void AI()
     {
         Projectile.Center = Main.MouseWorld;
-
-        if (FindClosestTargets(600, 4) != null && Projectile.ai[0] % 5 == 0)
-            foreach (NPC target in FindClosestTargets(600, 4))
-                Projectile.NewProjectile(Projectile.GetSource_FromAI(), Main.MouseWorld, Vector2.Zero, ModContent.ProjectileType<HomingLightning>(),
-                    Projectile.damage, Projectile.knockBack, Projectile.owner, target.whoAmI);
-
-        Projectile.ai[0]++;
-
-        if (Owner.channel)
-            Projectile.timeLeft += 20;
-        else if (Projectile.ai[0] > 60)
-            Projectile.Kill();
-
-        if (Projectile.ai[0] > 3000)
-            Projectile.Kill();
-
-        if (Projectile.ai[0] % 1500 == 0 || Projectile.ai[0] == 10f)
-            _soundSlot = SoundEngine.PlaySound(AudioSystem.ReturnSound("electricity"), Projectile.Center);
-
+        ChargeLaser(Owner);
+        
         if (Projectile.ai[1] == 0)
             UpdatePlayer(Owner);
 
-        _startLocation = Projectile.ai[1] == 0
-            ? Owner.MountedCenter + new Vector2(66 * Owner.direction, 0).RotatedBy
-                ((float)Math.Atan2(Projectile.velocity.Y * Projectile.direction, Projectile.velocity.X * Projectile.direction))
-            : new Vector2(Projectile.ai[1], Projectile.ai[2]);
+        if (IsAtMaxCharge)
+        {
+            Projectile.friendly = true;
+            
+            if (FindClosestTargets(1000, 4) != null && Projectile.ai[0] % 5 == 0)
+                foreach (NPC target in FindClosestTargets(600, 4))
+                    Projectile.NewProjectile(Projectile.GetSource_FromAI(), Main.MouseWorld, Vector2.Zero, ModContent.ProjectileType<HomingLightning>(),
+                        Projectile.damage, Projectile.knockBack, Projectile.owner, target.whoAmI);
+
+            Projectile.ai[0]++;
+        
+            if (Projectile.ai[0] > 60 && !Owner.channel)
+                Projectile.Kill();
+
+            if (Projectile.ai[0] == 1)
+                _soundSlot = SoundEngine.PlaySound(AudioSystem.ReturnSound("electricity"), Projectile.Center);
+
+            _startLocation = Projectile.ai[1] == 0 ? Nozzle : new Vector2(Projectile.ai[1], Projectile.ai[2]);
+        }
+        
+        if (Projectile.timeLeft == 300)
+        {
+            SoundEngine.PlaySound(SoundID.MaxMana);
+            VisualSystem.SpawnDustCircle(Nozzle, ModContent.DustType<GlowFastDecelerate>(), 14, color: Color.HotPink, scale: 0.6f);
+            CameraSystem.Screenshake(5, 4);
+        }
+    }
+    
+    private void ChargeLaser(Player player)
+    {
+        if (!player.channel)
+            Projectile.Kill();
+        else if (!IsAtMaxCharge)
+        {
+            Charge++;
+        
+            int chargeFact = (int)(Charge / 20f);
+        
+            for (int k = 0; k < chargeFact + 1; k++)
+            {
+                Vector2 spawn = Nozzle + ((float)Main.rand.NextDouble() * MathF.Tau).ToRotationVector2() * (12f - chargeFact * 2);
+                Dust dust = Dust.NewDustDirect(Nozzle, 20, 20, ModContent.DustType<GlowFastDecelerate>(), Projectile.velocity.X / 2f,
+                    Projectile.velocity.Y / 2f, newColor: Color.HotPink, Scale: 0.2f);
+                dust.velocity = Vector2.Normalize(Nozzle - spawn) * 1.5f * (10f - chargeFact * 2f) / 10f;
+                dust.noGravity = true;
+                dust.scale = Main.rand.Next(10, 20) * 0.03f;
+            }   
+        }
     }
 
     public override bool? CanCutTiles()

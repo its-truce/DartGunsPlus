@@ -50,14 +50,14 @@ public class Hook : ModProjectile
     {
         Owner.itemTime = 2;
         Owner.itemAnimation = 2;
-        _startLocation = Owner.MountedCenter + new Vector2((Owner.HeldItem.width * 0.8f + Owner.MountXOffset) * Owner.direction, 0).RotatedBy(Owner.itemRotation);
+        _startLocation = Owner.MountedCenter + new Vector2((Owner.HeldItem.width * 0.8f + Owner.MountXOffset) * Owner.direction, -5).RotatedBy(Owner.itemRotation);
         Projectile.rotation = Owner.DirectionTo(Projectile.Center).ToRotation();
 
         float offset = Owner.direction == 1 ? 0 : MathF.PI;
         Owner.itemRotation = Projectile.rotation + offset;
         Projectile.direction = Projectile.Center.X > Owner.Center.X ? 1 : -1;
         Owner.ChangeDir(Projectile.direction);
-        Lighting.AddLight(Projectile.Center, Color.Turquoise.ToVector3());
+        Lighting.AddLight(Projectile.Center, Color.SeaGreen.ToVector3());
 
         if (Main.mouseRight && Main.mouseRightRelease && Projectile.timeLeft < 595 || Owner.Center.Distance(Projectile.Center) > 800)
             Projectile.ai[2] = (int)TargetIndicator.Retract;
@@ -99,7 +99,7 @@ public class Hook : ModProjectile
                 if (!target.active)
                     Projectile.ai[2] = (int)TargetIndicator.Retract;
 
-                if (target.width + target.height > 130 && target.CanBeChasedBy()) // threshold for large enemy
+                if (target.width + target.height > 130 || !target.CanBeChasedBy()) // threshold for large enemy
                     MoveOwner();
                 else
                 {
@@ -158,6 +158,6 @@ public class Hook : ModProjectile
     public override bool TileCollideStyle(ref int width, ref int height, ref bool fallThrough, ref Vector2 hitboxCenterFrac)
     {
         fallThrough = false;
-        return base.TileCollideStyle(ref width, ref height, ref fallThrough, ref hitboxCenterFrac);
+        return true;
     }
 }

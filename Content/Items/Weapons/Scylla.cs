@@ -21,8 +21,8 @@ public class Scylla : ModItem
     public override void SetDefaults()
     {
         Item.DefaultToRangedWeapon(ProjectileID.PurificationPowder, AmmoID.Dart, 35, 18, true);
-        Item.width = 72;
-        Item.height = 20;
+        Item.width = 64;
+        Item.height = 24;
         Item.rare = ItemRarityID.Red;
 
         Item.UseSound = AudioSystem.ReturnSound("scyllashoot", 0.4f);
@@ -53,7 +53,7 @@ public class Scylla : ModItem
             }
 
             Projectile.NewProjectile(source, position, Vector2.Zero, ModContent.ProjectileType<ShotgunMusket>(),
-                0, 0, player.whoAmI, velocity.ToRotation(), 0, 2);
+                0, 0, player.whoAmI, velocity.ToRotation(), 5, 2);
 
             Dust.NewDustDirect(position, 20, 20, ModContent.DustType<GlowFastDecelerate>(), newColor: Color.Turquoise, Scale: 0.5f);
 

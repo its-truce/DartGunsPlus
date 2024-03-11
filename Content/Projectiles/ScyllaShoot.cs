@@ -58,7 +58,7 @@ public class ScyllaShoot : ModProjectile
             }
 
             Projectile.NewProjectile(source, position, Vector2.Zero, ModContent.ProjectileType<ShotgunMusket>(),
-                0, 0, Owner.whoAmI, velocity.ToRotation(), 0, 2);
+                0, 0, Owner.whoAmI, velocity.ToRotation(), 5, 2);
 
             Dust.NewDustDirect(position, 20, 20, ModContent.DustType<GlowFastDecelerate>(), newColor: Color.Turquoise, Scale: 0.5f);
 

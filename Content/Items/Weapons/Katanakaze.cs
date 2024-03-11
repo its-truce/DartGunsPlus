@@ -12,8 +12,8 @@ public class Katanakaze : ModItem
     public override void SetDefaults()
     {
         Item.DefaultToRangedWeapon(ProjectileID.PurificationPowder, AmmoID.Dart, 22, 7, true);
-        Item.width = 76;
-        Item.height = 14;
+        Item.width = 72;
+        Item.height = 18;
         Item.rare = ItemRarityID.Green;
 
         Item.UseSound = AudioSystem.ReturnSound("dart", 0.3f);

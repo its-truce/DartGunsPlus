@@ -20,7 +20,7 @@ public class Dartarang : ModItem
     public override void SetDefaults()
     {
         Item.DefaultToRangedWeapon(ProjectileID.PurificationPowder, AmmoID.Dart, 25, 9, true);
-        Item.width = 36;
+        Item.width = 32;
         Item.height = 22;
         Item.rare = ItemRarityID.LightRed;
 

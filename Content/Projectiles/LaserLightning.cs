@@ -32,7 +32,7 @@ public class LaserLightning : ModProjectile
         Projectile.width = 40;
         Projectile.height = 40;
         Projectile.aiStyle = -1;
-        Projectile.timeLeft = 300;
+        Projectile.timeLeft = 301;
         Projectile.friendly = false;
         Projectile.penetrate = -1;
         Projectile.ignoreWater = true;
@@ -55,14 +55,14 @@ public class LaserLightning : ModProjectile
         if (IsAtMaxCharge)
         {
             Projectile.friendly = true;
-            
-            if (FindClosestTargets(1000, 4) != null && Projectile.ai[0] % 5 == 0)
+
+            if (FindClosestTargets(1000, 4) != null && Projectile.ai[0] % 0.5f == 0)
                 foreach (NPC target in FindClosestTargets(600, 4))
                     Projectile.NewProjectile(Projectile.GetSource_FromAI(), Main.MouseWorld, Vector2.Zero, ModContent.ProjectileType<HomingLightning>(),
                         Projectile.damage, Projectile.knockBack, Projectile.owner, target.whoAmI);
 
             Projectile.ai[0]++;
-        
+
             if (Projectile.ai[0] > 60 && !Owner.channel)
                 Projectile.Kill();
 
@@ -71,6 +71,8 @@ public class LaserLightning : ModProjectile
 
             _startLocation = Projectile.ai[1] == 0 ? Nozzle : new Vector2(Projectile.ai[1], Projectile.ai[2]);
         }
+        else
+            Projectile.timeLeft++;
         
         if (Projectile.timeLeft == 300)
         {
@@ -109,11 +111,15 @@ public class LaserLightning : ModProjectile
 
     public override bool PreDraw(ref Color lightColor)
     {
-        Texture2D texture = TextureAssets.Projectile[Projectile.type].Value;
-        Texture2D texture2 = ModContent.Request<Texture2D>("DartGunsPlus/Content/Projectiles/Glowball").Value;
-        Color col = Color.HotPink;
-        col.A = 0;
-        DrawLightning(texture, texture2, col, _startLocation, Projectile.Center, 0.022f, 60, 0.8f);
+        if (IsAtMaxCharge)
+        {
+            Texture2D texture = TextureAssets.Projectile[Projectile.type].Value;
+            Texture2D texture2 = ModContent.Request<Texture2D>("DartGunsPlus/Content/Projectiles/Glowball").Value;
+            Color col = Color.HotPink;
+            col.A = 0;
+            DrawLightning(texture, texture2, col, _startLocation, Projectile.Center, 0.022f, 60, 0.8f);
+        }
+
         return false;
     }
 

@@ -32,7 +32,7 @@ public class MartianLightning : ModProjectile
         Projectile.width = 40;
         Projectile.height = 40;
         Projectile.aiStyle = -1;
-        Projectile.timeLeft = 300;
+        Projectile.timeLeft = 301;
         Projectile.friendly = false;
         Projectile.penetrate = -1;
         Projectile.ignoreWater = true;

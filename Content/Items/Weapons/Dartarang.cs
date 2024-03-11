@@ -60,7 +60,7 @@ public class Dartarang : ModItem
         {
             type = ModContent.ProjectileType<DartBoomerang>();
             velocity *= 0.7f;
-            damage += damage / 2;
+            damage += 3 * damage / 4;
         }
     }
 

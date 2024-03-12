@@ -83,9 +83,32 @@ public class OnHitProjectile : GlobalProjectile
 
         else if (_itemType == ModContent.ItemType<Katanakaze>())
         {
-            Vector2 velocity = new(Main.rand.Next(-3, 4), Main.rand.Next(-3, 4));
-            Projectile.NewProjectile(projectile.GetSource_Death(), target.Center, velocity, ProjectileID.Muramasa, damageDone / 2,
-                hit.Knockback / 2, projectile.owner, 1);
+            Player owner = Main.player[projectile.owner];
+            
+            Vector2 randomPointWithinHitbox = Main.rand.NextVector2FromRectangle(target.Hitbox);
+            Vector2 hitboxCenter = target.Hitbox.Center.ToVector2();
+            Vector2 directionVector = (hitboxCenter - randomPointWithinHitbox).SafeNormalize(new Vector2(owner.direction, owner.gravDir)) * 8f;
+
+            float randomRotationAngle = (Main.rand.Next(2) * 2 - 1) * ((float)Math.PI / 5f + (float)Math.PI * 4f / 5f * Main.rand.NextFloat());
+            randomRotationAngle *= 0.5f;
+
+            directionVector = directionVector.RotatedBy(0.7853981852531433);
+        
+            const int rotationSteps = 30;
+            const int numIterations = 15;
+
+            Vector2 currentPosition = hitboxCenter;
+
+            for (int i = 0; i < numIterations; i++)
+            {
+                currentPosition -= directionVector;
+                directionVector = directionVector.RotatedBy((0f - randomRotationAngle) / rotationSteps);
+            }
+
+            currentPosition += target.velocity * 3;
+
+            Projectile.NewProjectile(projectile.GetSource_OnHit(target), currentPosition, directionVector, 977, projectile.damage / 2, 0f, 
+                projectile.owner, randomRotationAngle);
         }
 
         else if (_itemType == ModContent.ItemType<VioletVigilante>())

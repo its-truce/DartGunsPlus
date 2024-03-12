@@ -417,6 +417,10 @@ Projectiles: {
 	VolatileBomb.DisplayName: Volatile Bomb
 	VolatileExplosion.DisplayName: Volatile Explosion
 	ScyllaShoot.DisplayName: Scylla Shoot
+	KatanaSwing.DisplayName: Katana Swing
+	Parry.DisplayName: Parry
+	KatanaParry.DisplayName: Katana Parry
+	KatanaStar.DisplayName: Katana Star
 }
 
 Buffs: {

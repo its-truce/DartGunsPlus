@@ -22,7 +22,6 @@ public class StyxProjectile : GlobalProjectile
     private int _itemType;
 
     private float _lerpTimer;
-    private bool _styx;
     private Color LerpedColor => Color.Lerp(new Color(85, 105, 181, 0), new Color(42, 34, 80, 0), _lerpTimer);
 
     public override bool InstancePerEntity => true;
@@ -44,18 +43,10 @@ public class StyxProjectile : GlobalProjectile
                 break;
 
             case EntitySource_Misc { Context: "styx" }:
-                _styx = true;
-                projectile.usesLocalNPCImmunity = true;
-                projectile.localNPCHitCooldown = -1;
+                projectile.usesIDStaticNPCImmunity = true;
+                projectile.idStaticNPCHitCooldown = 0;
                 break;
         }
-    }
-
-    public override void OnHitNPC(Projectile projectile, NPC target, NPC.HitInfo hit, int damageDone)
-    {
-        if (_styx)
-            target.immune[projectile.owner] = 0;
-        base.OnHitNPC(projectile, target, hit, damageDone);
     }
 
     public override void ModifyHitNPC(Projectile projectile, NPC target, ref NPC.HitModifiers modifiers)

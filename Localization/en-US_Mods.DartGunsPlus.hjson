@@ -436,3 +436,15 @@ Buffs: {
 }
 
 Conditions.downedSkeletronOrDeerclopsOrHardmode: After defeating Skeletron or Deerclops or Wall of Flesh
+
+Configs: {
+	ScreenshakeConfig: {
+		DisplayName: Screenshake Config
+		Headers.Screenshake: Screenshake
+
+		ScreenshakeMultiplier: {
+			Label: Screenshake Multiplier
+			Tooltip: All screenshake from the mod is multiplied by this value. Set to 0 to disable it completely.
+		}
+	}
+}

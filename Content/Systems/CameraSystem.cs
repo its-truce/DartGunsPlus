@@ -19,7 +19,7 @@ public class CameraSystem : ModSystem
 
     public static void Screenshake(int timer, int magnitude)
     {
-        ModContent.GetInstance<CameraSystem>()._screenshakeTimer = timer;
+        ModContent.GetInstance<CameraSystem>()._screenshakeTimer = (int)(timer * ModContent.GetInstance<ScreenshakeConfig>().ScreenshakeMultiplier);
         ModContent.GetInstance<CameraSystem>()._screenshakeMagnitude = magnitude;
     }
 }

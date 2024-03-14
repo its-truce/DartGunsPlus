@@ -3,7 +3,6 @@ using System.Linq;
 using DartGunsPlus.Content.Systems;
 using Microsoft.Xna.Framework;
 using Terraria;
-using Terraria.Graphics.Renderers;
 using Terraria.ID;
 using Terraria.ModLoader;
 

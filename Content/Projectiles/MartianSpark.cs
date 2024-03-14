@@ -33,7 +33,7 @@ public class MartianSpark : ModProjectile
         if (Projectile.timeLeft < 4)
             FadingSystem.FadeOut(Projectile, 3);
 
-        Lighting.AddLight(Projectile.Center, Color.Blue.ToVector3());
+        Lighting.AddLight(Projectile.Center, Color.SkyBlue.ToVector3());
     }
 
     public override Color? GetAlpha(Color lightColor)

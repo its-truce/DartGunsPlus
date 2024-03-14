@@ -1,6 +1,5 @@
 using System;
 using System.Collections.Generic;
-using DartGunsPlus.Content.Buffs;
 using DartGunsPlus.Content.Dusts;
 using DartGunsPlus.Content.Systems;
 using Microsoft.Xna.Framework;
@@ -145,11 +144,8 @@ public class MartianLightning : ModProjectile
     {
         target.immune[Projectile.owner] = 10;
         if (Main.rand.NextBool(4))
-        {
             Projectile.NewProjectile(Projectile.GetSource_OnHit(target), target.Center, Vector2.Zero, ModContent.ProjectileType<MartianSpark>(),
                 Projectile.damage * 2, 8, Projectile.owner);
-            target.AddBuff(ModContent.BuffType<ElectricShock>(), 120);
-        }
     }
 
     public override bool? Colliding(Rectangle projHitbox, Rectangle targetHitbox)

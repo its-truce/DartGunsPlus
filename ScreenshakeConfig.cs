@@ -14,11 +14,12 @@ public class ScreenshakeConfig : ModConfig
     [Range(0f, 5f)]
     [DefaultValue(1f)]
     [Slider]
+    [DrawTicks]
     public float ScreenshakeMultiplier;
     
     [OnDeserialized]
     internal void OnDeserializedMethod(StreamingContext context) 
     {
-        ScreenshakeMultiplier = (int)Utils.Clamp(ScreenshakeMultiplier, 0f, 10f);
+        ScreenshakeMultiplier = Utils.Clamp(ScreenshakeMultiplier, 0f, 10f);
     }
 }

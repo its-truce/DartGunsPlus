@@ -239,7 +239,10 @@ public class KatanaSwing : ModProjectile
     public override void OnKill(int timeLeft)
     {
         if (Projectile.ai[2] == 0) // spawn another
+        {
             Projectile.NewProjectile(Projectile.GetSource_Death(), Owner.Center, Owner.DirectionTo(Main.MouseWorld), Projectile.type, Projectile.damage,
                 Projectile.knockBack, Owner.whoAmI, ai1: Projectile.ai[1] * -1, ai2: 1);
+            SoundEngine.PlaySound(AudioSystem.ReturnSound("swing"), Owner.Center);
+        }
     }
 }

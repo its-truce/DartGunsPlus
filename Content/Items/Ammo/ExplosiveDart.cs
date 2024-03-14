@@ -21,7 +21,7 @@ public class ExplosiveDart : ModItem
 
     public override void SetDefaults()
     {
-        Item.damage = 9;
+        Item.damage = 6;
         Item.DamageType = DamageClass.Ranged;
         Item.width = 8;
         Item.height = 8;

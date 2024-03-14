@@ -112,7 +112,7 @@ public class CharybdisHoldout : ModProjectile
                 // Resharper disable All
                 int projType = projToShoot;
                 if (Main.rand.NextBool(3))
-                    projType = ModContent.ProjectileType<LuminiteStrike>(); // Resharper restore All
+                    projType = ModContent.ProjectileType<VortexBeam>(); // Resharper restore All
 
                 const int numProjectiles = 7;
 

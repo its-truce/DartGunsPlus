@@ -47,9 +47,9 @@ public class Scylla : ModItem
                 Vector2 newVelocity = velocity.RotatedByRandom(MathHelper.ToRadians(30));
                 newVelocity *= 1f - Main.rand.NextFloat(0.4f);
 
-                int projToShoot = Main.rand.NextBool(4) ? ModContent.ProjectileType<LuminiteStrike>() : type;
+                int projToShoot = Main.rand.NextBool(4) ? ModContent.ProjectileType<VortexBeam>() : type;
 
-                Projectile.NewProjectileDirect(source, position - Vector2.Normalize(velocity) * Item.width * 0.8f, newVelocity, projToShoot, damage, knockback, player.whoAmI);
+                Projectile.NewProjectileDirect(source, position - Vector2.Normalize(velocity) * Item.width * 0.6f, newVelocity, projToShoot, damage, knockback, player.whoAmI);
             }
 
             Projectile.NewProjectile(source, position, Vector2.Zero, ModContent.ProjectileType<ShotgunMusket>(),

@@ -54,7 +54,7 @@ public class LuminiteStrike : ModProjectile
             Rectangle frame = texture.Frame(1, Main.projFrames[Projectile.type], 0, Projectile.frame);
             Vector2 drawPos = Projectile.oldPos[k] - Main.screenPosition + offset;
             float sizec = Projectile.scale * (Projectile.oldPos.Length - k) / (Projectile.oldPos.Length * 0.8f);
-            Color color = new Color(136, 255, 204, 0) * (1f - Projectile.alpha) * ((Projectile.oldPos.Length - k) / (float)Projectile.oldPos.Length);
+            Color color = new Color(115, 245, 215, 0) * (1f - Projectile.alpha) * ((Projectile.oldPos.Length - k) / (float)Projectile.oldPos.Length);
             Main.EntitySpriteDraw(texture, drawPos, frame, color, Projectile.oldRot[k], frame.Size() / 2,
                 sizec * 0.09f, SpriteEffects.None);
         }
@@ -69,6 +69,6 @@ public class LuminiteStrike : ModProjectile
 
     public override void OnKill(int timeLeft)
     {
-        VisualSystem.SpawnDustCircle(Projectile.Center, ModContent.DustType<GlowFastDecelerate>(), 12, color: Color.DarkTurquoise);
+        VisualSystem.SpawnDustCircle(Projectile.Center, ModContent.DustType<GlowFastDecelerate>(), 8, color: new Color(115, 245, 215), scale: 0.5f);
     }
 }

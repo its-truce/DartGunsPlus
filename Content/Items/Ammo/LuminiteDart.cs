@@ -1,7 +1,7 @@
 using DartGunsPlus.Content.Projectiles;
 using Microsoft.Xna.Framework;
 using Terraria;
-using Terraria.GameContent.Drawing;
+using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
 
@@ -26,7 +26,7 @@ public class LuminiteDart : ModItem
         Item.value = Item.sellPrice(copper: 20);
         Item.rare = ItemRarityID.Cyan;
         Item.shoot = ModContent.ProjectileType<LuminiteDartProj>();
-        Item.shootSpeed = 7;
+        Item.shootSpeed = 8;
         Item.ammo = AmmoID.Dart;
     }
 
@@ -42,55 +42,16 @@ public class LuminiteDart : ModItem
 
 public class LuminiteDartProj : DartProjectile
 {
-    public override string Texture => "DartGunsPlus/Content/Projectiles/EmptyTexture";
+    public override string Texture => "DartGunsPlus/Content/Items/Ammo/LuminiteDart";
     protected override int GravityDelay => 600;
     protected override bool EmitLight => true;
     protected override Color LightColor => Color.DarkTurquoise;
     private Player Owner => Main.player[Projectile.owner];
 
-    public override void SetDefaults()
+    public override void OnSpawn(IEntitySource source)
     {
-        Projectile.netImportant = true;
-        Projectile.tileCollide = true;
-        Projectile.width = 14;
-        Projectile.height = 14;
-        Projectile.aiStyle = 43;
-        Projectile.friendly = true;
-        Projectile.penetrate = -1;
-        Projectile.timeLeft = 180;
-        Projectile.hide = true;
-        Projectile.extraUpdates = 180;
-        Projectile.usesLocalNPCImmunity = true;
-        Projectile.localNPCHitCooldown = 6;
-    }
-
-    public override void AI()
-    {
-        ParticleOrchestraSettings settings = new()
-        {
-            PositionInWorld = Projectile.Center,
-            MovementVector = Projectile.velocity,
-            UniqueInfoPiece = 140
-        };
-
-        ParticleOrchestrator.BroadcastOrRequestParticleSpawn(ParticleOrchestraType.ChlorophyteLeafCrystalShot, settings);
-
-        Lighting.AddLight(Projectile.Center, LightColor.ToVector3());
-    }
-
-    public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
-    {
-        int randDust = Main.rand.Next(15, 31);
-        for (int i = 0; i < randDust; i++)
-        {
-            Dust dust = Dust.NewDustDirect(Projectile.Center, 0, 0, DustID.Vortex, 0f, 0f, 100, Color.DarkTurquoise, 0.8f);
-            dust.velocity *= 1.6f;
-            dust.velocity.Y -= 1f;
-            dust.velocity += Projectile.velocity;
-            dust.noGravity = true;
-        }
-
-        Projectile.damage = (int)(Projectile.damage * 0.85f);
+        Projectile.NewProjectile(Projectile.GetSource_FromThis(), Projectile.Center, Vector2.Zero, ModContent.ProjectileType<LuminiteTrail>(),
+            Projectile.damage / 2, 2, Projectile.owner, Projectile.whoAmI);
     }
 
     public override Color? GetAlpha(Color lightColor)
@@ -109,8 +70,8 @@ public class LuminiteDartProj : DartProjectile
                     position = Owner.position + new Vector2(Main.rand.Next(-70, 70) * Owner.direction * -1, Main.rand.Next(-30, 30));
                 } while (Framing.GetTileSafely(position).HasTile);
 
-                Projectile.NewProjectile(Projectile.GetSource_Death(), position, position.DirectionTo(Main.MouseWorld) * 2, ModContent.ProjectileType<LuminiteStrike>(),
-                    Projectile.damage / 3, Projectile.knockBack);
+                Projectile.NewProjectile(Projectile.GetSource_Death(), position, position.DirectionTo(Projectile.Center) * 2,
+                    ModContent.ProjectileType<LuminiteStrike>(), Projectile.damage / 3, Projectile.knockBack);
             }
     }
 }

@@ -421,6 +421,8 @@ Projectiles: {
 	Parry.DisplayName: Parry
 	KatanaParry.DisplayName: Katana Parry
 	KatanaStar.DisplayName: Katana Star
+	LuminiteTrail.DisplayName: Luminite Trail
+	VortexBeam.DisplayName: Vortex Beam
 }
 
 Buffs: {

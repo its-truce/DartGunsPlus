@@ -305,6 +305,11 @@ Items: {
 		DisplayName: Skyward Plume
 		Tooltip: ""
 	}
+
+	AerialApex: {
+		DisplayName: Aerial Apex
+		Tooltip: ""
+	}
 }
 
 Projectiles: {

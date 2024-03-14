@@ -1,3 +1,4 @@
+using DartGunsPlus.Content.Items.Weapons;
 using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.DataStructures;
@@ -32,7 +33,7 @@ public class AltitudeProjectile : GlobalProjectile
     
     public override void OnSpawn(Projectile projectile, IEntitySource source)
     {
-        if (source is EntitySource_ItemUse_WithAmmo use && ContentSamples.ItemsByType[use.AmmoItemIdUsed].ammo == AmmoID.Dart)
+        if (source is EntitySource_ItemUse_WithAmmo use && (ContentSamples.ItemsByType[use.AmmoItemIdUsed].ammo == AmmoID.Dart || use.Item.ModItem is Charybdis))
             _eligible = true;
     }
 
@@ -45,6 +46,7 @@ public class AltitudeProjectile : GlobalProjectile
 
         if (target.Center.Y > player.Center.Y && target.Center.Y - player.Center.Y > 10)
         {
+            Main.NewText("h");
             ParticleOrchestraSettings settings = new()
             {
                 PositionInWorld = projectile.Center,
@@ -54,7 +56,7 @@ public class AltitudeProjectile : GlobalProjectile
             ParticleOrchestrator.SpawnParticlesDirect(ParticleOrchestraType.SilverBulletSparkle, settings);
             
             modifiers.Knockback *= 1.333f;
-            modifiers.FinalDamage *= 1.333f;
+            modifiers.FinalDamage *= 1.25f;
         }
     }
 }

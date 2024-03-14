@@ -107,7 +107,7 @@ public class CharybdisHoldout : ModProjectile
             Projectile.hide = false;
 
             if (!Owner.noItems && !Owner.CCed && Owner.channel && Owner.PickAmmo(Owner.HeldItem, out int projToShoot, out float speed, out int damage,
-                    out float knockback, out int _, true))
+                    out float knockback, out int ammoItemId, true))
             {
                 // Resharper disable All
                 int projType = projToShoot;
@@ -124,7 +124,7 @@ public class CharybdisHoldout : ModProjectile
 
                     projectileVelocity = projectileVelocity.RotatedBy(Main.rand.NextDouble() * 0.19634954631328583 - 0.09817477315664291);
 
-                    Projectile.NewProjectile(Projectile.GetSource_FromThis(), projectilePosition, projectileVelocity, projType, damage,
+                    Projectile.NewProjectile(Owner.GetSource_ItemUse_WithPotentialAmmo(Owner.HeldItem, ammoItemId), projectilePosition, projectileVelocity, projType, damage,
                         knockback, Projectile.owner);
 
                     if (Main.rand.NextBool(1, 5))

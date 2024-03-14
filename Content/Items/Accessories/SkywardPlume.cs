@@ -42,6 +42,6 @@ public class PlumeProjectile : GlobalProjectile
             return;
 
         if (player.velocity.Y != 0)
-            modifiers.FinalDamage *= 1.25f;
+            modifiers.FinalDamage *= 1.1f;
     }
 }

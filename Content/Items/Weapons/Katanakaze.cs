@@ -27,7 +27,7 @@ public class Katanakaze : ModItem
 
         Item.UseSound = AudioSystem.ReturnSound("dart", 0.3f);
 
-        Item.damage = 24;
+        Item.damage = 21;
         Item.knockBack = 3;
     }
 
@@ -40,7 +40,7 @@ public class Katanakaze : ModItem
     {
         if (player.altFunctionUse == 2)
         {
-            Projectile.NewProjectile(source, position, velocity, type, damage - damage/3, knockback, player.whoAmI, 0, _swingDirection);
+            Projectile.NewProjectile(source, position, velocity, type, damage/2, knockback, player.whoAmI, 0, _swingDirection);
             _swingDirection *= -1;
             
             return false;

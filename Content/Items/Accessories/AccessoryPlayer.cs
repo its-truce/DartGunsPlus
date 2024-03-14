@@ -3,6 +3,7 @@ using System.Linq;
 using DartGunsPlus.Content.Systems;
 using Microsoft.Xna.Framework;
 using Terraria;
+using Terraria.Graphics.Renderers;
 using Terraria.ID;
 using Terraria.ModLoader;
 
@@ -10,10 +11,11 @@ namespace DartGunsPlus.Content.Items.Accessories;
 
 public class AccessoryPlayer : ModPlayer
 {
+    private NPC[] _alreadySpawned = new NPC[1];
     public bool HasDartLicense;
     public bool HasSpyglass;
-    private NPC[] _alreadySpawned = new NPC[1];
     public bool HasKite;
+    public bool HasPlume;
     public bool HasShield;
     public bool IncrementShield;
     public int ShieldTimer;

@@ -300,6 +300,11 @@ Items: {
 		DisplayName: Scylla
 		Tooltip: ""
 	}
+
+	SkywardPlume: {
+		DisplayName: Skyward Plume
+		Tooltip: ""
+	}
 }
 
 Projectiles: {

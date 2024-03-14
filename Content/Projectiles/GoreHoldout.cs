@@ -6,7 +6,6 @@ using Terraria;
 using Terraria.Audio;
 using Terraria.DataStructures;
 using Terraria.GameContent;
-using Terraria.Graphics.CameraModifiers;
 using Terraria.ID;
 using Terraria.ModLoader;
 
@@ -28,8 +27,8 @@ public class GoreHoldout : ModProjectile
 
     public override void SetDefaults()
     {
-        Projectile.width = 60;
-        Projectile.height = 62;
+        Projectile.width = 42;
+        Projectile.height = 44;
         Projectile.friendly = true;
         Projectile.timeLeft = 2;
         Projectile.penetrate = -1;
@@ -88,13 +87,13 @@ public class GoreHoldout : ModProjectile
         Projectile.velocity.Normalize();
 
         float timerAdd = 1.65f;
+        
         if (_justHit)
         {
             _hitTimer++;
-            timerAdd = 1.2f;
+            timerAdd = 0f;
         }
-
-        if (_hitTimer == 8)
+        if (_hitTimer > 10)
         {
             _justHit = false;
             timerAdd = 1.65f;
@@ -115,9 +114,7 @@ public class GoreHoldout : ModProjectile
             Dust.NewDust(target.position, target.width, target.height, DustID.Blood, Main.rand.NextFloat(Owner.direction * 1, Owner.direction * 3),
                 Main.rand.NextFloat(-3f, 3f));
 
-        PunchCameraModifier modifier = new(target.Center, (Main.rand.NextFloat() * MathF.PI * 2f).ToRotationVector2(),
-            8, 6, 10, 100);
-        Main.instance.CameraModifiers.Add(modifier);
+        CameraSystem.Screenshake(4, 4);
         _justHit = true;
     }
 
@@ -149,7 +146,7 @@ public class GoreHoldout : ModProjectile
         for (int j = 0; j < Projectile.oldPos.Length; j++)
         {
             Vector2 drawPosEffect = Projectile.oldPos[j] - Main.screenPosition + drawOrigin + new Vector2(0f, Projectile.gfxOffY);
-            Color colorAfterEffect = Projectile.GetAlpha(Color.Lerp(new Color(255, 231, 143, 50), new Color(255, 204, 20, 0),
+            Color colorAfterEffect = Projectile.GetAlpha(Color.Lerp(new Color(230, 211, 130, 50), new Color(194, 145, 85, 0),
                 Projectile.ai[0] / 70f)) * ((float)(Projectile.oldPos.Length - j) / Projectile.oldPos.Length) * 0.5f;
             float afterAffectScale = Projectile.scale - (float)j / Projectile.oldPos.Length;
             Main.spriteBatch.Draw(trail, drawPosEffect, null, colorAfterEffect, Projectile.oldRot[j], drawOrigin, afterAffectScale, effects,

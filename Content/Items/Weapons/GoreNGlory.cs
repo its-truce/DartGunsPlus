@@ -17,8 +17,8 @@ public class GoreNGlory : ModItem
     public override void SetDefaults()
     {
         Item.DefaultToRangedWeapon(ProjectileID.PurificationPowder, AmmoID.Dart, 30, 14, true);
-        Item.width = 84;
-        Item.height = 30;
+        Item.width = 54;
+        Item.height = 26;
         Item.rare = ItemRarityID.Lime;
 
         Item.UseSound = AudioSystem.ReturnSound("dart", 0.3f);
@@ -49,7 +49,7 @@ public class GoreNGlory : ModItem
             }
 
             Projectile.NewProjectile(source, position + Vector2.Normalize(velocity) * Item.width * 0.7f, Vector2.Zero, ModContent.ProjectileType<ShotgunMusket>(),
-                0, 0, player.whoAmI, velocity.ToRotation(), -2, 1);
+                0, 0, player.whoAmI, velocity.ToRotation(), 4, 1);
 
             velocity.Normalize();
             player.velocity += velocity * -6;

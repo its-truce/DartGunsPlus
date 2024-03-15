@@ -438,6 +438,8 @@ Projectiles: {
 	KatanaStar.DisplayName: Katana Star
 	LuminiteTrail.DisplayName: Luminite Trail
 	VortexBeam.DisplayName: Vortex Beam
+	TerraBoom.DisplayName: Terra Boom
+	TerraBolt.DisplayName: Terra Bolt
 }
 
 Buffs: {

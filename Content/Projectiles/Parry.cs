@@ -25,6 +25,7 @@ public class Parry : ModProjectile
     public override void OnSpawn(IEntitySource source)
     {
         Projectile.velocity = new Vector2(0, -4);
+        Projectile.ai[1] = 0.2f;
     }
 
     public override void AI()
@@ -40,8 +41,11 @@ public class Parry : ModProjectile
         if (Projectile.timeLeft <= 15) 
             FadingSystem.FadeOut(Projectile, 15);
 
-        if (Projectile.scale < 1)
+        if (Projectile.scale < 1.1f)
             Projectile.scale *= 1.05f;
+
+        if (Projectile.ai[1] < 1)
+            Projectile.ai[1] *= 1.1f; // for text scale
     }
 
     public override Color? GetAlpha(Color lightColor)
@@ -57,10 +61,11 @@ public class Parry : ModProjectile
         Vector2 drawPos = Projectile.Center - Main.screenPosition;
         Color color = Color.White * Projectile.Opacity;
         
-        Main.EntitySpriteDraw(textureBackground, drawPos, null, color, 0, textureBackground.Size()/2, Projectile.scale * 0.25f, 
+        Main.EntitySpriteDraw(textureBackground, drawPos - new Vector2(0, 5), null, color, 0, textureBackground.Size()/2, Projectile.scale, 
             SpriteEffects.None);
-        Main.EntitySpriteDraw(textureText, drawPos, null, color, 0, textureText.Size()/2, Projectile.scale * 0.07f,
+        Main.EntitySpriteDraw(textureText, drawPos, null, color, 0, textureText.Size()/2, Projectile.ai[1],
             SpriteEffects.None);
+        
         return false;
     }
 }

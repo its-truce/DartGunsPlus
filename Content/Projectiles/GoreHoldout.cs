@@ -27,8 +27,8 @@ public class GoreHoldout : ModProjectile
 
     public override void SetDefaults()
     {
-        Projectile.width = 42;
-        Projectile.height = 44;
+        Projectile.width = 60;
+        Projectile.height = 60;
         Projectile.friendly = true;
         Projectile.timeLeft = 2;
         Projectile.penetrate = -1;

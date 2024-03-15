@@ -31,6 +31,8 @@ public class KatanaParry : ModProjectile
         Projectile.timeLeft = 240;
         Projectile.DamageType = DamageClass.Ranged;
         Projectile.extraUpdates = 1;
+        Projectile.usesLocalNPCImmunity = true;
+        Projectile.localNPCHitCooldown = 30;
     }
 
     public override bool PreDraw(ref Color lightColor)

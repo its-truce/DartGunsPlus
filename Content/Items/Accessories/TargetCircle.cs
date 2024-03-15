@@ -53,7 +53,7 @@ public class TargetCircle : ModProjectile
         if (Projectile.scale > 0.07f)
             Projectile.scale -= 0.006f;
         
-        Projectile.Center = Target.Center + _offset;
+        Projectile.Center = Target.Center + new Vector2(_offset.X * Target.direction, _offset.Y).RotatedBy(Target.rotation);
 
         if (Projectile.rotation < 0)
             Projectile.rotation += MathHelper.ToRadians(3);
@@ -67,8 +67,8 @@ public class TargetCircle : ModProjectile
         if (!Target.active)
             Projectile.Kill();
         
-        Projectile.Hitbox = new Rectangle((int)Projectile.position.X, (int)Projectile.position.Y, (int)(Projectile.width * 0.07f), 
-            (int)(Projectile.height * 0.07f));
+        Projectile.Hitbox = new Rectangle((int)Projectile.position.X - Projectile.width, (int)Projectile.position.Y - Projectile.height, 
+            50, 50);
     }
 
     public override bool PreDraw(ref Color lightColor)

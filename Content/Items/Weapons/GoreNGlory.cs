@@ -17,8 +17,8 @@ public class GoreNGlory : ModItem
     public override void SetDefaults()
     {
         Item.DefaultToRangedWeapon(ProjectileID.PurificationPowder, AmmoID.Dart, 30, 14, true);
-        Item.width = 54;
-        Item.height = 26;
+        Item.width = 80;
+        Item.height = 28;
         Item.rare = ItemRarityID.Lime;
 
         Item.UseSound = AudioSystem.ReturnSound("dart", 0.3f);

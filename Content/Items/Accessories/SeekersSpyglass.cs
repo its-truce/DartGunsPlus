@@ -29,7 +29,7 @@ public class SpyglassProjectile : GlobalProjectile
 {
     public override bool InstancePerEntity => true;
     private bool _eligible;
-    
+
     public override void OnSpawn(Projectile projectile, IEntitySource source)
     {
         if (source is EntitySource_ItemUse_WithAmmo use && ContentSamples.ItemsByType[use.AmmoItemIdUsed].ammo == AmmoID.Dart)
@@ -40,18 +40,20 @@ public class SpyglassProjectile : GlobalProjectile
     {
         Player player = Main.player[projectile.owner];
         AccessoryPlayer accessoryPlayer = player.GetModPlayer<AccessoryPlayer>();
-        
+
         if (!_eligible || !accessoryPlayer.HasSpyglass)
             return;
 
         foreach (Projectile proj in Main.projectile)
         {
-            if (proj.active && proj.type == ModContent.ProjectileType<TargetCircle>() && proj.owner == projectile.owner &&
-                new Rectangle((int)proj.position.X, (int)proj.position.Y, proj.width + proj.width / 2, proj.height + proj.height / 2).Intersects(projectile.Hitbox)
-                && proj.ai[0] == target.whoAmI)
+            Rectangle hitbox = new Rectangle((int)proj.position.X - proj.width, (int)proj.position.Y - proj.height, proj.width * 2, proj.height * 2);
+
+            if (proj.active && proj.type == ModContent.ProjectileType<TargetCircle>() && proj.owner == projectile.owner && hitbox.Intersects(projectile.Hitbox) &&
+                proj.ai[0] == target.whoAmI)
             {
                 Main.NewText("hi");
-                modifiers.SetCrit();
+                modifiers.FinalDamage *= 2.5f;
+                modifiers.Knockback *= 1.5f;
             }
         }
     }

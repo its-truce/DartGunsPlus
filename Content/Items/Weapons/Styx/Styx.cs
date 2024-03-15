@@ -17,8 +17,8 @@ public class Styx : ModItem
     public override void SetDefaults()
     {
         Item.DefaultToRangedWeapon(ProjectileID.PurificationPowder, AmmoID.Dart, 16, 24, true);
-        Item.width = 78;
-        Item.height = 28;
+        Item.width = 72;
+        Item.height = 30;
         Item.rare = ItemRarityID.Red;
 
         Item.UseSound = AudioSystem.ReturnSound("styxshoot", 0.3f);

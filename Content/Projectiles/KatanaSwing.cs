@@ -148,11 +148,11 @@ public class KatanaSwing : ModProjectile
                         new Vector2(velocity.X, velocity.Y).RotatedBy(MathHelper.Lerp(-rotation, rotation,
                             i / (numProjectiles - 1)));
                     Projectile.NewProjectile(Projectile.GetSource_FromAI(), position, perturbedSpeed, ModContent.ProjectileType<KatanaParry>(), 
-                        Projectile.damage * 2, 3, Owner.whoAmI);
+                        proj.damage + proj.damage/2, 3, Owner.whoAmI);
                 }
                 
                 Projectile.NewProjectile(Projectile.GetSource_FromAI(), position, velocity, ModContent.ProjectileType<KatanaParry>(), 
-                    Projectile.damage * 2, 3, Owner.whoAmI);
+                    proj.damage + proj.damage/2, 3, Owner.whoAmI);
 
             }
         }

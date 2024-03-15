@@ -14,7 +14,6 @@ public class AccessoryPlayer : ModPlayer
     public bool HasDartLicense;
     public bool HasSpyglass;
     public bool HasKite;
-    public bool HasPlume;
     public bool HasShield;
     public bool IncrementShield;
     public int ShieldTimer;
@@ -60,7 +59,7 @@ public class AccessoryPlayer : ModPlayer
 
         if (HasSpyglass)
         {
-            NPC closestTarget = DartUtils.FindClosestTarget(1600, _alreadySpawned, Player, 8);
+            NPC closestTarget = DartUtils.FindClosestTarget(3200, _alreadySpawned, Player, 20);
 
             if (closestTarget != null && 
                 !Main.projectile.Any(proj => proj.active && proj.owner == Player.whoAmI && proj.type == ModContent.ProjectileType<TargetCircle>() && 
@@ -71,6 +70,8 @@ public class AccessoryPlayer : ModPlayer
                 
                 Array.Resize(ref _alreadySpawned, _alreadySpawned.Length + 1);
                 _alreadySpawned[^1] = closestTarget;
+                
+                
             }
         }
     }

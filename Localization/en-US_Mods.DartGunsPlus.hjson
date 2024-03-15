@@ -310,6 +310,11 @@ Items: {
 		DisplayName: Aerial Apex
 		Tooltip: ""
 	}
+
+	TranquilizerAttachment: {
+		DisplayName: Tranquilizer Attachment
+		Tooltip: ""
+	}
 }
 
 Projectiles: {
@@ -444,6 +449,11 @@ Buffs: {
 	DysphoriaMarked: {
 		DisplayName: Dysphoria Marked
 		Description: You have been marked!
+	}
+
+	TranquilizerDebuff: {
+		DisplayName: Tranquilizer Debuff
+		Description: Mods.DartGunsPlus.Buffs.TranquilizerDebuff.Description
 	}
 }
 

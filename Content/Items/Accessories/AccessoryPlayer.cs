@@ -15,6 +15,7 @@ public class AccessoryPlayer : ModPlayer
     public bool HasSpyglass;
     public bool HasKite;
     public bool HasShield;
+    public bool HasTranq;
     public bool IncrementShield;
     public int ShieldTimer;
 
@@ -24,6 +25,7 @@ public class AccessoryPlayer : ModPlayer
         HasSpyglass = false;
         HasKite = false;
         HasShield = false;
+        HasTranq = false;
         _alreadySpawned = new NPC[1];
     }
 
@@ -50,7 +52,7 @@ public class AccessoryPlayer : ModPlayer
         {
             ShieldTimer++;
             
-            if (ShieldTimer == 60)
+            if (ShieldTimer == 30)
             {
                 IncrementShield = false;
                 ShieldTimer = 0;
@@ -70,8 +72,6 @@ public class AccessoryPlayer : ModPlayer
                 
                 Array.Resize(ref _alreadySpawned, _alreadySpawned.Length + 1);
                 _alreadySpawned[^1] = closestTarget;
-                
-                
             }
         }
     }

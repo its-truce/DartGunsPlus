@@ -61,7 +61,7 @@ public class Parry : ModProjectile
         Vector2 drawPos = Projectile.Center - Main.screenPosition;
         Color color = Color.White * Projectile.Opacity;
         
-        Main.EntitySpriteDraw(textureBackground, drawPos - new Vector2(0, 5), null, color, 0, textureBackground.Size()/2, Projectile.scale, 
+        Main.EntitySpriteDraw(textureBackground, drawPos, null, color, 0, textureBackground.Size()/2, Projectile.scale, 
             SpriteEffects.None);
         Main.EntitySpriteDraw(textureText, drawPos, null, color, 0, textureText.Size()/2, Projectile.ai[1],
             SpriteEffects.None);

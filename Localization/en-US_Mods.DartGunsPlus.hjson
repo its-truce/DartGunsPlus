@@ -440,6 +440,8 @@ Projectiles: {
 	VortexBeam.DisplayName: Vortex Beam
 	TerraBoom.DisplayName: Terra Boom
 	TerraBolt.DisplayName: Terra Bolt
+	TerraSpin.DisplayName: Terra Spin
+	TerraRay.DisplayName: Terra Ray
 }
 
 Buffs: {

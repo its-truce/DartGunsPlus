@@ -10,8 +10,8 @@ public class RosemaryThyme : ModItem
     public override void SetDefaults()
     {
         Item.DefaultToRangedWeapon(ProjectileID.PurificationPowder, AmmoID.Dart, 18, 11, true);
-        Item.width = 64;
-        Item.height = 26;
+        Item.width = 62;
+        Item.height = 36;
         Item.rare = ItemRarityID.Lime;
 
         Item.UseSound = SoundID.DD2_JavelinThrowersAttack;

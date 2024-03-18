@@ -1,3 +1,5 @@
+using DartGunsPlus.Content.Projectiles;
+using DartGunsPlus.Content.UI;
 using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.DataStructures;
@@ -24,6 +26,11 @@ public class Serenity : ModItem
         Item.knockBack = 5;
     }
 
+    public override bool AltFunctionUse(Player player)
+    {
+        return true;
+    }
+
     public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
     {
         ParticleOrchestraSettings settings = new()
@@ -47,6 +54,16 @@ public class Serenity : ModItem
         {
             position += muzzleOffset;
             position.Y--;
+        }
+
+        if (player.altFunctionUse == 2)
+        {
+            type = ModContent.ProjectileType<TerraBoom>();
+            damage *= 2;
+            velocity *= 0.6f;
+
+            SerenityPlayer serenityPlayer = player.GetModPlayer<SerenityPlayer>();
+            serenityPlayer.SerenityCurrent++;
         }
     }
 

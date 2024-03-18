@@ -9,7 +9,7 @@ namespace DartGunsPlus.Content.Projectiles;
 public class TerraBolt : ModProjectile
 {
     public override string Texture => "DartGunsPlus/Content/Projectiles/EmptyTexture";
-    private Color Color => Color.Lerp(new Color(34, 177, 77), Color.YellowGreen, Main.masterColor) * 0.4f;
+    private static Color Color => Color.Lerp(new Color(34, 177, 77), Color.YellowGreen, Main.masterColor) * 0.4f;
 
     public override void SetDefaults()
     {

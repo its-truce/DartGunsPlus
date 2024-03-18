@@ -379,26 +379,34 @@ public class OnHitProjectile : GlobalProjectile
                 UniqueInfoPiece = (int)VisualSystem.HueForParticle(Color.Green)
             };
             ParticleOrchestrator.SpawnParticlesDirect(ParticleOrchestraType.ChlorophyteLeafCrystalShot, settings);
+            
+            Player owner = Main.player[projectile.owner];
 
-            if (Main.rand.NextBool(2))
+            for (int i = 0; i < 2; i++)
             {
-                Vector2 spawnPos = target.Center + new Vector2(50, 0).RotatedByRandom(Math.Tau);
-                Projectile.NewProjectile(projectile.GetSource_OnHit(target), spawnPos, spawnPos.DirectionTo(target.Center) * 4,
-                    ModContent.ProjectileType<SereneSlash>(), (int)(projectile.damage * 0.75f), 3, projectile.owner);
+                Vector2 spawnPos = owner.position + new Vector2(Main.rand.Next(-10, 10) * owner.direction * -1, Main.rand.Next(-10, 10));
+                Vector2 velocity = spawnPos.DirectionTo(Main.MouseWorld).RotatedByRandom(MathHelper.ToRadians(45)) * 7;
+                VisualSystem.SpawnDustPortal(spawnPos, velocity, ModContent.DustType<GlowFastDecelerate>(), 0.6f, Color.YellowGreen);
+
+                Projectile.NewProjectile(projectile.GetSource_OnHit(target), spawnPos, velocity,
+                    ModContent.ProjectileType<SereneBolt>(), projectile.damage / 3, 3, projectile.owner);
             }
-            else
+            
+            if (owner.ownedProjectileCounts[ModContent.ProjectileType<TerraRay>()] != 0)
             {
-                Player player = Main.player[projectile.owner];
-
-                for (int i = 0; i < 2; i++)
+                List<Projectile> rays = new List<Projectile>();
+                
+                foreach (Projectile proj in Main.projectile)
                 {
-                    Vector2 spawnPos = player.position + new Vector2(Main.rand.Next(-10, 10) * player.direction * -1, Main.rand.Next(-10, 10));
-                    Vector2 velocity = spawnPos.DirectionTo(Main.MouseWorld).RotatedByRandom(MathHelper.ToRadians(45)) * 7;
-                    Dust.NewDust(spawnPos, projectile.height, projectile.width, DustID.TerraBlade);
-
-                    Projectile.NewProjectile(projectile.GetSource_OnHit(target), spawnPos, velocity,
-                        ModContent.ProjectileType<SereneBolt>(), projectile.damage / 3, 3, projectile.owner);
+                    if (proj.active && proj.type == ModContent.ProjectileType<TerraRay>() && proj.owner == projectile.owner && proj.ai[1] == target.whoAmI)
+                    {
+                        if (proj.ai[2] == 0)
+                            rays.Add(proj);
+                    }
                 }
+                
+                Projectile targetProj = Main.rand.NextFromCollection(rays);
+                targetProj.ai[2] = 1; // expand
             }
         }
 

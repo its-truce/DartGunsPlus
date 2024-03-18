@@ -1,3 +1,5 @@
+using DartGunsPlus.Content.Dusts;
+using DartGunsPlus.Content.Systems;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Terraria;
@@ -68,9 +70,22 @@ public class TerraBoom : ModProjectile
     public override void AI()
     {
         Projectile.rotation = Projectile.velocity.ToRotation() + MathHelper.ToRadians(90);
-
+        
         if (Projectile.timeLeft % 30 == 0)
             Projectile.NewProjectile(Projectile.GetSource_FromAI(), Projectile.Center - new Vector2(0, 600), new Vector2(Main.rand.Next(-3, 3), 11),
                 ModContent.ProjectileType<TerraBolt>(), Projectile.damage, 2, Projectile.owner);
+    }
+
+    public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
+    {
+        VisualSystem.SpawnDustCircle(target.Center, ModContent.DustType<GlowFastDecelerate>(), scale: 0.4f, color: Color.YellowGreen);
+        Projectile.NewProjectile(Projectile.GetSource_FromAI(), Projectile.Center - new Vector2(0, 600), new Vector2(Main.rand.Next(-1, 1), 11),
+            ModContent.ProjectileType<TerraBolt>(), Projectile.damage, 2, Projectile.owner);
+        
+        for (int i = 0; i < Main.rand.Next(5, 8); i++)
+        {
+            Projectile.NewProjectile(Projectile.GetSource_Death(), target.Center, new Vector2(Main.rand.Next(-10, 10), Main.rand.Next(-10, 10)),
+                ModContent.ProjectileType<TerraRay>(), Projectile.damage, 2, Projectile.owner, ai1: target.whoAmI);
+        }
     }
 }

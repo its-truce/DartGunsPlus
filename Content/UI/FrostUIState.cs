@@ -9,9 +9,10 @@ using Terraria.UI;
 
 namespace DartGunsPlus.Content.UI;
 
-public class UIStateFlail : ModUIState
+public class FrostUIState : ModUIState
 {
-    private const float Segment = 3 / 38f; // Player max flail charge divided by the flail bar texture width
+    private static FrostPlayer FrostPlayer => Main.LocalPlayer.GetModPlayer<FrostPlayer>();
+    private static float Segment => FrostPlayer.FrostMax2 / 38f; // Player max flail charge divided by the flail bar texture width
     private static Texture2D _textureBorder;
     private static Texture2D _textureBar;
 
@@ -21,7 +22,7 @@ public class UIStateFlail : ModUIState
     public override void OnInitialize()
     {
         _textureBorder ??= ModContent.Request<Texture2D>("DartGunsPlus/Content/UI/Bar", AssetRequestMode.ImmediateLoad).Value;
-        _textureBar ??= ModContent.Request<Texture2D>("DartGunsPlus/Content/UI/SerenityFill", AssetRequestMode.ImmediateLoad).Value;
+        _textureBar ??= ModContent.Request<Texture2D>("DartGunsPlus/Content/UI/FrostFill", AssetRequestMode.ImmediateLoad).Value;
 
         Width.Set(0f, 0f);
         Height.Set(0f, 0f);
@@ -32,9 +33,8 @@ public class UIStateFlail : ModUIState
     public override void Draw(SpriteBatch spriteBatch)
     {
         Player player = Main.LocalPlayer;
-        SerenityPlayer modPlayer = player.GetModPlayer<SerenityPlayer>();
 
-        if (!player.dead && player.HeldItem.ModItem is Serenity)
+        if (!player.dead && player.HeldItem.ModItem is GlacialGeyser)
         {
             spriteBatch.End();
             spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend, SamplerState.PointClamp, DepthStencilState.None, Main.Rasterizer, null, 
@@ -47,7 +47,7 @@ public class UIStateFlail : ModUIState
                 0f);
 
             Rectangle rectangle = _textureBar.Bounds;
-            rectangle.Width = (int)(modPlayer.SerenityCurrent / Segment);
+            rectangle.Width = (int)(FrostPlayer.FrostCurrent / Segment);
 
             spriteBatch.Draw(_textureBar, position, rectangle, Color.White, 0f, _textureBar.Size() * 0.5f, 1f, SpriteEffects.None, 0f);
 

@@ -40,40 +40,49 @@ public class MartianLightning : ModProjectile
     public override void OnSpawn(IEntitySource source)
     {
         _startLocation = Projectile.Center;
-        _soundSlot = SoundEngine.PlaySound(AudioSystem.ReturnSound("electriccharge", volume: 0.6f));
+        
+        if (Projectile.ai[1] == 0)
+            _soundSlot = SoundEngine.PlaySound(AudioSystem.ReturnSound("electriccharge", volume: 0.6f));
     }
-    //TODO: Make the updated charge lightnings work with styx
 
     public override void AI()
     {
         Projectile.Center = Main.MouseWorld;
-        ChargeLaser(Owner);
         
         if (Projectile.ai[1] == 0)
+        {
+            ChargeLaser(Owner);
             UpdatePlayer(Owner);
+        }
 
-        if (IsAtMaxCharge)
+        if (IsAtMaxCharge || Projectile.ai[1] != 0)
         {
             Projectile.friendly = true;
             Projectile.ai[0]++;
             
-            if (Projectile.ai[0] > 60 && !Owner.channel)
+            if (Projectile.ai[0] > 60 && (!Owner.channel || Projectile.ai[1] != 0))
                 Projectile.Kill();
 
             if (Projectile.ai[0] == 1)
                 _soundSlot = SoundEngine.PlaySound(AudioSystem.ReturnSound("electricity"), Projectile.Center);
 
-            _startLocation = Projectile.ai[1] == 0 ? Nozzle : new Vector2(Projectile.ai[1], Projectile.ai[2]); // second case is for styx
+            Projectile potentialParent = Main.projectile[(int)Projectile.ai[1]];
+            int dir = potentialParent.DirectionTo(Main.MouseWorld).X > 0 ? 1 : -1;
+            _startLocation = Projectile.ai[1] == 0 ? Nozzle : potentialParent.Center + new Vector2(Projectile.ai[2] * dir, 0).RotatedBy(potentialParent.rotation) / 2; 
+            // second case is for styx
         }
         else
             Projectile.timeLeft++;
 
-        if (Projectile.timeLeft == 300)
+        if (Projectile.timeLeft == 300 && Projectile.ai[1] == 0)
         {
             SoundEngine.PlaySound(SoundID.MaxMana);
             VisualSystem.SpawnDustCircle(Nozzle, ModContent.DustType<GlowFastDecelerate>(), 14, color: Color.SkyBlue, scale: 0.6f);
             CameraSystem.Screenshake(5, 4);
         }
+        
+        if (Projectile.ai[1] != 0 && Owner.ownedProjectileCounts[Projectile.type] > 1)
+            Projectile.Kill();
     }
     
     private void ChargeLaser(Player player)
@@ -105,7 +114,7 @@ public class MartianLightning : ModProjectile
 
     public override bool PreDraw(ref Color lightColor)
     {
-        if (IsAtMaxCharge)
+        if (IsAtMaxCharge || Projectile.ai[1] != 0)
         {
             Texture2D texture = TextureAssets.Projectile[Projectile.type].Value;
             Texture2D texture2 = ModContent.Request<Texture2D>("DartGunsPlus/Content/Projectiles/Glowball").Value;

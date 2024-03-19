@@ -14,10 +14,5 @@ public class LaserRevolving : RevolvingGun
 
     protected override float ShotVelocity => 8;
     protected override Color LightColor => Color.HotPink;
-    private Vector2 SpawnPos => Projectile.Center + new Vector2(ProjTexture.Width * Projectile.direction, 0).RotatedBy(Projectile.rotation) / 2;
-
-    protected override float[] InputsAI => new[]
-    {
-        0, SpawnPos.X, SpawnPos.Y
-    };
+    protected override float[] InputsAI => new[] { 0, (float)Projectile.whoAmI, ProjTexture.Width };
 }

@@ -42,6 +42,7 @@ public class MartianLightning : ModProjectile
         _startLocation = Projectile.Center;
         _soundSlot = SoundEngine.PlaySound(AudioSystem.ReturnSound("electriccharge", volume: 0.6f));
     }
+    //TODO: Make the updated charge lightnings work with styx
 
     public override void AI()
     {

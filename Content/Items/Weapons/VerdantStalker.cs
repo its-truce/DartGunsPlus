@@ -10,6 +10,7 @@ namespace DartGunsPlus.Content.Items.Weapons;
 
 public class VerdantStalker : ModItem
 {
+    private float _initialItemRot;
     public override void SetDefaults()
     {
         Item.DefaultToRangedWeapon(ProjectileID.PurificationPowder, AmmoID.Dart, 60, 17, true);
@@ -38,6 +39,7 @@ public class VerdantStalker : ModItem
         player.velocity += velocity * -5;
         CameraSystem.Screenshake(5, 4);
 
+        _initialItemRot = player.itemRotation;
         return true;
     }
 
@@ -61,5 +63,10 @@ public class VerdantStalker : ModItem
             .AddIngredient(ItemID.JungleSpores, 12)
             .AddTile(TileID.Anvils)
             .Register();
+    }
+    
+    public override void UseStyle(Player player, Rectangle heldItemFrame)
+    {
+        VisualSystem.RecoilAnimation(player, _initialItemRot, 30);
     }
 }

@@ -66,7 +66,7 @@ public abstract class RevolvingGun : ModProjectile
         Vector2 drawPos = Projectile.Center - Main.screenPosition;
         Vector2 drawOrigin = texture.Size() / 2;
 
-        Main.EntitySpriteDraw(texture, drawPos, null, color, 0, drawOrigin, 0.3f, SpriteEffects.None);
+        Main.EntitySpriteDraw(texture, drawPos, null, color, 0, drawOrigin, 0.75f, SpriteEffects.None);
         return true;
     }
 

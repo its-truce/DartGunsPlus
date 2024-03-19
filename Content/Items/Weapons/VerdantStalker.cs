@@ -11,6 +11,7 @@ namespace DartGunsPlus.Content.Items.Weapons;
 public class VerdantStalker : ModItem
 {
     private float _initialItemRot;
+    
     public override void SetDefaults()
     {
         Item.DefaultToRangedWeapon(ProjectileID.PurificationPowder, AmmoID.Dart, 60, 17, true);

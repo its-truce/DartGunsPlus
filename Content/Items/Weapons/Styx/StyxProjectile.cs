@@ -43,8 +43,10 @@ public class StyxProjectile : GlobalProjectile
                 break;
 
             case EntitySource_Misc { Context: "styx" }:
-                projectile.usesIDStaticNPCImmunity = true;
-                projectile.idStaticNPCHitCooldown = 0;
+                projectile.usesLocalNPCImmunity = true;
+                projectile.localNPCHitCooldown = 1;
+                projectile.penetrate = 1;
+                projectile.tileCollide = false;
                 break;
         }
     }

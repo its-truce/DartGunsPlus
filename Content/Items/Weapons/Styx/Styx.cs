@@ -1,3 +1,5 @@
+using DartGunsPlus.Content.Dusts;
+using DartGunsPlus.Content.Projectiles;
 using DartGunsPlus.Content.Systems;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
@@ -13,10 +15,11 @@ namespace DartGunsPlus.Content.Items.Weapons.Styx;
 public class Styx : ModItem
 {
     private CompactParticleManager _manager;
-
+    private float _initialItemRot;
+    
     public override void SetDefaults()
     {
-        Item.DefaultToRangedWeapon(ProjectileID.PurificationPowder, AmmoID.Dart, 16, 24, true);
+        Item.DefaultToRangedWeapon(ProjectileID.PurificationPowder, AmmoID.Dart, 24, 24, true);
         Item.width = 72;
         Item.height = 30;
         Item.rare = ItemRarityID.Red;
@@ -75,7 +78,17 @@ public class Styx : ModItem
 
     public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
     {
-        Dust.NewDustPerfect(position, DustID.WhiteTorch, newColor: Color.Purple);
+        for (int i = 0; i < 5; i++)
+        {
+            Dust.NewDustPerfect(position + Vector2.Normalize(velocity) * Item.width * 0.8f, ModContent.DustType<GlowFastDecelerate>(), 
+                newColor: new Color(85, 105, 181), Scale: 0.5f);
+        }
+        
+        Projectile.NewProjectile(source, position, Vector2.Zero, ModContent.ProjectileType<ShotgunMusket>(),
+            0, 0, player.whoAmI, velocity.ToRotation(), 5, 3);
+        CameraSystem.Screenshake(3, 2);
+
+        _initialItemRot = player.itemRotation;
         return base.Shoot(player, source, position, velocity, type, damage, knockback);
     }
 
@@ -96,6 +109,24 @@ public class Styx : ModItem
     public override Vector2? HoldoutOffset()
     {
         return new Vector2(-2f, -1f);
+    }
+
+    public override bool PreDrawInInventory(SpriteBatch spriteBatch, Vector2 position, Rectangle frame, Color drawColor, Color itemColor, Vector2 origin, float scale)
+    {
+        Texture2D texture = TextureAssets.Item[Item.type].Value;
+        Color color = Color.Lerp(drawColor, new Color(85, 105, 181, 50), Main.masterColor);
+        
+        spriteBatch.Draw(texture, position, null, color, 0, origin, scale, SpriteEffects.None, 0f);
+        return false;
+    }
+
+    public override bool PreDrawInWorld(SpriteBatch spriteBatch, Color lightColor, Color alphaColor, ref float rotation, ref float scale, int whoAmI)
+    {
+        Texture2D texture = TextureAssets.Item[Item.type].Value;
+        Color color = Color.Lerp(lightColor, new Color(85, 105, 181, 50), Main.masterColor);
+        
+        spriteBatch.Draw(texture, Item.Center - Main.screenPosition, null, color, 0, texture.Size()/2, scale, SpriteEffects.None, 0f);
+        return false;
     }
 
     public override bool PreDrawTooltipLine(DrawableTooltipLine line, ref int yOffset)
@@ -134,6 +165,11 @@ public class Styx : ModItem
         }
 
         return base.PreDrawTooltipLine(line, ref yOffset);
+    }
+    
+    public override void UseStyle(Player player, Rectangle heldItemFrame)
+    {
+        VisualSystem.RecoilAnimation(player, _initialItemRot, 15);
     }
 
     public override void AddRecipes()

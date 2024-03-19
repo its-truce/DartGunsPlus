@@ -1,7 +1,6 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
-using DartGunsPlus.Content.Items.Weapons.Styx;
 using Microsoft.Xna.Framework.Graphics;
 using ReLogic.Content;
 using Terraria;
@@ -20,8 +19,6 @@ public class DartGunsPlus : Mod
         if (!Main.dedServ)
             if (Main.netMode != NetmodeID.Server)
             {
-                SkyManager.Instance["DartGunsPlus:StyxSky"] = new StyxSky();
-
                 MethodInfo info = typeof(Mod).GetProperty("File", BindingFlags.NonPublic | BindingFlags.Instance)?.GetGetMethod(true);
 
                 if (info != null)

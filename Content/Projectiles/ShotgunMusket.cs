@@ -59,19 +59,24 @@ public class ShotgunMusket : ModProjectile
 
         switch (Projectile.ai[2])
         {
-            case 1:
+            case 1: // gore n glory
                 color1 = new Color(255, 204, 20, 0);
                 color2 = new Color(255, 231, 143, 0);
                 break;
 
-            case 2:
+            case 2: // scylla
                 color1 = new Color(20, 255, 203, 0);
                 color2 = new Color(143, 255, 206, 0);
                 break;
+            
+            case 3: // styx
+                color1 = new Color(42, 34, 80, 0);
+                color2 = new Color(85, 105, 181, 0);
+                break;
 
             default:
-                color1 = new Color(255, 140, 0, 0);
-                color2 = new Color(255, 112, 0, 0); 
+                color1 = Color.Violet;
+                color2 = Color.DarkBlue;
                 break;
         }
 

@@ -21,7 +21,7 @@ public class LaserUIState : ModUIState
 
     public override void OnInitialize()
     {
-        _textureBorder ??= ModContent.Request<Texture2D>("DartGunsPlus/Content/UI/Bar", AssetRequestMode.ImmediateLoad).Value;
+        _textureBorder ??= ModContent.Request<Texture2D>("DartGunsPlus/Content/UI/LaserBar", AssetRequestMode.ImmediateLoad).Value;
         _textureBar ??= ModContent.Request<Texture2D>("DartGunsPlus/Content/UI/LaserFill", AssetRequestMode.ImmediateLoad).Value;
 
         Width.Set(0f, 0f);

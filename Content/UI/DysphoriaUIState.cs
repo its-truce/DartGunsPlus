@@ -21,7 +21,7 @@ public class DysphoriaUIState : ModUIState
 
     public override void OnInitialize()
     {
-        _textureBorder ??= ModContent.Request<Texture2D>("DartGunsPlus/Content/UI/Bar", AssetRequestMode.ImmediateLoad).Value;
+        _textureBorder ??= ModContent.Request<Texture2D>("DartGunsPlus/Content/UI/DysphoriaBar", AssetRequestMode.ImmediateLoad).Value;
         _textureBar ??= ModContent.Request<Texture2D>("DartGunsPlus/Content/UI/DysphoriaFill", AssetRequestMode.ImmediateLoad).Value;
 
         Width.Set(0f, 0f);

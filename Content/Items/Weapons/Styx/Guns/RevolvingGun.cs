@@ -60,7 +60,7 @@ public abstract class RevolvingGun : ModProjectile
 
     public override bool PreDraw(ref Color lightColor)
     {
-        Texture2D texture = ModContent.Request<Texture2D>("DartGunsPlus/Content/Projectiles/Glowball").Value;
+        Texture2D texture = ModContent.Request<Texture2D>("DartGunsPlus/Content/Projectiles/Glow").Value;
         Color color = LightColor;
         color.A = 0;
         Vector2 drawPos = Projectile.Center - Main.screenPosition;

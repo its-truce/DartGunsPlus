@@ -102,12 +102,11 @@ public class Styx : ModItem
     {
         if (line.Name == "ItemName" && line.Mod == "Terraria")
         {
-            Color color = Main.hslToRgb(Main.GlobalTimeWrappedHourly / 20f % 1f, 1f, 0.5f);
-
+            Color color = Color.Lerp(new Color(85, 105, 181), new Color(42, 34, 80), Main.masterColor);
             Vector2 bounds = FontAssets.MouseText.Value.MeasureString(line.Text);
             Texture2D glow = ModContent.Request<Texture2D>("DartGunsPlus/Content/Projectiles/Spotlight").Value;
             Vector2 texSize = glow.Size();
-            Color glowColor = Main.hslToRgb((Main.GlobalTimeWrappedHourly / 20f + 0.1f) % 1f, 1f, 0.5f) * 0.6f;
+            Color glowColor = Color.Lerp(new Color(85, 105, 181, 0), new Color(42, 34, 80, 0), Main.masterColor);
             glowColor.A = 0;
             Main.spriteBatch.Draw(glow, (line.X + bounds.X / 2) * Vector2.UnitX + (line.Y + bounds.Y / 2) * Vector2.UnitY - Vector2.UnitY * 3, null,
                 glowColor, 0f, texSize / 2, new Vector2(1f, 0.3f), SpriteEffects.None, 0f);
@@ -116,7 +115,7 @@ public class Styx : ModItem
             {
                 bounds.Y -= 10;
                 Vector2 pos = new Vector2(0, 5) + new Vector2(Main.rand.NextFloat(bounds.X), Main.rand.NextFloat(bounds.Y));
-                Color color2 = Main.hslToRgb((Main.GlobalTimeWrappedHourly / 20f + Main.rand.NextFloat(-0.1f, 0.1f)) % 1f, 1f, 0.5f);
+                Color color2 = Color.Lerp(new Color(85, 105, 181, 0), new Color(42, 34, 80, 0), 1 - Main.masterColor);
                 color2.A = 0;
                 _manager.AddParticle(pos, (pos - bounds / 2).SafeNormalize(Vector2.UnitY) * 1, 0f, 5f, 1f, color2);
             }

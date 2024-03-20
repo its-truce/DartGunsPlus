@@ -39,7 +39,7 @@ public class DysphoriaBolt : ModProjectile
 
         if (_scale < 1)
             _scale *= 1.03f;
-        
+
         if (Projectile.FindTargetWithinRange(1000) != null && Projectile.ai[1] != 1)
             Projectile.velocity = Vector2.Lerp(Projectile.DirectionTo(Projectile.FindTargetWithinRange(1000).Center) * 10,
                 Projectile.velocity, 0.3f);

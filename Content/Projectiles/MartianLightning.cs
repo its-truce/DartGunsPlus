@@ -16,10 +16,10 @@ namespace DartGunsPlus.Content.Projectiles;
 
 public class MartianLightning : ModProjectile
 {
+    private const float MaxCharge = 100f;
     private SlotId _soundSlot;
     private Vector2 _startLocation;
     private Player Owner => Main.player[Projectile.owner];
-    private const float MaxCharge = 100f;
     private ref float Charge => ref Projectile.localAI[0];
     private bool IsAtMaxCharge => Charge == MaxCharge;
 
@@ -40,7 +40,7 @@ public class MartianLightning : ModProjectile
     public override void OnSpawn(IEntitySource source)
     {
         _startLocation = Projectile.Center;
-        
+
         if (Projectile.ai[1] == 0)
             _soundSlot = SoundEngine.PlaySound(AudioSystem.ReturnSound("electriccharge", volume: 0.6f));
     }
@@ -48,7 +48,7 @@ public class MartianLightning : ModProjectile
     public override void AI()
     {
         Projectile.Center = Main.MouseWorld;
-        
+
         if (Projectile.ai[1] == 0)
         {
             ChargeLaser(Owner);
@@ -59,7 +59,7 @@ public class MartianLightning : ModProjectile
         {
             Projectile.friendly = true;
             Projectile.ai[0]++;
-            
+
             if (Projectile.ai[0] > 60 && (!Owner.channel || Projectile.ai[1] != 0))
                 Projectile.Kill();
 
@@ -68,11 +68,13 @@ public class MartianLightning : ModProjectile
 
             Projectile potentialParent = Main.projectile[(int)Projectile.ai[1]];
             int dir = potentialParent.DirectionTo(Main.MouseWorld).X > 0 ? 1 : -1;
-            _startLocation = Projectile.ai[1] == 0 ? Nozzle : potentialParent.Center + new Vector2(Projectile.ai[2] * dir, 0).RotatedBy(potentialParent.rotation) / 2; 
+            _startLocation = Projectile.ai[1] == 0 ? Nozzle : potentialParent.Center + new Vector2(Projectile.ai[2] * dir, 0).RotatedBy(potentialParent.rotation) / 2;
             // second case is for styx
         }
         else
+        {
             Projectile.timeLeft++;
+        }
 
         if (Projectile.timeLeft == 300 && Projectile.ai[1] == 0)
         {
@@ -80,21 +82,23 @@ public class MartianLightning : ModProjectile
             VisualSystem.SpawnDustCircle(Nozzle, ModContent.DustType<GlowFastDecelerate>(), 14, color: Color.SkyBlue, scale: 0.6f);
             CameraSystem.Screenshake(5, 4);
         }
-        
+
         if (Projectile.ai[1] != 0 && Owner.ownedProjectileCounts[Projectile.type] > 1)
             Projectile.Kill();
     }
-    
+
     private void ChargeLaser(Player player)
     {
         if (!player.channel)
+        {
             Projectile.Kill();
+        }
         else if (!IsAtMaxCharge)
         {
             Charge++;
-        
+
             int chargeFact = (int)(Charge / 20f);
-        
+
             for (int k = 0; k < chargeFact + 1; k++)
             {
                 Vector2 spawn = Nozzle + ((float)Main.rand.NextDouble() * MathF.Tau).ToRotationVector2() * (12f - chargeFact * 2);
@@ -103,7 +107,7 @@ public class MartianLightning : ModProjectile
                 dust.velocity = Vector2.Normalize(Nozzle - spawn) * 1.5f * (10f - chargeFact * 2f) / 10f;
                 dust.noGravity = true;
                 dust.scale = Main.rand.Next(10, 20) * 0.03f;
-            }   
+            }
         }
     }
 

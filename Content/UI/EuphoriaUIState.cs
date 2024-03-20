@@ -11,13 +11,15 @@ namespace DartGunsPlus.Content.UI;
 
 public class EuphoriaUIState : ModUIState
 {
-    private static EuphoriaPlayer EuphoriaPlayer => Main.LocalPlayer.GetModPlayer<EuphoriaPlayer>();
-    private static float Segment => EuphoriaPlayer.EuphoriaMax2 / 38f; // Player max flail charge divided by the flail bar texture width
     private static Texture2D _textureBorder;
     private static Texture2D _textureBar;
+    private static EuphoriaPlayer EuphoriaPlayer => Main.LocalPlayer.GetModPlayer<EuphoriaPlayer>();
+    private static float Segment => EuphoriaPlayer.EuphoriaMax2 / 38f; // Player max flail charge divided by the flail bar texture width
 
     public override int InsertionIndex(List<GameInterfaceLayer> layers)
-        => layers.FindIndex(layer => layer.Name.Equals("Vanilla: Inventory"));
+    {
+        return layers.FindIndex(layer => layer.Name.Equals("Vanilla: Inventory"));
+    }
 
     public override void OnInitialize()
     {
@@ -37,13 +39,12 @@ public class EuphoriaUIState : ModUIState
         if (!player.dead && player.HeldItem.ModItem is TrueEuphoria)
         {
             spriteBatch.End();
-            spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend, SamplerState.PointClamp, DepthStencilState.None, Main.Rasterizer, null, 
+            spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend, SamplerState.PointClamp, DepthStencilState.None, Main.Rasterizer, null,
                 Main.Transform);
 
-            Vector2 position = (player.position + new Vector2(player.width * 0.5f, player.gravDir > 0 ? player.height + player.gfxOffY : 10 + player.gfxOffY)).
-                Floor();
+            Vector2 position = (player.position + new Vector2(player.width * 0.5f, player.gravDir > 0 ? player.height + player.gfxOffY : 10 + player.gfxOffY)).Floor();
             position = Vector2.Transform(position - Main.screenPosition, Main.GameViewMatrix.EffectMatrix * Main.GameViewMatrix.ZoomMatrix);
-            spriteBatch.Draw(_textureBorder, position, null, Color.White, 0f, _textureBorder.Size() * 0.5f, 1f, SpriteEffects.None, 
+            spriteBatch.Draw(_textureBorder, position, null, Color.White, 0f, _textureBorder.Size() * 0.5f, 1f, SpriteEffects.None,
                 0f);
 
             Rectangle rectangle = _textureBar.Bounds;
@@ -52,7 +53,7 @@ public class EuphoriaUIState : ModUIState
             spriteBatch.Draw(_textureBar, position, rectangle, Color.White, 0f, _textureBar.Size() * 0.5f, 1f, SpriteEffects.None, 0f);
 
             spriteBatch.End();
-            spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend, Main.DefaultSamplerState, DepthStencilState.None, Main.Rasterizer, null, 
+            spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend, Main.DefaultSamplerState, DepthStencilState.None, Main.Rasterizer, null,
                 Main.UIScaleMatrix);
         }
     }

@@ -11,11 +11,11 @@ namespace DartGunsPlus.Content.Projectiles;
 
 public class ScyllaShoot : ModProjectile
 {
+    private const int Degrees = 30;
     public override string Texture => "DartGunsPlus/Content/Projectiles/EmptyTexture";
     private Player Owner => Main.player[Projectile.owner];
     private NPC Target => Main.npc[(int)Projectile.ai[0]];
     private ref float InitialItemRot => ref Projectile.ai[2];
-    private const int Degrees = 30;
 
     public override void SetDefaults()
     {
@@ -40,12 +40,12 @@ public class ScyllaShoot : ModProjectile
             Owner.itemAnimation = Owner.itemAnimationMax;
             InitialItemRot = Owner.itemRotation;
             Projectile.timeLeft = Owner.itemAnimationMax;
-        
+
             int numProjectiles = Main.rand.Next(7, 10);
 
             Vector2 velocity = Owner.DirectionTo(Target.active ? Target.Center : Main.MouseWorld) * speed;
             Vector2 position = Owner.Center + new Vector2(scyllaItem.width * 0.8f, 0).RotatedBy(velocity.ToRotation());
-        
+
             for (int i = 0; i < numProjectiles; i++)
             {
                 Vector2 newVelocity = velocity.RotatedByRandom(MathHelper.ToRadians(30));
@@ -53,7 +53,7 @@ public class ScyllaShoot : ModProjectile
 
                 int projToShoot = Main.rand.NextBool(4) ? ModContent.ProjectileType<VortexBeam>() : proj;
 
-                Projectile.NewProjectileDirect(Owner.GetSource_ItemUse(scyllaItem), position, newVelocity, projToShoot, damage, knockback, 
+                Projectile.NewProjectileDirect(Owner.GetSource_ItemUse(scyllaItem), position, newVelocity, projToShoot, damage, knockback,
                     Owner.whoAmI);
             }
 
@@ -69,7 +69,9 @@ public class ScyllaShoot : ModProjectile
             SoundEngine.PlaySound(AudioSystem.ReturnSound("scyllashoot"), Owner.Center);
         }
         else
+        {
             Projectile.Kill();
+        }
     }
 
     public override void AI()
@@ -78,7 +80,7 @@ public class ScyllaShoot : ModProjectile
         Owner.heldProj = Projectile.whoAmI;
 
         VisualSystem.RecoilAnimation(Owner, InitialItemRot, Degrees);
-        
+
         if (Owner.HeldItem.ModItem is not Scylla)
             Projectile.Kill();
     }

@@ -42,8 +42,8 @@ public class ZapperLightning : ModProjectile
     {
         Texture2D texture = TextureAssets.Projectile[Projectile.type].Value;
         Texture2D texture2 = ModContent.Request<Texture2D>("DartGunsPlus/Content/Projectiles/Glowball").Value;
-        Color col = new Color(255, 246, 72, 0);
-        
+        Color col = new(255, 246, 72, 0);
+
         DrawLightning(texture, texture2, col, _startLocation, Projectile.Center, 0.022f);
 
         Vector2 drawPos = Projectile.Center - Main.screenPosition;
@@ -95,11 +95,11 @@ public class ZapperLightning : ModProjectile
         int randDust = Main.rand.Next(15, 20);
         for (int i = 0; i < randDust; i++)
         {
-            Dust dust = Dust.NewDustDirect(Projectile.Center, 0, 0, ModContent.DustType<GlowFastDecelerate>(), 0f, 0f, 100, Color.Gold, 
+            Dust dust = Dust.NewDustDirect(Projectile.Center, 0, 0, ModContent.DustType<GlowFastDecelerate>(), 0f, 0f, 100, Color.Gold,
                 0.6f);
             dust.velocity *= 3.2f;
             dust.velocity.Y -= 1f;
-            Vector2 velocity = new Vector2(0, 10);
+            Vector2 velocity = new(0, 10);
             dust.velocity += velocity;
             dust.noGravity = true;
         }

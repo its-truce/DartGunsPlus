@@ -17,10 +17,10 @@ namespace DartGunsPlus.Content.Projectiles;
 
 public class LaserLightning : ModProjectile
 {
+    private const float MaxCharge = 80f;
     private SlotId _soundSlot;
     private Vector2 _startLocation;
     private Player Owner => Main.player[Projectile.owner];
-    private const float MaxCharge = 80f;
     private ref float Charge => ref Projectile.localAI[0];
     private bool IsAtMaxCharge => Charge == MaxCharge;
 
@@ -41,7 +41,7 @@ public class LaserLightning : ModProjectile
     public override void OnSpawn(IEntitySource source)
     {
         _startLocation = Projectile.Center;
-        
+
         if (Projectile.ai[1] == 0)
             _soundSlot = SoundEngine.PlaySound(AudioSystem.ReturnSound("electriccharge", volume: 0.6f));
     }
@@ -49,7 +49,7 @@ public class LaserLightning : ModProjectile
     public override void AI()
     {
         Projectile.Center = Main.MouseWorld;
-        
+
         if (Projectile.ai[1] == 0)
         {
             ChargeLaser(Owner);
@@ -75,10 +75,13 @@ public class LaserLightning : ModProjectile
 
             Projectile potentialParent = Main.projectile[(int)Projectile.ai[1]];
             int dir = potentialParent.DirectionTo(Main.MouseWorld).X > 0 ? 1 : -1;
-            _startLocation = Projectile.ai[1] == 0 ? Nozzle : potentialParent.Center + new Vector2(Projectile.ai[2] * dir, 0).RotatedBy(potentialParent.rotation) / 2;        }
+            _startLocation = Projectile.ai[1] == 0 ? Nozzle : potentialParent.Center + new Vector2(Projectile.ai[2] * dir, 0).RotatedBy(potentialParent.rotation) / 2;
+        }
         else
+        {
             Projectile.timeLeft++;
-        
+        }
+
         if (Projectile.timeLeft == 300 && Projectile.ai[1] == 0)
         {
             SoundEngine.PlaySound(SoundID.MaxMana);
@@ -86,17 +89,19 @@ public class LaserLightning : ModProjectile
             CameraSystem.Screenshake(5, 4);
         }
     }
-    
+
     private void ChargeLaser(Player player)
     {
         if (!player.channel)
+        {
             Projectile.Kill();
+        }
         else if (!IsAtMaxCharge)
         {
             Charge++;
-        
+
             int chargeFact = (int)(Charge / 20f);
-        
+
             for (int k = 0; k < chargeFact + 1; k++)
             {
                 Vector2 spawn = Nozzle + ((float)Main.rand.NextDouble() * MathF.Tau).ToRotationVector2() * (12f - chargeFact * 2);
@@ -105,7 +110,7 @@ public class LaserLightning : ModProjectile
                 dust.velocity = Vector2.Normalize(Nozzle - spawn) * 1.5f * (10f - chargeFact * 2f) / 10f;
                 dust.noGravity = true;
                 dust.scale = Main.rand.Next(10, 20) * 0.03f;
-            }   
+            }
         }
     }
 

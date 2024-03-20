@@ -11,19 +11,11 @@ namespace DartGunsPlus.Content.Projectiles;
 
 public class Hook : ModProjectile
 {
-    private enum TargetIndicator
-    {
-        Retract = -1,
-        Default = 0,
-        Tile = 1,
-        Target = 2
-    }
-    
     private Vector2 _startLocation;
     private Player Owner => Main.player[Projectile.owner];
     private ref float TargetNPC => ref Projectile.ai[0];
     private bool HitTarget => Projectile.ai[2] > (int)TargetIndicator.Default;
-    
+
     public override void SetStaticDefaults()
     {
         ProjectileID.Sets.SingleGrappleHook[Projectile.type] = true;
@@ -59,7 +51,7 @@ public class Hook : ModProjectile
         Owner.ChangeDir(Projectile.direction);
         Lighting.AddLight(Projectile.Center, Color.SeaGreen.ToVector3());
 
-        if (Main.mouseRight && Main.mouseRightRelease && Projectile.timeLeft < 595 || Owner.Center.Distance(Projectile.Center) > 800)
+        if ((Main.mouseRight && Main.mouseRightRelease && Projectile.timeLeft < 595) || Owner.Center.Distance(Projectile.Center) > 800)
             Projectile.ai[2] = (int)TargetIndicator.Retract;
 
         if (Projectile.ai[2] != (int)TargetIndicator.Default)
@@ -74,7 +66,7 @@ public class Hook : ModProjectile
                 {
                     Owner.velocity = Vector2.Zero;
                     NPC target = Main.npc[(int)TargetNPC];
-                    
+
                     Projectile.NewProjectile(Owner.GetSource_ItemUse(Owner.HeldItem), Owner.Center, Vector2.Zero, ModContent.ProjectileType<ScyllaShoot>(),
                         0, 0, Owner.whoAmI, target.whoAmI);
                 }
@@ -88,7 +80,7 @@ public class Hook : ModProjectile
             Projectile.velocity *= 1.1f;
         }
 
-        
+
         if (HitTarget)
         {
             if (Projectile.ai[2] == (int)TargetIndicator.Target)
@@ -100,7 +92,9 @@ public class Hook : ModProjectile
                     Projectile.ai[2] = (int)TargetIndicator.Retract;
 
                 if (target.width + target.height > 130 || !target.CanBeChasedBy()) // threshold for large enemy
+                {
                     MoveOwner();
+                }
                 else
                 {
                     Projectile.velocity = Vector2.Lerp(Projectile.velocity.SafeNormalize(Projectile.velocity) * 8, Projectile.DirectionTo(Owner.Center) * 16,
@@ -114,6 +108,7 @@ public class Hook : ModProjectile
             if (Projectile.ai[2] == (int)TargetIndicator.Tile)
                 MoveOwner();
         }
+
         return;
 
         void MoveOwner()
@@ -159,5 +154,13 @@ public class Hook : ModProjectile
     {
         fallThrough = false;
         return true;
+    }
+
+    private enum TargetIndicator
+    {
+        Retract = -1,
+        Default = 0,
+        Tile = 1,
+        Target = 2
     }
 }

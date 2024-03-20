@@ -11,10 +11,10 @@ namespace DartGunsPlus.Content.Projectiles;
 
 public class RetinazerDash : ModProjectile
 {
-    private float _scale = 0.05f;
     private Vector2 _direction;
+    private float _scale = 0.05f;
     public override string Texture => "DartGunsPlus/Content/Projectiles/Bolt";
-    
+
     public override void SetStaticDefaults()
     {
         ProjectileID.Sets.TrailCacheLength[Projectile.type] = 8; // how long you want the trail to be
@@ -43,14 +43,14 @@ public class RetinazerDash : ModProjectile
     public override void AI()
     {
         Projectile.ai[0]++;
-        
+
         if (_scale < 0.25f)
             _scale *= 1.2f;
 
         Projectile.rotation = Projectile.ai[2];
 
         Lighting.AddLight(Projectile.Center, Color.HotPink.ToVector3());
-        
+
         if (Projectile.timeLeft > 14)
             FadingSystem.FadeIn(Projectile, 10);
         if (Projectile.timeLeft < 11)
@@ -63,7 +63,7 @@ public class RetinazerDash : ModProjectile
         Vector2 drawPos = Projectile.Center - Main.screenPosition;
         Vector2 drawOrigin = texture.Size() / 2;
         Color color = new Color(255, 50, 50, 0) * 1.5f;
-        
+
         Main.EntitySpriteDraw(texture, drawPos, null, color, Projectile.rotation, drawOrigin, new Vector2(_scale, 0.15f),
             SpriteEffects.None);
 
@@ -74,7 +74,7 @@ public class RetinazerDash : ModProjectile
     {
         return Color.White * Projectile.Opacity;
     }
-    
+
     public override bool? Colliding(Rectangle projHitbox, Rectangle targetHitbox)
     {
         float point = 0f;

@@ -132,7 +132,7 @@ public class ExplosiveDartProj : DartProjectile
             float length = Projectile.oldVelocity.Length();
             if (Owner.velocity.Length() < new Vector2(length * 0.7f, 0).RotatedBy(Projectile.DirectionTo(Owner.Center).ToRotation()).Length() * 1.1f)
             {
-                Owner.velocity += new Vector2(length * 0.7f, 0).RotatedBy(Projectile.DirectionTo(Owner.Center).ToRotation()); 
+                Owner.velocity += new Vector2(length * 0.7f, 0).RotatedBy(Projectile.DirectionTo(Owner.Center).ToRotation());
                 Owner.velocity.Y -= 3f;
             }
         }

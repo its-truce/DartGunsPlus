@@ -10,8 +10,8 @@ namespace DartGunsPlus.Content.Items.Weapons;
 
 public class VolatileContraption : ModItem
 {
-    private int _shootCount;
     private int _bombCount;
+    private int _shootCount;
 
     public override void SetDefaults()
     {
@@ -31,7 +31,7 @@ public class VolatileContraption : ModItem
     public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
     {
         _shootCount++;
-        
+
         if (_shootCount > 10)
         {
             CameraSystem.Screenshake(10, 4);
@@ -44,7 +44,7 @@ public class VolatileContraption : ModItem
             Projectile.NewProjectile(source, position, velocity, type, damage, knockback, player.whoAmI, ai2: _bombCount);
             return false;
         }
-        
+
         _bombCount = 0;
         return true;
     }
@@ -69,7 +69,7 @@ public class VolatileContraption : ModItem
 
     public override Vector2? HoldoutOffset()
     {
-        return new Vector2(-2f, 5);        
+        return new Vector2(-2f, 5);
     }
 
     public override void AddRecipes()

@@ -73,7 +73,7 @@ public class BeeTrail : GlobalProjectile
 
     public override void OnSpawn(Projectile projectile, IEntitySource source)
     {
-        if (source is EntitySource_ItemUse_WithAmmo use && use.Item.type == ModContent.ItemType<BumbleBarrage>() || source is EntitySource_Misc { Context: "styx" })
+        if ((source is EntitySource_ItemUse_WithAmmo use && use.Item.type == ModContent.ItemType<BumbleBarrage>()) || source is EntitySource_Misc { Context: "styx" })
         {
             _active = true;
             ProjectileID.Sets.TrailCacheLength[projectile.type] = 10; // how long you want the trail to be

@@ -1,3 +1,4 @@
+using System;
 using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.DataStructures;
@@ -8,7 +9,6 @@ namespace DartGunsPlus.Content.Items.Accessories;
 
 public class SeekersSpyglass : ModItem
 {
-
     public override void SetDefaults()
     {
         Item.width = 72;
@@ -27,8 +27,8 @@ public class SeekersSpyglass : ModItem
 
 public class SpyglassProjectile : GlobalProjectile
 {
-    public override bool InstancePerEntity => true;
     private bool _eligible;
+    public override bool InstancePerEntity => true;
 
     public override void OnSpawn(Projectile projectile, IEntitySource source)
     {
@@ -44,9 +44,9 @@ public class SpyglassProjectile : GlobalProjectile
         if (!_eligible || !accessoryPlayer.HasSpyglass)
             return;
 
-        foreach (Projectile proj in Main.projectile)
+        foreach (Projectile proj in Main.projectile.AsSpan(0, Main.maxProjectiles))
         {
-            Rectangle hitbox = new Rectangle((int)proj.position.X - proj.width, (int)proj.position.Y - proj.height, proj.width * 2, proj.height * 2);
+            Rectangle hitbox = new((int)proj.position.X - proj.width, (int)proj.position.Y - proj.height, proj.width * 2, proj.height * 2);
 
             if (proj.active && proj.type == ModContent.ProjectileType<TargetCircle>() && proj.owner == projectile.owner && hitbox.Intersects(projectile.Hitbox) &&
                 proj.ai[0] == target.whoAmI)

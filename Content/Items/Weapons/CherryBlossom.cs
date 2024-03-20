@@ -38,7 +38,7 @@ public class CherryBlossom : ModItem
             Projectile.NewProjectileDirect(source, position, newVelocity, type, damage, knockback, player.whoAmI);
         }
 
-        Projectile.NewProjectile(source, position, Vector2.Zero, ModContent.ProjectileType<ShotgunMusket>(), 0, 0, player.whoAmI, 
+        Projectile.NewProjectile(source, position, Vector2.Zero, ModContent.ProjectileType<ShotgunMusket>(), 0, 0, player.whoAmI,
             velocity.ToRotation(), 5);
         velocity.Normalize();
         player.velocity += velocity * -2.5f;

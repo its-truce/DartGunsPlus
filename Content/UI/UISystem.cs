@@ -7,136 +7,128 @@ using Terraria;
 using Terraria.ModLoader;
 using Terraria.UI;
 
-namespace DartGunsPlus.Content.UI
-{ // Taken from verveiene
-	[Autoload(Side = ModSide.Client)]
-	public class UISystem : ModSystem
-	{
-		private static float _uiScale = -1f;
-		private static bool _ignoreHotbarScroll;
+namespace DartGunsPlus.Content.UI;
 
-		private static readonly List<ModUIState> UIStates = new();
-		private static readonly List<UserInterface> UserInterfaces = new();
+// Taken from verveiene
+[Autoload(Side = ModSide.Client)]
+public class UISystem : ModSystem
+{
+    private static float _uiScale = -1f;
+    private static bool _ignoreHotbarScroll;
 
-		public static readonly RasterizerState OverflowHiddenRasterizerState = new()
-		{
-			CullMode = CullMode.None,
-			ScissorTestEnable = true
-		};
+    private static readonly List<ModUIState> UIStates = new();
+    private static readonly List<UserInterface> UserInterfaces = new();
 
-		public static void RequestIgnoreHotbarScroll()
-			=> _ignoreHotbarScroll = true;
+    public static readonly RasterizerState OverflowHiddenRasterizerState = new()
+    {
+        CullMode = CullMode.None,
+        ScissorTestEnable = true
+    };
 
-		public static T GetUIState<T>() where T : ModUIState
-			=> UIStates.FirstOrDefault(i => i is T) as T;
+    public static void RequestIgnoreHotbarScroll()
+    {
+        _ignoreHotbarScroll = true;
+    }
 
-		private static void OnResolutionChanged(Vector2 screenSize)
-		{
-			foreach (var uiState in UIStates)
-			{
-				uiState.OnResolutionChanged((int)screenSize.X, (int)screenSize.Y);
-			}
-		}
+    public static T GetUIState<T>() where T : ModUIState
+    {
+        return UIStates.FirstOrDefault(i => i is T) as T;
+    }
 
-		private static void ModifyScrollHotbar(On_Player.orig_ScrollHotbar orig, Player player, int offset)
-		{
-			if (_ignoreHotbarScroll) return;
+    private static void OnResolutionChanged(Vector2 screenSize)
+    {
+        foreach (ModUIState uiState in UIStates) uiState.OnResolutionChanged((int)screenSize.X, (int)screenSize.Y);
+    }
 
-			orig(player, offset);
-		}
+    private static void ModifyScrollHotbar(On_Player.orig_ScrollHotbar orig, Player player, int offset)
+    {
+        if (_ignoreHotbarScroll) return;
 
-		private static void ResetVariables(GameTime _)
-		{
-			_ignoreHotbarScroll = false;
-		}
+        orig(player, offset);
+    }
 
-		// ...
+    private static void ResetVariables(GameTime _)
+    {
+        _ignoreHotbarScroll = false;
+    }
 
-		public override void Load()
-		{
-			foreach (Type type in Mod.Code.GetTypes())
-			{
-				if (!type.IsSubclassOf(typeof(ModUIState))) continue;
+    // ...
 
-				var uiState = (ModUIState)Activator.CreateInstance(type, null);
-				UIStates.Add(uiState);
-			}
+    public override void Load()
+    {
+        foreach (Type type in Mod.Code.GetTypes())
+        {
+            if (!type.IsSubclassOf(typeof(ModUIState))) continue;
 
-			UIStates.Sort((x, y) => x.Priority.CompareTo(y.Priority));
+            ModUIState uiState = (ModUIState)Activator.CreateInstance(type, null);
+            UIStates.Add(uiState);
+        }
 
-			foreach (var uiState in UIStates)
-			{
-				uiState.Activate();
+        UIStates.Sort((x, y) => x.Priority.CompareTo(y.Priority));
 
-				var userInterface = new UserInterface();
-				userInterface.SetState(uiState);
-				UserInterfaces.Add(userInterface);
-			}
+        foreach (ModUIState uiState in UIStates)
+        {
+            uiState.Activate();
 
-			On_Player.ScrollHotbar += ModifyScrollHotbar;
-			Main.OnResolutionChanged += OnResolutionChanged;
-			Main.OnPreDraw += ResetVariables;
-		}
+            UserInterface userInterface = new UserInterface();
+            userInterface.SetState(uiState);
+            UserInterfaces.Add(userInterface);
+        }
 
-		public override void Unload()
-		{
-			Main.OnPreDraw -= ResetVariables;
-			Main.OnResolutionChanged -= OnResolutionChanged;
-			On_Player.ScrollHotbar -= ModifyScrollHotbar;
+        On_Player.ScrollHotbar += ModifyScrollHotbar;
+        Main.OnResolutionChanged += OnResolutionChanged;
+        Main.OnPreDraw += ResetVariables;
+    }
 
-			foreach (var uiState in UIStates)
-			{
-				uiState.Deactivate();
-				uiState.Unload();
-			}
+    public override void Unload()
+    {
+        Main.OnPreDraw -= ResetVariables;
+        Main.OnResolutionChanged -= OnResolutionChanged;
+        On_Player.ScrollHotbar -= ModifyScrollHotbar;
 
-			UIStates.Clear();
-			UserInterfaces.Clear();
-		}
+        foreach (ModUIState uiState in UIStates)
+        {
+            uiState.Deactivate();
+            uiState.Unload();
+        }
 
-		public override void ModifyInterfaceLayers(List<GameInterfaceLayer> layers)
-		{
-			for (int i = 0; i < UserInterfaces.Count; i++)
-			{
-				var uiState = UIStates[i];
-				var userInterface = UserInterfaces[i];
+        UIStates.Clear();
+        UserInterfaces.Clear();
+    }
 
-				var index = uiState.InsertionIndex(layers);
-				if (index < 0) continue;
+    public override void ModifyInterfaceLayers(List<GameInterfaceLayer> layers)
+    {
+        for (int i = 0; i < UserInterfaces.Count; i++)
+        {
+            ModUIState uiState = UIStates[i];
+            UserInterface userInterface = UserInterfaces[i];
 
-				layers.Insert(index, new LegacyGameInterfaceLayer(
-					name: $"{Mod.Name}: {uiState.Name}",
-					drawMethod: () =>
-					{
-						if (uiState.Visible)
-						{
-							userInterface.Draw(Main.spriteBatch, Main._drawInterfaceGameTime);
-						}
-						return true;
-					},
-					scaleType: uiState.ScaleType)
-				);
-			}
-		}
+            int index = uiState.InsertionIndex(layers);
+            if (index < 0) continue;
 
-		public override void UpdateUI(GameTime gameTime)
-		{
-			if (_uiScale != Main.UIScale)
-			{
-				_uiScale = Main.UIScale;
+            layers.Insert(index, new LegacyGameInterfaceLayer(
+                $"{Mod.Name}: {uiState.Name}",
+                () =>
+                {
+                    if (uiState.Visible) userInterface.Draw(Main.spriteBatch, Main._drawInterfaceGameTime);
+                    return true;
+                },
+                uiState.ScaleType)
+            );
+        }
+    }
 
-				foreach (var uiState in UIStates)
-				{
-					uiState.OnUIScaleChanged();
-				}
-			}
+    public override void UpdateUI(GameTime gameTime)
+    {
+        if (_uiScale != Main.UIScale)
+        {
+            _uiScale = Main.UIScale;
 
-			if (Main.mapFullscreen) return;
+            foreach (ModUIState uiState in UIStates) uiState.OnUIScaleChanged();
+        }
 
-			foreach (var userInterface in UserInterfaces)
-			{
-				userInterface.Update(gameTime);
-			}
-		}
-	}
+        if (Main.mapFullscreen) return;
+
+        foreach (UserInterface userInterface in UserInterfaces) userInterface.Update(gameTime);
+    }
 }

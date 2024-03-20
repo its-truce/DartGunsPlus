@@ -10,8 +10,8 @@ namespace DartGunsPlus.Content.Projectiles;
 
 public class EnchantedDart : ModProjectile
 {
-    private float _scale = 0.4f;
     private static readonly Color[] Colors = { Color.SteelBlue, Color.PaleVioletRed, Color.Gold, Color.HotPink };
+    private float _scale = 0.4f;
 
     public override void SetStaticDefaults()
     {
@@ -56,7 +56,6 @@ public class EnchantedDart : ModProjectile
     public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
     {
         if (Projectile.ai[0] == 0)
-        {
             for (int i = 0; i < 2; i++)
             {
                 Vector2 position;
@@ -65,13 +64,12 @@ public class EnchantedDart : ModProjectile
                     position = target.position + new Vector2(Main.rand.Next(-300, 300), Main.rand.Next(-80, 80));
                 } while (Framing.GetTileSafely(position).HasTile);
 
-                Projectile.NewProjectile(Projectile.GetSource_OnHit(target), position, position.DirectionTo(target.Center) * 4, Projectile.type, 
-                    Projectile.damage/2, Projectile.knockBack, Projectile.owner, 1);
+                Projectile.NewProjectile(Projectile.GetSource_OnHit(target), position, position.DirectionTo(target.Center) * 4, Projectile.type,
+                    Projectile.damage / 2, Projectile.knockBack, Projectile.owner, 1);
 
-                VisualSystem.SpawnDustPortal(position, position.DirectionTo(target.Center) * 4, DustID.TintableDustLighted, 
+                VisualSystem.SpawnDustPortal(position, position.DirectionTo(target.Center) * 4, DustID.TintableDustLighted,
                     color: Main.rand.NextFromList(Colors));
             }
-        }
     }
 
     public override bool PreDraw(ref Color lightColor)

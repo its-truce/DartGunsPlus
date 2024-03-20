@@ -1,3 +1,4 @@
+using System;
 using DartGunsPlus.Content.Projectiles;
 using DartGunsPlus.Content.Systems;
 using Microsoft.Xna.Framework;
@@ -52,7 +53,7 @@ public class CrownCascade : ModItem
             int whirlpoolType = ModContent.ProjectileType<DukeWhirlpool>();
             if (player.ownedProjectileCounts[whirlpoolType] == 1)
             {
-                foreach (Projectile proj in Main.projectile)
+                foreach (Projectile proj in Main.projectile.AsSpan(0, Main.maxProjectiles))
                     if (proj.type == whirlpoolType && proj.active && proj.owner == player.whoAmI)
                     {
                         if (!Framing.GetTileSafely(proj.Center).HasTile)

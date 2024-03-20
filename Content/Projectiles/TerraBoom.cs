@@ -12,7 +12,7 @@ namespace DartGunsPlus.Content.Projectiles;
 public class TerraBoom : ModProjectile
 {
     public override string Texture => "DartGunsPlus/Content/Projectiles/EmptyTexture";
-    
+
     public override void SetStaticDefaults()
     {
         ProjectileID.Sets.TrailCacheLength[Projectile.type] = 20;
@@ -41,7 +41,7 @@ public class TerraBoom : ModProjectile
         Vector2 frameOrigin = frame.Size() / 2f;
 
         Color col = Color.Lerp(new Color(34, 177, 77), Color.YellowGreen, Main.masterColor) * 0.4f;
-        Vector2 stretchscale = new (Projectile.scale * 1.4f + Main.masterColor / 2);
+        Vector2 stretchscale = new(Projectile.scale * 1.4f + Main.masterColor / 2);
 
         for (int i = 1; i < Projectile.oldPos.Length - 1; i++)
         {
@@ -52,7 +52,7 @@ public class TerraBoom : ModProjectile
                 frameOrigin, new Vector2(stretchscale.X - i * 0.05f, stretchscale.Y * Main.rand.NextFloat(0.1f, 0.05f) * Vector2.Distance(Projectile.oldPos[i],
                     Projectile.oldPos[i + 1]) - i * 0.05f) * new Vector2(0.4f, 3f), SpriteEffects.None);
         }
-        
+
         return true;
     }
 
@@ -66,11 +66,11 @@ public class TerraBoom : ModProjectile
     {
         return Color.White * Projectile.Opacity;
     }
-    
+
     public override void AI()
     {
         Projectile.rotation = Projectile.velocity.ToRotation() + MathHelper.ToRadians(90);
-        
+
         if (Projectile.timeLeft % 30 == 0)
             Projectile.NewProjectile(Projectile.GetSource_FromAI(), Projectile.Center - new Vector2(0, 600), new Vector2(Main.rand.Next(-3, 3), 11),
                 ModContent.ProjectileType<TerraBolt>(), Projectile.damage, 2, Projectile.owner);
@@ -81,11 +81,9 @@ public class TerraBoom : ModProjectile
         VisualSystem.SpawnDustCircle(target.Center, ModContent.DustType<GlowFastDecelerate>(), scale: 0.4f, color: Color.YellowGreen);
         Projectile.NewProjectile(Projectile.GetSource_FromAI(), Projectile.Center - new Vector2(0, 600), new Vector2(Main.rand.Next(-1, 1), 11),
             ModContent.ProjectileType<TerraBolt>(), Projectile.damage, 2, Projectile.owner);
-        
+
         for (int i = 0; i < Main.rand.Next(5, 8); i++)
-        {
             Projectile.NewProjectile(Projectile.GetSource_Death(), target.Center, new Vector2(Main.rand.Next(-10, 10), Main.rand.Next(-10, 10)),
                 ModContent.ProjectileType<TerraRay>(), Projectile.damage, 2, Projectile.owner, ai1: target.whoAmI);
-        }
     }
 }

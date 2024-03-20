@@ -35,7 +35,7 @@ public class Reworks : GlobalProjectile
         {
             int numCrystals = 0;
 
-            foreach (Projectile proj in Main.projectile)
+            foreach (Projectile proj in Main.projectile.AsSpan(0, Main.maxProjectiles))
                 if (proj.active && proj.owner == projectile.owner && proj.type == ModContent.ProjectileType<Crystals>() && proj.ai[0] == target.whoAmI)
                     numCrystals++;
 
@@ -67,7 +67,7 @@ public class Reworks : GlobalProjectile
                     dust.noGravity = true;
                 }
 
-                foreach (Projectile proj in Main.projectile)
+                foreach (Projectile proj in Main.projectile.AsSpan(0, Main.maxProjectiles))
                     if (proj.active && proj.owner == projectile.owner && proj.type == ModContent.ProjectileType<Crystals>() && proj.ai[0] == target.whoAmI)
                     {
                         proj.Kill();

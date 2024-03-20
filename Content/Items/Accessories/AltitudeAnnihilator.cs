@@ -28,9 +28,9 @@ public class AltitudeAnnihilator : ModItem
 
 public class AltitudeProjectile : GlobalProjectile
 {
-    public override bool InstancePerEntity => true;
     private bool _eligible;
-    
+    public override bool InstancePerEntity => true;
+
     public override void OnSpawn(Projectile projectile, IEntitySource source)
     {
         if (source is EntitySource_ItemUse_WithAmmo use && (ContentSamples.ItemsByType[use.AmmoItemIdUsed].ammo == AmmoID.Dart || use.Item.ModItem is Charybdis))
@@ -40,13 +40,12 @@ public class AltitudeProjectile : GlobalProjectile
     public override void ModifyHitNPC(Projectile projectile, NPC target, ref NPC.HitModifiers modifiers)
     {
         Player player = Main.player[projectile.owner];
-        
+
         if (!player.GetModPlayer<AccessoryPlayer>().HasKite || !_eligible)
             return;
 
         if (target.Center.Y > player.Center.Y && target.Center.Y - player.Center.Y > 10)
         {
-            Main.NewText("h");
             ParticleOrchestraSettings settings = new()
             {
                 PositionInWorld = projectile.Center,
@@ -54,7 +53,7 @@ public class AltitudeProjectile : GlobalProjectile
                 IndexOfPlayerWhoInvokedThis = (byte)player.whoAmI
             };
             ParticleOrchestrator.SpawnParticlesDirect(ParticleOrchestraType.SilverBulletSparkle, settings);
-            
+
             modifiers.Knockback *= 1.333f;
             modifiers.FinalDamage *= 1.25f;
         }

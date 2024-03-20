@@ -38,7 +38,7 @@ public class KatanaStar : ModProjectile
     public override void AI()
     {
         FadingSystem.FadeIn(Projectile, 15);
-        
+
         if (Projectile.scale > 0.3f)
             Projectile.scale *= 0.96f;
 
@@ -55,15 +55,15 @@ public class KatanaStar : ModProjectile
 
         Vector2 drawPos = Projectile.Center - Main.screenPosition;
         Color color = Color.Lerp(new Color(255, 205, 0), new Color(236, 216, 126), Main.masterColor);
-            
+
         Main.EntitySpriteDraw(texture, drawPos, null, color, Projectile.rotation, texture.Size() / 2,
             Projectile.scale, SpriteEffects.None);
         Main.EntitySpriteDraw(texture, drawPos, null, new Color(255, 255, 255, 0), Projectile.rotation, texture.Size() / 2,
             Projectile.scale * 0.5f, SpriteEffects.None);
-        
+
         return false;
     }
-    
+
     public override bool? Colliding(Rectangle projHitbox, Rectangle targetHitbox)
     {
         // Calculate the scaled hitbox size based on the Projectile.scale

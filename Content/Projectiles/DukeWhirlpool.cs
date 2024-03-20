@@ -1,4 +1,5 @@
-﻿using DartGunsPlus.Content.Systems;
+﻿using System;
+using DartGunsPlus.Content.Systems;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Terraria;
@@ -33,7 +34,7 @@ public class DukeWhirlpool : ModProjectile
 
     public override void OnSpawn(IEntitySource source)
     {
-        foreach (Projectile proj in Main.projectile)
+        foreach (Projectile proj in Main.projectile.AsSpan(0, Main.maxProjectiles))
             if (proj.type == Projectile.type && proj.whoAmI != Projectile.whoAmI && proj.active && proj.owner == Projectile.owner)
                 proj.Kill();
     }

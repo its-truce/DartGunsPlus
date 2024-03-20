@@ -13,7 +13,7 @@ namespace DartGunsPlus.Content.Projectiles;
 public class KatanaParry : ModProjectile
 {
     public override string Texture => "DartGunsPlus/Content/Projectiles/EmptyTexture";
-    
+
     public override void SetStaticDefaults()
     {
         ProjectileID.Sets.TrailCacheLength[Projectile.type] = 20;
@@ -80,7 +80,7 @@ public class KatanaParry : ModProjectile
     {
         return Color.White * Projectile.Opacity;
     }
-    
+
     public override void AI()
     {
         Projectile.rotation = Projectile.velocity.ToRotation() + MathHelper.ToRadians(90);

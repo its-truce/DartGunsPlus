@@ -15,9 +15,9 @@ namespace DartGunsPlus.Content.Projectiles;
 public class KatanaSwing : ModProjectile
 {
     private int _hitTimer;
-    private int _parryTimer;
     private int _initialDirection;
     private bool _justHit;
+    private int _parryTimer;
     private Vector2 _storedVelocity = Vector2.Zero;
     private Player Owner => Main.player[Projectile.owner];
 
@@ -89,12 +89,13 @@ public class KatanaSwing : ModProjectile
         Projectile.velocity.Normalize();
 
         float timerAdd = 1.8f;
-        
+
         if (_justHit)
         {
             _hitTimer++;
             timerAdd = 0f;
         }
+
         if (_hitTimer > 10)
         {
             _justHit = false;
@@ -105,14 +106,13 @@ public class KatanaSwing : ModProjectile
 
         if (Projectile.ai[0] > 70f)
             Projectile.Kill();
-        
+
         CheckForParry();
     }
 
     private void CheckForParry()
     {
-        foreach (Projectile proj in Main.projectile)
-        {
+        foreach (Projectile proj in Main.projectile.AsSpan(0, Main.maxProjectiles))
             if (proj.active && proj.hostile && proj.Hitbox.Intersects(Projectile.Hitbox) && _parryTimer == 0)
             {
                 _parryTimer++;
@@ -124,13 +124,13 @@ public class KatanaSwing : ModProjectile
                 SoundEngine.PlaySound(AudioSystem.ReturnSound("indicator"), Projectile.Center);
 
                 for (int i = 0; i < 15; i++)
-                    Dust.NewDust(proj.position, Projectile.width, Projectile.height, ModContent.DustType<GlowFastDecelerate>(), 
+                    Dust.NewDust(proj.position, Projectile.width, Projectile.height, ModContent.DustType<GlowFastDecelerate>(),
                         Main.rand.NextFloat(Owner.direction * 1, Owner.direction * 3), Main.rand.NextFloat(-3f, 3f), newColor: Color.CornflowerBlue,
                         Scale: 0.4f);
-        
+
                 CameraSystem.Screenshake(8, 4);
                 _justHit = true;
-                
+
                 Owner.AddBuff(BuffID.Swiftness, 60);
                 Owner.AddBuff(BuffID.Regeneration, 120);
 
@@ -138,24 +138,22 @@ public class KatanaSwing : ModProjectile
 
                 Vector2 velocity = Owner.DirectionTo(Main.MouseWorld) * 8;
                 Vector2 position = Owner.Center + new Vector2(40, 0).RotatedBy(velocity.ToRotation());
-        
+
                 float rotation = MathHelper.ToRadians(20);
                 position += Vector2.Normalize(new Vector2(velocity.X, velocity.Y));
-                
+
                 for (int i = 0; i < numProjectiles; i++)
                 {
                     Vector2 perturbedSpeed =
                         new Vector2(velocity.X, velocity.Y).RotatedBy(MathHelper.Lerp(-rotation, rotation,
                             i / (numProjectiles - 1)));
-                    Projectile.NewProjectile(Projectile.GetSource_FromAI(), position, perturbedSpeed, ModContent.ProjectileType<KatanaParry>(), 
-                        proj.damage + proj.damage/2, 3, Owner.whoAmI);
+                    Projectile.NewProjectile(Projectile.GetSource_FromAI(), position, perturbedSpeed, ModContent.ProjectileType<KatanaParry>(),
+                        proj.damage + proj.damage / 2, 3, Owner.whoAmI);
                 }
-                
-                Projectile.NewProjectile(Projectile.GetSource_FromAI(), position, velocity, ModContent.ProjectileType<KatanaParry>(), 
-                    proj.damage + proj.damage/2, 3, Owner.whoAmI);
 
+                Projectile.NewProjectile(Projectile.GetSource_FromAI(), position, velocity, ModContent.ProjectileType<KatanaParry>(),
+                    proj.damage + proj.damage / 2, 3, Owner.whoAmI);
             }
-        }
 
         if (_parryTimer != 0)
             _parryTimer++;
@@ -168,12 +166,12 @@ public class KatanaSwing : ModProjectile
         SoundEngine.PlaySound(AudioSystem.ReturnSound("metal"), Projectile.Center);
 
         for (int i = 0; i < 15; i++)
-            Dust.NewDust(target.position, target.width, target.height, ModContent.DustType<GlowFastDecelerate>(), 
+            Dust.NewDust(target.position, target.width, target.height, ModContent.DustType<GlowFastDecelerate>(),
                 Main.rand.NextFloat(Owner.direction * 1, Owner.direction * 3), Main.rand.NextFloat(-3f, 3f), newColor: Color.CornflowerBlue, Scale: 0.4f);
-        
+
         CameraSystem.Screenshake(4, 2);
         _justHit = true;
-        
+
         Vector2 randomPointWithinHitbox = Main.rand.NextVector2FromRectangle(target.Hitbox);
         Vector2 hitboxCenter = target.Hitbox.Center.ToVector2();
         Vector2 directionVector = (hitboxCenter - randomPointWithinHitbox).SafeNormalize(new Vector2(Owner.direction, Owner.gravDir)) * 8f;
@@ -182,7 +180,7 @@ public class KatanaSwing : ModProjectile
         randomRotationAngle *= 0.5f;
 
         directionVector = directionVector.RotatedBy(0.7853981852531433);
-        
+
         const int rotationSteps = 30;
         const int numIterations = 15;
 
@@ -196,7 +194,7 @@ public class KatanaSwing : ModProjectile
 
         currentPosition += target.velocity * 3;
 
-        Projectile.NewProjectile(Projectile.GetSource_OnHit(target), currentPosition, directionVector, 977, Projectile.damage / 3, 0f, 
+        Projectile.NewProjectile(Projectile.GetSource_OnHit(target), currentPosition, directionVector, 977, Projectile.damage / 3, 0f,
             Owner.whoAmI, randomRotationAngle);
     }
 

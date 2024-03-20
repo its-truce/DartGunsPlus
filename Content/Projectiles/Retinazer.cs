@@ -15,12 +15,12 @@ public class Retinazer : ModProjectile
     private ref float RotationOffset => ref Projectile.localAI[0];
     private ref float RelaxTimer => ref Projectile.ai[1];
     private ref float RotationGoal => ref Projectile.ai[2]; // passed in as random from 0 to 2 pi
-    
+
     public override void SetStaticDefaults()
     {
         Main.projFrames[Projectile.type] = 3;
     }
-    
+
     public override void SetDefaults()
     {
         Projectile.aiStyle = -1;
@@ -46,9 +46,9 @@ public class Retinazer : ModProjectile
 
             if (Projectile.frame >= Main.projFrames[Projectile.type]) Projectile.frame = 0;
         }
-        
+
         Projectile.localAI[1]++; // general timer;
-        
+
         if (Projectile.timeLeft > 580)
             FadingSystem.FadeIn(Projectile, 20);
         if (Projectile.timeLeft < 21)
@@ -63,19 +63,19 @@ public class Retinazer : ModProjectile
             else
                 Projectile.Kill();
         }
-        
+
         const int dist = 120;
-        
+
         if (RelaxTimer != 0)
             RelaxTimer++;
         if (RelaxTimer == 25)
             RelaxTimer = 0;
-        
+
         if (Projectile.localAI[1] % 90 == 0 && Projectile.Center.Distance(Target.Center) < 240)
         {
-            Projectile.NewProjectile(Projectile.GetSource_FromThis(), Projectile.Center + Projectile.DirectionTo(Target.Center) * 90, 
-                Vector2.Zero, ModContent.ProjectileType<RetinazerDash>(), Projectile.damage, 2, Projectile.owner, 
-                Projectile.DirectionTo(Target.Center).X, Projectile.DirectionTo(Target.Center).Y, ai2: Projectile.rotation);
+            Projectile.NewProjectile(Projectile.GetSource_FromThis(), Projectile.Center + Projectile.DirectionTo(Target.Center) * 90,
+                Vector2.Zero, ModContent.ProjectileType<RetinazerDash>(), Projectile.damage, 2, Projectile.owner,
+                Projectile.DirectionTo(Target.Center).X, Projectile.DirectionTo(Target.Center).Y, Projectile.rotation);
             VisualSystem.SpawnDustCircle(Projectile.Center, ModContent.DustType<GlowFastDecelerate>(), 12, color: Color.Red, scale: 0.9f);
             SoundEngine.PlaySound(AudioSystem.ReturnSound("dash"), Projectile.Center);
 
@@ -105,7 +105,7 @@ public class Retinazer : ModProjectile
             Main.EntitySpriteDraw(texture, Projectile.Center - Main.screenPosition, null, new Color(255, 255, 255, 0) * Projectile.Opacity,
                 Projectile.rotation, texture.Size() / 2, 0.05f, SpriteEffects.None); // white center
         }
-        
+
         return true;
     }
 }

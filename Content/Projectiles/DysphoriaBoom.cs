@@ -56,7 +56,7 @@ public class DysphoriaBoom : ModProjectile
         {
             col.A = 0;
             Vector2 drawPos = Projectile.oldPos[i] - Main.screenPosition + new Vector2(Projectile.width / 2);
-            
+
             if (drawPos.Distance(Projectile.Center) > 15)
                 Main.EntitySpriteDraw(texture, drawPos + Main.rand.NextVector2Circular(i / 2, i / 2), frame,
                     new Color(col.R, col.G - i * 8, col.B, 0) * (1 - i * 0.04f), Projectile.oldRot[i] + Main.rand.NextFloat(-i * 0.01f, i * 0.01f),
@@ -75,9 +75,9 @@ public class DysphoriaBoom : ModProjectile
 
     public override void OnSpawn(IEntitySource source)
     {
-        for (int k = 0; k < Projectile.oldPos.Length; k++) 
+        for (int k = 0; k < Projectile.oldPos.Length; k++)
             Projectile.oldPos[k] = Projectile.position;
-        
+
         DysphoriaPlayer dysphoriaPlayer = Owner.GetModPlayer<DysphoriaPlayer>();
         Projectile.timeLeft = (int)TimeLeft;
         dysphoriaPlayer.DysphoriaCurrent = 0;
@@ -92,7 +92,7 @@ public class DysphoriaBoom : ModProjectile
     {
         return Color.White * Projectile.Opacity;
     }
-    
+
     public override void OnKill(int timeLeft)
     {
         for (int i = 0; i < 30; i++)
@@ -109,10 +109,11 @@ public class DysphoriaBoom : ModProjectile
 
     public override bool OnTileCollide(Vector2 oldVelocity)
     {
-        Projectile proj = Projectile.NewProjectileDirect(Projectile.GetSource_Death(), Projectile.Center + Projectile.oldVelocity, Vector2.Zero, ModContent.ProjectileType<DysphoriaMagnet>(),
+        Projectile proj = Projectile.NewProjectileDirect(Projectile.GetSource_Death(), Projectile.Center + Projectile.oldVelocity, Vector2.Zero,
+            ModContent.ProjectileType<DysphoriaMagnet>(),
             Projectile.damage, 8, Projectile.owner, 666);
         proj.rotation = Projectile.oldVelocity.ToRotation() + MathF.PI;
-        
+
         return true;
     }
 

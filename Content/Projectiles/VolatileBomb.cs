@@ -13,7 +13,7 @@ namespace DartGunsPlus.Content.Projectiles;
 public class VolatileBomb : ModProjectile
 {
     private const int ExplosionWidthHeight = 125;
-    
+
     public override void SetDefaults()
     {
         Projectile.aiStyle = -1;
@@ -35,11 +35,11 @@ public class VolatileBomb : ModProjectile
         Projectile.soundDelay = 30;
 
         // This code makes the projectile very bouncy.
-        if (Projectile.velocity.X != oldVelocity.X && Math.Abs(oldVelocity.X) > 1f) 
+        if (Projectile.velocity.X != oldVelocity.X && Math.Abs(oldVelocity.X) > 1f)
             Projectile.velocity.X = oldVelocity.X * -0.9f;
         if (Projectile.velocity.Y != oldVelocity.Y && Math.Abs(oldVelocity.Y) > 1f)
             Projectile.velocity.Y = oldVelocity.Y * -0.9f;
-        
+
         return false;
     }
 
@@ -47,7 +47,7 @@ public class VolatileBomb : ModProjectile
     {
         if (Projectile.timeLeft >= 280)
             FadingSystem.FadeIn(Projectile, 20);
-        
+
         if (Projectile.owner == Main.myPlayer && Projectile.timeLeft <= 5)
         {
             Projectile.tileCollide = false;
@@ -76,7 +76,7 @@ public class VolatileBomb : ModProjectile
 
         Projectile.ai[0]++;
         Projectile.ai[1]++; // draw
-        
+
         if (Projectile.ai[0] > 10f)
         {
             Projectile.ai[0] = 10f;
@@ -98,13 +98,13 @@ public class VolatileBomb : ModProjectile
     }
 
     public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
-    {       
+    {
         int[] possibleProjs = { ModContent.ProjectileType<Probe>(), ModContent.ProjectileType<Retinazer>(), ModContent.ProjectileType<Spaz>() };
         int projToSpawn = possibleProjs[(int)Projectile.ai[2] - 1];
 
         Projectile.NewProjectile(Projectile.GetSource_Death(), Projectile.Center, Vector2.Zero, projToSpawn, Projectile.damage, 3,
             Projectile.owner, target.whoAmI, ai2: Main.rand.NextFloat(MathF.Tau));
-        
+
         Projectile.Kill();
     }
 
@@ -114,7 +114,7 @@ public class VolatileBomb : ModProjectile
         VisualSystem.SpawnDustCircle(Projectile.Center, ModContent.DustType<GlowFastDecelerate>(), scale: 0.6f, color: Color.Red);
         CameraSystem.Screenshake(4, 5);
     }
-    
+
     public override void PostDraw(Color lightColor)
     {
         Texture2D texture = ModContent.Request<Texture2D>("DartGunsPlus/Content/Projectiles/VolatileFlash").Value;

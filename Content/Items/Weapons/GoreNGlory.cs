@@ -105,7 +105,7 @@ public class GoreNGlory : ModItem
     }
 
     public override void UseStyle(Player player, Rectangle heldItemFrame)
-    { 
+    {
         VisualSystem.RecoilAnimation(player, _initialItemRot, 40);
     }
 }

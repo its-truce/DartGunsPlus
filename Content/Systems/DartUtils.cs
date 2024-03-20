@@ -12,16 +12,16 @@ public class DartUtils : ModSystem
     public static NPC FindClosestTarget(float maxDetectDistance, NPC[] alreadyHit, Entity entity, int maxLength)
     {
         NPC closest = null;
-        
+
         float sqrMaxDetectDistance = maxDetectDistance * maxDetectDistance;
-        
+
         for (int k = 0; k < Main.maxNPCs; k++)
         {
             NPC target = Main.npc[k];
             if (target.CanBeChasedBy() && !alreadyHit.Contains(target) && alreadyHit.Length <= maxLength)
             {
                 float sqrDistanceToTarget = Vector2.DistanceSquared(target.Center, entity.Center);
-                
+
                 if (sqrDistanceToTarget < sqrMaxDetectDistance)
                 {
                     sqrMaxDetectDistance = sqrDistanceToTarget;

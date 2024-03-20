@@ -50,7 +50,7 @@ public class SerenityPlayer : ModPlayer
 
     private void CapResourceGodMode()
     {
-        if (Main.myPlayer == Player.whoAmI && Player.creativeGodMode) 
+        if (Main.myPlayer == Player.whoAmI && Player.creativeGodMode)
             SerenityCurrent = SerenityMax2;
     }
 }

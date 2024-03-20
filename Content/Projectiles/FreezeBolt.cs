@@ -1,5 +1,5 @@
-﻿using DartGunsPlus.Content.Dusts;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
+using DartGunsPlus.Content.Dusts;
 using DartGunsPlus.Content.Systems;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;

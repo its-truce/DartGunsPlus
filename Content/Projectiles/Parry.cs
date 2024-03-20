@@ -32,13 +32,13 @@ public class Parry : ModProjectile
     {
         if (Projectile.timeLeft >= 35)
             FadingSystem.FadeIn(Projectile, 10);
-        
+
         Projectile.ai[0]++;
 
         if (Projectile.ai[0] <= 25)
             Projectile.velocity.Y += 0.16f;
 
-        if (Projectile.timeLeft <= 15) 
+        if (Projectile.timeLeft <= 15)
             FadingSystem.FadeOut(Projectile, 15);
 
         if (Projectile.scale < 1.1f)
@@ -60,12 +60,12 @@ public class Parry : ModProjectile
 
         Vector2 drawPos = Projectile.Center - Main.screenPosition;
         Color color = Color.White * Projectile.Opacity;
-        
-        Main.EntitySpriteDraw(textureBackground, drawPos, null, color, 0, textureBackground.Size()/2, Projectile.scale, 
+
+        Main.EntitySpriteDraw(textureBackground, drawPos, null, color, 0, textureBackground.Size() / 2, Projectile.scale,
             SpriteEffects.None);
-        Main.EntitySpriteDraw(textureText, drawPos, null, color, 0, textureText.Size()/2, Projectile.ai[1],
+        Main.EntitySpriteDraw(textureText, drawPos, null, color, 0, textureText.Size() / 2, Projectile.ai[1],
             SpriteEffects.None);
-        
+
         return false;
     }
 }

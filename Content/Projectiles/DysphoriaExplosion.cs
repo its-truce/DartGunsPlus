@@ -62,8 +62,9 @@ public class DysphoriaExplosion : ModProjectile
             SoundEngine.PlaySound(AudioSystem.ReturnSound("rocket"), Projectile.Center);
 
         Projectile.ai[0] += 1 / 40; // for lerp
-        _color = Projectile.ai[1] == 0 ? Color.Lerp(new Color(185, 133, 240), new Color(55, 224, 112), Main.masterColor) * 0.4f
-                : Color.Lerp(new Color(255, 255, 125), Color.LightBlue, Main.masterColor) * 0.4f;
+        _color = Projectile.ai[1] == 0
+            ? Color.Lerp(new Color(185, 133, 240), new Color(55, 224, 112), Main.masterColor) * 0.4f
+            : Color.Lerp(new Color(255, 255, 125), Color.LightBlue, Main.masterColor) * 0.4f;
     }
 
     public override bool PreDraw(ref Color lightColor)

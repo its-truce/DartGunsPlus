@@ -12,8 +12,8 @@ namespace DartGunsPlus.Content.Items.Accessories;
 
 public class TargetCircle : ModProjectile
 {
-    private NPC Target => Main.npc[(int)Projectile.ai[0]];
     private Vector2 _offset;
+    private NPC Target => Main.npc[(int)Projectile.ai[0]];
 
     public override void SetDefaults()
     {
@@ -33,11 +33,11 @@ public class TargetCircle : ModProjectile
     public override void OnSpawn(IEntitySource source)
     {
         Projectile.rotation = MathHelper.ToRadians(-45);
-        
+
         _offset = Main.rand.NextBool(2)
             ? new Vector2(Main.rand.NextBool(2) ? Target.Hitbox.Width / -2 : Target.Hitbox.Width / 2,
-                Main.rand.Next(Target.Hitbox.Height / -2, Target.Hitbox.Height / 2)) :
-            new Vector2(Main.rand.Next(Target.Hitbox.Width / -2, Target.Hitbox.Width / 2),
+                Main.rand.Next(Target.Hitbox.Height / -2, Target.Hitbox.Height / 2))
+            : new Vector2(Main.rand.Next(Target.Hitbox.Width / -2, Target.Hitbox.Width / 2),
                 Main.rand.NextBool(2) ? Target.Hitbox.Height / -2 : Target.Hitbox.Height / 2);
     }
 
@@ -52,7 +52,7 @@ public class TargetCircle : ModProjectile
 
         if (Projectile.scale > 0.07f)
             Projectile.scale -= 0.006f;
-        
+
         Projectile.Center = Target.Center + new Vector2(_offset.X * Target.direction, _offset.Y).RotatedBy(Target.rotation);
 
         if (Projectile.rotation < 0)
@@ -63,11 +63,11 @@ public class TargetCircle : ModProjectile
 
         if (Projectile.timeLeft == 580)
             SoundEngine.PlaySound(SoundID.MaxMana, Projectile.Center);
-        
+
         if (!Target.active)
             Projectile.Kill();
-        
-        Projectile.Hitbox = new Rectangle((int)Projectile.position.X - Projectile.width, (int)Projectile.position.Y - Projectile.height, 
+
+        Projectile.Hitbox = new Rectangle((int)Projectile.position.X - Projectile.width, (int)Projectile.position.Y - Projectile.height,
             50, 50);
     }
 

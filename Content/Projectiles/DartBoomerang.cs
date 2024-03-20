@@ -109,12 +109,12 @@ public class DartBoomerang : ModProjectile
         Projectile.friendly = false;
         Projectile.ai[0] = 30;
         Projectile.velocity = Vector2.Zero;
-        
+
         CameraSystem.Screenshake(6, 5);
         int randDust = Main.rand.Next(7, 12);
         for (int i = 0; i < randDust; i++)
         {
-            Dust dust = Dust.NewDustDirect(target.Center, 0, 0, ModContent.DustType<GlowFastDecelerate>(), 0f, 0f, 100, Color.Gray, 
+            Dust dust = Dust.NewDustDirect(target.Center, 0, 0, ModContent.DustType<GlowFastDecelerate>(), 0f, 0f, 100, Color.Gray,
                 0.6f);
             dust.velocity *= 3.2f;
             dust.velocity.Y -= 1f;

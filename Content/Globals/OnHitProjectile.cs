@@ -20,13 +20,13 @@ namespace DartGunsPlus.Content.Globals;
 
 public class OnHitProjectile : GlobalProjectile
 {
-    private int _itemType;
-
     private readonly int[] _shotguns =
     {
         ModContent.ItemType<DartStorm>(), ModContent.ItemType<CherryBlossom>(), ModContent.ItemType<GoreNGlory>(),
         ModContent.ItemType<OnyxStorm>(), ModContent.ItemType<Scatterhook>(), ModContent.ItemType<Scylla>()
     };
+
+    private int _itemType;
 
     public override bool InstancePerEntity => true;
 
@@ -84,7 +84,7 @@ public class OnHitProjectile : GlobalProjectile
         else if (_itemType == ModContent.ItemType<Katanakaze>())
         {
             Player owner = Main.player[projectile.owner];
-            
+
             Vector2 randomPointWithinHitbox = Main.rand.NextVector2FromRectangle(target.Hitbox);
             Vector2 hitboxCenter = target.Hitbox.Center.ToVector2();
             Vector2 directionVector = (hitboxCenter - randomPointWithinHitbox).SafeNormalize(new Vector2(owner.direction, owner.gravDir)) * 8f;
@@ -93,7 +93,7 @@ public class OnHitProjectile : GlobalProjectile
             randomRotationAngle *= 0.5f;
 
             directionVector = directionVector.RotatedBy(0.7853981852531433);
-        
+
             const int rotationSteps = 30;
             const int numIterations = 15;
 
@@ -107,7 +107,7 @@ public class OnHitProjectile : GlobalProjectile
 
             currentPosition += target.velocity * 3;
 
-            Projectile.NewProjectile(projectile.GetSource_OnHit(target), currentPosition, directionVector, 977, projectile.damage / 2, 0f, 
+            Projectile.NewProjectile(projectile.GetSource_OnHit(target), currentPosition, directionVector, 977, projectile.damage / 2, 0f,
                 projectile.owner, randomRotationAngle);
         }
 
@@ -170,7 +170,7 @@ public class OnHitProjectile : GlobalProjectile
         {
             bool purple = projectile.ai[2] % 2 == 0;
             Color color = purple ? new Color(185, 133, 240) : new Color(55, 224, 112);
-            
+
             if (Main.rand.NextBool(2))
                 for (int i = 0; i < 4; i++)
                 {
@@ -231,7 +231,7 @@ public class OnHitProjectile : GlobalProjectile
                 IndexOfPlayerWhoInvokedThis = (byte)projectile.owner
             };
             ParticleOrchestrator.SpawnParticlesDirect(ParticleOrchestraType.TrueExcalibur, settings);
-            
+
             if (Main.rand.NextBool(3))
             {
                 Vector2 spawnPos = target.Center + new Vector2(120, 0).RotatedByRandom(Math.Tau);
@@ -242,27 +242,23 @@ public class OnHitProjectile : GlobalProjectile
             Player owner = Main.player[projectile.owner];
             if (owner.ownedProjectileCounts[ModContent.ProjectileType<RevolvingSword>()] != 0)
             {
-                List<Projectile> rays = new List<Projectile>();
-                foreach (Projectile proj in Main.projectile)
-                {
+                var rays = new List<Projectile>();
+                foreach (Projectile proj in Main.projectile.AsSpan(0, Main.maxProjectiles))
                     if (proj.active && proj.type == ModContent.ProjectileType<EuphoriaRay>() && proj.owner == projectile.owner && proj.localAI[1] == target.whoAmI)
                     {
                         if (proj.ai[2] == 0)
                             rays.Add(proj);
-                        
+
                         if (proj.ai[1] < 160)
                             proj.ai[1] += 10; // size
                     }
-                }
-                
+
                 Projectile targetProj = Main.rand.NextFromCollection(rays);
                 targetProj.ai[2] = 1; // expand
-                
-                foreach (Projectile proj in Main.projectile)
-                {
+
+                foreach (Projectile proj in Main.projectile.AsSpan(0, Main.maxProjectiles))
                     if (proj.active && proj.type == ModContent.ProjectileType<RevolvingSword>() && proj.owner == projectile.owner && proj.ai[2] == target.whoAmI)
                         proj.ai[1] += 5; // rot dist
-                }
             }
         }
 
@@ -350,7 +346,7 @@ public class OnHitProjectile : GlobalProjectile
 
                 case 15:
                     SoundEngine.PlaySound(SoundID.DD2_KoboldExplosion, projectile.Center);
-                    foreach (Projectile proj in Main.projectile)
+                    foreach (Projectile proj in Main.projectile.AsSpan(0, Main.maxProjectiles))
                     {
                         if (proj.type == ModContent.ProjectileType<HalloweenJack>() && proj.owner == Main.myPlayer && proj.active)
                         {
@@ -379,7 +375,7 @@ public class OnHitProjectile : GlobalProjectile
                 UniqueInfoPiece = (int)VisualSystem.HueForParticle(Color.Green)
             };
             ParticleOrchestrator.SpawnParticlesDirect(ParticleOrchestraType.ChlorophyteLeafCrystalShot, settings);
-            
+
             Player owner = Main.player[projectile.owner];
 
             for (int i = 0; i < 2; i++)
@@ -391,20 +387,16 @@ public class OnHitProjectile : GlobalProjectile
                 Projectile.NewProjectile(projectile.GetSource_OnHit(target), spawnPos, velocity,
                     ModContent.ProjectileType<SereneBolt>(), projectile.damage / 3, 3, projectile.owner);
             }
-            
+
             if (owner.ownedProjectileCounts[ModContent.ProjectileType<TerraRay>()] != 0)
             {
-                List<Projectile> rays = new List<Projectile>();
-                
-                foreach (Projectile proj in Main.projectile)
-                {
+                var rays = new List<Projectile>();
+
+                foreach (Projectile proj in Main.projectile.AsSpan(0, Main.maxProjectiles))
                     if (proj.active && proj.type == ModContent.ProjectileType<TerraRay>() && proj.owner == projectile.owner && proj.ai[1] == target.whoAmI)
-                    {
                         if (proj.ai[2] == 0)
                             rays.Add(proj);
-                    }
-                }
-                
+
                 Projectile targetProj = Main.rand.NextFromCollection(rays);
                 targetProj.ai[2] = 1; // expand
             }

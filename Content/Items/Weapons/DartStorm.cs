@@ -11,6 +11,7 @@ namespace DartGunsPlus.Content.Items.Weapons;
 public class DartStorm : ModItem
 {
     private float _initialItemRot;
+
     public override void SetDefaults()
     {
         Item.DefaultToRangedWeapon(ProjectileID.PurificationPowder, AmmoID.Dart, 40, 11, true);
@@ -36,7 +37,7 @@ public class DartStorm : ModItem
             Projectile.NewProjectileDirect(source, position, newVelocity, type, damage, knockback, player.whoAmI);
         }
 
-        Projectile.NewProjectile(source, position, Vector2.Zero, ModContent.ProjectileType<ShotgunMusket>(), 0, 0, player.whoAmI, 
+        Projectile.NewProjectile(source, position, Vector2.Zero, ModContent.ProjectileType<ShotgunMusket>(), 0, 0, player.whoAmI,
             velocity.ToRotation(), 14);
         velocity.Normalize();
         player.velocity += velocity * -2;
@@ -57,9 +58,9 @@ public class DartStorm : ModItem
     {
         return new Vector2(-2f, -2f);
     }
-    
+
     public override void UseStyle(Player player, Rectangle heldItemFrame)
-    { 
+    {
         VisualSystem.RecoilAnimation(player, _initialItemRot, 15);
     }
 }

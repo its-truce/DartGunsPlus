@@ -1,4 +1,5 @@
-﻿using Microsoft.Xna.Framework;
+﻿using System;
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Terraria;
 using Terraria.GameContent;
@@ -40,17 +41,13 @@ public class DysphoriaNail : ModProjectile
             _scale *= 1.03f;
 
         if (Owner.ownedProjectileCounts[ModContent.ProjectileType<DysphoriaMagnet>()] > 0)
-        {
-            foreach (Projectile proj in Main.projectile)
-            {
+            foreach (Projectile proj in Main.projectile.AsSpan(0, Main.maxProjectiles))
                 if (proj.type == ModContent.ProjectileType<DysphoriaMagnet>() && proj.active && proj.owner == Projectile.owner && proj.timeLeft > 10)
                 {
                     Projectile.velocity = Vector2.Lerp(Projectile.DirectionTo(proj.Center) * 9, Projectile.velocity, 0.3f);
                     Projectile.penetrate = -1;
                     Projectile.friendly = false;
                 }
-            }
-        }
 
         Projectile.rotation = Projectile.velocity.ToRotation();
 

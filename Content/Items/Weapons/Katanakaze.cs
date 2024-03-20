@@ -40,17 +40,15 @@ public class Katanakaze : ModItem
     {
         if (player.altFunctionUse == 2)
         {
-            Projectile.NewProjectile(source, position, velocity, type, damage/2, knockback, player.whoAmI, 0, _swingDirection);
+            Projectile.NewProjectile(source, position, velocity, type, damage / 2, knockback, player.whoAmI, 0, _swingDirection);
             _swingDirection *= -1;
-            
+
             return false;
         }
 
         for (int i = 0; i < 3; i++)
-        {
             Dust.NewDustDirect(position, Item.width, Item.height, ModContent.DustType<GlowFastDecelerate>(), newColor: Color.CornflowerBlue, Scale: 0.5f);
-        }
-        
+
         return true;
     }
 
@@ -70,7 +68,7 @@ public class Katanakaze : ModItem
     {
         return new Vector2(-2f, -2f);
     }
-    
+
     public override bool CanUseItem(Player player)
     {
         if (player.altFunctionUse == 2)

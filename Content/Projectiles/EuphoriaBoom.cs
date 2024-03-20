@@ -14,7 +14,7 @@ public class EuphoriaBoom : ModProjectile
     public override string Texture => "DartGunsPlus/Content/Projectiles/EmptyTexture";
     private ref float TimeLeft => ref Projectile.ai[0];
     private Player Owner => Main.player[Projectile.owner];
-    
+
     public override void SetStaticDefaults()
     {
         ProjectileID.Sets.TrailCacheLength[Projectile.type] = 20;
@@ -73,7 +73,7 @@ public class EuphoriaBoom : ModProjectile
     {
         for (int k = 0; k < Projectile.oldPos.Length; k++)
             Projectile.oldPos[k] = Projectile.position;
-        
+
         EuphoriaPlayer euphoriaPlayer = Owner.GetModPlayer<EuphoriaPlayer>();
         Projectile.timeLeft = (int)TimeLeft;
         euphoriaPlayer.EuphoriaCurrent = 0;
@@ -83,14 +83,14 @@ public class EuphoriaBoom : ModProjectile
     {
         return Color.White * Projectile.Opacity;
     }
-    
+
     public override void AI()
     {
         Projectile.rotation = Projectile.velocity.ToRotation() + MathHelper.ToRadians(90);
     }
 
     public override void OnKill(int timeLeft)
-    { 
+    {
         for (int i = 0; i < 30; i++)
         {
             Dust dust = Dust.NewDustDirect(Projectile.position, 100, 100, DustID.WhiteTorch, 0f, 0f, 100,
@@ -106,9 +106,7 @@ public class EuphoriaBoom : ModProjectile
     public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
     {
         for (int i = 0; i < 6; i++)
-        {
             Projectile.NewProjectile(Projectile.GetSource_Death(), target.Center, Vector2.Zero, ModContent.ProjectileType<RevolvingSword>(),
                 Projectile.damage, 7, Projectile.owner, MathHelper.ToRadians(60 * i), 70, target.whoAmI);
-        }
     }
 }

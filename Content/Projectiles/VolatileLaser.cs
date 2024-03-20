@@ -14,17 +14,18 @@ namespace DartGunsPlus.Content.Projectiles;
 
 public class VolatileLaser : Deathray
 {
+    private const float MaxCharge = 130f;
+
+    private float _rayAlpha;
     private SlotId _soundSlot;
     public override string Texture => "DartGunsPlus/Content/Projectiles/Deathray";
     private Player Owner => Main.player[Projectile.owner];
-
-    private float _rayAlpha;
-    private const float MaxCharge = 130f;
     private ref float Charge => ref Projectile.localAI[0];
     private bool IsAtMaxCharge => Charge == MaxCharge;
+
     private Vector2 Nozzle => Owner.MountedCenter + new Vector2(Owner.HeldItem.width * Owner.direction, -8).RotatedBy
         ((float)Math.Atan2(Projectile.velocity.Y * Projectile.direction, Projectile.velocity.X * Projectile.direction));
-    
+
     public override void SetDefaults()
     {
         Projectile.width = 32;
@@ -55,22 +56,22 @@ public class VolatileLaser : Deathray
 
             int drawAlpha = Main.dayTime ? 50 : 0;
             DrawColor = new Color(255, 100, 100, drawAlpha) * _rayAlpha;
-            
-            DrawLaser(Main.spriteBatch, ModContent.Request<Texture2D>(Texture).Value, Position(), Projectile.velocity, 
+
+            DrawLaser(Main.spriteBatch, ModContent.Request<Texture2D>(Texture).Value, Position(), Projectile.velocity,
                 BodyRect.Height, -1.57f, 0.4f, MaxDistance, (int)MoveDistance);
 
             Texture2D texture = ModContent.Request<Texture2D>("DartGunsPlus/Content/Projectiles/Spotlight").Value;
             Texture2D texture2 = ModContent.Request<Texture2D>("DartGunsPlus/Content/Projectiles/Glowball").Value;
-        
-            Main.EntitySpriteDraw(texture, Projectile.Center - Main.screenPosition, null, DrawColor, Projectile.ai[1], texture.Size()/2, 
+
+            Main.EntitySpriteDraw(texture, Projectile.Center - Main.screenPosition, null, DrawColor, Projectile.ai[1], texture.Size() / 2,
                 0.7f, SpriteEffects.None);
-            
+
             DrawColor = new Color(255, 255, 255, 0) * _rayAlpha;
-            
-            DrawLaser(Main.spriteBatch, ModContent.Request<Texture2D>(Texture).Value, Position(), Projectile.velocity, 
+
+            DrawLaser(Main.spriteBatch, ModContent.Request<Texture2D>(Texture).Value, Position(), Projectile.velocity,
                 BodyRect.Height, -1.57f, 0.1f, MaxDistance, (int)MoveDistance);
-            Main.EntitySpriteDraw(texture2, Projectile.Center - Main.screenPosition, null, DrawColor, 
-                0, texture2.Size()/2, 0.06f, SpriteEffects.None);
+            Main.EntitySpriteDraw(texture2, Projectile.Center - Main.screenPosition, null, DrawColor,
+                0, texture2.Size() / 2, 0.06f, SpriteEffects.None);
         }
     }
 
@@ -80,12 +81,12 @@ public class VolatileLaser : Deathray
         Owner.itemAnimation = 2;
         Projectile.rotation = Projectile.velocity.ToRotation();
         Projectile.Center = Position() + Projectile.velocity * MaxDistance;
-        
+
         RealMaxDistance = Vector2.Distance(Main.MouseWorld, Position());
-        
+
         UpdatePlayer(Owner);
         ChargeLaser(Owner);
-        
+
         Projectile.ai[1] += MathHelper.ToRadians(2);
 
         if (IsAtMaxCharge)
@@ -94,7 +95,7 @@ public class VolatileLaser : Deathray
             CastLights();
             Projectile.friendly = true;
         }
-        
+
         switch (Projectile.timeLeft)
         {
             case 300:
@@ -102,19 +103,19 @@ public class VolatileLaser : Deathray
                 VisualSystem.SpawnDustCircle(Nozzle, ModContent.DustType<GlowFastDecelerate>(), 14, color: Color.Red, scale: 0.6f);
                 CameraSystem.Screenshake(5, 4);
                 break;
-            
+
             case 310:
                 _soundSlot = SoundEngine.PlaySound(AudioSystem.ReturnSound("laserbeam", volume: 0.6f));
                 break;
         }
     }
-    
+
     protected override Vector2 Position()
     {
         return Owner.MountedCenter + new Vector2(Owner.HeldItem.width * Owner.direction * 0.2f, 0).RotatedBy
             ((float)Math.Atan2(Projectile.velocity.Y * Projectile.direction, Projectile.velocity.X * Projectile.direction));
     }
-    
+
     private void UpdatePlayer(Player player)
     {
         if (Projectile.owner == Main.myPlayer)
@@ -133,16 +134,18 @@ public class VolatileLaser : Deathray
         player.itemAnimation = 2; // Set item animation time to 2 frames while we are used
         player.itemRotation = (float)Math.Atan2(Projectile.velocity.Y * dir, Projectile.velocity.X * dir); // Set the item rotation to where we are shooting
     }
-    
+
     private void ChargeLaser(Player player)
     {
         if (!player.channel)
+        {
             Projectile.Kill();
+        }
         else
         {
             if (Charge < MaxCharge) Charge++;
             int chargeFact = (int)(Charge / 20f);
-            
+
             for (int k = 0; k < chargeFact + 1; k++)
             {
                 Vector2 spawn = Nozzle + ((float)Main.rand.NextDouble() * MathF.Tau).ToRotationVector2() * (12f - chargeFact * 2);

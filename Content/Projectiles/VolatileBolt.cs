@@ -13,7 +13,7 @@ public class VolatileBolt : ModProjectile
 {
     private float _scale = 0.3f;
     public override string Texture => "DartGunsPlus/Content/Projectiles/Bolt";
-    
+
     public override void SetStaticDefaults()
     {
         ProjectileID.Sets.TrailCacheLength[Projectile.type] = 8; // how long you want the trail to be

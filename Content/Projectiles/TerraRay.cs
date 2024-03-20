@@ -6,7 +6,7 @@ using Terraria.DataStructures;
 using Terraria.ModLoader;
 
 namespace DartGunsPlus.Content.Projectiles;
-    
+
 public class TerraRay : Deathray
 {
     private float _rayAlpha;
@@ -16,6 +16,7 @@ public class TerraRay : Deathray
     private static Color Color => Color.Lerp(new Color(34, 177, 77), Color.YellowGreen, Main.masterColor) * 0.4f;
 
     public override string Texture => "DartGunsPlus/Content/Projectiles/Deathray";
+
     public override void SetDefaults()
     {
         Projectile.width = 32;
@@ -44,21 +45,19 @@ public class TerraRay : Deathray
     {
         float projScale = (float)(5 + Math.Sin(Projectile.localAI[0] / 1.5f)) / 5f;
         _rayAlpha = MathHelper.Lerp(_rayAlpha, Projectile.timeLeft < 10 ? 0 : 1, 0.1f);
-        
+
         DrawColor = Color * _rayAlpha * projScale;
         DrawColor.A = 0;
 
         for (int i = 0; i < 3; i++)
-        {
-            DrawLaser(Main.spriteBatch, ModContent.Request<Texture2D>(Texture).Value, Position(), Projectile.velocity, 
+            DrawLaser(Main.spriteBatch, ModContent.Request<Texture2D>(Texture).Value, Position(), Projectile.velocity,
                 BodyRect.Height, -1.57f, Scale, MaxDistance, (int)MoveDistance);
-        }
 
         DrawColor = new Color(255, 255, 255, 0);
-        DrawLaser(Main.spriteBatch, ModContent.Request<Texture2D>(Texture).Value, Position(), Projectile.velocity, 
-            BodyRect.Height, -1.57f, Scale/5, MaxDistance, (int)MoveDistance);
+        DrawLaser(Main.spriteBatch, ModContent.Request<Texture2D>(Texture).Value, Position(), Projectile.velocity,
+            BodyRect.Height, -1.57f, Scale / 5, MaxDistance, (int)MoveDistance);
     }
-    
+
     public override void PostAI()
     {
         Projectile.rotation = Projectile.velocity.ToRotation();
@@ -71,7 +70,7 @@ public class TerraRay : Deathray
             Projectile.friendly = true;
             Scale = 0.3f;
         }
-        
+
         if (!Target.active)
             Projectile.Kill();
     }

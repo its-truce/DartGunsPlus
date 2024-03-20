@@ -1,3 +1,4 @@
+using System;
 using DartGunsPlus.Content.Projectiles;
 using DartGunsPlus.Content.Systems;
 using Microsoft.Xna.Framework;
@@ -10,7 +11,6 @@ namespace DartGunsPlus.Content.Items.Weapons;
 
 public class GrappleGun : ModItem
 {
-
     public override void SetDefaults()
     {
         Item.DefaultToMagicWeapon(ModContent.ProjectileType<Hook>(), 20, 12, true);
@@ -29,14 +29,13 @@ public class GrappleGun : ModItem
         if (player.altFunctionUse == 2 && player.ownedProjectileCounts[ModContent.ProjectileType<Hook>()] > 0)
         {
             Main.NewText("hi");
-            foreach (Projectile proj in Main.projectile)
-            {
+            foreach (Projectile proj in Main.projectile.AsSpan(0, Main.maxProjectiles))
                 if (proj.active && proj.owner == player.whoAmI && proj.type == ModContent.ProjectileType<Hook>())
                     proj.Kill();
-            }
 
             return false;
         }
+
         return true;
     }
 

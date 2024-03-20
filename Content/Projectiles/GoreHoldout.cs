@@ -87,12 +87,13 @@ public class GoreHoldout : ModProjectile
         Projectile.velocity.Normalize();
 
         float timerAdd = 1.65f;
-        
+
         if (_justHit)
         {
             _hitTimer++;
             timerAdd = 0f;
         }
+
         if (_hitTimer > 10)
         {
             _justHit = false;

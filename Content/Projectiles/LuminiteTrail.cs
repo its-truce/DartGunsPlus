@@ -37,9 +37,9 @@ public class LuminiteTrail : ModProjectile
     public override void AI()
     {
         Projectile.velocity = Vector2.Zero;
-        
+
         Projectile.rotation = _startPos.DirectionTo(Projectile.Center).ToRotation();
-        
+
         if (Projectile.timeLeft >= 220)
             FadingSystem.FadeIn(Projectile, 20);
         if (Projectile.timeLeft <= 20)
@@ -60,7 +60,7 @@ public class LuminiteTrail : ModProjectile
     public override bool? Colliding(Rectangle projHitbox, Rectangle targetHitbox)
     {
         float point = 0f;
-        
+
         return Collision.CheckAABBvLineCollision(targetHitbox.TopLeft(), targetHitbox.Size(), _startPos,
             Projectile.Center, 6, ref point);
     }
@@ -68,9 +68,9 @@ public class LuminiteTrail : ModProjectile
     public override bool PreDraw(ref Color lightColor)
     {
         Texture2D texture = ModContent.Request<Texture2D>("DartGunsPlus/Content/Projectiles/Deathray").Value;
-        
+
         float scale = Vector2.Distance(_startPos, Projectile.Center) / texture.Width;
-        Main.EntitySpriteDraw(texture, _startPos - Main.screenPosition, null, new Color(115, 245, 215, 0) * Projectile.Opacity, Projectile.rotation, 
+        Main.EntitySpriteDraw(texture, _startPos - Main.screenPosition, null, new Color(115, 245, 215, 0) * Projectile.Opacity, Projectile.rotation,
             Vector2.Zero, new Vector2(scale, 1f), SpriteEffects.None);
 
         return false;

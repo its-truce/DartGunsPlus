@@ -1,7 +1,6 @@
 using DartGunsPlus.Content.Items.Ammo;
 using DartGunsPlus.Content.Projectiles;
 using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
 using Terraria;
 using Terraria.ModLoader;
 

@@ -27,9 +27,9 @@ public class TranquilizerAttachment : ModItem
 
 public class TranqProjectile : GlobalProjectile
 {
-    public override bool InstancePerEntity => true;
     private bool _eligible;
-    
+    public override bool InstancePerEntity => true;
+
     public override void OnSpawn(Projectile projectile, IEntitySource source)
     {
         if (source is EntitySource_ItemUse_WithAmmo use && (ContentSamples.ItemsByType[use.AmmoItemIdUsed].ammo == AmmoID.Dart || use.Item.ModItem is Charybdis))
@@ -39,15 +39,15 @@ public class TranqProjectile : GlobalProjectile
     public override void OnHitNPC(Projectile projectile, NPC target, NPC.HitInfo hit, int damageDone)
     {
         Player player = Main.player[projectile.owner];
-        
+
         if (!player.GetModPlayer<AccessoryPlayer>().HasTranq || !_eligible)
             return;
-        
+
         if (Main.rand.NextBool(5))
         {
             float quotient = target.life / (float)target.lifeMax;
             int debuffTime = (int)(120 * quotient * (target.boss ? 0.333f : 1f));
-        
+
             target.AddBuff(ModContent.BuffType<TranquilizerDebuff>(), debuffTime);
         }
     }
@@ -59,8 +59,8 @@ public class TranquilizerDebuff : ModBuff
     {
         Main.pvpBuff[Type] = true;
     }
-    
-    public override void Update(NPC npc, ref int buffIndex) 
+
+    public override void Update(NPC npc, ref int buffIndex)
     {
         npc.AddBuff(BuffID.Poisoned, 2);
         npc.velocity = Vector2.Zero;
@@ -69,7 +69,7 @@ public class TranquilizerDebuff : ModBuff
             Dust.NewDust(npc.position, npc.width, npc.height, DustID.Poisoned);
     }
 
-    public override void Update(Player player, ref int buffIndex) 
+    public override void Update(Player player, ref int buffIndex)
     {
         player.AddBuff(BuffID.Poisoned, 2);
         player.velocity *= 0.5f;

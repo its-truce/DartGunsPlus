@@ -12,8 +12,8 @@ namespace DartGunsPlus.Content.Items.Weapons;
 
 public class TrueEuphoria : ModItem
 {
-    private int _shootCount;
     private float _initialItemRot;
+    private int _shootCount;
 
     public override void SetDefaults()
     {
@@ -27,7 +27,7 @@ public class TrueEuphoria : ModItem
         Item.damage = 68;
         Item.knockBack = 4.5f;
     }
-    
+
     public override bool AltFunctionUse(Player player)
     {
         return true;
@@ -46,7 +46,7 @@ public class TrueEuphoria : ModItem
         EuphoriaPlayer euphoriaPlayer = player.GetModPlayer<EuphoriaPlayer>();
         Projectile.NewProjectile(source, position, velocity, type, damage, knockback, player.whoAmI,
             type == ModContent.ProjectileType<EuphoriaBoom>() ? 10 + euphoriaPlayer.EuphoriaCurrent * 20 : 0, 0, _shootCount);
-        
+
         _shootCount++;
         _initialItemRot = player.itemRotation;
         return false;
@@ -86,8 +86,10 @@ public class TrueEuphoria : ModItem
                 Item.reuseDelay = 30;
             }
             else
+            {
                 PopupSystem.PopUp("Swords already deployed!", new Color(255, 255, 200), player.Center - new Vector2(0, 70));
-            
+            }
+
             return false;
         }
 
@@ -99,7 +101,7 @@ public class TrueEuphoria : ModItem
     {
         return new Vector2(-2f, -2f);
     }
-    
+
     public override void UseStyle(Player player, Rectangle heldItemFrame)
     {
         if (player.ownedProjectileCounts[ModContent.ProjectileType<EuphoriaBoom>()] > 0)

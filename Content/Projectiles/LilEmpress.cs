@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using DartGunsPlus.Content.Dusts;
 using DartGunsPlus.Content.Systems;
@@ -45,7 +46,7 @@ public class LilEmpress : ModProjectile
     {
         var minionProjs = new List<Projectile>();
 
-        foreach (Projectile proj in Main.projectile)
+        foreach (Projectile proj in Main.projectile.AsSpan(0, Main.maxProjectiles))
             if (proj.type == ModContent.ProjectileType<LilEmpress>() && proj.active && proj.owner == Projectile.owner)
                 minionProjs.Add(proj);
 
@@ -61,7 +62,7 @@ public class LilEmpress : ModProjectile
     {
         var minionProjs = new List<Projectile>();
 
-        foreach (Projectile proj in Main.projectile)
+        foreach (Projectile proj in Main.projectile.AsSpan(0, Main.maxProjectiles))
             if (proj.type == ModContent.ProjectileType<LilEmpress>() && proj.active && proj.owner == Projectile.owner && proj.whoAmI != Projectile.whoAmI)
                 minionProjs.Add(proj);
 

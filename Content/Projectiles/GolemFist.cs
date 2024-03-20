@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using DartGunsPlus.Content.Items.Weapons;
 using DartGunsPlus.Content.Systems;
@@ -101,7 +102,7 @@ public class GolemFist : ModProjectile
     public override void DrawBehind(int index, List<int> behindNPCsAndTiles, List<int> behindNPCs, List<int> behindProjectiles, List<int> overPlayers,
         List<int> overWiresUI)
     {
-        foreach (Projectile proj in Main.projectile)
+        foreach (Projectile proj in Main.projectile.AsSpan(0, Main.maxProjectiles))
         {
             if (proj.active && proj.owner == Projectile.owner && proj.type == ModContent.ProjectileType<FistFlash>() && proj.rotation == Projectile.rotation)
                 behindProjectiles.Add(index);

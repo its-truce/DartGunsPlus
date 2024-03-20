@@ -12,9 +12,9 @@ public class AccessoryPlayer : ModPlayer
 {
     private NPC[] _alreadySpawned = new NPC[1];
     public bool HasDartLicense;
-    public bool HasSpyglass;
     public bool HasKite;
     public bool HasShield;
+    public bool HasSpyglass;
     public bool HasTranq;
     public bool IncrementShield;
     public int ShieldTimer;
@@ -51,7 +51,7 @@ public class AccessoryPlayer : ModPlayer
         if (HasShield && IncrementShield)
         {
             ShieldTimer++;
-            
+
             if (ShieldTimer == 30)
             {
                 IncrementShield = false;
@@ -63,13 +63,13 @@ public class AccessoryPlayer : ModPlayer
         {
             NPC closestTarget = DartUtils.FindClosestTarget(3200, _alreadySpawned, Player, 20);
 
-            if (closestTarget != null && 
-                !Main.projectile.Any(proj => proj.active && proj.owner == Player.whoAmI && proj.type == ModContent.ProjectileType<TargetCircle>() && 
-                                            proj.ai[0] == closestTarget.whoAmI))
+            if (closestTarget != null &&
+                !Main.projectile.Any(proj => proj.active && proj.owner == Player.whoAmI && proj.type == ModContent.ProjectileType<TargetCircle>() &&
+                                             proj.ai[0] == closestTarget.whoAmI))
             {
                 Projectile.NewProjectile(Player.GetSource_Misc("spyglass"), closestTarget.Center, Vector2.Zero,
                     ModContent.ProjectileType<TargetCircle>(), 0, 0, Player.whoAmI, closestTarget.whoAmI);
-                
+
                 Array.Resize(ref _alreadySpawned, _alreadySpawned.Length + 1);
                 _alreadySpawned[^1] = closestTarget;
             }

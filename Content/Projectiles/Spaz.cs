@@ -14,12 +14,12 @@ public class Spaz : ModProjectile
     private ref float RotationOffset => ref Projectile.localAI[0];
     private ref float RelaxTimer => ref Projectile.ai[1];
     private ref float RotationGoal => ref Projectile.ai[2]; // passed in as random from 0 to 2 pi
-    
+
     public override void SetStaticDefaults()
     {
         Main.projFrames[Projectile.type] = 3;
     }
-    
+
     public override void SetDefaults()
     {
         Projectile.aiStyle = -1;
@@ -45,9 +45,9 @@ public class Spaz : ModProjectile
 
             if (Projectile.frame >= Main.projFrames[Projectile.type]) Projectile.frame = 0;
         }
-        
+
         Projectile.localAI[1]++; // general timer;
-        
+
         if (Projectile.timeLeft > 580)
             FadingSystem.FadeIn(Projectile, 20);
         if (Projectile.timeLeft < 21)
@@ -62,20 +62,21 @@ public class Spaz : ModProjectile
             else
                 Projectile.Kill();
         }
-        
+
         const int dist = 120;
-        
+
         if (RelaxTimer != 0)
         {
             RelaxTimer++;
 
             if (RelaxTimer % 3 == 0)
-                Projectile.NewProjectile(Projectile.GetSource_FromThis(), Projectile.Center + Projectile.DirectionTo(Target.Center) * 22, 
+                Projectile.NewProjectile(Projectile.GetSource_FromThis(), Projectile.Center + Projectile.DirectionTo(Target.Center) * 22,
                     Projectile.DirectionTo(Target.Center) * 6, ModContent.ProjectileType<SpazFlame>(), Projectile.damage, 2, Projectile.owner);
         }
+
         if (RelaxTimer == 30)
             RelaxTimer = 0;
-        
+
         if (Projectile.localAI[1] % 180 == 0)
         {
             VisualSystem.SpawnDustCircle(Projectile.Center, ModContent.DustType<GlowFastDecelerate>(), 12, color: Color.LightGreen, scale: 0.9f);

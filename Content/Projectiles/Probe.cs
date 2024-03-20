@@ -17,13 +17,13 @@ public class Probe : ModProjectile
     private ref float RotationOffset => ref Projectile.localAI[0];
     private ref float RecoilTimer => ref Projectile.ai[1];
     private ref float RotationGoal => ref Projectile.ai[2]; // passed in as random from 0 to 2 pi
-    
+
     public override void SetStaticDefaults()
     {
         ProjectileID.Sets.TrailCacheLength[Projectile.type] = 14; // how long you want the trail to be
         ProjectileID.Sets.TrailingMode[Projectile.type] = 0; // recording mode
     }
-    
+
     public override void SetDefaults()
     {
         Projectile.aiStyle = -1;
@@ -39,7 +39,7 @@ public class Probe : ModProjectile
     public override void AI()
     {
         Projectile.localAI[1]++; // general timer;
-        
+
         if (Projectile.timeLeft > 580)
             FadingSystem.FadeIn(Projectile, 20);
         if (Projectile.timeLeft < 21)
@@ -54,21 +54,21 @@ public class Probe : ModProjectile
             else
                 Projectile.Kill();
         }
-        
+
         const int dist = 150;
-        
+
         if (RecoilTimer != 0)
             RecoilTimer++;
         if (RecoilTimer == 15)
             RecoilTimer = 0;
-        
+
         if (Projectile.localAI[1] % 140 == 0)
         {
             Projectile.NewProjectile(Projectile.GetSource_FromThis(), Projectile.Center, Projectile.DirectionTo(Target.Center) * 6,
                 ModContent.ProjectileType<VolatileBolt>(), Projectile.damage, 2, Projectile.owner);
             VisualSystem.SpawnDustCircle(Projectile.Center, ModContent.DustType<GlowFastDecelerate>(), 12, color: Color.Red, scale: 0.9f);
             SoundEngine.PlaySound(AudioSystem.ReturnSound("shoot1"), Projectile.Center);
-            
+
             Projectile.velocity = Projectile.DirectionFrom(Target.Center) * 6;
             RecoilTimer++;
             RotationGoal *= -1;
@@ -81,18 +81,18 @@ public class Probe : ModProjectile
             RotationOffset = (float)Utils.Lerp(RotationOffset, RotationGoal, 0.04f);
         }
     }
-    
+
     public override bool PreDraw(ref Color lightColor)
     {
         Texture2D texture = TextureAssets.Projectile[Projectile.type].Value;
-        
+
         Vector2 drawOrigin = texture.Size() / 2;
         for (int k = 0; k < Projectile.oldPos.Length; k++)
         {
             Vector2 drawPos = Projectile.oldPos[k] - Main.screenPosition + drawOrigin + new Vector2(0f, Projectile.gfxOffY);
             Color color = new Color(255, 100, 100, 0) * ((Projectile.oldPos.Length - k) / (float)Projectile.oldPos.Length) * Projectile.Opacity * 0.5f;
             float sizec = Projectile.scale * (Projectile.oldPos.Length - k) / (Projectile.oldPos.Length * 0.9f);
-            
+
             Main.EntitySpriteDraw(texture, drawPos, null, color, Projectile.rotation, drawOrigin, sizec, SpriteEffects.None);
         }
 

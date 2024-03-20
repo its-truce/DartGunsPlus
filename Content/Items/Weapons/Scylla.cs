@@ -12,7 +12,7 @@ namespace DartGunsPlus.Content.Items.Weapons;
 public class Scylla : ModItem
 {
     private float _initialItemRot;
-    
+
     public override void SetStaticDefaults()
     {
         ItemID.Sets.ItemsThatAllowRepeatedRightClick[Item.type] = true;
@@ -49,7 +49,8 @@ public class Scylla : ModItem
 
                 int projToShoot = Main.rand.NextBool(4) ? ModContent.ProjectileType<VortexBeam>() : type;
 
-                Projectile.NewProjectileDirect(source, position - Vector2.Normalize(velocity) * Item.width * 0.6f, newVelocity, projToShoot, damage, knockback, player.whoAmI);
+                Projectile.NewProjectileDirect(source, position - Vector2.Normalize(velocity) * Item.width * 0.6f, newVelocity, projToShoot, damage, knockback,
+                    player.whoAmI);
             }
 
             Projectile.NewProjectile(source, position, Vector2.Zero, ModContent.ProjectileType<ShotgunMusket>(),
@@ -62,7 +63,9 @@ public class Scylla : ModItem
             CameraSystem.Screenshake(6, 6);
         }
         else
+        {
             Projectile.NewProjectile(source, position, velocity, ModContent.ProjectileType<Hook>(), damage, 0, player.whoAmI);
+        }
 
         _initialItemRot = player.itemRotation;
         return false;

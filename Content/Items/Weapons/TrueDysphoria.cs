@@ -12,8 +12,8 @@ namespace DartGunsPlus.Content.Items.Weapons;
 
 public class TrueDysphoria : ModItem
 {
-    private int _shootCount;
     private float _initialItemRot;
+    private int _shootCount;
 
     public override void SetDefaults()
     {
@@ -42,11 +42,11 @@ public class TrueDysphoria : ModItem
             IndexOfPlayerWhoInvokedThis = (byte)player.whoAmI
         };
         ParticleOrchestrator.SpawnParticlesDirect(ParticleOrchestraType.NightsEdge, settings);
-        
+
         DysphoriaPlayer dysphoriaPlayer = player.GetModPlayer<DysphoriaPlayer>();
         Projectile.NewProjectile(source, position, velocity, type, damage, knockback, player.whoAmI,
             type == ModContent.ProjectileType<DysphoriaBoom>() ? 10 + dysphoriaPlayer.DysphoriaCurrent * 20 : 0, 0, _shootCount);
-        
+
         _shootCount++;
         _initialItemRot = player.itemRotation;
         return false;
@@ -72,7 +72,7 @@ public class TrueDysphoria : ModItem
             Item.shoot = ProjectileID.PurificationPowder;
         }
     }
-    
+
     public override bool CanUseItem(Player player)
     {
         if (player.altFunctionUse == 2)
@@ -86,8 +86,10 @@ public class TrueDysphoria : ModItem
                 Item.reuseDelay = 30;
             }
             else
+            {
                 PopupSystem.PopUp("Magnet already deployed!", new Color(55, 224, 112), player.Center - new Vector2(0, 70));
-            
+            }
+
             return false;
         }
 
@@ -99,7 +101,7 @@ public class TrueDysphoria : ModItem
     {
         return new Vector2(-2f, -2f);
     }
-    
+
     public override void UseStyle(Player player, Rectangle heldItemFrame)
     {
         if (player.ownedProjectileCounts[ModContent.ProjectileType<DysphoriaBoom>()] > 0)

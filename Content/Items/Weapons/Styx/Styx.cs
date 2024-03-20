@@ -14,9 +14,9 @@ namespace DartGunsPlus.Content.Items.Weapons.Styx;
 
 public class Styx : ModItem
 {
-    private CompactParticleManager _manager;
     private float _initialItemRot;
-    
+    private CompactParticleManager _manager;
+
     public override void SetDefaults()
     {
         Item.DefaultToRangedWeapon(ProjectileID.PurificationPowder, AmmoID.Dart, 24, 24, true);
@@ -79,11 +79,9 @@ public class Styx : ModItem
     public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
     {
         for (int i = 0; i < 5; i++)
-        {
-            Dust.NewDustPerfect(position + Vector2.Normalize(velocity) * Item.width * 0.8f, ModContent.DustType<GlowFastDecelerate>(), 
+            Dust.NewDustPerfect(position + Vector2.Normalize(velocity) * Item.width * 0.8f, ModContent.DustType<GlowFastDecelerate>(),
                 newColor: new Color(85, 105, 181), Scale: 0.5f);
-        }
-        
+
         Projectile.NewProjectile(source, position, Vector2.Zero, ModContent.ProjectileType<ShotgunMusket>(),
             0, 0, player.whoAmI, velocity.ToRotation(), 5, 3);
         CameraSystem.Screenshake(3, 2);
@@ -115,7 +113,7 @@ public class Styx : ModItem
     {
         Texture2D texture = TextureAssets.Item[Item.type].Value;
         Color color = Color.Lerp(drawColor, new Color(85, 105, 181, 50), Main.masterColor);
-        
+
         spriteBatch.Draw(texture, position, null, color, 0, origin, scale, SpriteEffects.None, 0f);
         return false;
     }
@@ -124,8 +122,8 @@ public class Styx : ModItem
     {
         Texture2D texture = TextureAssets.Item[Item.type].Value;
         Color color = Color.Lerp(lightColor, new Color(85, 105, 181, 50), Main.masterColor);
-        
-        spriteBatch.Draw(texture, Item.Center - Main.screenPosition, null, color, 0, texture.Size()/2, scale, SpriteEffects.None, 0f);
+
+        spriteBatch.Draw(texture, Item.Center - Main.screenPosition, null, color, 0, texture.Size() / 2, scale, SpriteEffects.None, 0f);
         return false;
     }
 
@@ -166,10 +164,19 @@ public class Styx : ModItem
 
         return base.PreDrawTooltipLine(line, ref yOffset);
     }
-    
+
     public override void UseStyle(Player player, Rectangle heldItemFrame)
     {
         VisualSystem.RecoilAnimation(player, _initialItemRot, 15);
+    }
+
+    public override void OnCreated(ItemCreationContext context)
+    {
+        if (context is RecipeItemCreationContext)
+        {
+            VisualSystem.SpawnDustCircle(Main.LocalPlayer.Center, ModContent.DustType<GlowFastDecelerate>(), 14, scale: 0.6f, color: Color.BlueViolet);
+            Main.NewText("do more stuff here");
+        }
     }
 
     public override void AddRecipes()

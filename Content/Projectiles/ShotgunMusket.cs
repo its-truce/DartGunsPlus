@@ -68,7 +68,7 @@ public class ShotgunMusket : ModProjectile
                 color1 = new Color(20, 255, 203, 0);
                 color2 = new Color(143, 255, 206, 0);
                 break;
-            
+
             case 3: // styx
                 color1 = new Color(42, 34, 80, 0);
                 color2 = new Color(85, 105, 181, 0);
@@ -84,14 +84,15 @@ public class ShotgunMusket : ModProjectile
 
         Main.EntitySpriteDraw(texture, Projectile.Center - Main.screenPosition, null, color1 * Projectile.Opacity,
             Projectile.rotation, texture.Size() / 2, Projectile.scale * scaleFactor, SpriteEffects.None);
-        
+
         Main.EntitySpriteDraw(texture2, Projectile.Center - Main.screenPosition, null, color2 * Projectile.Opacity,
             Projectile.rotation, texture2.Size() / 2, Projectile.scale * 0.7f * scaleFactor, SpriteEffects.None);
 
         return false;
     }
 
-    public override void DrawBehind(int index, List<int> behindNPCsAndTiles, List<int> behindNPCs, List<int> behindProjectiles, List<int> overPlayers, List<int> overWiresUI)
+    public override void DrawBehind(int index, List<int> behindNPCsAndTiles, List<int> behindNPCs, List<int> behindProjectiles, List<int> overPlayers,
+        List<int> overWiresUI)
     {
         behindProjectiles.Add(index);
     }

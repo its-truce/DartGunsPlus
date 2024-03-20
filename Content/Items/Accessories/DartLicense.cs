@@ -8,8 +8,8 @@ public class DartLicense : ModItem
 {
     public override void SetDefaults()
     {
-        Item.width = 50;
-        Item.height = 34;
+        Item.width = 38;
+        Item.height = 24;
         Item.maxStack = 1;
         Item.accessory = true;
         Item.value = Item.sellPrice(gold: 2);

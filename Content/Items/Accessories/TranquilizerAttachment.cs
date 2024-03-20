@@ -11,8 +11,8 @@ public class TranquilizerAttachment : ModItem
 {
     public override void SetDefaults()
     {
-        Item.width = 54;
-        Item.height = 54;
+        Item.width = 22;
+        Item.height = 38;
         Item.maxStack = 1;
         Item.accessory = true;
         Item.value = Item.sellPrice(gold: 5);

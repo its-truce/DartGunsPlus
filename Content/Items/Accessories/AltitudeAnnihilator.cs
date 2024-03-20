@@ -12,8 +12,8 @@ public class AltitudeAnnihilator : ModItem
 {
     public override void SetDefaults()
     {
-        Item.width = 36;
-        Item.height = 48;
+        Item.width = 26;
+        Item.height = 32;
         Item.maxStack = 1;
         Item.accessory = true;
         Item.value = Item.sellPrice(gold: 2);

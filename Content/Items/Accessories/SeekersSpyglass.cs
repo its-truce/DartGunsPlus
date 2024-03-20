@@ -11,8 +11,8 @@ public class SeekersSpyglass : ModItem
 {
     public override void SetDefaults()
     {
-        Item.width = 72;
-        Item.height = 46;
+        Item.width = 32;
+        Item.height = 28;
         Item.maxStack = 1;
         Item.accessory = true;
         Item.value = Item.sellPrice(gold: 7);

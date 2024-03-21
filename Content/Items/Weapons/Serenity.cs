@@ -1,5 +1,6 @@
 using System;
 using DartGunsPlus.Content.Projectiles;
+using DartGunsPlus.Content.Systems;
 using DartGunsPlus.Content.UI;
 using Microsoft.Xna.Framework;
 using Terraria;
@@ -34,18 +35,19 @@ public class Serenity : ModItem
 
     public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
     {
-        ParticleOrchestraSettings settings = new()
-        {
-            PositionInWorld = position,
-            MovementVector = Vector2.Zero,
-            IndexOfPlayerWhoInvokedThis = (byte)player.whoAmI
-        };
-        ParticleOrchestrator.SpawnParticlesDirect(ParticleOrchestraType.TerraBlade, settings);
-
         if (player.altFunctionUse != 2 || player.ownedProjectileCounts[ModContent.ProjectileType<TerraBoom>()] <= 0)
+        {
+            ParticleOrchestraSettings settings = new()
+            {
+                PositionInWorld = position,
+                MovementVector = Vector2.Zero,
+                IndexOfPlayerWhoInvokedThis = (byte)player.whoAmI
+            };
+            ParticleOrchestrator.SpawnParticlesDirect(ParticleOrchestraType.TerraBlade, settings);
             Projectile.NewProjectile(source, position, velocity, type, damage, knockback, player.whoAmI, ai2: _shootCount);
+        }
+        
         _shootCount++;
-
         return false;
     }
 
@@ -61,13 +63,8 @@ public class Serenity : ModItem
 
         if (player.altFunctionUse == 2)
         {
-            type = ModContent.ProjectileType<TerraBoom>();
-            damage *= 2;
-            velocity *= 0.6f;
-
             SerenityPlayer serenityPlayer = player.GetModPlayer<SerenityPlayer>();
-            serenityPlayer.SerenityCurrent++;
-
+            
             if (player.ownedProjectileCounts[ModContent.ProjectileType<TerraBoom>()] > 0)
             {
                 foreach (Projectile proj in Main.projectile.AsSpan(0, Main.maxProjectiles))
@@ -81,13 +78,24 @@ public class Serenity : ModItem
                             Vector2 spawnPos = target.Center + new Vector2(200, 0).RotatedByRandom(Math.Tau);
                             Vector2 spawnVelocity = spawnPos.DirectionTo(target.Center) * 8;
 
-                            Projectile.NewProjectile(proj.GetSource_FromAI(), spawnPos, spawnVelocity, ModContent.ProjectileType<TerraSlash>(), proj.damage * 2,
-                                3, proj.owner, ai1: 1);
+                            Projectile.NewProjectile(proj.GetSource_FromAI(), spawnPos, spawnVelocity, ModContent.ProjectileType<TerraSlash>(), 
+                                proj.damage * 2, 3, proj.owner, ai1: 1);
                         
                             proj.localAI[1] = 1; // retreat
                         }
                     }
                 }
+            }
+            else if (serenityPlayer.SerenityCurrent == serenityPlayer.SerenityMax2)
+            {
+                type = ModContent.ProjectileType<TerraBoom>();
+                damage *= 2;
+                velocity *= 0.6f;
+                serenityPlayer.SerenityCurrent = 0;
+            }
+            else
+            {
+                PopupSystem.PopUp("Not enough energy!", Color.ForestGreen, player.Center - new Vector2(0, 50));
             }
         }
     }

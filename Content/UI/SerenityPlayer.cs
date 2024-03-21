@@ -1,11 +1,12 @@
-﻿using Terraria;
+﻿using DartGunsPlus.Content.Projectiles;
+using Terraria;
 using Terraria.ModLoader;
 
 namespace DartGunsPlus.Content.UI;
 
 public class SerenityPlayer : ModPlayer
 {
-    private const int SerenityMax = 3; // Default maximum value of example resource
+    private const int SerenityMax = 600; // Default maximum value of example resource
     private int _serenityMax; // Buffer variable that is used to reset maximum resource to default value in ResetDefaults().
 
     // Here we create a custom resource, similar to mana or health.
@@ -46,6 +47,9 @@ public class SerenityPlayer : ModPlayer
     private void UpdateResource()
     {
         SerenityCurrent = Utils.Clamp(SerenityCurrent, 0, SerenityMax2);
+
+        if (SerenityCurrent < SerenityMax2 && Player.ownedProjectileCounts[ModContent.ProjectileType<TerraBoom>()] <= 0)
+            SerenityCurrent++;
     }
 
     private void CapResourceGodMode()

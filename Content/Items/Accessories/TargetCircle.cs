@@ -19,15 +19,13 @@ public class TargetCircle : ModProjectile
     {
         Projectile.ignoreWater = true;
         Projectile.tileCollide = false;
-        Projectile.width = 512;
-        Projectile.height = 512;
+        Projectile.width = 200;
+        Projectile.height = 200;
         Projectile.penetrate = -1;
         Projectile.friendly = false;
         Projectile.Opacity = 0;
         Projectile.scale = 0.15f;
         Projectile.timeLeft = 600;
-        Projectile.Hitbox = new Rectangle((int)Projectile.position.X, (int)Projectile.position.Y, (int)(Projectile.width * 0.07f),
-            (int)(Projectile.height * 0.07f));
     }
 
     public override void OnSpawn(IEntitySource source)
@@ -66,9 +64,6 @@ public class TargetCircle : ModProjectile
 
         if (!Target.active)
             Projectile.Kill();
-
-        Projectile.Hitbox = new Rectangle((int)Projectile.position.X - Projectile.width, (int)Projectile.position.Y - Projectile.height,
-            50, 50);
     }
 
     public override bool PreDraw(ref Color lightColor)
@@ -83,5 +78,22 @@ public class TargetCircle : ModProjectile
             Main.EntitySpriteDraw(texture, drawPos, null, color, Projectile.rotation, texture.Size() / 2,
                 Projectile.scale, SpriteEffects.None);
         return false;
+    }
+    
+    public override bool? Colliding(Rectangle projHitbox, Rectangle targetHitbox)
+    {
+        // Calculate the scaled hitbox size based on the Projectile.scale
+        int scaledWidth = (int)(projHitbox.Width * Projectile.scale);
+        int scaledHeight = (int)(projHitbox.Height * Projectile.scale);
+
+        // Calculate the position of the scaled hitbox
+        int scaledX = projHitbox.X + (projHitbox.Width - scaledWidth) / 2;
+        int scaledY = projHitbox.Y + (projHitbox.Height - scaledHeight) / 2;
+
+        // Create the scaled hitbox
+        Rectangle scaledHitbox = new(scaledX, scaledY, scaledWidth, scaledHeight);
+
+        // Check for collision between the scaled hitbox and the target
+        return scaledHitbox.Intersects(targetHitbox);
     }
 }

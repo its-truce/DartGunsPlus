@@ -44,7 +44,7 @@ public class AltitudeProjectile : GlobalProjectile
         if (!player.GetModPlayer<AccessoryPlayer>().HasKite || !_eligible)
             return;
 
-        if (target.Center.Y > player.Center.Y && target.Center.Y - player.Center.Y > 10)
+        if (target.Center.Y > player.MountedCenter.Y && target.Center.Y - player.Center.Y > 10)
         {
             ParticleOrchestraSettings settings = new()
             {

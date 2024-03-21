@@ -75,8 +75,8 @@ public class ShotgunMusket : ModProjectile
                 break;
 
             default:
-                color1 = Color.Violet;
-                color2 = Color.DarkBlue;
+                color1 = new Color(255, 112, 0, 0);
+                color2 = new Color(255, 220, 75, 0);
                 break;
         }
 

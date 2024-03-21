@@ -46,7 +46,7 @@ public class TranqProjectile : GlobalProjectile
         if (Main.rand.NextBool(5))
         {
             float quotient = target.life / (float)target.lifeMax;
-            int debuffTime = (int)(120 * quotient * (target.boss ? 0.333f : 1f));
+            int debuffTime = (int)(90 * quotient * (target.boss ? 0.333f : 1f));
 
             target.AddBuff(ModContent.BuffType<TranquilizerDebuff>(), debuffTime);
         }

@@ -51,7 +51,6 @@ public class SpyglassProjectile : GlobalProjectile
             if (proj.active && proj.type == ModContent.ProjectileType<TargetCircle>() && proj.owner == projectile.owner && hitbox.Intersects(projectile.Hitbox) &&
                 proj.ai[0] == target.whoAmI)
             {
-                Main.NewText("hi");
                 modifiers.FinalDamage *= 2.5f;
                 modifiers.Knockback *= 1.5f;
             }

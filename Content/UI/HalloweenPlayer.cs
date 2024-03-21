@@ -5,7 +5,7 @@ namespace DartGunsPlus.Content.UI;
 
 public class HalloweenPlayer : ModPlayer
 {
-    private const int DefaultHalloweenMax = 15; // Default maximum value of example resource
+    private const int HalloweenMax = 15; // Default maximum value of example resource
     private int _halloweenMax; // Buffer variable that is used to reset maximum resource to default value in ResetDefaults().
 
     // Here we create a custom resource, similar to mana or health.
@@ -15,7 +15,7 @@ public class HalloweenPlayer : ModPlayer
 
     public override void Initialize()
     {
-        _halloweenMax = DefaultHalloweenMax;
+        _halloweenMax = HalloweenMax;
     }
 
     public override void ResetEffects()

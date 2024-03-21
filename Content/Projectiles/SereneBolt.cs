@@ -1,4 +1,6 @@
-﻿using Microsoft.Xna.Framework;
+﻿using DartGunsPlus.Content.Dusts;
+using DartGunsPlus.Content.Systems;
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Terraria;
 using Terraria.ID;
@@ -22,8 +24,8 @@ public class SereneBolt : ModProjectile
     public override void SetDefaults()
     {
         Projectile.aiStyle = 0;
-        Projectile.width = 50;
-        Projectile.height = 50;
+        Projectile.width = 20;
+        Projectile.height = 20;
         Projectile.penetrate = 1;
         Projectile.ignoreWater = true;
         Projectile.tileCollide = false;
@@ -49,12 +51,12 @@ public class SereneBolt : ModProjectile
         {
             if (Projectile.FindTargetWithLineOfSight(1000f) != -1)
             {
-                Projectile.velocity = Vector2.Lerp(Projectile.DirectionTo(Main.npc[Projectile.FindTargetWithLineOfSight(1000f)].Center) * 16,
+                Projectile.velocity = Vector2.Lerp(Projectile.DirectionTo(Main.npc[Projectile.FindTargetWithLineOfSight(1000f)].Center) * 18,
                     Projectile.velocity, 0.95f);
             }
             else
             {
-                Projectile.velocity = Vector2.Lerp(Projectile.DirectionTo(_mousePos) * 16, Projectile.velocity, 0.95f);
+                Projectile.velocity = Vector2.Lerp(Projectile.DirectionTo(_mousePos) * 18, Projectile.velocity, 0.95f);
                 if (Projectile.Center.Distance(_mousePos) < 40)
                     Projectile.Kill();
             }
@@ -74,10 +76,13 @@ public class SereneBolt : ModProjectile
             Rectangle frame = texture.Frame(1, Main.projFrames[Projectile.type], 0, Projectile.frame);
             Vector2 drawPos = Projectile.oldPos[k] - Main.screenPosition + offset;
             float sizec = Projectile.scale * (Projectile.oldPos.Length - k) / (Projectile.oldPos.Length * 0.8f);
-            Color color = Color.Lerp(new Color(233, 177, 82, 0), new Color(62, 240, 93, 0), Projectile.ai[1])
-                          * (1f - Projectile.alpha) * ((Projectile.oldPos.Length - k) / (float)Projectile.oldPos.Length);
-            Main.EntitySpriteDraw(texture, drawPos, frame, color, Projectile.oldRot[k], frame.Size() / 2, sizec * 0.22f * new Vector2(_scale, 1),
-                SpriteEffects.None);
+            Color color = Color.Lerp(new Color(34, 177, 77), Color.YellowGreen, Main.masterColor) * (1f - Projectile.alpha) * 
+                          ((Projectile.oldPos.Length - k) / (float)Projectile.oldPos.Length);
+            color.A = 0;
+            
+            if (Projectile.Center.Distance(Projectile.oldPos[k]) > 30)
+                Main.EntitySpriteDraw(texture, drawPos, frame, color, Projectile.oldRot[k], frame.Size() / 2, sizec * 0.2f * new Vector2(_scale, 1),
+                    SpriteEffects.None);
         }
 
         return false;
@@ -88,10 +93,8 @@ public class SereneBolt : ModProjectile
         return Color.White * Projectile.Opacity;
     }
 
-    public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
+    public override void OnKill(int timeLeft)
     {
-        if (Main.rand.NextBool(3))
-            Projectile.NewProjectile(Projectile.GetSource_Death(), target.Center, Vector2.Zero, ModContent.ProjectileType<SereneShock>(),
-                Projectile.damage / 2, 4, Projectile.owner, target.whoAmI);
+        VisualSystem.SpawnDustCircle(Projectile.Center, ModContent.DustType<GlowFastDecelerate>(), 6, 0.4f, scale: 0.6f, color: Color.LawnGreen);
     }
 }

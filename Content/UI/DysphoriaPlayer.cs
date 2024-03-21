@@ -5,7 +5,7 @@ namespace DartGunsPlus.Content.UI;
 
 public class DysphoriaPlayer : ModPlayer
 {
-    private const int DefaultDysphoriaMax = 3; // Default maximum value of example resource
+    private const int DysphoriaMax = 3; // Default maximum value of example resource
     private int _dysphoriaMax; // Buffer variable that is used to reset maximum resource to default value in ResetDefaults().
 
     // Here we create a custom resource, similar to mana or health.
@@ -15,7 +15,7 @@ public class DysphoriaPlayer : ModPlayer
 
     public override void Initialize()
     {
-        _dysphoriaMax = DefaultDysphoriaMax;
+        _dysphoriaMax = DysphoriaMax;
     }
 
     public override void ResetEffects()

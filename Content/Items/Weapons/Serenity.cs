@@ -1,3 +1,4 @@
+using System;
 using DartGunsPlus.Content.Projectiles;
 using DartGunsPlus.Content.UI;
 using Microsoft.Xna.Framework;
@@ -41,8 +42,10 @@ public class Serenity : ModItem
         };
         ParticleOrchestrator.SpawnParticlesDirect(ParticleOrchestraType.TerraBlade, settings);
 
-        Projectile.NewProjectile(source, position, velocity, type, damage, knockback, player.whoAmI, ai2: _shootCount);
+        if (player.altFunctionUse != 2 || player.ownedProjectileCounts[ModContent.ProjectileType<TerraBoom>()] <= 0)
+            Projectile.NewProjectile(source, position, velocity, type, damage, knockback, player.whoAmI, ai2: _shootCount);
         _shootCount++;
+
         return false;
     }
 
@@ -64,6 +67,28 @@ public class Serenity : ModItem
 
             SerenityPlayer serenityPlayer = player.GetModPlayer<SerenityPlayer>();
             serenityPlayer.SerenityCurrent++;
+
+            if (player.ownedProjectileCounts[ModContent.ProjectileType<TerraBoom>()] > 0)
+            {
+                foreach (Projectile proj in Main.projectile.AsSpan(0, Main.maxProjectiles))
+                {
+                    if (proj.active && proj.type == ModContent.ProjectileType<TerraBoom>() && proj.owner == player.whoAmI && proj.ai[1] != 0)
+                    {
+                        NPC target = Main.npc[(int)proj.ai[0]];
+
+                        for (int i = 0; i < 4; i++)
+                        {
+                            Vector2 spawnPos = target.Center + new Vector2(200, 0).RotatedByRandom(Math.Tau);
+                            Vector2 spawnVelocity = spawnPos.DirectionTo(target.Center) * 8;
+
+                            Projectile.NewProjectile(proj.GetSource_FromAI(), spawnPos, spawnVelocity, ModContent.ProjectileType<TerraSlash>(), proj.damage * 2,
+                                3, proj.owner, ai1: 1);
+                        
+                            proj.localAI[1] = 1; // retreat
+                        }
+                    }
+                }
+            }
         }
     }
 

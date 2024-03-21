@@ -5,7 +5,7 @@ namespace DartGunsPlus.Content.UI;
 
 public class FrostPlayer : ModPlayer
 {
-    private const int DefaultFrostMax = 10; // Default maximum value of example resource
+    private const int FrostMax = 10; // Default maximum value of example resource
     private int _frostMax; // Buffer variable that is used to reset maximum resource to default value in ResetDefaults().
 
     // Here we create a custom resource, similar to mana or health.
@@ -15,7 +15,7 @@ public class FrostPlayer : ModPlayer
 
     public override void Initialize()
     {
-        _frostMax = DefaultFrostMax;
+        _frostMax = FrostMax;
     }
 
     public override void ResetEffects()

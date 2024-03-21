@@ -5,7 +5,7 @@ namespace DartGunsPlus.Content.UI;
 
 public class SerenityPlayer : ModPlayer
 {
-    private const int DefaultSerenityMax = 3; // Default maximum value of example resource
+    private const int SerenityMax = 3; // Default maximum value of example resource
     private int _serenityMax; // Buffer variable that is used to reset maximum resource to default value in ResetDefaults().
 
     // Here we create a custom resource, similar to mana or health.
@@ -15,7 +15,7 @@ public class SerenityPlayer : ModPlayer
 
     public override void Initialize()
     {
-        _serenityMax = DefaultSerenityMax;
+        _serenityMax = SerenityMax;
     }
 
     public override void ResetEffects()

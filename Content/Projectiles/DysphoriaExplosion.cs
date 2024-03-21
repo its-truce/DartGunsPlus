@@ -88,7 +88,8 @@ public class DysphoriaExplosion : ModProjectile
 
     public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
     {
-        target.velocity.Y -= 10;
+        if (target.CanBeChasedBy())
+            target.velocity.Y -= 10;
     }
 
     public override void PostDraw(Color lightColor)

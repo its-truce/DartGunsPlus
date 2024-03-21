@@ -19,10 +19,10 @@ public class DartTrailProjectile : GlobalProjectile
         ModContent.ProjectileType<HalloweenJack>(), ModContent.ProjectileType<Explosion>(), ModContent.ProjectileType<Icicle>(),
         ModContent.ProjectileType<FreezeBolt>(), ModContent.ProjectileType<DysphoriaBolt>(), ModContent.ProjectileType<DysphoriaBoom>(),
         ModContent.ProjectileType<DysphoriaExplosion>(), ModContent.ProjectileType<DysphoriaNail>(), ModContent.ProjectileType<SereneBolt>(),
-        ModContent.ProjectileType<SereneShock>(), ModContent.ProjectileType<TerraBoom>(), ModContent.ProjectileType<EmpressLaser>(),
-        ModContent.ProjectileType<EmpressBolt>(), ModContent.ProjectileType<LilEmpress>(), ModContent.ProjectileType<LaserLightning>(),
-        ModContent.ProjectileType<HomingLightning>(), ModContent.ProjectileType<EuphoriaBoom>(), ModContent.ProjectileType<ShotgunMusket>(),
-        ModContent.ProjectileType<LuminiteStrike>(), ModContent.ProjectileType<Hook>()
+        ModContent.ProjectileType<TerraBoom>(), ModContent.ProjectileType<EmpressLaser>(), ModContent.ProjectileType<EmpressBolt>(), 
+        ModContent.ProjectileType<LilEmpress>(), ModContent.ProjectileType<LaserLightning>(), ModContent.ProjectileType<HomingLightning>(),
+        ModContent.ProjectileType<EuphoriaBoom>(), ModContent.ProjectileType<ShotgunMusket>(), ModContent.ProjectileType<LuminiteStrike>(),
+        ModContent.ProjectileType<Hook>()
     };
 
     private readonly int[] _validItems =
@@ -138,8 +138,8 @@ public class DartTrailProjectile : GlobalProjectile
             finalColor.A = 0; //acts like additive blending without spritebatch stuff
             float scaleFactor = defaultScale - k * 0.02f;
             if (_validItems.Contains(_itemType) && !_excludedProjectiles.Contains(projectile.type))
-                Main.EntitySpriteDraw(texture, lerpedPos, null, finalColor, projectile.rotation, texture.Size() / 2,
-                    scaleFactor, SpriteEffects.None);
+                Main.EntitySpriteDraw(texture, lerpedPos, null, finalColor, projectile.rotation, texture.Size() / 2, 
+                    projectile.scale * scaleFactor, SpriteEffects.None);
         }
 
         return true;

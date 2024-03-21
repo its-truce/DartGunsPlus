@@ -5,7 +5,7 @@ namespace DartGunsPlus.Content.UI;
 
 public class MartianPlayer : ModPlayer
 {
-    private const int DefaultMartianMax = 10; // Default maximum value of example resource
+    private const int MartianMax = 10; // Default maximum value of example resource
     private int _martianMax; // Buffer variable that is used to reset maximum resource to default value in ResetDefaults().
 
     // Here we create a custom resource, similar to mana or health.
@@ -15,7 +15,7 @@ public class MartianPlayer : ModPlayer
 
     public override void Initialize()
     {
-        _martianMax = DefaultMartianMax;
+        _martianMax = MartianMax;
     }
 
     public override void ResetEffects()

@@ -31,7 +31,7 @@ public static class VisualSystem
         {
             Dust dust1 = Dust.NewDustDirect(PositionOffset(position, velocity, 20), 0, 0, dust, newColor: color, Scale: scale);
             dust1.noGravity = true;
-            dust1.position += Main.rand.NextVector2CircularEdge(5, 3.5f).RotatedBy(velocity.ToRotation() + MathHelper.PiOver2) * 2;
+            dust1.position += Main.rand.NextVector2CircularEdge(7.15f, 5f).RotatedBy(velocity.ToRotation() + MathHelper.PiOver2) * 2;
             dust1.velocity = velocity * .5f;
             dust1.fadeIn = 1f;
         }

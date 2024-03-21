@@ -442,6 +442,7 @@ Projectiles: {
 	TerraBolt.DisplayName: Terra Bolt
 	TerraSpin.DisplayName: Terra Spin
 	TerraRay.DisplayName: Terra Ray
+	TerraSlash.DisplayName: Terra Slash
 }
 
 Buffs: {

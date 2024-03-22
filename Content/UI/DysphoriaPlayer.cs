@@ -1,11 +1,12 @@
-﻿using Terraria;
+﻿using DartGunsPlus.Content.Projectiles;
+using Terraria;
 using Terraria.ModLoader;
 
 namespace DartGunsPlus.Content.UI;
 
 public class DysphoriaPlayer : ModPlayer
 {
-    private const int DysphoriaMax = 3; // Default maximum value of example resource
+    private const int DysphoriaMax = 900; // Default maximum value of example resource
     private int _dysphoriaMax; // Buffer variable that is used to reset maximum resource to default value in ResetDefaults().
 
     // Here we create a custom resource, similar to mana or health.
@@ -31,6 +32,9 @@ public class DysphoriaPlayer : ModPlayer
     private void ResetVariables()
     {
         DysphoriaMax2 = _dysphoriaMax;
+        
+        if (DysphoriaCurrent < DysphoriaMax2 && Player.ownedProjectileCounts[ModContent.ProjectileType<DysphoriaMagnet>()] <= 0)
+            DysphoriaCurrent++;
     }
 
     public override void PostUpdateMiscEffects()
@@ -50,6 +54,10 @@ public class DysphoriaPlayer : ModPlayer
 
     private void CapResourceGodMode()
     {
-        if (Main.myPlayer == Player.whoAmI && Player.creativeGodMode) DysphoriaCurrent = DysphoriaMax2;
+        if (Main.myPlayer == Player.whoAmI && Player.creativeGodMode) 
+            DysphoriaCurrent = DysphoriaMax2;
+        
+        if (DysphoriaCurrent < DysphoriaMax2 && Player.ownedProjectileCounts[ModContent.ProjectileType<DysphoriaMagnet>()] <= 0)
+            DysphoriaCurrent++;
     }
 }

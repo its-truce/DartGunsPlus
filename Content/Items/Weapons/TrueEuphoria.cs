@@ -35,17 +35,18 @@ public class TrueEuphoria : ModItem
 
     public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
     {
-        ParticleOrchestraSettings settings = new()
+        if (player.altFunctionUse != 2 || player.ownedProjectileCounts[ModContent.ProjectileType<TerraBoom>()] <= 0)
         {
-            PositionInWorld = position,
-            MovementVector = Vector2.Zero,
-            IndexOfPlayerWhoInvokedThis = (byte)player.whoAmI
-        };
-        ParticleOrchestrator.SpawnParticlesDirect(ParticleOrchestraType.Excalibur, settings);
-
-        EuphoriaPlayer euphoriaPlayer = player.GetModPlayer<EuphoriaPlayer>();
-        Projectile.NewProjectile(source, position, velocity, type, damage, knockback, player.whoAmI,
-            type == ModContent.ProjectileType<EuphoriaBoom>() ? 10 + euphoriaPlayer.EuphoriaCurrent * 20 : 0, 0, _shootCount);
+            ParticleOrchestraSettings settings = new()
+            {
+                PositionInWorld = position,
+                MovementVector = Vector2.Zero,
+                IndexOfPlayerWhoInvokedThis = (byte)player.whoAmI
+            };
+            ParticleOrchestrator.SpawnParticlesDirect(ParticleOrchestraType.Excalibur, settings);
+        
+            Projectile.NewProjectile(source, position, velocity, type, damage, knockback, player.whoAmI,ai2: _shootCount);
+        }
 
         _shootCount++;
         _initialItemRot = player.itemRotation;
@@ -62,39 +63,20 @@ public class TrueEuphoria : ModItem
             position.Y--;
         }
 
-        if (Item.shoot == ModContent.ProjectileType<EuphoriaBoom>())
-        {
-            EuphoriaPlayer euphoriaPlayer = player.GetModPlayer<EuphoriaPlayer>();
-            type = ModContent.ProjectileType<EuphoriaBoom>();
-            damage += euphoriaPlayer.EuphoriaCurrent * 20;
-            knockback *= 1.5f;
-            velocity *= 0.9f;
-            Item.shoot = ProjectileID.PurificationPowder;
-        }
-    }
-
-    public override bool CanUseItem(Player player)
-    {
         if (player.altFunctionUse == 2)
         {
-            if (player.ownedProjectileCounts[ModContent.ProjectileType<RevolvingSword>()] == 0)
+            EuphoriaPlayer euphoriaPlayer = player.GetModPlayer<EuphoriaPlayer>();
+            
+            if (euphoriaPlayer.EuphoriaCurrent == euphoriaPlayer.EuphoriaMax2)
             {
-                EuphoriaPlayer euphoriaPlayer = player.GetModPlayer<EuphoriaPlayer>();
-                if (euphoriaPlayer.EuphoriaCurrent < 3)
-                    euphoriaPlayer.EuphoriaCurrent++;
-                Item.shoot = ModContent.ProjectileType<EuphoriaBoom>();
-                Item.reuseDelay = 30;
+                type = ModContent.ProjectileType<EuphoriaBoom>();
+                damage *= 2;
+                velocity *= 0.8f;
+                euphoriaPlayer.EuphoriaCurrent = 0;
             }
             else
-            {
-                PopupSystem.PopUp("Swords already deployed!", new Color(255, 255, 200), player.Center - new Vector2(0, 70));
-            }
-
-            return false;
+                PopupSystem.PopUp("Not enough energy!", new Color(255, 255, 200), player.Center - new Vector2(0, 50));
         }
-
-        Item.reuseDelay = 0;
-        return base.CanUseItem(player);
     }
 
     public override Vector2? HoldoutOffset()
@@ -104,7 +86,7 @@ public class TrueEuphoria : ModItem
 
     public override void UseStyle(Player player, Rectangle heldItemFrame)
     {
-        if (player.ownedProjectileCounts[ModContent.ProjectileType<EuphoriaBoom>()] > 0)
+        if (player.ownedProjectileCounts[ModContent.ProjectileType<RevolvingSword>()] == 0 && player.altFunctionUse == 2)
             VisualSystem.RecoilAnimation(player, _initialItemRot, 20);
     }
 

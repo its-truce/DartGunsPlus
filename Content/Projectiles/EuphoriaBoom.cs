@@ -1,4 +1,3 @@
-using DartGunsPlus.Content.UI;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Terraria;
@@ -12,8 +11,6 @@ namespace DartGunsPlus.Content.Projectiles;
 public class EuphoriaBoom : ModProjectile
 {
     public override string Texture => "DartGunsPlus/Content/Projectiles/EmptyTexture";
-    private ref float TimeLeft => ref Projectile.ai[0];
-    private Player Owner => Main.player[Projectile.owner];
 
     public override void SetStaticDefaults()
     {
@@ -73,10 +70,6 @@ public class EuphoriaBoom : ModProjectile
     {
         for (int k = 0; k < Projectile.oldPos.Length; k++)
             Projectile.oldPos[k] = Projectile.position;
-
-        EuphoriaPlayer euphoriaPlayer = Owner.GetModPlayer<EuphoriaPlayer>();
-        Projectile.timeLeft = (int)TimeLeft;
-        euphoriaPlayer.EuphoriaCurrent = 0;
     }
 
     public override Color? GetAlpha(Color lightColor)

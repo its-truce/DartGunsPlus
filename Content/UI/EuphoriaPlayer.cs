@@ -1,11 +1,12 @@
-﻿using Terraria;
+﻿using DartGunsPlus.Content.Projectiles;
+using Terraria;
 using Terraria.ModLoader;
 
 namespace DartGunsPlus.Content.UI;
 
 public class EuphoriaPlayer : ModPlayer
 {
-    private const int EuphoriaMax = 3; // Default maximum value of example resource
+    private const int EuphoriaMax = 900; // Default maximum value of example resource
     private int _euphoriaMax; // Buffer variable that is used to reset maximum resource to default value in ResetDefaults().
 
     // Here we create a custom resource, similar to mana or health.
@@ -51,5 +52,8 @@ public class EuphoriaPlayer : ModPlayer
     private void CapResourceGodMode()
     {
         if (Main.myPlayer == Player.whoAmI && Player.creativeGodMode) EuphoriaCurrent = EuphoriaMax2;
+        
+        if (EuphoriaCurrent < EuphoriaMax2 && Player.ownedProjectileCounts[ModContent.ProjectileType<RevolvingSword>()] <= 0)
+            EuphoriaCurrent++;
     }
 }

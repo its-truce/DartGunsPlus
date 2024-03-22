@@ -13,6 +13,7 @@ namespace DartGunsPlus.Content.Items.Weapons;
 
 public class Serenity : ModItem
 {
+    private float _initialItemRot;
     private int _shootCount;
 
     public override void SetDefaults()
@@ -48,6 +49,7 @@ public class Serenity : ModItem
         }
         
         _shootCount++;
+        _initialItemRot = player.itemRotation;
         return false;
     }
 
@@ -94,15 +96,19 @@ public class Serenity : ModItem
                 serenityPlayer.SerenityCurrent = 0;
             }
             else
-            {
                 PopupSystem.PopUp("Not enough energy!", Color.ForestGreen, player.Center - new Vector2(0, 50));
-            }
         }
     }
 
     public override Vector2? HoldoutOffset()
     {
         return new Vector2(-2f, -2f);
+    }
+    
+    public override void UseStyle(Player player, Rectangle heldItemFrame)
+    {
+        if (player.ownedProjectileCounts[ModContent.ProjectileType<TerraBoom>()] == 0 && player.altFunctionUse == 2)
+            VisualSystem.RecoilAnimation(player, _initialItemRot, 20);
     }
 
     public override void AddRecipes()

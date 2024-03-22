@@ -1,5 +1,4 @@
 using System;
-using DartGunsPlus.Content.UI;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Terraria;
@@ -14,8 +13,6 @@ public class DysphoriaBoom : ModProjectile
 {
     private readonly Color _color = Color.Lerp(new Color(185, 133, 240), new Color(55, 224, 112), Main.masterColor) * 0.4f;
     public override string Texture => "DartGunsPlus/Content/Projectiles/EmptyTexture";
-    private ref float TimeLeft => ref Projectile.ai[0];
-    private Player Owner => Main.player[Projectile.owner];
 
     public override void SetStaticDefaults()
     {
@@ -31,7 +28,7 @@ public class DysphoriaBoom : ModProjectile
         Projectile.aiStyle = -1;
         Projectile.friendly = true;
         Projectile.penetrate = 1;
-        Projectile.timeLeft = 30;
+        Projectile.timeLeft = 600;
         Projectile.DamageType = DamageClass.Ranged;
         Projectile.extraUpdates = 1;
     }
@@ -77,10 +74,6 @@ public class DysphoriaBoom : ModProjectile
     {
         for (int k = 0; k < Projectile.oldPos.Length; k++)
             Projectile.oldPos[k] = Projectile.position;
-
-        DysphoriaPlayer dysphoriaPlayer = Owner.GetModPlayer<DysphoriaPlayer>();
-        Projectile.timeLeft = (int)TimeLeft;
-        dysphoriaPlayer.DysphoriaCurrent = 0;
     }
 
     public override void AI()

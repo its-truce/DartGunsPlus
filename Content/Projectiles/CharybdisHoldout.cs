@@ -109,10 +109,9 @@ public class CharybdisHoldout : ModProjectile
             if (!Owner.noItems && !Owner.CCed && Owner.channel && Owner.PickAmmo(Owner.HeldItem, out int projToShoot, out float speed, out int damage,
                     out float knockback, out int ammoItemId, true))
             {
-                // Resharper disable All
                 int projType = projToShoot;
                 if (Main.rand.NextBool(3))
-                    projType = ModContent.ProjectileType<VortexBeam>(); // Resharper restore All
+                    projType = ModContent.ProjectileType<VortexBeam>();
 
                 const int numProjectiles = 7;
 
@@ -125,8 +124,7 @@ public class CharybdisHoldout : ModProjectile
                     projectileVelocity = projectileVelocity.RotatedBy(Main.rand.NextDouble() * 0.19634954631328583 - 0.09817477315664291);
 
                     Projectile.NewProjectile(Owner.GetSource_ItemUse_WithPotentialAmmo(Owner.HeldItem, ammoItemId), projectilePosition, projectileVelocity, projType,
-                        damage,
-                        knockback, Projectile.owner);
+                        damage, knockback, Projectile.owner);
 
                     if (Main.rand.NextBool(1, 5))
                         Owner.PickAmmo(Owner.HeldItem, out int _, out float _, out int _, out float _,
@@ -134,9 +132,7 @@ public class CharybdisHoldout : ModProjectile
                 }
             }
             else
-            {
                 Projectile.Kill();
-            }
         }
     }
 }

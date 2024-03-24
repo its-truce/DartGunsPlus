@@ -434,12 +434,14 @@ public class OnHitProjectile : GlobalProjectile
         else if (_itemType == ModContent.ItemType<Sporeflinger>() && projectile.type != ModContent.ProjectileType<BouncingShroom>())
         {
             if (Main.rand.NextBool(4))
+            {
                 for (int i = 0; i < 3; i++)
                 {
                     Vector2 spawnPos = target.Center + new Vector2(100, 100).RotatedBy(i * 90);
                     Projectile.NewProjectile(projectile.GetSource_OnHit(target), spawnPos, spawnPos.DirectionTo(target.Center) * 5,
                         ModContent.ProjectileType<BouncingShroom>(), projectile.damage / 4, 3, projectile.owner);
                 }
+            }
         }
 
         else if (_itemType == ModContent.ItemType<GoreNGlory>())

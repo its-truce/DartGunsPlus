@@ -44,6 +44,8 @@ public class MeteorDartProj : DartProjectile
 {
     public override string Texture => "DartGunsPlus/Content/Items/Ammo/MeteorDart";
     protected override float GravityDecreaseY => 0;
+    protected override float GravityDecreaseX => 0.02f;
+    protected override int GravityDelay => 60;
 
     public override void SetDefaults()
     {
@@ -73,7 +75,7 @@ public class MeteorDartProj : DartProjectile
 
         if (Main.rand.NextBool(2))
         {
-            Vector2 spawnPos = Projectile.Center - new Vector2(Main.rand.Next(-300, 300), 600);
+            Vector2 spawnPos = Projectile.Center - new Vector2(Main.rand.Next(-300, 300), 450);
             Projectile.NewProjectile(Projectile.GetSource_FromThis(), spawnPos, spawnPos.DirectionTo(Projectile.Center) * 14,
                 ModContent.ProjectileType<Meteor>(), Projectile.damage, 5, Projectile.owner, spawnPos.X, spawnPos.Y);
         }

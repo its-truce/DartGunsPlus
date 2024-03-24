@@ -73,7 +73,7 @@ public class EuphoriaSlash : ModProjectile
 
     public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
     {
-        if (Main.rand.NextBool(3))
+        if (Main.rand.NextBool(2))
         {
             Vector2 spawnPos = target.Center + new Vector2(120, 0).RotatedByRandom(Math.Tau);
             Projectile.NewProjectile(Projectile.GetSource_OnHit(target), spawnPos, spawnPos.DirectionTo(target.Center) * 9, Projectile.type,

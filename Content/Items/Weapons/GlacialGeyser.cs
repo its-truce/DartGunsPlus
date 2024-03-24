@@ -45,6 +45,21 @@ public class GlacialGeyser : ModItem
             velocity *= 0.2f;
             damage *= 2;
             _freezeBoltCount++;
+        }
+
+        if (_freezeBoltCount == 5)
+        {
+            _freezeBoltCount = 0;
+            frostPlayer.FrostCurrent = 0;
+        }
+    }
+
+    public override bool CanUseItem(Player player)
+    {
+        FrostPlayer frostPlayer = player.GetModPlayer<FrostPlayer>();
+
+        if (frostPlayer.FrostCurrent == 10)
+        {
             Item.UseSound = SoundID.DD2_DarkMageCastHeal;
             Item.useTime = 40;
             Item.useAnimation = 40;
@@ -52,12 +67,12 @@ public class GlacialGeyser : ModItem
 
         if (_freezeBoltCount == 5)
         {
-            _freezeBoltCount = 0;
-            frostPlayer.FrostCurrent = 0;
             Item.UseSound = AudioSystem.ReturnSound("dart", 0.3f);
             Item.useTime = 18;
             Item.useAnimation = 18;
         }
+        
+        return base.CanUseItem(player);
     }
 
     public override Vector2? HoldoutOffset()

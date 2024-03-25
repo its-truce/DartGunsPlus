@@ -17,8 +17,8 @@ public class ReflectiveCoating : ModItem
         Item.height = 26;
         Item.maxStack = 1;
         Item.accessory = true;
-        Item.value = Item.sellPrice(gold: 6);
-        Item.rare = ItemRarityID.Pink;
+        Item.value = Item.sellPrice(gold: 1);
+        Item.rare = ItemRarityID.Blue;
     }
 
     public override void UpdateAccessory(Player player, bool hideVisual)
@@ -28,6 +28,15 @@ public class ReflectiveCoating : ModItem
         accessoryPlayer.HasShield = true;
         Projectile.NewProjectile(player.GetSource_Accessory(Item), player.Center, Vector2.Zero, ModContent.ProjectileType<Shield>(), 0, 0,
             player.whoAmI);
+    }
+
+    public override void AddRecipes()
+    {
+        CreateRecipe()
+            .AddIngredient(ItemID.ShimmerBlock, 10)
+            .AddIngredient(ItemID.Lens, 6)
+            .AddTile(TileID.Anvils)
+            .Register();
     }
 }
 

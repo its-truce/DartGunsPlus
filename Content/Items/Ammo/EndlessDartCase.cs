@@ -1,5 +1,6 @@
 using Terraria.ID;
 using Terraria.ModLoader;
+using Terraria;
 
 namespace DartGunsPlus.Content.Items.Ammo;
 
@@ -13,6 +14,7 @@ public class EndlessDartCase : ModItem
         Item.consumable = false;
         Item.maxStack = 1;
         Item.rare = ItemRarityID.Green;
+        Item.value = Item.sellPrice(gold: 1);
     }
 
     public override void AddRecipes()

@@ -16,8 +16,8 @@ public class SeekersSpyglass : ModItem
         Item.height = 28;
         Item.maxStack = 1;
         Item.accessory = true;
-        Item.value = Item.sellPrice(gold: 7);
-        Item.rare = ItemRarityID.Yellow;
+        Item.value = Item.sellPrice(gold: 2, silver: 67);
+        Item.rare = ItemRarityID.Pink;
     }
 
     public override void UpdateAccessory(Player player, bool hideVisual)

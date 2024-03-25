@@ -15,8 +15,17 @@ public class TranquilizerAttachment : ModItem
         Item.height = 38;
         Item.maxStack = 1;
         Item.accessory = true;
-        Item.value = Item.sellPrice(gold: 5);
+        Item.value = Item.sellPrice(gold: 2, silver: 25);
         Item.rare = ItemRarityID.Pink;
+    }
+
+    public override void AddRecipes()
+    {
+        CreateRecipe()
+            .AddIngredient(ItemID.Stinger, 5)
+            .AddIngredient(ItemID.HallowedBar, 5)
+            .AddTile(TileID.MythrilAnvil)
+            .Register();
     }
 
     public override void UpdateAccessory(Player player, bool hideVisual)

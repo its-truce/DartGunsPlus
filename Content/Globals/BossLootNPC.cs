@@ -1,3 +1,4 @@
+using DartGunsPlus.Content.Items.Accessories;
 using DartGunsPlus.Content.Items.Weapons;
 using Terraria;
 using Terraria.GameContent.ItemDropRules;
@@ -30,6 +31,7 @@ public class BossLootItem : GlobalItem
 
             case ItemID.MoonLordBossBag:
                 itemLoot.Add(ItemDropRule.Common(ModContent.ItemType<LaserTherapy>(), 3));
+                itemLoot.Add(ItemDropRule.Common(ModContent.ItemType<StellarOutrage>(), 3));
                 break;
 
             case ItemID.SkeletronPrimeBossBag:
@@ -42,6 +44,10 @@ public class BossLootItem : GlobalItem
 
             case ItemID.WallOfFleshBossBag:
                 itemLoot.Add(ItemDropRule.Common(ModContent.ItemType<GoreNGlory>(), 2));
+                break;
+            
+            case ItemID.TwinsBossBag:
+                itemLoot.Add(ItemDropRule.Common(ModContent.ItemType<SeekersSpyglass>()));
                 break;
         }
     }

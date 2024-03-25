@@ -16,13 +16,22 @@ public class AltitudeAnnihilator : ModItem
         Item.height = 32;
         Item.maxStack = 1;
         Item.accessory = true;
-        Item.value = Item.sellPrice(gold: 2);
+        Item.value = Item.sellPrice(gold: 1, silver: 67);
         Item.rare = ItemRarityID.Orange;
     }
 
     public override void UpdateAccessory(Player player, bool hideVisual)
     {
         player.GetModPlayer<AccessoryPlayer>().HasKite = true;
+    }
+
+    public override void AddRecipes()
+    {
+        CreateRecipe()
+            .AddIngredient(ItemID.SoulofFlight, 5)
+            .AddRecipeGroup(RecipeGroupID.Balloons)
+            .AddTile(TileID.MythrilAnvil)
+            .Register();
     }
 }
 

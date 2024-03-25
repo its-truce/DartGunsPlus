@@ -12,7 +12,8 @@ public class DartLicense : ModItem
         Item.height = 24;
         Item.maxStack = 1;
         Item.accessory = true;
-        Item.value = Item.sellPrice(gold: 2);
+        Item.value = Item.sellPrice(gold: 1, silver: 50);
+        Item.rare = ItemRarityID.Orange;
     }
 
     public override void UpdateAccessory(Player player, bool hideVisual)

@@ -332,7 +332,11 @@ Items: {
 
 	SeekersSpyglass: {
 		DisplayName: Seeker's Spyglass
-		Tooltip: ""
+		Tooltip:
+			'''
+			[c/FF1B05:Weak-points] appear on nearby enemies.
+			Shoot these weak-points to deal 250% damage and 150% knockback.
+			'''
 	}
 
 	HeavenlyDart: {
@@ -360,7 +364,7 @@ Items: {
 			'''
 			Shoots five darts in a burst. Darts have a chance to be replaced by [c/E0D877:Large Stars].
 			These stars spawn trails of damaging stars while travelling.
-			Chance to spawn [c:/Stellar Slashes] on star hits.
+			Chance to spawn [c:FFA8D5/Stellar Slashes] on star hits.
 			Chance to spawn large stars on hit from above on all hits.
 			'''
 	}
@@ -371,7 +375,7 @@ Items: {
 			'''
 			Spawns a damaging [c/5569B5:Rune] around you while holding this weapon.
 			Various dart guns from your journey revolve you around and shoot when you do.
-			Damage scales based on [i:486] [c/FFD422:distance] from the target, you deal more damage the closer you are.
+			Damage scales based on distance from the target; you deal more damage the closer you are.
 			[Multiplier ranges from [c/FF2222:0.6 times] damage to [c/22FF3D:1.5 times] damage]
 			'''
 	}
@@ -392,22 +396,41 @@ Items: {
 
 	AltitudeAnnihilator: {
 		DisplayName: Altitude Annihilator
-		Tooltip: ""
+		Tooltip: 25% increased damage and 33% increased knockback if you are above your target.
 	}
 
 	ReflectiveCoating: {
 		DisplayName: Reflective Coating
-		Tooltip: ""
+		Tooltip:
+			'''
+			Hit hostile projectiles with darts in an area around you to deflect them.
+			Has a short cooldown.
+			'''
 	}
 
 	Scylla: {
 		DisplayName: Scylla
-		Tooltip: ""
+		Tooltip:
+			'''
+			Shoots a random spread of seven to nine darts.
+			Darts are sometimes replaced by [c/00F0BC:Vortex Beams].
+			<right> to shoot out a controllable [c/00F088:Hook] (you can move while the hook is out).
+			<right> again while the hook is out to retract it preemptively.
+			Pulls in small enemies to you and pulls you towards large enemies on hit.
+			Automatically fires a round when you reach the hooked enemy.
+			'''
 	}
 
 	TranquilizerAttachment: {
 		DisplayName: Tranquilizer Attachment
-		Tooltip: ""
+		Tooltip:
+			'''
+			Chance to inflict [c/62B340:Tranquilized] debuff on hit.
+			This debuff slows down enemies significantly and poisons them.
+			Duration scales based on the fraction of health of the enemy.
+			Max duration is 1.5 seconds at full health.
+			Less effective on bosses.
+			'''
 	}
 }
 

@@ -132,8 +132,7 @@ public class Hook : ModProjectile
     public override bool PreDraw(ref Color lightColor)
     {
         Texture2D chainTexture = ModContent.Request<Texture2D>("DartGunsPlus/Content/Projectiles/HookChain").Value;
-        Color color = Color.Turquoise;
-        color.A = 0;
+        Color color = new Color(0, 240, 136, 0);
         VisualSystem.DrawLine(Main.spriteBatch, chainTexture, Projectile.Center, _startLocation, color * Projectile.Opacity);
         return true;
     }

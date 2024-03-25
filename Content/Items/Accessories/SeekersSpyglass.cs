@@ -1,4 +1,5 @@
 using System;
+using DartGunsPlus.Content.Systems;
 using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.DataStructures;
@@ -46,13 +47,12 @@ public class SpyglassProjectile : GlobalProjectile
 
         foreach (Projectile proj in Main.projectile.AsSpan(0, Main.maxProjectiles))
         {
-            Rectangle hitbox = new((int)proj.position.X - proj.width, (int)proj.position.Y - proj.height, proj.width * 2, proj.height * 2);
-
-            if (proj.active && proj.type == ModContent.ProjectileType<TargetCircle>() && proj.owner == projectile.owner && hitbox.Intersects(projectile.Hitbox) &&
+            if (proj.active && proj.type == ModContent.ProjectileType<TargetCircle>() && proj.owner == projectile.owner && proj.Hitbox.Intersects(projectile.Hitbox) &&
                 proj.ai[0] == target.whoAmI)
             {
                 modifiers.FinalDamage *= 2.5f;
                 modifiers.Knockback *= 1.5f;
+                PopupSystem.PopUp("Weakpoint!", Color.Red, proj.Center - new Vector2(0, 30));
             }
         }
     }

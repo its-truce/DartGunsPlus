@@ -43,9 +43,6 @@ public class StyxProjectile : GlobalProjectile
                 break;
 
             case EntitySource_Misc { Context: "styx" }:
-                projectile.usesLocalNPCImmunity = true;
-                projectile.localNPCHitCooldown = 1;
-                projectile.penetrate = 1;
                 projectile.tileCollide = false;
                 break;
         }
@@ -58,15 +55,18 @@ public class StyxProjectile : GlobalProjectile
 
         var distanceMultipliers = new Dictionary<float, float>
         {
-            { 100f, 1.8f },
-            { 200f, 1.5f },
-            { 1600f, 0.8f },
-            { 3200f, 0.6f }
+            { 100f, 1.5f },
+            { 400f, 1.2f },
+            { 2400f, 0.8f },
+            { 3800f, 0.6f }
         };
 
         foreach (float threshold in distanceMultipliers.Keys.OrderByDescending(d => d))
+        {
             if (distance < threshold)
-                modifiers.SourceDamage *= distanceMultipliers[threshold];
+                modifiers.FinalDamage *= distanceMultipliers[threshold];
+        }
+
     }
 
     public override bool PreDraw(Projectile projectile, ref Color lightColor)

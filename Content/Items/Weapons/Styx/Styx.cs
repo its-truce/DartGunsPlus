@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using DartGunsPlus.Content.Dusts;
 using DartGunsPlus.Content.Projectiles;
 using DartGunsPlus.Content.Systems;
@@ -109,6 +110,17 @@ public class Styx : ModItem
         return new Vector2(-2f, -1f);
     }
 
+    public override void ModifyTooltips(List<TooltipLine> tooltips)
+    {
+        TooltipLine gunsTooltip = new TooltipLine(Mod, "DartGunsPlus: Styx Guns", 
+            $"Guns: [i:{ModContent.ItemType<Serenity>()}] [i:{ModContent.ItemType<LaserTherapy>()}] [i:{ModContent.ItemType<StellarOutrage>()}] " +
+            $"[i:{ModContent.ItemType<MartianMarksman>()}] [i:{ModContent.ItemType<HalloweenHex>()}] [i:{ModContent.ItemType<RosemaryThyme>()}] " +
+            $"[i:{ModContent.ItemType<StellarOutrage>()}] [i:{ModContent.ItemType<BumbleBarrage>()}] [i:{ModContent.ItemType<EnchantedDartcaster>()}] " +
+            $"[i:{ModContent.ItemType<DartZapper>()}]");
+        
+        tooltips.Add(gunsTooltip);
+    }
+
     public override bool PreDrawInInventory(SpriteBatch spriteBatch, Vector2 position, Rectangle frame, Color drawColor, Color itemColor, Vector2 origin, float scale)
     {
         Texture2D texture = TextureAssets.Item[Item.type].Value;
@@ -173,10 +185,7 @@ public class Styx : ModItem
     public override void OnCreated(ItemCreationContext context)
     {
         if (context is RecipeItemCreationContext)
-        {
             VisualSystem.SpawnDustCircle(Main.LocalPlayer.Center, ModContent.DustType<GlowFastDecelerate>(), 14, scale: 0.6f, color: Color.BlueViolet);
-            Main.NewText("do more stuff here");
-        }
     }
 
     public override void AddRecipes()

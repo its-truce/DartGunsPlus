@@ -1,12 +1,12 @@
 Items: {
 	VolatileContraption: {
 		DisplayName: Volatile Contraption
-		Tooltip: 
-		    '''
-		    Shoots darts followed by [c/DF3333:Mechanical Bombs] and a controllable and chargeable laser.
-		    These bombs explode into [c/DF3333:Mini Probes], [c/FF4E82:Mini Retinazer], and [c/4EFF70:Mini Spaz] on hit.
-		    The laser deals more damage at your cursor.
-		    '''
+		Tooltip:
+			'''
+			Shoots darts followed by [c/DF3333:Mechanical Bombs] and a controllable and chargeable laser.
+			These bombs explode into [c/DF3333:Mini Probes], [c/FF4E82:Mini Retinazer], and [c/4EFF70:Mini Spaz] on hit.
+			The laser deals more damage at your cursor.
+			'''
 	}
 
 	VioletVigilante: {
@@ -113,21 +113,21 @@ Items: {
 
 	ChlorophyteDart: {
 		DisplayName: Chlorophyte Dart
-		Tooltip: 
-		    '''
-		    Homes to nearby enemies and spawn [c/AFEB48:Spores] periodically.
-		    Chance to spawn three spores on hit.
-		    These spores home onto nearby enemies after a bit.
-		    '''
+		Tooltip:
+			'''
+			Homes to nearby enemies and spawn [c/AFEB48:Spores] periodically.
+			Chance to spawn three spores on hit.
+			These spores home onto nearby enemies after a bit.
+			'''
 	}
 
 	VenomDart: {
 		DisplayName: Venom Dart
-		Tooltip: 
-		    '''
-		    Inflicts [c/A062B3:Venom] on hit.
-		    Chance to spawn a cluster of three [c/A062B3:Venom Clouds] on hit.
-		    '''
+		Tooltip:
+			'''
+			Inflicts [c/A062B3:Venom] on hit.
+			Chance to spawn a cluster of three [c/A062B3:Venom Clouds] on hit.
+			'''
 	}
 
 	StellarFrenzy: {
@@ -138,22 +138,22 @@ Items: {
 	MeteorDart: {
 		DisplayName: Meteor Dart
 		Tooltip:
-		    '''
-		    Can either bounce from a block once or pierce through one enemy.
-		    Chance to spawn a meteor on above on hitting enemies or bouncing from blocks.
-		    '''
+			'''
+			Can either bounce from a block once or pierce through one enemy.
+			Chance to spawn a meteor on above on hitting enemies or bouncing from blocks.
+			'''
 	}
 
 	TrueEuphoria: {
 		DisplayName: True Euphoria
-		Tooltip: 
-		    '''
-		    Chance to spawn swords around the target on hit.
-		    Energy builds up over fifteen seconds which can be used to fire a special projectile by using <right>.
-		    On hitting an enemy, this projectile will spawn a web of lasers around the enemy, interconnected by [c/F7F78D:Revolving Swords].
-		    Hit the same enemy again to activate these lasers.
-		    When the lasers and swords disappear, an explosion occurs.
-		    '''
+		Tooltip:
+			'''
+			Chance to spawn swords around the target on hit.
+			Energy builds up over fifteen seconds which can be used to fire a special projectile by <right>ing.
+			On hitting an enemy, this projectile will spawn a web of lasers around the enemy, interconnected by [c/F7F78D:Revolving Swords].
+			Hit the same enemy again to activate these lasers.
+			When the lasers and swords disappear, an explosion occurs.
+			'''
 	}
 
 	DartZapper: {
@@ -168,12 +168,12 @@ Items: {
 
 	HighVelocityDart: {
 		DisplayName: High Velocity Dart
-		Tooltip: 
-		    '''
-		    Travels with incredibly high speeds.
-		    Chance to inflict [c/C5000A:Blood Butchered] on hit.
-		    Ricochets to nearby enemies on hit upto four times with decreased speed.
-		    '''
+		Tooltip:
+			'''
+			Travels with incredibly high speeds.
+			Chance to inflict [c/C5000A:Blood Butchered] on hit.
+			Ricochets to nearby enemies on hit upto four times with decreased speed.
+			'''
 	}
 
 	EndlessDartCase: {
@@ -188,11 +188,11 @@ Items: {
 
 	EnchantedDartcaster: {
 		DisplayName: Enchanted Dartcaster
-		Tooltip: 
-		    '''
-		    Converts darts to [c/436FDE:Enchanted Dart].
-		    Enchanted darts accelerate over time and spawn two more enchanted darts around the target on hit.
-		    '''
+		Tooltip:
+			'''
+			Converts darts to [c/436FDE:Enchanted Dart].
+			Enchanted darts accelerate over time and spawn two more enchanted darts around the target on hit.
+			'''
 	}
 
 	DartLicense: {
@@ -206,7 +206,7 @@ Items: {
 
 	MartianMarksman: {
 		DisplayName: Martian Marksman
-		Tooltip: Hit enemies to charge up up a powerful [c/61E1DD:Lightning Strike].
+		Tooltip: Hit enemies to charge up a powerful [c/61E1DD:Lightning Strike].
 	}
 
 	Gigakraken: {
@@ -217,43 +217,51 @@ Items: {
 	LuminiteDart: {
 		DisplayName: Luminite Dart
 		Tooltip:
-		    '''
-		    Chance to spawn three [c/88FFCC:Luminite Bolts] on death.
-		    Darts leave a damaging trail which persists for four seconds.
-		    '''
+			'''
+			Chance to spawn three [c/88FFCC:Luminite Bolts] on death.
+			Darts leave a damaging trail which persists for four seconds.
+			'''
 	}
 
 	CherryBlossom: {
 		DisplayName: Cherry Blossom
-		Tooltip: 
-		    '''
-		    Shoots a spread of three darts. 
-		    Every three hits, shoots [c/f990D2:Cherry Leaf] projectiles instead.
-		    These projectiles periodically spawn clusters of five pink pellets as they travel.
-		    '''
+		Tooltip:
+			'''
+			Shoots a spread of three darts. 
+			Every three hits, shoots [c/f990D2:Cherry Leaf] projectiles instead.
+			These projectiles periodically spawn clusters of five pink pellets as they travel.
+			'''
 	}
 
 	CrownCascade: {
 		DisplayName: Crown Cascade
-		Tooltip: 
-		    '''
-		    Shoots a random assortment of four to six sharkrons, bubbles, and darts.
-		    Spawns a [c/0698B4:Whirlpool] when you kill an enemy. Use <right> to teleport to it.
-		    If a whirlpool isn't present, you can use <right> to dash towards the cursor, damaging enemies on the way.
-		    '''
+		Tooltip:
+			'''
+			Shoots a random assortment of four to six sharkrons, bubbles, and darts.
+			Spawns a [c/0698B4:Whirlpool] when you kill an enemy. <right> to teleport to it.
+			If a whirlpool isn't present, you can <right> to dash towards the cursor, damaging enemies on the way.
+			'''
 	}
 
 	HalloweenHex: {
 		DisplayName: Halloween Hex
-		Tooltip: ""
+		Tooltip:
+			'''
+			Hit enemies to charge up various attacks.
+			Spawns a damaging [c/FE8C44:Ritual Aura] around you after five hits.
+			After ten hits, five [c/FE8C44:Jack o' Lanterns] start revolving around you.
+			On fifteen hits, these lanterns go to your cursor and explode.
+			'''
 	}
 
 	GlacialGeyser: {
 		DisplayName: Glacial Geyser
-		Tooltip: 
-		    '''
-		    
-		    '''
+		Tooltip:
+			'''
+			Chance to spawn [c/36A9E9:Icicles] from the ground on hit.
+			Hit enemies to charge up five powerful [c/36A9E9:Freeze Bolts].
+			The freeze bolts spawn fifteen icicles between you and their spot of death on hit.
+			'''
 	}
 
 	Dysphoria: {
@@ -263,66 +271,77 @@ Items: {
 
 	TrueDysphoria: {
 		DisplayName: True Dysphoria
-		Tooltip: 
-            '''
-            Chance to spawn four homing [c/8068CF:Dysphoric Bolts] around the target on hit.
-            Energy builds up over fifteen seconds which can be used to fire a special projectile by using <right>.
-            On hitting an enemy, this projectile will spawn a [c/52B884:Magnet] on the enemy.
-            While the magnet is active, green dysphoric bolts will spawn instead which will fly to the magnet.
-            When the magnet disappears, all the absorbed bolts are spewed outwards and an explosion occurs.
-            '''
+		Tooltip:
+			'''
+			Chance to spawn four homing [c/8068CF:Dysphoric Bolts] around the target on hit.
+			Energy builds up over fifteen seconds which can be used to fire a special projectile by <right>ing.
+			On hitting an enemy, this projectile will spawn a [c/52B884:Magnet] on the enemy.
+			While the magnet is active, green dysphoric bolts will spawn instead which will fly to the magnet.
+			When the magnet disappears, all the absorbed bolts are spewed outwards and an explosion occurs.
+			'''
 	}
 
 	Serenity: {
 		DisplayName: Serenity
-		Tooltip: ""
+		Tooltip:
+			'''
+			Chance to spawn two [c/22B14C:Serene Bolts] on hit that accelerate towards the nearest enemy.
+			Energy builds up over ten seconds which can be used to fire a special projectile by <right>ing.
+			Lightning bolts strike on the path of the projectile as it travels.
+			On hitting an enemy, this projectile will mark the enemy. [c/22B14C:Serene Slashes] will attack marked enemies periodically.
+			<right> again to recall the projectile, releasing a flurry of serene slashes.
+			'''
 	}
 
 	HarpyQuillstorm: {
 		DisplayName: Harpy Quillstorm
-		Tooltip: 
-		    '''
-		    Shoots [c/177FBA:Harpy Feathers] and darts alternately in a cone.
-		    The number of projectiles increase each shot from one to four.
-		    '''
+		Tooltip:
+			'''
+			Shoots [c/177FBA:Harpy Feathers] and darts alternately in a cone.
+			The number of projectiles increase each shot from one to four.
+			'''
 	}
 
 	Luminescence: {
 		DisplayName: Luminescence
-		Tooltip: 
-		    '''
-		    Chance to spawn a [c/95A3EC:Rainbow Bolt] on hit.
-		    Low chance to spawn a [c/FFAFF5:Little Empress] that revolves around you on hit.
-		    The little empresses fire lasers at your cursor periodically.
-		    '''
+		Tooltip:
+			'''
+			Chance to spawn a [c/95A3EC:Rainbow Bolt] on hit.
+			Low chance to spawn a [c/FFAFF5:Little Empress] that revolves around you on hit.
+			The little empresses fire lasers at your cursor periodically.
+			'''
 	}
 
 	Charybdis: {
 		DisplayName: Charybdis
-		Tooltip: 
-		    '''
-		    Builds up shooting speed as you fire.
-		    Darts are sometimes replaced by [c/00F0BC:Vortex Beams].
-		    '''
+		Tooltip:
+			'''
+			Builds up shooting speed as you fire.
+			Darts are sometimes replaced by [c/00F0BC:Vortex Beams].
+			'''
 	}
 
 	LaserTherapy: {
 		DisplayName: Laser Therapy
-		Tooltip: 
-		    '''
-		    Hit enemies to charge up up a powerful pink [c/FD0DB1:Lightning Strike].
-		    The lightning strike splits into upto four lightning bolts which target different enemies.
-		    '''
+		Tooltip:
+			'''
+			Hit enemies to charge up a powerful pink [c/FD0DB1:Lightning Strike].
+			The lightning strike splits into upto four lightning bolts which target different enemies.
+			'''
 	}
 
 	SeekersSpyglass: {
 		DisplayName: Seeker's Spyglass
-		Tooltip: Makes dart weapons automatically aim towards the nearest enemy.
+		Tooltip: ""
 	}
 
 	HeavenlyDart: {
 		DisplayName: Heavenly Dart
-		Tooltip: ""
+		Tooltip:
+			'''
+			Falls down from the heavens above.
+			Spawns two stars from above on hit.
+			'''
 	}
 
 	Sporeflinger: {
@@ -337,28 +356,38 @@ Items: {
 
 	StellarOutrage: {
 		DisplayName: Stellar Outrage
-		Tooltip: 
-		    '''
-		    Shoots five darts in a burst. Darts have a chance to be replaced by [c/E0D877:Large Stars].
-		    These stars spawn trails of damaging stars while travelling.
-		    Chance to spawn [c:/Stellar Slashes] on star hits.
-		    Chance to spawn large stars on hit from above on all hits.
-		    '''
+		Tooltip:
+			'''
+			Shoots five darts in a burst. Darts have a chance to be replaced by [c/E0D877:Large Stars].
+			These stars spawn trails of damaging stars while travelling.
+			Chance to spawn [c:/Stellar Slashes] on star hits.
+			Chance to spawn large stars on hit from above on all hits.
+			'''
 	}
 
 	Styx: {
 		DisplayName: Styx
-		Tooltip: ""
+		Tooltip:
+			'''
+			Spawns a damaging [c/5569B5:Rune] around you while holding this weapon.
+			Various dart guns from your journey revolve you around and shoot when you do.
+			Damage scales based on [i:486] [c/FFD422:distance] from the target, you deal more damage the closer you are.
+			[Multiplier ranges from [c/FF2222:0.6 times] damage to [c/22FF3D:1.5 times] damage]
+			'''
 	}
 
 	Dartarang: {
 		DisplayName: Dartarang
-		Tooltip: Use <right> to throw the gun as a boomerang which will shoot darts on its way periodically.
+		Tooltip: <right> to throw the gun as a boomerang which will shoot darts on its way periodically.
 	}
 
 	ExplosiveDart: {
 		DisplayName: Explosive Dart
-		Tooltip: ""
+		Tooltip:
+			'''
+			Spawns an explosion on collision which can be used to rocket jump by shooting beneath you.
+			The intensity of the jump depends on the velocity of the dart.
+			'''
 	}
 
 	AltitudeAnnihilator: {

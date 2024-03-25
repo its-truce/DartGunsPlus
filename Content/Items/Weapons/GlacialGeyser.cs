@@ -48,10 +48,7 @@ public class GlacialGeyser : ModItem
         }
 
         if (_freezeBoltCount == 5)
-        {
-            _freezeBoltCount = 0;
             frostPlayer.FrostCurrent = 0;
-        }
     }
 
     public override bool CanUseItem(Player player)
@@ -64,12 +61,15 @@ public class GlacialGeyser : ModItem
             Item.useTime = 40;
             Item.useAnimation = 40;
         }
+        
+        Main.NewText(_freezeBoltCount);
 
         if (_freezeBoltCount == 5)
         {
             Item.UseSound = AudioSystem.ReturnSound("dart", 0.3f);
             Item.useTime = 18;
             Item.useAnimation = 18;
+            _freezeBoltCount = 0;
         }
         
         return base.CanUseItem(player);

@@ -25,7 +25,7 @@ public class HighVelocityDart : ModItem
         Item.maxStack = Item.CommonMaxStack;
         Item.consumable = true;
         Item.knockBack = 5;
-        Item.value = Item.sellPrice(copper: 8);
+        Item.value = Item.sellPrice(copper: 10);
         Item.rare = ItemRarityID.Orange;
         Item.shoot = ModContent.ProjectileType<HighVelocityDartProj>();
         Item.shootSpeed = 4;

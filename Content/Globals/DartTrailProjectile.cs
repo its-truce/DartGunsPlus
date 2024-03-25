@@ -1,4 +1,5 @@
 ﻿using System.Linq;
+using DartGunsPlus.Content.Items.Ammo;
 using DartGunsPlus.Content.Items.Weapons;
 using DartGunsPlus.Content.Projectiles;
 using Microsoft.Xna.Framework;
@@ -22,7 +23,7 @@ public class DartTrailProjectile : GlobalProjectile
         ModContent.ProjectileType<TerraBoom>(), ModContent.ProjectileType<EmpressLaser>(), ModContent.ProjectileType<EmpressBolt>(), 
         ModContent.ProjectileType<LilEmpress>(), ModContent.ProjectileType<LaserLightning>(), ModContent.ProjectileType<HomingLightning>(),
         ModContent.ProjectileType<EuphoriaBoom>(), ModContent.ProjectileType<ShotgunMusket>(), ModContent.ProjectileType<LuminiteStrike>(),
-        ModContent.ProjectileType<Hook>()
+        ModContent.ProjectileType<Hook>(), ModContent.ProjectileType<HighVelocityDartProj>()
     };
 
     private readonly int[] _validItems =

@@ -23,7 +23,7 @@ public class LuminiteDart : ModItem
         Item.maxStack = Item.CommonMaxStack;
         Item.consumable = true;
         Item.knockBack = 6;
-        Item.value = Item.sellPrice(copper: 20);
+        Item.value = Item.sellPrice(copper: 4);
         Item.rare = ItemRarityID.Cyan;
         Item.shoot = ModContent.ProjectileType<LuminiteDartProj>();
         Item.shootSpeed = 8;

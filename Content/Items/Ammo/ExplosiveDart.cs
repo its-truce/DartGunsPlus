@@ -21,14 +21,14 @@ public class ExplosiveDart : ModItem
 
     public override void SetDefaults()
     {
-        Item.damage = 6;
+        Item.damage = 5;
         Item.DamageType = DamageClass.Ranged;
         Item.width = 8;
         Item.height = 8;
         Item.maxStack = Item.CommonMaxStack;
         Item.consumable = true;
         Item.knockBack = 6.6f;
-        Item.value = Item.sellPrice(copper: 8);
+        Item.value = Item.sellPrice(copper: 10);
         Item.rare = ItemRarityID.Orange;
         Item.shoot = ModContent.ProjectileType<ExplosiveDartProj>();
         Item.shootSpeed = 4;
@@ -145,7 +145,7 @@ public class ExplosiveDartProj : DartProjectile
         }
 
         Projectile.NewProjectile(Projectile.GetSource_Death(), Projectile.Center, Vector2.Zero, ModContent.ProjectileType<RocketExplosion>(),
-            Projectile.damage * 2, 8, Projectile.owner);
+            Projectile.damage, 8, Projectile.owner);
     }
 
     public override Color? GetAlpha(Color lightColor)

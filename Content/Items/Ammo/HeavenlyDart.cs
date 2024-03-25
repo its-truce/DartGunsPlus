@@ -22,7 +22,7 @@ public class HeavenlyDart : ModItem
         Item.maxStack = Item.CommonMaxStack;
         Item.consumable = true;
         Item.knockBack = 2;
-        Item.value = Item.sellPrice(copper: 16);
+        Item.value = Item.sellPrice(copper: 18);
         Item.rare = ItemRarityID.Orange;
         Item.shoot = ModContent.ProjectileType<HeavenlyDartProj>();
         Item.shootSpeed = 4;

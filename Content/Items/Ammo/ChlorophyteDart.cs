@@ -26,7 +26,7 @@ public class ChlorophyteDart : ModItem
         Item.maxStack = Item.CommonMaxStack;
         Item.consumable = true;
         Item.knockBack = 4.5f;
-        Item.value = Item.sellPrice(copper: 10);
+        Item.value = Item.sellPrice(copper: 12);
         Item.rare = ItemRarityID.Lime;
         Item.shoot = ModContent.ProjectileType<ChlorophyteDartProj>();
         Item.shootSpeed = 5;

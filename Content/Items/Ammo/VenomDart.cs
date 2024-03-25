@@ -22,7 +22,7 @@ public class VenomDart : ModItem
         Item.maxStack = Item.CommonMaxStack;
         Item.consumable = true;
         Item.knockBack = 4.2f;
-        Item.value = Item.sellPrice(copper: 18);
+        Item.value = Item.sellPrice(copper: 12);
         Item.rare = ItemRarityID.Orange;
         Item.shoot = ModContent.ProjectileType<VenomDartProj>();
         Item.shootSpeed = 4.3f;
@@ -31,8 +31,8 @@ public class VenomDart : ModItem
 
     public override void AddRecipes()
     {
-        CreateRecipe(35)
-            .AddIngredient(ModContent.ItemType<Dart>(), 35)
+        CreateRecipe(40)
+            .AddIngredient(ModContent.ItemType<Dart>(), 40)
             .AddIngredient(ItemID.VialofVenom)
             .AddTile(TileID.MythrilAnvil)
             .Register();

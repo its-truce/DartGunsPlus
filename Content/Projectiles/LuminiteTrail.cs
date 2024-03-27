@@ -3,6 +3,7 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Terraria;
 using Terraria.DataStructures;
+using Terraria.ID;
 using Terraria.ModLoader;
 
 namespace DartGunsPlus.Content.Projectiles;
@@ -13,6 +14,11 @@ public class LuminiteTrail : ModProjectile
     private Projectile ParentProj => Main.projectile[(int)Projectile.ai[0]];
     private bool ParentDead => Projectile.ai[1] != 0;
     public override string Texture => "DartGunsPlus/Content/Projectiles/Bolt";
+
+    public override void SetStaticDefaults()
+    {
+        ProjectileID.Sets.DrawScreenCheckFluff[Projectile.type] = 64000;
+    }
 
     public override void SetDefaults()
     {

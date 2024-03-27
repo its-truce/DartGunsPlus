@@ -47,7 +47,7 @@ public class AstralAmalgam : ModItem
         {
             type = ModContent.ProjectileType<AstralBolt>();
             knockback = 0.75f;
-            damage += damage/2;
+            damage += damage / 2;
         }
     }
 

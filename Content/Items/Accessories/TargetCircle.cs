@@ -79,7 +79,7 @@ public class TargetCircle : ModProjectile
                 Projectile.scale, SpriteEffects.None);
         return false;
     }
-    
+
     public override bool? Colliding(Rectangle projHitbox, Rectangle targetHitbox)
     {
         // Calculate the scaled hitbox size based on the Projectile.scale

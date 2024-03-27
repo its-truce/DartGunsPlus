@@ -70,7 +70,7 @@ public class UISystem : ModSystem
         {
             uiState.Activate();
 
-            UserInterface userInterface = new UserInterface();
+            UserInterface userInterface = new();
             userInterface.SetState(uiState);
             UserInterfaces.Add(userInterface);
         }

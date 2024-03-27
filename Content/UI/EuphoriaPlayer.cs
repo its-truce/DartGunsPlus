@@ -52,7 +52,7 @@ public class EuphoriaPlayer : ModPlayer
     private void CapResourceGodMode()
     {
         if (Main.myPlayer == Player.whoAmI && Player.creativeGodMode) EuphoriaCurrent = EuphoriaMax2;
-        
+
         if (EuphoriaCurrent < EuphoriaMax2 && Player.ownedProjectileCounts[ModContent.ProjectileType<RevolvingSword>()] <= 0)
             EuphoriaCurrent++;
     }

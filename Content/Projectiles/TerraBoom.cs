@@ -14,11 +14,12 @@ namespace DartGunsPlus.Content.Projectiles;
 
 public class TerraBoom : ModProjectile
 {
-    private NPC Target => Main.npc[(int)Projectile.ai[0]];  
+    private NPC Target => Main.npc[(int)Projectile.ai[0]];
     private Player Owner => Main.player[Projectile.owner];
     private bool Sticking => Projectile.ai[1] != 0;
     private bool Retreat => Projectile.localAI[1] != 0;
     public override string Texture => "DartGunsPlus/Content/Projectiles/EmptyTexture";
+
     public override void SetStaticDefaults()
     {
         ProjectileID.Sets.TrailCacheLength[Projectile.type] = 20;
@@ -55,14 +56,14 @@ public class TerraBoom : ModProjectile
         for (int i = 1; i < Projectile.oldPos.Length - 1; i++)
         {
             Vector2 drawPos = Projectile.oldPos[i] - Main.screenPosition + new Vector2(Projectile.width / 2);
-            
+
             if (!Sticking || Retreat)
                 Main.EntitySpriteDraw(texture, drawPos + Main.rand.NextVector2Circular(i / 2, i / 2), frame,
                     new Color(col.R + i * 2, col.G, col.B, col.A) * (1 - i * 0.04f), Projectile.oldRot[i] + Main.rand.NextFloat(-i * 0.01f, i * 0.01f),
                     frameOrigin, new Vector2(stretchscale.X - i * 0.05f, stretchscale.Y * Main.rand.NextFloat(0.1f, 0.05f) * Vector2.Distance(Projectile.oldPos[i],
                         Projectile.oldPos[i + 1]) - i * 0.05f) * new Vector2(0.4f, Sticking && Projectile.velocity.Length() < 7 ? 10f : 3f), SpriteEffects.None);
         }
-        
+
         return false;
     }
 
@@ -80,14 +81,14 @@ public class TerraBoom : ModProjectile
     public override void AI()
     {
         Lighting.AddLight(Projectile.Center, Color.LawnGreen.ToVector3());
-        
+
         if (Projectile.timeLeft % 30 == 0 && (!Sticking || Retreat))
         {
             Projectile.rotation = Projectile.velocity.ToRotation() + MathHelper.ToRadians(90);
             Projectile.NewProjectile(Projectile.GetSource_FromAI(), Projectile.Center - new Vector2(0, 600), new Vector2(Main.rand.Next(-3, 3), 11),
                 ModContent.ProjectileType<TerraBolt>(), Projectile.damage, 2, Projectile.owner);
         }
-        
+
         if (Sticking)
         {
             if (!Target.active || Target.dontTakeDamage || Projectile.localAI[0] > 480)
@@ -116,7 +117,7 @@ public class TerraBoom : ModProjectile
                     Vector2 spawnPos = Target.Center + new Vector2(200, 0).RotatedByRandom(Math.Tau);
                     Vector2 velocity = spawnPos.DirectionTo(Target.Center) * 8;
 
-                    Projectile.NewProjectile(Projectile.GetSource_FromAI(), spawnPos, velocity, ModContent.ProjectileType<TerraSlash>(), Projectile.damage/2,
+                    Projectile.NewProjectile(Projectile.GetSource_FromAI(), spawnPos, velocity, ModContent.ProjectileType<TerraSlash>(), Projectile.damage / 2,
                         3, Projectile.owner);
                 }
 
@@ -139,7 +140,7 @@ public class TerraBoom : ModProjectile
             SoundEngine.PlaySound(AudioSystem.ReturnSound("indicator"), Owner.Center);
             Projectile.ai[0] = -1;
             Projectile.ai[1] = 0;
-            
+
             Projectile.velocity = Vector2.Lerp(Projectile.velocity, Projectile.DirectionTo(Owner.MountedCenter) * 13,
                 0.05f);
 
@@ -165,7 +166,7 @@ public class TerraBoom : ModProjectile
                 dust.velocity += Projectile.velocity;
                 dust.noGravity = true;
             }
-            
+
             Projectile.ai[0] = target.whoAmI;
             Projectile.ai[1] = 1;
         }

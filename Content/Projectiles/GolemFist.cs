@@ -97,7 +97,7 @@ public class GolemFist : ModProjectile
                 Projectile.velocity = Vector2.Zero;
         }
     }
-    
+
     public override void DrawBehind(int index, List<int> behindNPCsAndTiles, List<int> behindNPCs, List<int> behindProjectiles, List<int> overPlayers,
         List<int> overWiresUI)
     {
@@ -140,7 +140,7 @@ public class GolemFist : ModProjectile
             Projectile.damage, 7, Projectile.owner);
         Projectile.ai[1] = 0;
         Projectile.ai[2] = 0;
-        
+
         int randDust = Main.rand.Next(10, 20);
         for (int i = 0; i < randDust; i++)
         {

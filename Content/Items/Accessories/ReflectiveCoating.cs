@@ -60,7 +60,6 @@ public class ReflectProjectile : GlobalProjectile
             return;
 
         foreach (Projectile proj in Main.projectile.AsSpan(0, Main.maxProjectiles))
-        {
             if (proj.hostile && proj.active &&
                 new Rectangle((int)proj.position.X, (int)proj.position.Y, proj.width * 2, proj.height * 2).Intersects(projectile.Hitbox)
                 && proj.Distance(player.Center) < 140 && accessoryPlayer.ShieldTimer == 0)
@@ -68,7 +67,7 @@ public class ReflectProjectile : GlobalProjectile
                 proj.velocity = proj.DirectionFrom(player.Center) * proj.velocity.Length() * 0.95f;
                 PopupSystem.PopUp("Deflected!", Color.Pink, proj.Center - new Vector2(0, 50));
                 accessoryPlayer.IncrementShield = true;
-                
+
                 ParticleOrchestraSettings settings = new()
                 {
                     PositionInWorld = proj.Center,
@@ -77,6 +76,5 @@ public class ReflectProjectile : GlobalProjectile
                 };
                 ParticleOrchestrator.SpawnParticlesDirect(ParticleOrchestraType.ShimmerArrow, settings);
             }
-        }
     }
 }

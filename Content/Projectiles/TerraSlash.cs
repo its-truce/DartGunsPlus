@@ -14,10 +14,10 @@ namespace DartGunsPlus.Content.Projectiles;
 
 public class TerraSlash : ModProjectile
 {
+    private Vector2 _center;
     private bool _hit;
     private float _scale = 0.3f;
     public override string Texture => "DartGunsPlus/Content/Items/Weapons/Styx/Spike";
-    private Vector2 _center;
 
     public override void SetStaticDefaults()
     {
@@ -42,7 +42,7 @@ public class TerraSlash : ModProjectile
 
     public override void OnSpawn(IEntitySource source)
     {
-        VisualSystem.SpawnDustPortal(Projectile.Center, Projectile.velocity, ModContent.DustType<GlowFastDecelerate>(), scale: 0.6f, Color.LawnGreen);
+        VisualSystem.SpawnDustPortal(Projectile.Center, Projectile.velocity, ModContent.DustType<GlowFastDecelerate>(), 0.6f, Color.LawnGreen);
     }
 
     public override void AI()
@@ -68,7 +68,7 @@ public class TerraSlash : ModProjectile
         }
 
         Projectile.rotation = Projectile.velocity.ToRotation();
-        
+
         Lighting.AddLight(Projectile.Center, Color.YellowGreen.ToVector3());
     }
 
@@ -85,10 +85,8 @@ public class TerraSlash : ModProjectile
             col.A = 0;
 
             for (int i = 0; i < 4; i++)
-            {
                 Main.EntitySpriteDraw(texture, drawPos, frame, col, Projectile.oldRot[k], frame.Size() / 2, sizec * 0.3f * new Vector2(_scale, 1),
                     SpriteEffects.None);
-            }
         }
 
         return false;
@@ -101,7 +99,7 @@ public class TerraSlash : ModProjectile
 
     public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
     {
-        VisualSystem.SpawnDustCircle(target.Center, ModContent.DustType<GlowFastDecelerate>(), 4, 0.6f, scale: 0.6f, color: Color.LawnGreen);
+        VisualSystem.SpawnDustCircle(target.Center, ModContent.DustType<GlowFastDecelerate>(), 4, 0.6f, 0.6f, Color.LawnGreen);
         _hit = true;
         _center = target.Center;
 

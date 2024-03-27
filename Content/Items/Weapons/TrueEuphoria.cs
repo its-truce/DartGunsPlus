@@ -44,8 +44,8 @@ public class TrueEuphoria : ModItem
                 IndexOfPlayerWhoInvokedThis = (byte)player.whoAmI
             };
             ParticleOrchestrator.SpawnParticlesDirect(ParticleOrchestraType.Excalibur, settings);
-        
-            Projectile.NewProjectile(source, position, velocity, type, damage, knockback, player.whoAmI,ai2: _shootCount);
+
+            Projectile.NewProjectile(source, position, velocity, type, damage, knockback, player.whoAmI, ai2: _shootCount);
         }
 
         _shootCount++;
@@ -66,7 +66,7 @@ public class TrueEuphoria : ModItem
         if (player.altFunctionUse == 2)
         {
             EuphoriaPlayer euphoriaPlayer = player.GetModPlayer<EuphoriaPlayer>();
-            
+
             if (euphoriaPlayer.EuphoriaCurrent == euphoriaPlayer.EuphoriaMax2)
             {
                 type = ModContent.ProjectileType<EuphoriaBoom>();
@@ -75,7 +75,9 @@ public class TrueEuphoria : ModItem
                 euphoriaPlayer.EuphoriaCurrent = 0;
             }
             else
+            {
                 PopupSystem.PopUp("Not enough energy!", new Color(255, 255, 200), player.Center - new Vector2(0, 50));
+            }
         }
     }
 

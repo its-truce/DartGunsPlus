@@ -132,7 +132,9 @@ public class CharybdisHoldout : ModProjectile
                 }
             }
             else
+            {
                 Projectile.Kill();
+            }
         }
     }
 }

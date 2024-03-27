@@ -49,7 +49,7 @@ public class LaserTherapy : ModItem
     {
         return new Vector2(-2f, -5f);
     }
-    
+
     //TODO: for lightning,
     //for (int i = 0; i < 4; i++)
     // {

@@ -1,6 +1,6 @@
+using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
-using Terraria;
 
 namespace DartGunsPlus.Content.Items.Ammo;
 

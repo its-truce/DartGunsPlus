@@ -69,7 +69,7 @@ public class GlacialGeyser : ModItem
             Item.useAnimation = 18;
             _freezeBoltCount = 0;
         }
-        
+
         return base.CanUseItem(player);
     }
 

@@ -58,14 +58,14 @@ public static class VisualSystem
     }
 
     public static void DrawLine(SpriteBatch spriteBatch, Texture2D texture, Vector2 start, Vector2 end, Color color, float scale = 1f, bool spriteFacingUpwards = true,
-        float bendingFactor = 0f)
+        float heightOverloadMult = 1f)
     {
         float offset = spriteFacingUpwards ? MathF.PI / 2 : 0;
         float rotation = start.DirectionTo(end).ToRotation() + offset;
 
         float distance = Vector2.Distance(start, end);
 
-        IEnumerable<Vector2> points = DartUtils.GetInterpolatedPoints(start, end, (int)(distance / (texture.Height * scale)) + 1);
+        IEnumerable<Vector2> points = DartUtils.GetInterpolatedPoints(start, end, (int)(distance / (texture.Height * scale * heightOverloadMult)) + 1);
 
         foreach (Vector2 point in points)
             spriteBatch.Draw(texture, point - Main.screenPosition, texture.Bounds, color, rotation, texture.Size() / 2,

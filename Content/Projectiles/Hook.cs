@@ -2,7 +2,9 @@ using System;
 using DartGunsPlus.Content.Systems;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using ReLogic.Utilities;
 using Terraria;
+using Terraria.Audio;
 using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -11,14 +13,17 @@ namespace DartGunsPlus.Content.Projectiles;
 
 public class Hook : ModProjectile
 {
+    private SlotId _soundSlot;
     private Vector2 _startLocation;
     private Player Owner => Main.player[Projectile.owner];
     private ref float TargetNPC => ref Projectile.ai[0];
     private bool HitTarget => Projectile.ai[2] > (int)TargetIndicator.Default;
 
+
     public override void SetStaticDefaults()
     {
         ProjectileID.Sets.SingleGrappleHook[Projectile.type] = true;
+        ProjectileID.Sets.DrawScreenCheckFluff[Projectile.type] = 900;
     }
 
     public override void SetDefaults()
@@ -36,6 +41,7 @@ public class Hook : ModProjectile
     public override void OnSpawn(IEntitySource source)
     {
         TargetNPC = -1;
+        _soundSlot = SoundEngine.PlaySound(AudioSystem.ReturnSound("grapplethrow", 0.3f), Owner.Center);
     }
 
     public override void AI()
@@ -60,6 +66,7 @@ public class Hook : ModProjectile
 
             if (Owner.Center.Distance(Projectile.Center) < 100)
             {
+                SoundEngine.PlaySound(AudioSystem.ReturnSound("grapplefinish", 0.4f), Owner.Center);
                 Projectile.timeLeft = 1;
 
                 if (Projectile.ai[2] == (int)TargetIndicator.Target)
@@ -132,8 +139,13 @@ public class Hook : ModProjectile
     public override bool PreDraw(ref Color lightColor)
     {
         Texture2D chainTexture = ModContent.Request<Texture2D>("DartGunsPlus/Content/Projectiles/HookChain").Value;
-        Color color = new Color(0, 240, 136, 0);
-        VisualSystem.DrawLine(Main.spriteBatch, chainTexture, Projectile.Center, _startLocation, color * Projectile.Opacity);
+        Texture2D glowTexture = ModContent.Request<Texture2D>("DartGunsPlus/Content/Projectiles/Glowball").Value;
+        Color color = new(0, 240, 136, 0);
+
+        VisualSystem.DrawLine(Main.spriteBatch, glowTexture, Projectile.Center, _startLocation,
+            color * Projectile.Opacity, 0.02f, heightOverloadMult: 0.4f);
+        VisualSystem.DrawLine(Main.spriteBatch, chainTexture, Projectile.Center, _startLocation, color * Projectile.Opacity, 0.9f);
+
         return true;
     }
 
@@ -141,18 +153,33 @@ public class Hook : ModProjectile
     {
         Projectile.ai[2] = (int)TargetIndicator.Target;
         TargetNPC = target.whoAmI;
+        ManageTargetSounds();
     }
 
     public override bool OnTileCollide(Vector2 oldVelocity)
     {
         Projectile.ai[2] = (int)TargetIndicator.Tile;
+        ManageTargetSounds();
         return false;
+    }
+
+    private void ManageTargetSounds()
+    {
+        SoundEngine.TryGetActiveSound(_soundSlot, out ActiveSound activeSound);
+        activeSound?.Stop();
+        _soundSlot = SoundEngine.PlaySound(AudioSystem.ReturnSound("grapplereel"), Projectile.Center);
     }
 
     public override bool TileCollideStyle(ref int width, ref int height, ref bool fallThrough, ref Vector2 hitboxCenterFrac)
     {
         fallThrough = false;
         return true;
+    }
+
+    public override void OnKill(int timeLeft)
+    {
+        SoundEngine.TryGetActiveSound(_soundSlot, out ActiveSound activeSound);
+        activeSound?.Stop();
     }
 
     private enum TargetIndicator

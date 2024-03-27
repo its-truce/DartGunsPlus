@@ -13,7 +13,7 @@ public class Luminescence : ModItem
         Item.width = 52;
         Item.height = 44;
         Item.rare = ItemRarityID.Yellow;
-        
+
         Item.UseSound = SoundID.DD2_DarkMageHealImpact;
 
         Item.damage = 54;

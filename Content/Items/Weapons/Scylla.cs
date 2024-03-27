@@ -13,11 +13,6 @@ public class Scylla : ModItem
 {
     private float _initialItemRot;
 
-    public override void SetStaticDefaults()
-    {
-        ItemID.Sets.ItemsThatAllowRepeatedRightClick[Item.type] = true;
-    }
-
     public override void SetDefaults()
     {
         Item.DefaultToRangedWeapon(ProjectileID.PurificationPowder, AmmoID.Dart, 35, 18, true);
@@ -88,6 +83,10 @@ public class Scylla : ModItem
         if (player.altFunctionUse != 2)
             VisualSystem.RecoilAnimation(player, _initialItemRot, 30);
     }
-    
-    //TODO: use grapple sound for alt use
+
+    public override bool CanUseItem(Player player)
+    {
+        Item.UseSound = player.altFunctionUse != 2 ? AudioSystem.ReturnSound("scyllashoot", 0.4f) : null;
+        return base.CanUseItem(player);
+    }
 }

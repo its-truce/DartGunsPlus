@@ -62,11 +62,8 @@ public class StyxProjectile : GlobalProjectile
         };
 
         foreach (float threshold in distanceMultipliers.Keys.OrderByDescending(d => d))
-        {
             if (distance < threshold)
                 modifiers.FinalDamage *= distanceMultipliers[threshold];
-        }
-
     }
 
     public override bool PreDraw(Projectile projectile, ref Color lightColor)

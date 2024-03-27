@@ -47,7 +47,7 @@ public class Serenity : ModItem
             ParticleOrchestrator.SpawnParticlesDirect(ParticleOrchestraType.TerraBlade, settings);
             Projectile.NewProjectile(source, position, velocity, type, damage, knockback, player.whoAmI, ai2: _shootCount);
         }
-        
+
         _shootCount++;
         _initialItemRot = player.itemRotation;
         return false;
@@ -66,11 +66,10 @@ public class Serenity : ModItem
         if (player.altFunctionUse == 2)
         {
             SerenityPlayer serenityPlayer = player.GetModPlayer<SerenityPlayer>();
-            
+
             if (player.ownedProjectileCounts[ModContent.ProjectileType<TerraBoom>()] > 0)
             {
                 foreach (Projectile proj in Main.projectile.AsSpan(0, Main.maxProjectiles))
-                {
                     if (proj.active && proj.type == ModContent.ProjectileType<TerraBoom>() && proj.owner == player.whoAmI && proj.ai[1] != 0)
                     {
                         NPC target = Main.npc[(int)proj.ai[0]];
@@ -80,13 +79,12 @@ public class Serenity : ModItem
                             Vector2 spawnPos = target.Center + new Vector2(200, 0).RotatedByRandom(Math.Tau);
                             Vector2 spawnVelocity = spawnPos.DirectionTo(target.Center) * 8;
 
-                            Projectile.NewProjectile(proj.GetSource_FromAI(), spawnPos, spawnVelocity, ModContent.ProjectileType<TerraSlash>(), 
+                            Projectile.NewProjectile(proj.GetSource_FromAI(), spawnPos, spawnVelocity, ModContent.ProjectileType<TerraSlash>(),
                                 proj.damage, 3, proj.owner, ai1: 1);
-                        
+
                             proj.localAI[1] = 1; // retreat
                         }
                     }
-                }
             }
             else if (serenityPlayer.SerenityCurrent == serenityPlayer.SerenityMax2)
             {
@@ -96,7 +94,9 @@ public class Serenity : ModItem
                 serenityPlayer.SerenityCurrent = 0;
             }
             else
+            {
                 PopupSystem.PopUp("Not enough energy!", Color.ForestGreen, player.Center - new Vector2(0, 50));
+            }
         }
     }
 
@@ -104,7 +104,7 @@ public class Serenity : ModItem
     {
         return new Vector2(-2f, -2f);
     }
-    
+
     public override void UseStyle(Player player, Rectangle heldItemFrame)
     {
         if (player.ownedProjectileCounts[ModContent.ProjectileType<TerraBoom>()] == 0 && player.altFunctionUse == 2)

@@ -45,7 +45,7 @@ public class BossLootItem : GlobalItem
             case ItemID.WallOfFleshBossBag:
                 itemLoot.Add(ItemDropRule.Common(ModContent.ItemType<GoreNGlory>(), 2));
                 break;
-            
+
             case ItemID.TwinsBossBag:
                 itemLoot.Add(ItemDropRule.Common(ModContent.ItemType<SeekersSpyglass>()));
                 break;

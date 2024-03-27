@@ -67,7 +67,7 @@ public class LaserLightning : ModProjectile
 
             Projectile.ai[0]++;
 
-            if (Projectile.ai[0] > 60 && !Owner.channel || (Projectile.ai[0] > 20 && Projectile.ai[1] != 0))
+            if ((Projectile.ai[0] > 60 && !Owner.channel) || (Projectile.ai[0] > 20 && Projectile.ai[1] != 0))
                 Projectile.Kill();
 
             if (Projectile.ai[0] == 1)

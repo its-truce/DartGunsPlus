@@ -112,12 +112,12 @@ public class Styx : ModItem
 
     public override void ModifyTooltips(List<TooltipLine> tooltips)
     {
-        TooltipLine gunsTooltip = new TooltipLine(Mod, "DartGunsPlus: Styx Guns", 
+        TooltipLine gunsTooltip = new(Mod, "DartGunsPlus: Styx Guns",
             $"Guns: [i:{ModContent.ItemType<Serenity>()}] [i:{ModContent.ItemType<LaserTherapy>()}] [i:{ModContent.ItemType<StellarOutrage>()}] " +
             $"[i:{ModContent.ItemType<MartianMarksman>()}] [i:{ModContent.ItemType<HalloweenHex>()}] [i:{ModContent.ItemType<RosemaryThyme>()}] " +
             $"[i:{ModContent.ItemType<StellarOutrage>()}] [i:{ModContent.ItemType<BumbleBarrage>()}] [i:{ModContent.ItemType<EnchantedDartcaster>()}] " +
             $"[i:{ModContent.ItemType<DartZapper>()}]");
-        
+
         tooltips.Add(gunsTooltip);
     }
 

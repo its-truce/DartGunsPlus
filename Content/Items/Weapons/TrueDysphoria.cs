@@ -45,10 +45,10 @@ public class TrueDysphoria : ModItem
                 IndexOfPlayerWhoInvokedThis = (byte)player.whoAmI
             };
             ParticleOrchestrator.SpawnParticlesDirect(ParticleOrchestraType.NightsEdge, settings);
-        
+
             Projectile.NewProjectile(source, position, velocity, type, damage, knockback, player.whoAmI, ai2: _shootCount);
         }
-        
+
         _shootCount++;
         _initialItemRot = player.itemRotation;
         return false;
@@ -67,7 +67,7 @@ public class TrueDysphoria : ModItem
         if (player.altFunctionUse == 2)
         {
             DysphoriaPlayer dysphoriaPlayer = player.GetModPlayer<DysphoriaPlayer>();
-            
+
             if (dysphoriaPlayer.DysphoriaCurrent == dysphoriaPlayer.DysphoriaMax2)
             {
                 type = ModContent.ProjectileType<DysphoriaBoom>();
@@ -75,7 +75,9 @@ public class TrueDysphoria : ModItem
                 dysphoriaPlayer.DysphoriaCurrent = 0;
             }
             else
+            {
                 PopupSystem.PopUp("Not enough energy!", new Color(55, 224, 112), player.Center - new Vector2(0, 50));
+            }
         }
 
         if (player.ownedProjectileCounts[ModContent.ProjectileType<RevolvingSword>()] > 0)

@@ -45,8 +45,8 @@ public class Shield : ModProjectile
         AccessoryPlayer accessoryPlayer = Owner.GetModPlayer<AccessoryPlayer>();
 
         float multiplier = accessoryPlayer.ShieldTimer == 0 ? 1.2f : 0.5f;
-        Color color = Color.Lerp(new Color(219, 178, 69, 0), new Color(178, 37, 230, 0), Main.masterColor/2) * 0.6f;
-        Color color2 = new Color(185, 134, 255, 0);
+        Color color = Color.Lerp(new Color(219, 178, 69, 0), new Color(178, 37, 230, 0), Main.masterColor / 2) * 0.6f;
+        Color color2 = new(185, 134, 255, 0);
 
         Main.EntitySpriteDraw(texture, drawPos, null, color * multiplier, Projectile.rotation, texture.Size() / 2,
             Projectile.scale, SpriteEffects.None);

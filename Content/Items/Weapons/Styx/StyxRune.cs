@@ -83,7 +83,7 @@ public class StyxRune : ModProjectile
         Main.EntitySpriteDraw(texture, drawPos, null, LerpedColor, Projectile.rotation, texture.Size() / 2, Projectile.scale / 2,
             SpriteEffects.None);
 
-        Main.EntitySpriteDraw(texture2, drawPos, null, new Color(255, 255, 255, 0) * Projectile.Opacity, 
+        Main.EntitySpriteDraw(texture2, drawPos, null, new Color(255, 255, 255, 0) * Projectile.Opacity,
             MathHelper.ToRadians(Projectile.ai[2]) / 3, texture2.Size() / 2, Projectile.scale * 1.3f, SpriteEffects.None);
 
         return false;

@@ -47,7 +47,7 @@ public class DysphoriaPlayer : ModPlayer
     private void UpdateResource()
     {
         DysphoriaCurrent = Utils.Clamp(DysphoriaCurrent, 0, DysphoriaMax2);
-        
+
         if (DysphoriaCurrent < DysphoriaMax2 && Player.ownedProjectileCounts[ModContent.ProjectileType<DysphoriaMagnet>()] <= 0)
             DysphoriaCurrent++;
     }

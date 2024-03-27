@@ -77,8 +77,8 @@ public class OnHitProjectile : GlobalProjectile
             {
                 Vector2 spawnPos = target.Center + new Vector2(Main.rand.Next(100, 200), 0).RotatedByRandom(Math.Tau);
                 Vector2 velocity = spawnPos.DirectionTo(target.Center) * 8;
-                
-                Projectile.NewProjectile(projectile.GetSource_OnHit(target), spawnPos, velocity, ModContent.ProjectileType<PlanteraSeed>(), 
+
+                Projectile.NewProjectile(projectile.GetSource_OnHit(target), spawnPos, velocity, ModContent.ProjectileType<PlanteraSeed>(),
                     (int)(damageDone * 0.75f), hit.Knockback / 2, projectile.owner);
                 VisualSystem.SpawnDustPortal(spawnPos, velocity, DustID.GreenFairy, 0.8f);
             }
@@ -126,7 +126,7 @@ public class OnHitProjectile : GlobalProjectile
         else if (_itemType == ModContent.ItemType<CrimsonCobra>())
         {
             Player player = Main.player[projectile.owner];
-            
+
             if (Main.rand.NextBool(2))
             {
                 if (player.ownedProjectileCounts[ProjectileID.BloodButcherer] < 7)
@@ -135,7 +135,7 @@ public class OnHitProjectile : GlobalProjectile
                     Projectile.NewProjectile(projectile.GetSource_OnHit(target), target.Center, Vector2.Zero, ProjectileID.BloodButcherer, 0,
                         0, projectile.owner, 1, target.whoAmI);
                 }
-                
+
                 Vector2 pointPosition = target.Center;
                 Vector2 alternatePoint = target.Center;
 
@@ -371,7 +371,7 @@ public class OnHitProjectile : GlobalProjectile
             }
         }
 
-        else if (_itemType == ModContent.ItemType<Serenity>() && projectile.type != ModContent.ProjectileType<SereneBolt>() && 
+        else if (_itemType == ModContent.ItemType<Serenity>() && projectile.type != ModContent.ProjectileType<SereneBolt>() &&
                  projectile.type != ModContent.ProjectileType<TerraBoom>())
         {
             ParticleOrchestraSettings settings = new()
@@ -382,21 +382,20 @@ public class OnHitProjectile : GlobalProjectile
                 UniqueInfoPiece = (int)VisualSystem.HueForParticle(Color.Green)
             };
             ParticleOrchestrator.SpawnParticlesDirect(ParticleOrchestraType.ChlorophyteLeafCrystalShot, settings);
-            
+
             Player owner = Main.player[projectile.owner];
 
             if (Main.rand.NextBool(3))
-            {
                 for (int i = 0; i < 2; i++)
                 {
                     Vector2 spawnPos = owner.Center - owner.Center.DirectionTo(Main.MouseWorld) * 100;
                     Vector2 velocity = spawnPos.DirectionTo(Main.MouseWorld).RotatedByRandom(MathHelper.ToRadians(30)) * 7;
-                    Dust.NewDust(spawnPos, projectile.width, projectile.height, ModContent.DustType<GlowFastDecelerate>(), Scale: 0.6f, newColor: Color.LawnGreen);                    VisualSystem.SpawnDustPortal(spawnPos, velocity, ModContent.DustType<GlowFastDecelerate>(), 0.6f, Color.LawnGreen);
-            
+                    Dust.NewDust(spawnPos, projectile.width, projectile.height, ModContent.DustType<GlowFastDecelerate>(), Scale: 0.6f, newColor: Color.LawnGreen);
+                    VisualSystem.SpawnDustPortal(spawnPos, velocity, ModContent.DustType<GlowFastDecelerate>(), 0.6f, Color.LawnGreen);
+
                     Projectile.NewProjectile(projectile.GetSource_OnHit(target), spawnPos, velocity,
                         ModContent.ProjectileType<SereneBolt>(), projectile.damage / 3, 3, projectile.owner);
                 }
-            }
         }
 
         else if (_itemType == ModContent.ItemType<Luminescence>() && projectile.type != ModContent.ProjectileType<EmpressLaser>()
@@ -439,14 +438,12 @@ public class OnHitProjectile : GlobalProjectile
         else if (_itemType == ModContent.ItemType<Sporeflinger>() && projectile.type != ModContent.ProjectileType<BouncingShroom>())
         {
             if (Main.rand.NextBool(4))
-            {
                 for (int i = 0; i < 3; i++)
                 {
                     Vector2 spawnPos = target.Center + new Vector2(100, 100).RotatedBy(i * 90);
                     Projectile.NewProjectile(projectile.GetSource_OnHit(target), spawnPos, spawnPos.DirectionTo(target.Center) * 5,
                         ModContent.ProjectileType<BouncingShroom>(), projectile.damage / 4, 3, projectile.owner);
                 }
-            }
         }
 
         else if (_itemType == ModContent.ItemType<GoreNGlory>())

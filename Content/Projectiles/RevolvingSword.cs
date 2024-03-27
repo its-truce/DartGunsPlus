@@ -38,7 +38,7 @@ public class RevolvingSword : ModProjectile
         DeathrayOffset = MathHelper.ToRadians(Main.rand.Next(-45, 45));
         RotationDist = 70;
         _deathray = Projectile.NewProjectileDirect(Projectile.GetSource_ReleaseEntity(), Target.Center, new Vector2(-1, 0),
-            ModContent.ProjectileType<EuphoriaRay>(), Projectile.damage, 3, Projectile.owner, 0.1f, 100);
+            ModContent.ProjectileType<EuphoriaRay>(), Projectile.damage/3, 3, Projectile.owner, 0.1f, 100);
     }
 
     public override void AI()

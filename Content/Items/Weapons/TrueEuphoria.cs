@@ -24,7 +24,7 @@ public class TrueEuphoria : ModItem
 
         Item.UseSound = AudioSystem.ReturnSound("dart", 0.3f);
 
-        Item.damage = 68;
+        Item.damage = 54;
         Item.knockBack = 4.5f;
     }
 
@@ -81,7 +81,7 @@ public class TrueEuphoria : ModItem
 
     public override Vector2? HoldoutOffset()
     {
-        return new Vector2(-2f, -2f);
+        return new Vector2(-2f, 4f);
     }
 
     public override void UseStyle(Player player, Rectangle heldItemFrame)

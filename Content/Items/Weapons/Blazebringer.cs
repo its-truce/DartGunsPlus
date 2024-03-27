@@ -17,7 +17,7 @@ public class Blazebringer : ModItem
 
         Item.UseSound = AudioSystem.ReturnSound("dart", 0.3f);
 
-        Item.damage = 30;
+        Item.damage = 25;
         Item.knockBack = 2;
     }
 

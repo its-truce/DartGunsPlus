@@ -21,7 +21,7 @@ public class HarpyQuillstorm : ModItem
 
         Item.UseSound = SoundID.DD2_BetsyWindAttack;
 
-        Item.damage = 34;
+        Item.damage = 30;
         Item.knockBack = 3;
     }
 

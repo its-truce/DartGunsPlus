@@ -40,13 +40,21 @@ public class LaserTherapy : ModItem
         if (player.GetModPlayer<LaserPlayer>().LaserCurrent == 10)
         {
             type = ModContent.ProjectileType<LaserLightning>();
-            damage += damage / 2;
+            damage *= 2;
             player.GetModPlayer<LaserPlayer>().LaserCurrent = 0;
         }
     }
 
     public override Vector2? HoldoutOffset()
     {
-        return new Vector2(-2f, -2f);
+        return new Vector2(-2f, -5f);
     }
+    
+    //TODO: for lightning,
+    //for (int i = 0; i < 4; i++)
+    // {
+    //     Vector2 spawnPos = projectile.Center + new Vector2(65, 0).RotatedByRandom(MathF.Tau);
+    //     Projectile.NewProjectile(projectile.GetSource_Death(), spawnPos, spawnPos.DirectionTo(projectile.Center),
+    //         ModContent.ProjectileType<SmallTrail>(), 0, 0, projectile.owner, 200, 86, 135);
+    // }
 }

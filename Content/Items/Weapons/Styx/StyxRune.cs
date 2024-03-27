@@ -111,7 +111,7 @@ public class StyxRune : ModProjectile
         ParticleOrchestraSettings settings = new()
         {
             PositionInWorld = target.Center,
-            MovementVector = target.velocity.RotatedByRandom(Math.Tau),
+            MovementVector = Vector2.One.RotatedByRandom(Math.Tau),
             UniqueInfoPiece = (int)VisualSystem.HueForParticle(LerpedColor)
         };
 

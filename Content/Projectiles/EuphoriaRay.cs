@@ -27,7 +27,7 @@ public class EuphoriaRay : Deathray
         Projectile.friendly = false;
         Projectile.timeLeft = 420;
         Projectile.usesLocalNPCImmunity = true;
-        Projectile.localNPCHitCooldown = 15;
+        Projectile.localNPCHitCooldown = 20;
         MoveDistance = 0f;
         RealMaxDistance = 140f;
         BodyRect = new Rectangle(0, 0, Projectile.width, Projectile.height);

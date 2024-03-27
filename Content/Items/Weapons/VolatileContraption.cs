@@ -18,11 +18,11 @@ public class VolatileContraption : ModItem
         Item.DefaultToRangedWeapon(ProjectileID.PurificationPowder, AmmoID.Dart, 32, 12, true);
         Item.width = 72;
         Item.height = 42;
-        Item.rare = ItemRarityID.Orange;
+        Item.rare = ItemRarityID.Pink;
 
         Item.UseSound = AudioSystem.ReturnSound("volatileshoot");
 
-        Item.damage = 72;
+        Item.damage = 36;
         Item.crit = 20;
         Item.knockBack = 4;
         Item.channel = true;

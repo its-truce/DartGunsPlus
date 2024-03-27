@@ -27,7 +27,7 @@ public class Scylla : ModItem
 
         Item.UseSound = AudioSystem.ReturnSound("scyllashoot", 0.4f);
 
-        Item.damage = 81;
+        Item.damage = 72;
         Item.knockBack = 8f;
     }
 
@@ -88,4 +88,6 @@ public class Scylla : ModItem
         if (player.altFunctionUse != 2)
             VisualSystem.RecoilAnimation(player, _initialItemRot, 30);
     }
+    
+    //TODO: use grapple sound for alt use
 }

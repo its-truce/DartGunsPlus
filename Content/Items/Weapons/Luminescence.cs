@@ -13,7 +13,7 @@ public class Luminescence : ModItem
         Item.width = 52;
         Item.height = 44;
         Item.rare = ItemRarityID.Yellow;
-
+        
         Item.UseSound = SoundID.DD2_DarkMageHealImpact;
 
         Item.damage = 54;
@@ -29,6 +29,6 @@ public class Luminescence : ModItem
 
     public override Vector2? HoldoutOffset()
     {
-        return new Vector2(-2f, -5);
+        return new Vector2(-2f, -2);
     }
 }

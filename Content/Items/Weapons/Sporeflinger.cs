@@ -10,14 +10,14 @@ public class Sporeflinger : ModItem
 {
     public override void SetDefaults()
     {
-        Item.DefaultToRangedWeapon(ProjectileID.PurificationPowder, AmmoID.Dart, 25, 7.5f, true);
+        Item.DefaultToRangedWeapon(ProjectileID.PurificationPowder, AmmoID.Dart, 22, 7.5f, true);
         Item.width = 30;
         Item.height = 30;
         Item.rare = ItemRarityID.Blue;
 
         Item.UseSound = AudioSystem.ReturnSound("pop", 0.3f);
 
-        Item.damage = 10;
+        Item.damage = 12;
         Item.knockBack = 3;
     }
 
@@ -36,7 +36,7 @@ public class Sporeflinger : ModItem
 
     public override Vector2? HoldoutOffset()
     {
-        return new Vector2(-2f, -1f);
+        return new Vector2(-2f, 3f);
     }
 
     public override void AddRecipes()

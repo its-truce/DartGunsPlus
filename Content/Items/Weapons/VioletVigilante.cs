@@ -19,7 +19,7 @@ public class VioletVigilante : ModItem
 
         Item.UseSound = AudioSystem.ReturnSound("dart", 0.3f);
 
-        Item.damage = 12;
+        Item.damage = 14;
         Item.knockBack = 5;
     }
 

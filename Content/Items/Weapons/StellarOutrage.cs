@@ -22,7 +22,7 @@ public class StellarOutrage : ModItem
         Item.consumeAmmoOnLastShotOnly = true;
 
         Item.useTime = 4; // 1/5th of useAnimation
-        Item.reuseDelay = 10;
+        Item.reuseDelay = 15;
     }
 
     public override void ModifyShootStats(Player player, ref Vector2 position, ref Vector2 velocity, ref int type, ref int damage, ref float knockback)
@@ -48,6 +48,6 @@ public class StellarOutrage : ModItem
 
     public override Vector2? HoldoutOffset()
     {
-        return new Vector2(-2f, -1f);
+        return new Vector2(-2f, -3f);
     }
 }

@@ -19,7 +19,7 @@ public class Charybdis : ModItem
 
         Item.UseSound = AudioSystem.ReturnSound("dart", 0.3f);
 
-        Item.damage = 64;
+        Item.damage = 48;
         Item.knockBack = 2;
         Item.channel = true;
         Item.noUseGraphic = true;

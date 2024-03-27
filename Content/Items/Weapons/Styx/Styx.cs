@@ -27,8 +27,8 @@ public class Styx : ModItem
 
         Item.UseSound = AudioSystem.ReturnSound("styxshoot", 0.3f);
 
-        Item.damage = 301;
-        Item.crit = 32;
+        Item.damage = 256;
+        Item.crit = 6;
         Item.knockBack = 4;
 
         _manager = new CompactParticleManager(

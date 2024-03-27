@@ -57,7 +57,7 @@ public class StyxProjectile : GlobalProjectile
         {
             { 100f, 1.5f },
             { 400f, 1.2f },
-            { 2400f, 0.8f },
+            { 1200f, 0.8f },
             { 3800f, 0.6f }
         };
 

@@ -18,7 +18,7 @@ public class Gigakraken : ModItem
 
         Item.UseSound = AudioSystem.ReturnSound("dart", 0.3f);
 
-        Item.damage = 24;
+        Item.damage = 18;
         Item.knockBack = 1;
     }
 

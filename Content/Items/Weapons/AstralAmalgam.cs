@@ -21,7 +21,7 @@ public class AstralAmalgam : ModItem
 
         Item.UseSound = AudioSystem.ReturnSound("shoot1");
 
-        Item.damage = 15;
+        Item.damage = 12;
         Item.knockBack = 3;
     }
 
@@ -47,7 +47,7 @@ public class AstralAmalgam : ModItem
         {
             type = ModContent.ProjectileType<AstralBolt>();
             knockback = 0.75f;
-            damage *= 2;
+            damage += damage/2;
         }
     }
 

@@ -21,7 +21,7 @@ public class DartStorm : ModItem
 
         Item.UseSound = AudioSystem.ReturnSound("shotgun", 0.4f, 0.6f);
 
-        Item.damage = 14;
+        Item.damage = 12;
         Item.knockBack = 6f;
     }
 
@@ -38,7 +38,7 @@ public class DartStorm : ModItem
         }
 
         Projectile.NewProjectile(source, position, Vector2.Zero, ModContent.ProjectileType<ShotgunMusket>(), 0, 0, player.whoAmI,
-            velocity.ToRotation(), 14);
+            velocity.ToRotation(), 14, 4);
         velocity.Normalize();
         player.velocity += velocity * -2;
         CameraSystem.Screenshake(4, 3);

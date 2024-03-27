@@ -17,11 +17,11 @@ public class VerdantStalker : ModItem
         Item.DefaultToRangedWeapon(ProjectileID.PurificationPowder, AmmoID.Dart, 60, 17, true);
         Item.width = 52;
         Item.height = 20;
-        Item.rare = ItemRarityID.LightRed;
+        Item.rare = ItemRarityID.Orange;
 
         Item.UseSound = AudioSystem.ReturnSound("dart", 0.3f);
 
-        Item.damage = 55;
+        Item.damage = 50;
         Item.reuseDelay = 2;
         Item.knockBack = 8.5f;
     }
@@ -37,7 +37,7 @@ public class VerdantStalker : ModItem
         ParticleOrchestrator.SpawnParticlesDirect(ParticleOrchestraType.SilverBulletSparkle, settings);
 
         velocity.Normalize();
-        player.velocity += velocity * -5;
+        player.velocity += velocity * -3;
         CameraSystem.Screenshake(5, 4);
 
         _initialItemRot = player.itemRotation;

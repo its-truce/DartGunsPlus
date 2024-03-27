@@ -43,7 +43,7 @@ public class CherryLeaf : ModProjectile
 
         if (Projectile.timeLeft > 20)
             Main.EntitySpriteDraw(texture, Projectile.Center - Main.screenPosition, null, new Color(255, 255, 255, 0) * Projectile.Opacity,
-                Projectile.rotation, texture.Size() / 2, 0.03f, SpriteEffects.None); // white center
+                Projectile.rotation, texture.Size() / 2, 0.02f, SpriteEffects.None); // white center
 
         return false;
     }

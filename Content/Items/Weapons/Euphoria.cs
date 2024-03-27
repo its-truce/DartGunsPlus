@@ -12,14 +12,14 @@ public class Euphoria : ModItem
 {
     public override void SetDefaults()
     {
-        Item.DefaultToRangedWeapon(ProjectileID.PurificationPowder, AmmoID.Dart, 14, 16, true);
+        Item.DefaultToRangedWeapon(ProjectileID.PurificationPowder, AmmoID.Dart, 15, 16, true);
         Item.width = 44;
         Item.height = 26;
         Item.rare = ItemRarityID.Pink;
 
         Item.UseSound = AudioSystem.ReturnSound("dart", 0.3f);
 
-        Item.damage = 52;
+        Item.damage = 38;
         Item.knockBack = 3;
     }
 
@@ -48,7 +48,7 @@ public class Euphoria : ModItem
 
     public override Vector2? HoldoutOffset()
     {
-        return new Vector2(-2f, -2f);
+        return new Vector2(-2f, 3f);
     }
 
     public override void AddRecipes()

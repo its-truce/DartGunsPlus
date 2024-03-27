@@ -17,11 +17,11 @@ public class GlacialGeyser : ModItem
         Item.DefaultToRangedWeapon(ProjectileID.PurificationPowder, AmmoID.Dart, 18, 12.5f, true);
         Item.width = 60;
         Item.height = 26;
-        Item.rare = ItemRarityID.Yellow;
+        Item.rare = ItemRarityID.Lime;
 
         Item.UseSound = AudioSystem.ReturnSound("dart", 0.3f);
 
-        Item.damage = 65;
+        Item.damage = 57;
         Item.knockBack = 2;
     }
 
@@ -61,8 +61,6 @@ public class GlacialGeyser : ModItem
             Item.useTime = 40;
             Item.useAnimation = 40;
         }
-        
-        Main.NewText(_freezeBoltCount);
 
         if (_freezeBoltCount == 5)
         {

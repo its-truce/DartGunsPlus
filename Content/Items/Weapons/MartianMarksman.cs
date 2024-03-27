@@ -19,8 +19,8 @@ public class MartianMarksman : ModItem
 
         Item.UseSound = AudioSystem.ReturnSound("scifishoot", 0.3f);
 
-        Item.damage = 76;
-        Item.crit = 16;
+        Item.damage = 82;
+        Item.crit = 20;
         Item.knockBack = 5;
         Item.channel = true;
     }
@@ -41,6 +41,7 @@ public class MartianMarksman : ModItem
         {
             type = ModContent.ProjectileType<MartianLightning>();
             damage *= 2;
+            damage += damage / 4;
             player.GetModPlayer<MartianPlayer>().MartianCurrent = 0;
         }
     }

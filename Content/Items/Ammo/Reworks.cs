@@ -46,7 +46,7 @@ public class Reworks : GlobalProjectile
                 VisualSystem.SpawnDustCircle(target.Center, ModContent.DustType<GlowFastDecelerate>(), 30, color: new Color(200, 86, 135));
 
                 Projectile.NewProjectile(projectile.GetSource_OnHit(target), projectile.Center, Vector2.Zero, ModContent.ProjectileType<CrystalShock>(),
-                    projectile.damage * 2, 4, projectile.owner);
+                    projectile.damage + projectile.damage/2, 4, projectile.owner);
                 Projectile.NewProjectile(projectile.GetSource_OnHit(target), projectile.Center, Vector2.Zero, ModContent.ProjectileType<ShockwaveProjectile>(),
                     0, 0, projectile.owner);
 
@@ -75,7 +75,7 @@ public class Reworks : GlobalProjectile
                         for (int i = 0; i < 5; i++)
                         {
                             Projectile shard = Projectile.NewProjectileDirect(proj.GetSource_Death(), proj.Center,
-                                new Vector2(7, 2).RotatedBy(MathHelper.ToRadians(i * 72)), ProjectileID.QueenSlimeMinionBlueSpike, projectile.damage,
+                                new Vector2(7, 2).RotatedBy(MathHelper.ToRadians(i * 72)), ProjectileID.QueenSlimeMinionBlueSpike, projectile.damage/2,
                                 3, proj.owner);
                             shard.friendly = true;
                             shard.hostile = false;

@@ -99,7 +99,7 @@ public class TerraBoom : ModProjectile
                     Vector2 spawnPos = Target.Center + new Vector2(200, 0).RotatedByRandom(Math.Tau);
                     Vector2 velocity = spawnPos.DirectionTo(Target.Center) * 8;
 
-                    Projectile.NewProjectile(Projectile.GetSource_FromAI(), spawnPos, velocity, ModContent.ProjectileType<TerraSlash>(), Projectile.damage * 2,
+                    Projectile.NewProjectile(Projectile.GetSource_FromAI(), spawnPos, velocity, ModContent.ProjectileType<TerraSlash>(), Projectile.damage,
                         3, Projectile.owner, ai1: 1, ai2: Target.whoAmI);
                 }
             }
@@ -116,7 +116,7 @@ public class TerraBoom : ModProjectile
                     Vector2 spawnPos = Target.Center + new Vector2(200, 0).RotatedByRandom(Math.Tau);
                     Vector2 velocity = spawnPos.DirectionTo(Target.Center) * 8;
 
-                    Projectile.NewProjectile(Projectile.GetSource_FromAI(), spawnPos, velocity, ModContent.ProjectileType<TerraSlash>(), Projectile.damage,
+                    Projectile.NewProjectile(Projectile.GetSource_FromAI(), spawnPos, velocity, ModContent.ProjectileType<TerraSlash>(), Projectile.damage/2,
                         3, Projectile.owner);
                 }
 

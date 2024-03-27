@@ -21,7 +21,7 @@ public class Scatterhook : ModItem
 
         Item.UseSound = AudioSystem.ReturnSound("shotgun", 0.4f);
 
-        Item.damage = 40;
+        Item.damage = 30;
         Item.knockBack = 8f;
     }
 

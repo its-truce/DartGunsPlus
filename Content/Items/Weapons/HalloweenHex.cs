@@ -17,8 +17,7 @@ public class HalloweenHex : ModItem
 
         Item.UseSound = AudioSystem.ReturnSound("dart", 0.3f);
 
-        Item.damage = 82;
-        Item.crit = 20;
+        Item.damage = 75;
         Item.knockBack = 3;
         Item.channel = true;
     }
@@ -38,6 +37,6 @@ public class HalloweenHex : ModItem
 
     public override Vector2? HoldoutOffset()
     {
-        return new Vector2(-2f, -2f);
+        return new Vector2(-2f, -6f);
     }
 }

@@ -48,7 +48,7 @@ public class CrimsonCobra : ModItem
 
     public override Vector2? HoldoutOffset()
     {
-        return new Vector2(-2f, -2f);
+        return new Vector2(-2f, 4f);
     }
 
     public override void AddRecipes()

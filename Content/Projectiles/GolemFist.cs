@@ -140,5 +140,15 @@ public class GolemFist : ModProjectile
             Projectile.damage, 7, Projectile.owner);
         Projectile.ai[1] = 0;
         Projectile.ai[2] = 0;
+        
+        int randDust = Main.rand.Next(10, 20);
+        for (int i = 0; i < randDust; i++)
+        {
+            Dust dust = Dust.NewDustDirect(target.Center, 0, 0, DustID.Torch);
+            dust.velocity *= 3.2f;
+            dust.velocity.Y -= 1f;
+            dust.velocity += Projectile.velocity;
+            dust.noGravity = true;
+        }
     }
 }

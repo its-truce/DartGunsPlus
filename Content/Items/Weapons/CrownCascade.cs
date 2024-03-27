@@ -26,7 +26,7 @@ public class CrownCascade : ModItem
 
         Item.UseSound = AudioSystem.ReturnSound("dart", 0.3f);
 
-        Item.damage = 36;
+        Item.damage = 38;
         Item.knockBack = 3;
     }
 
@@ -116,6 +116,6 @@ public class CrownCascade : ModItem
 
     public override Vector2? HoldoutOffset()
     {
-        return new Vector2(-2f, -1f);
+        return new Vector2(-2f, -4f);
     }
 }

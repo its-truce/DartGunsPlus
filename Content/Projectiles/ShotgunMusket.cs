@@ -81,6 +81,8 @@ public class ShotgunMusket : ModProjectile
         }
 
         float scaleFactor = Projectile.ai[2] == 1 ? 1.3f : 1f;
+        if (Projectile.ai[2] == 4) // dart storm lil guy
+            scaleFactor = 0.7f;
 
         Main.EntitySpriteDraw(texture, Projectile.Center - Main.screenPosition, null, color1 * Projectile.Opacity,
             Projectile.rotation, texture.Size() / 2, Projectile.scale * scaleFactor, SpriteEffects.None);

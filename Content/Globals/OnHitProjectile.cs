@@ -125,13 +125,17 @@ public class OnHitProjectile : GlobalProjectile
 
         else if (_itemType == ModContent.ItemType<CrimsonCobra>())
         {
+            Player player = Main.player[projectile.owner];
+            
             if (Main.rand.NextBool(2))
             {
-                Player player = Main.player[projectile.owner];
-                target.AddBuff(BuffID.BloodButcherer, 540);
-                Projectile.NewProjectile(projectile.GetSource_OnHit(target), target.Center, Vector2.Zero, ProjectileID.BloodButcherer, 0,
-                    0, projectile.owner, 1, target.whoAmI);
-
+                if (player.ownedProjectileCounts[ProjectileID.BloodButcherer] < 7)
+                {
+                    target.AddBuff(BuffID.BloodButcherer, 540);
+                    Projectile.NewProjectile(projectile.GetSource_OnHit(target), target.Center, Vector2.Zero, ProjectileID.BloodButcherer, 0,
+                        0, projectile.owner, 1, target.whoAmI);
+                }
+                
                 Vector2 pointPosition = target.Center;
                 Vector2 alternatePoint = target.Center;
 
@@ -194,7 +198,8 @@ public class OnHitProjectile : GlobalProjectile
 
         else if (_itemType == ModContent.ItemType<RosemaryThyme>())
         {
-            if (Main.rand.NextBool(7))
+            Player player = Main.player[projectile.owner];
+            if (Main.rand.NextBool(7) && player.ownedProjectileCounts[ModContent.ProjectileType<PlanteraShooter>()] < 15)
                 Projectile.NewProjectile(projectile.GetSource_OnHit(target), target.Center, Vector2.Zero, ModContent.ProjectileType<PlanteraShooter>(),
                     damageDone, 0, projectile.owner, Main.rand.NextFloat(0, MathF.Tau), ai2: damageDone);
         }
@@ -386,7 +391,7 @@ public class OnHitProjectile : GlobalProjectile
                 {
                     Vector2 spawnPos = owner.Center - owner.Center.DirectionTo(Main.MouseWorld) * 100;
                     Vector2 velocity = spawnPos.DirectionTo(Main.MouseWorld).RotatedByRandom(MathHelper.ToRadians(30)) * 7;
-                    Dust.NewDust(spawnPos, projectile.width, projectile.height, ModContent.DustType<GlowFastDecelerate>(), Scale: 0.6f, newColor: Color.LawnGreen);
+                    Dust.NewDust(spawnPos, projectile.width, projectile.height, ModContent.DustType<GlowFastDecelerate>(), Scale: 0.6f, newColor: Color.LawnGreen);                    VisualSystem.SpawnDustPortal(spawnPos, velocity, ModContent.DustType<GlowFastDecelerate>(), 0.6f, Color.LawnGreen);
             
                     Projectile.NewProjectile(projectile.GetSource_OnHit(target), spawnPos, velocity,
                         ModContent.ProjectileType<SereneBolt>(), projectile.damage / 3, 3, projectile.owner);

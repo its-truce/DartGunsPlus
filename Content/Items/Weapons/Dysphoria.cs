@@ -17,7 +17,7 @@ public class Dysphoria : ModItem
 
         Item.UseSound = AudioSystem.ReturnSound("dart", 0.3f);
 
-        Item.damage = 22;
+        Item.damage = 20;
         Item.knockBack = 4;
     }
 
@@ -32,7 +32,7 @@ public class Dysphoria : ModItem
 
     public override Vector2? HoldoutOffset()
     {
-        return new Vector2(-2f, -2f);
+        return new Vector2(-2f, 6f);
     }
 
     public override void AddRecipes()

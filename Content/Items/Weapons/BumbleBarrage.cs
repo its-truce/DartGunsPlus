@@ -19,7 +19,7 @@ public class BumbleBarrage : ModItem
 
         Item.UseSound = SoundID.Item97;
 
-        Item.damage = 5;
+        Item.damage = 4;
         Item.knockBack = 2;
     }
 
@@ -44,7 +44,7 @@ public class BumbleBarrage : ModItem
 
     public override void ModifyShootStats(Player player, ref Vector2 position, ref Vector2 velocity, ref int type, ref int damage, ref float knockback)
     {
-        velocity *= 1f - Main.rand.NextFloat(0.2f);
+        velocity *= 1f - Main.rand.NextFloat(0.8f);
 
         Vector2 muzzleOffset = Vector2.Normalize(velocity) * Item.width;
 
@@ -57,7 +57,7 @@ public class BumbleBarrage : ModItem
 
     public override Vector2? HoldoutOffset()
     {
-        return new Vector2(-2f, -1f);
+        return new Vector2(-2f, -2f);
     }
 }
 

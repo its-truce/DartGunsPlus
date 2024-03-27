@@ -110,7 +110,7 @@ public class EmpressLaser : ModProjectile
             float num2 = (float)(Main.rand.NextDouble() * 0.8f + 1.0f);
             Vector2 dustVel = new((float)Math.Cos(num1) * num2, (float)Math.Sin(num1) * num2);
             Dust dust = Dust.NewDustDirect(dustPos, 0, 0, ModContent.DustType<GlowFastDecelerate>(), dustVel.X, dustVel.Y, newColor: Main.DiscoColor,
-                Scale: 0.2f);
+                Scale: 0.1f);
             dust.noGravity = true;
             dust.scale = 1.2f;
         }

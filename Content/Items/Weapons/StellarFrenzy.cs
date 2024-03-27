@@ -1,7 +1,5 @@
 using Microsoft.Xna.Framework;
 using Terraria;
-using Terraria.DataStructures;
-using Terraria.GameContent.Drawing;
 using Terraria.ID;
 using Terraria.ModLoader;
 
@@ -18,21 +16,8 @@ public class StellarFrenzy : ModItem
 
         Item.UseSound = SoundID.Item9;
 
-        Item.damage = 8;
+        Item.damage = 16;
         Item.knockBack = 2;
-    }
-
-    public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
-    {
-        ParticleOrchestraSettings settings = new()
-        {
-            PositionInWorld = position,
-            MovementVector = Vector2.Zero,
-            IndexOfPlayerWhoInvokedThis = (byte)player.whoAmI
-        };
-        ParticleOrchestrator.SpawnParticlesDirect(ParticleOrchestraType.StellarTune, settings);
-
-        return true;
     }
 
     public override void ModifyShootStats(Player player, ref Vector2 position, ref Vector2 velocity, ref int type, ref int damage, ref float knockback)
@@ -50,6 +35,6 @@ public class StellarFrenzy : ModItem
 
     public override Vector2? HoldoutOffset()
     {
-        return new Vector2(-2f, -1f);
+        return new Vector2(-2f, -2f);
     }
 }

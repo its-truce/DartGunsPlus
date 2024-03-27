@@ -32,9 +32,6 @@ public class DysphoriaPlayer : ModPlayer
     private void ResetVariables()
     {
         DysphoriaMax2 = _dysphoriaMax;
-        
-        if (DysphoriaCurrent < DysphoriaMax2 && Player.ownedProjectileCounts[ModContent.ProjectileType<DysphoriaMagnet>()] <= 0)
-            DysphoriaCurrent++;
     }
 
     public override void PostUpdateMiscEffects()
@@ -50,14 +47,14 @@ public class DysphoriaPlayer : ModPlayer
     private void UpdateResource()
     {
         DysphoriaCurrent = Utils.Clamp(DysphoriaCurrent, 0, DysphoriaMax2);
+        
+        if (DysphoriaCurrent < DysphoriaMax2 && Player.ownedProjectileCounts[ModContent.ProjectileType<DysphoriaMagnet>()] <= 0)
+            DysphoriaCurrent++;
     }
 
     private void CapResourceGodMode()
     {
-        if (Main.myPlayer == Player.whoAmI && Player.creativeGodMode) 
+        if (Main.myPlayer == Player.whoAmI && Player.creativeGodMode)
             DysphoriaCurrent = DysphoriaMax2;
-        
-        if (DysphoriaCurrent < DysphoriaMax2 && Player.ownedProjectileCounts[ModContent.ProjectileType<DysphoriaMagnet>()] <= 0)
-            DysphoriaCurrent++;
     }
 }

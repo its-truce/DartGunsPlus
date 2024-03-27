@@ -22,7 +22,7 @@ public class CherryBlossom : ModItem
 
         Item.UseSound = AudioSystem.ReturnSound("shotgun", 0.4f, 0.75f);
 
-        Item.damage = 22;
+        Item.damage = 28;
         Item.knockBack = 6.5f;
     }
 

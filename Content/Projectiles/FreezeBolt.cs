@@ -91,7 +91,7 @@ public class FreezeBolt : ModProjectile
                 Main.rand.Next(17));
             Vector2 velocity = (targetSpot - spawnPos).SafeNormalize(-Vector2.UnitY) * 16f;
             Projectile.NewProjectile(Projectile.GetSource_Death(), spawnPos, velocity, ModContent.ProjectileType<Icicle>(),
-                Projectile.damage / 2, 5, Projectile.owner, ai1: Main.rand.NextFloat() * 0.5f + 0.6f);
+                Projectile.damage / 3, 5, Projectile.owner, ai1: Main.rand.NextFloat() * 0.5f + 0.6f);
         }
 
         SoundEngine.PlaySound(SoundID.DD2_BetsysWrathImpact, Projectile.Center);

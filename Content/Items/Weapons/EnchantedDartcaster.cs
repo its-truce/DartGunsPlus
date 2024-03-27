@@ -18,7 +18,7 @@ public class EnchantedDartcaster : ModItem
 
         Item.UseSound = SoundID.DD2_DarkMageHealImpact;
 
-        Item.damage = 16;
+        Item.damage = 10;
         Item.knockBack = 4;
     }
 

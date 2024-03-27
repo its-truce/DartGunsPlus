@@ -35,7 +35,7 @@ public class PlanteraSeed : ModProjectile
     public override void AI()
     {
         if (Projectile.ai[0] == 4)
-            _velocityLength = Projectile.velocity.Length() * 0.7f;
+            _velocityLength = Projectile.velocity.Length() * 0.8f;
 
         NPC closestTarget = DartUtils.FindClosestTarget(800, _alreadyHit, Projectile, 3);
 

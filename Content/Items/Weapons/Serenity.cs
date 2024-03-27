@@ -25,7 +25,7 @@ public class Serenity : ModItem
 
         Item.UseSound = SoundID.DD2_DarkMageAttack;
 
-        Item.damage = 82;
+        Item.damage = 62;
         Item.knockBack = 5;
     }
 
@@ -81,7 +81,7 @@ public class Serenity : ModItem
                             Vector2 spawnVelocity = spawnPos.DirectionTo(target.Center) * 8;
 
                             Projectile.NewProjectile(proj.GetSource_FromAI(), spawnPos, spawnVelocity, ModContent.ProjectileType<TerraSlash>(), 
-                                proj.damage * 2, 3, proj.owner, ai1: 1);
+                                proj.damage, 3, proj.owner, ai1: 1);
                         
                             proj.localAI[1] = 1; // retreat
                         }

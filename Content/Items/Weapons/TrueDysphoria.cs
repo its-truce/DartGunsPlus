@@ -15,16 +15,17 @@ public class TrueDysphoria : ModItem
     private float _initialItemRot;
     private int _shootCount;
 
+    //TODO: fix all shoot speeds for evrry dart gun UGH
     public override void SetDefaults()
     {
-        Item.DefaultToRangedWeapon(ProjectileID.PurificationPowder, AmmoID.Dart, 12, 16, true);
+        Item.DefaultToRangedWeapon(ProjectileID.PurificationPowder, AmmoID.Dart, 14, 16, true);
         Item.width = 60;
         Item.height = 36;
         Item.rare = ItemRarityID.Yellow;
 
         Item.UseSound = AudioSystem.ReturnSound("dart", 0.3f);
 
-        Item.damage = 54;
+        Item.damage = 30;
         Item.knockBack = 4.5f;
     }
 
@@ -70,18 +71,20 @@ public class TrueDysphoria : ModItem
             if (dysphoriaPlayer.DysphoriaCurrent == dysphoriaPlayer.DysphoriaMax2)
             {
                 type = ModContent.ProjectileType<DysphoriaBoom>();
-                damage *= 2;
                 velocity *= 0.8f;
                 dysphoriaPlayer.DysphoriaCurrent = 0;
             }
             else
                 PopupSystem.PopUp("Not enough energy!", new Color(55, 224, 112), player.Center - new Vector2(0, 50));
         }
+
+        if (player.ownedProjectileCounts[ModContent.ProjectileType<RevolvingSword>()] > 0)
+            damage -= damage / 3;
     }
 
     public override Vector2? HoldoutOffset()
     {
-        return new Vector2(-2f, -2f);
+        return new Vector2(-2f, 2f);
     }
 
     public override void UseStyle(Player player, Rectangle heldItemFrame)

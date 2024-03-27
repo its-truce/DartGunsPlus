@@ -66,7 +66,7 @@ public class Katanakaze : ModItem
 
     public override Vector2? HoldoutOffset()
     {
-        return new Vector2(-2f, -2f);
+        return new Vector2(-2f, 3f);
     }
 
     public override bool CanUseItem(Player player)

@@ -19,11 +19,11 @@ public class GoreNGlory : ModItem
         Item.DefaultToRangedWeapon(ProjectileID.PurificationPowder, AmmoID.Dart, 30, 14, true);
         Item.width = 80;
         Item.height = 28;
-        Item.rare = ItemRarityID.Lime;
+        Item.rare = ItemRarityID.LightRed;
 
         Item.UseSound = AudioSystem.ReturnSound("dart", 0.3f);
 
-        Item.damage = 90;
+        Item.damage = 22;
         Item.knockBack = 6;
         Item.reuseDelay = 5;
     }
@@ -52,8 +52,8 @@ public class GoreNGlory : ModItem
                 0, 0, player.whoAmI, velocity.ToRotation(), 4, 1);
 
             velocity.Normalize();
-            player.velocity += velocity * -6;
-            CameraSystem.Screenshake(4, 5);
+            player.velocity += velocity * -3;
+            CameraSystem.Screenshake(3, 5);
         }
 
         _initialItemRot = player.itemRotation;

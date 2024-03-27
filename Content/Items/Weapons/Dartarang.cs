@@ -22,7 +22,7 @@ public class Dartarang : ModItem
         Item.DefaultToRangedWeapon(ProjectileID.PurificationPowder, AmmoID.Dart, 25, 9, true);
         Item.width = 32;
         Item.height = 22;
-        Item.rare = ItemRarityID.LightRed;
+        Item.rare = ItemRarityID.Blue;
 
         Item.UseSound = AudioSystem.ReturnSound("dart", 0.3f);
 
@@ -84,7 +84,7 @@ public class Dartarang : ModItem
 
     public override Vector2? HoldoutOffset()
     {
-        return new Vector2(-2f, -2f);
+        return new Vector2(-2f, 4f);
     }
 
     public override void AddRecipes()

@@ -2,6 +2,8 @@ using DartGunsPlus.Content.Systems;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Terraria;
+using Terraria.Audio;
+using Terraria.ID;
 using Terraria.ModLoader;
 
 namespace DartGunsPlus.Content.Projectiles;
@@ -30,8 +32,14 @@ public class PlanteraShooter : ModProjectile
         Projectile.ai[1]++;
 
         if (Projectile.ai[1] % 45 == 0 && Projectile.ai[1] != 0)
+        {
             Projectile.NewProjectile(Projectile.GetSource_FromAI(), Projectile.Center, Projectile.Center.DirectionTo(Main.MouseWorld) * 8,
                 ModContent.ProjectileType<PlanteraSeed>(), (int)Projectile.ai[2], 3, Owner.whoAmI);
+
+            SoundEngine.PlaySound(SoundID.Grass with { MaxInstances = 2 }, Projectile.Center);
+            VisualSystem.SpawnDustCircle(Projectile.Center, DustID.Grass);
+        }
+
 
         Projectile.rotation = Projectile.Center.DirectionTo(Main.MouseWorld).ToRotation();
 

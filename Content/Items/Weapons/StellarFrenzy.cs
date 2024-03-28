@@ -38,4 +38,13 @@ public class StellarFrenzy : ModItem
     {
         return new Vector2(-2f, -2f);
     }
+
+    public override void AddRecipes()
+    {
+        CreateRecipe()
+            .AddIngredient(ItemID.FallenStar, 5)
+            .AddRecipeGroup(RecipeGroupID.IronBar, 15)
+            .AddTile(TileID.SkyMill)
+            .Register();
+    }
 }

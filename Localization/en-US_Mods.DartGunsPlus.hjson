@@ -569,7 +569,11 @@ Buffs: {
 	}
 }
 
-Conditions.downedSkeletronOrDeerclopsOrHardmode: After defeating Skeletron or Deerclops or Wall of Flesh
+Conditions: {
+	downedSkeletronOrDeerclopsOrHardmode: After defeating Skeletron or Deerclops or Wall of Flesh
+	witchDoctorInJungle: If Witch Doctor is in the Jungle and Skeletron has been defeated
+	downedSkeletronAndInGraveyard: If the player is in a graveyard and Skeletron has been defeated
+}
 
 Configs: {
 	ScreenshakeConfig: {

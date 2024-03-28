@@ -17,7 +17,7 @@ public class AltitudeAnnihilator : ModItem
         Item.maxStack = 1;
         Item.accessory = true;
         Item.value = Item.sellPrice(gold: 1, silver: 67);
-        Item.rare = ItemRarityID.Orange;
+        Item.rare = ItemRarityID.LightRed;
     }
 
     public override void UpdateAccessory(Player player, bool hideVisual)

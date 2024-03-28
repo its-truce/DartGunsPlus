@@ -17,12 +17,12 @@ public class DartStorm : ModItem
         Item.DefaultToRangedWeapon(ProjectileID.PurificationPowder, AmmoID.Dart, 40, 11, true);
         Item.width = 38;
         Item.height = 22;
-        Item.rare = ItemRarityID.Green;
+        Item.rare = ItemRarityID.Orange;
         Item.value = Item.sellPrice(gold: 6);
 
         Item.UseSound = AudioSystem.ReturnSound("shotgun", 0.4f, 0.6f);
 
-        Item.damage = 12;
+        Item.damage = 16;
         Item.knockBack = 6f;
     }
 

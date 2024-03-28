@@ -17,7 +17,7 @@ public class AstralAmalgam : ModItem
         Item.DefaultToRangedWeapon(ProjectileID.PurificationPowder, AmmoID.Dart, 20, 11, true);
         Item.width = 50;
         Item.height = 24;
-        Item.rare = ItemRarityID.Orange;
+        Item.rare = ItemRarityID.Blue;
         Item.value = Item.sellPrice(silver: 55);
 
         Item.UseSound = AudioSystem.ReturnSound("shoot1");

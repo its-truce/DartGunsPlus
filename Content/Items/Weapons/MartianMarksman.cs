@@ -12,7 +12,7 @@ public class MartianMarksman : ModItem
 {
     public override void SetDefaults()
     {
-        Item.DefaultToRangedWeapon(ProjectileID.PurificationPowder, AmmoID.Dart, 22, 11, true);
+        Item.DefaultToRangedWeapon(ProjectileID.PurificationPowder, AmmoID.Dart, 22, 12, true);
         Item.width = 60;
         Item.height = 24;
         Item.rare = ItemRarityID.Yellow;

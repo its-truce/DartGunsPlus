@@ -10,7 +10,7 @@ public class StellarOutrage : ModItem
 {
     public override void SetDefaults()
     {
-        Item.DefaultToRangedWeapon(ProjectileID.PurificationPowder, AmmoID.Dart, 20, 18, true);
+        Item.DefaultToRangedWeapon(ProjectileID.PurificationPowder, AmmoID.Dart, 20, 15, true);
         Item.width = 64;
         Item.height = 26;
         Item.rare = ItemRarityID.Red;

@@ -15,7 +15,7 @@ public class VolatileContraption : ModItem
 
     public override void SetDefaults()
     {
-        Item.DefaultToRangedWeapon(ProjectileID.PurificationPowder, AmmoID.Dart, 32, 12, true);
+        Item.DefaultToRangedWeapon(ProjectileID.PurificationPowder, AmmoID.Dart, 32, 14, true);
         Item.width = 72;
         Item.height = 42;
         Item.rare = ItemRarityID.Pink;

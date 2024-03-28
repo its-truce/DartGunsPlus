@@ -9,7 +9,7 @@ public class Luminescence : ModItem
 {
     public override void SetDefaults()
     {
-        Item.DefaultToRangedWeapon(ProjectileID.PurificationPowder, AmmoID.Dart, 25, 10, true);
+        Item.DefaultToRangedWeapon(ProjectileID.PurificationPowder, AmmoID.Dart, 25, 13, true);
         Item.width = 52;
         Item.height = 44;
         Item.rare = ItemRarityID.Yellow;

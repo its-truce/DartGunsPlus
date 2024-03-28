@@ -10,7 +10,7 @@ public class HalloweenHex : ModItem
 {
     public override void SetDefaults()
     {
-        Item.DefaultToRangedWeapon(ProjectileID.PurificationPowder, AmmoID.Dart, 19, 9, true);
+        Item.DefaultToRangedWeapon(ProjectileID.PurificationPowder, AmmoID.Dart, 19, 12, true);
         Item.width = 60;
         Item.height = 30;
         Item.rare = ItemRarityID.Yellow;

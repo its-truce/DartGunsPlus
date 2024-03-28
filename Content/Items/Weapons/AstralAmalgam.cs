@@ -14,7 +14,7 @@ public class AstralAmalgam : ModItem
 
     public override void SetDefaults()
     {
-        Item.DefaultToRangedWeapon(ProjectileID.PurificationPowder, AmmoID.Dart, 20, 11, true);
+        Item.DefaultToRangedWeapon(ProjectileID.PurificationPowder, AmmoID.Dart, 20, 8, true);
         Item.width = 50;
         Item.height = 24;
         Item.rare = ItemRarityID.Blue;

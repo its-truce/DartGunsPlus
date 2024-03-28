@@ -10,7 +10,7 @@ public class Dysphoria : ModItem
 {
     public override void SetDefaults()
     {
-        Item.DefaultToRangedWeapon(ProjectileID.PurificationPowder, AmmoID.Dart, 18, 18, true);
+        Item.DefaultToRangedWeapon(ProjectileID.PurificationPowder, AmmoID.Dart, 18, 14, true);
         Item.width = 52;
         Item.height = 32;
         Item.rare = ItemRarityID.Orange;

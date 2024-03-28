@@ -14,7 +14,7 @@ public class VerdantStalker : ModItem
 
     public override void SetDefaults()
     {
-        Item.DefaultToRangedWeapon(ProjectileID.PurificationPowder, AmmoID.Dart, 60, 17, true);
+        Item.DefaultToRangedWeapon(ProjectileID.PurificationPowder, AmmoID.Dart, 60, 15, true);
         Item.width = 52;
         Item.height = 20;
         Item.rare = ItemRarityID.Orange;

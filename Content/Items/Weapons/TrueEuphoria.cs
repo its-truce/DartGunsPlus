@@ -17,7 +17,7 @@ public class TrueEuphoria : ModItem
 
     public override void SetDefaults()
     {
-        Item.DefaultToRangedWeapon(ProjectileID.PurificationPowder, AmmoID.Dart, 24, 14, true);
+        Item.DefaultToRangedWeapon(ProjectileID.PurificationPowder, AmmoID.Dart, 24, 16, true);
         Item.width = 70;
         Item.height = 34;
         Item.rare = ItemRarityID.Yellow;

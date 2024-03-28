@@ -479,9 +479,6 @@ public class OnHitProjectile : GlobalProjectile
             SoundEngine.PlaySound(SoundID.DD2_BookStaffCast, target.Center);
             Projectile.NewProjectile(projectile.GetSource_OnHit(target), target.Center, Vector2.Zero, ModContent.ProjectileType<BlackHole>(), damageDone,
                 3, projectile.owner, target.whoAmI);
-
-            if (target.CanBeChasedBy())
-                target.velocity = target.DirectionTo(Main.player[projectile.owner].Center) * 5;
         }
     }
 }

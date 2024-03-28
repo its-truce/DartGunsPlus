@@ -1,5 +1,6 @@
 using DartGunsPlus.Content.Items.Ammo;
 using DartGunsPlus.Content.Projectiles;
+using DartGunsPlus.Content.Systems;
 using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.ID;
@@ -17,7 +18,7 @@ public class EnchantedDartcaster : ModItem
         Item.rare = ItemRarityID.Blue;
         Item.value = Item.sellPrice(gold: 1);
 
-        Item.UseSound = SoundID.DD2_DarkMageHealImpact;
+        Item.UseSound = AudioSystem.ReturnSound("enchantshoot");
 
         Item.damage = 10;
         Item.knockBack = 4;

@@ -20,6 +20,7 @@ public class GoreNGlory : ModItem
         Item.width = 80;
         Item.height = 28;
         Item.rare = ItemRarityID.LightRed;
+        Item.value = Item.sellPrice(gold: 3);
 
         Item.UseSound = AudioSystem.ReturnSound("dart", 0.3f);
 

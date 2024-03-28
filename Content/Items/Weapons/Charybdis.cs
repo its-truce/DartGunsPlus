@@ -16,6 +16,7 @@ public class Charybdis : ModItem
         Item.width = 58;
         Item.height = 30;
         Item.rare = ItemRarityID.Red;
+        Item.value = Item.sellPrice(gold: 10);
 
         Item.UseSound = AudioSystem.ReturnSound("dart", 0.3f);
 

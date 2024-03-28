@@ -14,6 +14,7 @@ public class HalloweenHex : ModItem
         Item.width = 60;
         Item.height = 30;
         Item.rare = ItemRarityID.Yellow;
+        Item.value = Item.sellPrice(gold: 9);
 
         Item.UseSound = AudioSystem.ReturnSound("dart", 0.3f);
 

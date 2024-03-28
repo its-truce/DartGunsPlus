@@ -18,6 +18,7 @@ public class DartStorm : ModItem
         Item.width = 38;
         Item.height = 22;
         Item.rare = ItemRarityID.Green;
+        Item.value = Item.sellPrice(gold: 6);
 
         Item.UseSound = AudioSystem.ReturnSound("shotgun", 0.4f, 0.6f);
 
@@ -62,5 +63,17 @@ public class DartStorm : ModItem
     public override void UseStyle(Player player, Rectangle heldItemFrame)
     {
         VisualSystem.RecoilAnimation(player, _initialItemRot, 15);
+    }
+}
+
+public class DartStormNPC : GlobalNPC
+{
+    public override void ModifyShop(NPCShop shop)
+    {
+        Condition downedSkeletronAndInGraveyard = new("Mods.DartGunsPlus.Conditions.downedSkeletronAndInGraveyard",
+            () => Condition.DownedSkeletron.IsMet() && Condition.InGraveyard.IsMet());
+        
+        if (shop.NpcType == NPCID.ArmsDealer)
+            shop.Add<DartStorm>(downedSkeletronAndInGraveyard);
     }
 }

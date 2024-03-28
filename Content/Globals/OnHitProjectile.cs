@@ -148,8 +148,6 @@ public class OnHitProjectile : GlobalProjectile
                     projectile.damage / 4, 5, projectile.owner, ai1: Main.rand.NextFloat() * 0.5f + 0.6f);
             }
 
-            CameraSystem.Screenshake(4, 4);
-
             for (int i = 0; i < 75; i++)
                 Dust.NewDust(target.position, target.width, target.height, DustID.Blood, Main.rand.NextFloat(-1f, 1f), Main.rand.NextFloat(-1f, 1f));
         }

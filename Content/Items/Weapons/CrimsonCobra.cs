@@ -16,6 +16,7 @@ public class CrimsonCobra : ModItem
         Item.width = 58;
         Item.height = 28;
         Item.rare = ItemRarityID.Blue;
+        Item.value = Item.sellPrice(silver: 36);
 
         Item.UseSound = AudioSystem.ReturnSound("dart", 0.3f);
 

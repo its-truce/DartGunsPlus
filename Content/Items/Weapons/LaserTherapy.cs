@@ -16,6 +16,7 @@ public class LaserTherapy : ModItem
         Item.width = 72;
         Item.height = 24;
         Item.rare = ItemRarityID.Red;
+        Item.value = Item.sellPrice(gold: 12);
 
         Item.UseSound = AudioSystem.ReturnSound("scifishoot", 0.3f);
 
@@ -49,12 +50,4 @@ public class LaserTherapy : ModItem
     {
         return new Vector2(-2f, -5f);
     }
-
-    //TODO: for lightning,
-    //for (int i = 0; i < 4; i++)
-    // {
-    //     Vector2 spawnPos = projectile.Center + new Vector2(65, 0).RotatedByRandom(MathF.Tau);
-    //     Projectile.NewProjectile(projectile.GetSource_Death(), spawnPos, spawnPos.DirectionTo(projectile.Center),
-    //         ModContent.ProjectileType<SmallTrail>(), 0, 0, projectile.owner, 200, 86, 135);
-    // }
 }

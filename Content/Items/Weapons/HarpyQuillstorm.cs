@@ -18,6 +18,7 @@ public class HarpyQuillstorm : ModItem
         Item.width = 52;
         Item.height = 20;
         Item.rare = ItemRarityID.LightRed;
+        Item.value = Item.sellPrice(gold: 2, silver: 80);
 
         Item.UseSound = SoundID.DD2_BetsyWindAttack;
 

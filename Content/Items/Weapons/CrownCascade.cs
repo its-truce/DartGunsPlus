@@ -23,6 +23,7 @@ public class CrownCascade : ModItem
         Item.width = 80;
         Item.height = 30;
         Item.rare = ItemRarityID.Yellow;
+        Item.value = Item.sellPrice(gold: 5);
 
         Item.UseSound = AudioSystem.ReturnSound("dart", 0.3f);
 

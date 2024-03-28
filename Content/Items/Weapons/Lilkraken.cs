@@ -14,6 +14,7 @@ public class Lilkraken : ModItem
         Item.width = 52;
         Item.height = 30;
         Item.rare = ItemRarityID.Green;
+        Item.value = Item.sellPrice(gold: 4);
 
         Item.UseSound = AudioSystem.ReturnSound("dart", 0.3f);
 
@@ -38,5 +39,14 @@ public class Lilkraken : ModItem
     public override Vector2? HoldoutOffset()
     {
         return new Vector2(-2f, -2f);
+    }
+}
+
+public class LilkrakenNPC : GlobalNPC
+{
+    public override void ModifyShop(NPCShop shop)
+    { 
+        if (shop.NpcType == NPCID.ArmsDealer)
+            shop.Add<Lilkraken>();
     }
 }

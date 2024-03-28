@@ -19,6 +19,7 @@ public class Scylla : ModItem
         Item.width = 64;
         Item.height = 24;
         Item.rare = ItemRarityID.Red;
+        Item.value = Item.sellPrice(gold: 10);
 
         Item.UseSound = AudioSystem.ReturnSound("scyllashoot", 0.4f);
 
@@ -88,5 +89,13 @@ public class Scylla : ModItem
     {
         Item.UseSound = player.altFunctionUse != 2 ? AudioSystem.ReturnSound("scyllashoot", 0.4f) : null;
         return base.CanUseItem(player);
+    }
+    
+    public override void AddRecipes()
+    {
+        CreateRecipe()
+            .AddIngredient(ItemID.FragmentVortex, 18)
+            .AddTile(TileID.LunarCraftingStation)
+            .Register();
     }
 }

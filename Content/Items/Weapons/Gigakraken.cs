@@ -15,6 +15,7 @@ public class Gigakraken : ModItem
         Item.width = 58;
         Item.height = 30;
         Item.rare = ItemRarityID.Pink;
+        Item.value = Item.sellPrice(gold: 6);
 
         Item.UseSound = AudioSystem.ReturnSound("dart", 0.3f);
 

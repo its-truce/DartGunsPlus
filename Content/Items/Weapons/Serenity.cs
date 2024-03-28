@@ -22,6 +22,8 @@ public class Serenity : ModItem
         Item.width = 64;
         Item.height = 32;
         Item.rare = ItemRarityID.Yellow;
+        Item.value = Item.sellPrice(gold: 14);
+        Item.value = Item.sellPrice(gold: 5);
 
         Item.UseSound = SoundID.DD2_DarkMageAttack;
 

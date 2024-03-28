@@ -14,6 +14,7 @@ public class Dysphoria : ModItem
         Item.width = 52;
         Item.height = 32;
         Item.rare = ItemRarityID.Orange;
+        Item.value = Item.sellPrice(gold: 3, silver: 67);
 
         Item.UseSound = AudioSystem.ReturnSound("dart", 0.3f);
 

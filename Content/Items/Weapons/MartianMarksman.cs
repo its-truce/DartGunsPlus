@@ -16,6 +16,7 @@ public class MartianMarksman : ModItem
         Item.width = 60;
         Item.height = 24;
         Item.rare = ItemRarityID.Yellow;
+        Item.value = Item.sellPrice(gold: 9);
 
         Item.UseSound = AudioSystem.ReturnSound("scifishoot", 0.3f);
 

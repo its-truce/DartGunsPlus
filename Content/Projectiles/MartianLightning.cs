@@ -157,9 +157,21 @@ public class MartianLightning : ModProjectile
     public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
     {
         target.immune[Projectile.owner] = 10;
+        
         if (Main.rand.NextBool(4))
             Projectile.NewProjectile(Projectile.GetSource_OnHit(target), target.Center, Vector2.Zero, ModContent.ProjectileType<MartianSpark>(),
                 Projectile.damage * 2, 8, Projectile.owner);
+        
+        if (Main.rand.NextBool(3))
+        {
+            CameraSystem.Screenshake(2, 2);
+            for (int i = 0; i < 4; i++)
+            {
+                Vector2 spawnPos = target.Center + new Vector2(65, 0).RotatedByRandom(MathF.Tau);
+                Projectile.NewProjectile(Projectile.GetSource_OnHit(target), spawnPos, spawnPos.DirectionTo(target.Center) * 2, 
+                    ModContent.ProjectileType<SmallTrail>(), 0, 0, Projectile.owner, Color.SkyBlue.R, Color.SkyBlue.G, Color.SkyBlue.B);
+            }
+        }
     }
 
     public override bool? Colliding(Rectangle projHitbox, Rectangle targetHitbox)

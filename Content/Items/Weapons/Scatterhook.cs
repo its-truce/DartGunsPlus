@@ -18,6 +18,7 @@ public class Scatterhook : ModItem
         Item.width = 72;
         Item.height = 20;
         Item.rare = ItemRarityID.Lime;
+        Item.value = Item.sellPrice(gold: 7);
 
         Item.UseSound = AudioSystem.ReturnSound("shotgun", 0.4f);
 

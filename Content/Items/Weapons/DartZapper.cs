@@ -14,6 +14,7 @@ public class DartZapper : ModItem
         Item.width = 48;
         Item.height = 20;
         Item.rare = ItemRarityID.White;
+        Item.value = Item.sellPrice(copper: 87);
 
         Item.UseSound = AudioSystem.ReturnSound("dart", 0.3f);
 

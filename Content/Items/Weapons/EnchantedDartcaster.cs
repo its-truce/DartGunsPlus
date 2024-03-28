@@ -14,7 +14,8 @@ public class EnchantedDartcaster : ModItem
         Item.DefaultToRangedWeapon(ProjectileID.PurificationPowder, AmmoID.Dart, 22, 8, true);
         Item.width = 42;
         Item.height = 20;
-        Item.rare = ItemRarityID.Green;
+        Item.rare = ItemRarityID.Blue;
+        Item.value = Item.sellPrice(gold: 1);
 
         Item.UseSound = SoundID.DD2_DarkMageHealImpact;
 

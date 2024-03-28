@@ -23,6 +23,7 @@ public class Dartarang : ModItem
         Item.width = 32;
         Item.height = 22;
         Item.rare = ItemRarityID.Blue;
+        Item.value = Item.sellPrice(silver: 75);
 
         Item.UseSound = AudioSystem.ReturnSound("dart", 0.3f);
 

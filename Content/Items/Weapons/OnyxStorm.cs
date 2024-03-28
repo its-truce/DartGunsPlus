@@ -18,6 +18,7 @@ public class OnyxStorm : ModItem
         Item.width = 44;
         Item.height = 18;
         Item.rare = ItemRarityID.LightRed;
+        Item.value = Item.sellPrice(gold: 5);
 
         Item.UseSound = AudioSystem.ReturnSound("onyx");
 

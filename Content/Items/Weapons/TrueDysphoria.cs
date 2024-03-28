@@ -14,14 +14,14 @@ public class TrueDysphoria : ModItem
 {
     private float _initialItemRot;
     private int _shootCount;
-
-    //TODO: fix all shoot speeds for evrry dart gun UGH
+    
     public override void SetDefaults()
     {
         Item.DefaultToRangedWeapon(ProjectileID.PurificationPowder, AmmoID.Dart, 14, 16, true);
         Item.width = 60;
         Item.height = 36;
         Item.rare = ItemRarityID.Yellow;
+        Item.value = Item.sellPrice(gold: 8);
 
         Item.UseSound = AudioSystem.ReturnSound("dart", 0.3f);
 

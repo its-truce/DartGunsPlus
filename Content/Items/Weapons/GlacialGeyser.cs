@@ -18,6 +18,7 @@ public class GlacialGeyser : ModItem
         Item.width = 60;
         Item.height = 26;
         Item.rare = ItemRarityID.Lime;
+        Item.value = Item.sellPrice(gold: 9);
 
         Item.UseSound = AudioSystem.ReturnSound("dart", 0.3f);
 

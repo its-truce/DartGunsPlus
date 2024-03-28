@@ -14,6 +14,7 @@ public class StellarOutrage : ModItem
         Item.width = 64;
         Item.height = 26;
         Item.rare = ItemRarityID.Red;
+        Item.value = Item.sellPrice(gold: 14);
 
         Item.UseSound = SoundID.Item105;
 

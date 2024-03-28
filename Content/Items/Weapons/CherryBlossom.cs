@@ -19,6 +19,7 @@ public class CherryBlossom : ModItem
         Item.width = 68;
         Item.height = 26;
         Item.rare = ItemRarityID.Orange;
+        Item.value = Item.sellPrice(gold: 5);
 
         Item.UseSound = AudioSystem.ReturnSound("shotgun", 0.4f, 0.75f);
 
@@ -71,5 +72,16 @@ public class CherryBlossom : ModItem
     public override void UseStyle(Player player, Rectangle heldItemFrame)
     {
         VisualSystem.RecoilAnimation(player, _initialItemRot, 30);
+    }
+}
+public class CherryBlossomNPC : GlobalNPC
+{
+    public override void ModifyShop(NPCShop shop)
+    {
+        Condition withDoctorInJungle = new("Mods.DartGunsPlus.Conditions.witchDoctorInJungle",
+            () => Condition.DownedSkeletron.IsMet() && Condition.InJungle.IsMet());
+        
+        if (shop.NpcType == NPCID.WitchDoctor)
+            shop.Add<CherryBlossom>(withDoctorInJungle);
     }
 }

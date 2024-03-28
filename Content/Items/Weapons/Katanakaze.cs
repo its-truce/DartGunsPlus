@@ -24,6 +24,7 @@ public class Katanakaze : ModItem
         Item.width = 72;
         Item.height = 18;
         Item.rare = ItemRarityID.Green;
+        Item.value = Item.sellPrice(gold: 1, silver: 50);
 
         Item.UseSound = AudioSystem.ReturnSound("dart", 0.3f);
 

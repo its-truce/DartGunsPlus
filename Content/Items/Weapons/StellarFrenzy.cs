@@ -13,6 +13,7 @@ public class StellarFrenzy : ModItem
         Item.width = 50;
         Item.height = 20;
         Item.rare = ItemRarityID.Green;
+        Item.value = Item.sellPrice(silver: 80); // sky mill: iron + fallen stars for craft
 
         Item.UseSound = SoundID.Item9;
 

@@ -18,6 +18,7 @@ public class AstralAmalgam : ModItem
         Item.width = 50;
         Item.height = 24;
         Item.rare = ItemRarityID.Orange;
+        Item.value = Item.sellPrice(silver: 55);
 
         Item.UseSound = AudioSystem.ReturnSound("shoot1");
 

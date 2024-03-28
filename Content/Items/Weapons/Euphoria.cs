@@ -16,6 +16,7 @@ public class Euphoria : ModItem
         Item.width = 44;
         Item.height = 26;
         Item.rare = ItemRarityID.Pink;
+        Item.value = Item.sellPrice(gold: 4);
 
         Item.UseSound = AudioSystem.ReturnSound("dart", 0.3f);
 

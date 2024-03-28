@@ -14,6 +14,7 @@ public class Sporeflinger : ModItem
         Item.width = 30;
         Item.height = 30;
         Item.rare = ItemRarityID.Blue;
+        Item.value = Item.sellPrice(silver: 46);
 
         Item.UseSound = AudioSystem.ReturnSound("pop", 0.3f);
 

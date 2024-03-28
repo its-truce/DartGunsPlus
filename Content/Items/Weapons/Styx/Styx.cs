@@ -24,6 +24,7 @@ public class Styx : ModItem
         Item.width = 72;
         Item.height = 30;
         Item.rare = ItemRarityID.Red;
+        Item.value = Item.sellPrice(gold: 20);
 
         Item.UseSound = AudioSystem.ReturnSound("styxshoot", 0.3f);
 

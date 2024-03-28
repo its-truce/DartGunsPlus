@@ -16,6 +16,7 @@ public class BumbleBarrage : ModItem
         Item.width = 52;
         Item.height = 26;
         Item.rare = ItemRarityID.Orange;
+        Item.value = Item.sellPrice(gold: 2);
 
         Item.UseSound = SoundID.Item97;
 

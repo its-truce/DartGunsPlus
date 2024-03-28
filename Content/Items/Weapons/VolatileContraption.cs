@@ -19,6 +19,7 @@ public class VolatileContraption : ModItem
         Item.width = 72;
         Item.height = 42;
         Item.rare = ItemRarityID.Pink;
+        Item.value = Item.sellPrice(gold: 6);
 
         Item.UseSound = AudioSystem.ReturnSound("volatileshoot");
 

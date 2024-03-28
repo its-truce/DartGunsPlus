@@ -18,6 +18,7 @@ public class VerdantStalker : ModItem
         Item.width = 52;
         Item.height = 20;
         Item.rare = ItemRarityID.Orange;
+        Item.value = Item.sellPrice(silver: 95);
 
         Item.UseSound = AudioSystem.ReturnSound("dart", 0.3f);
 

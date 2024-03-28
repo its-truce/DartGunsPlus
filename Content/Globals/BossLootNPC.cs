@@ -70,6 +70,10 @@ public class BossBagNPC : GlobalNPC
             case NPCID.MartianSaucer:
                 npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<MartianMarksman>(), 2));
                 break;
+            
+            case NPCID.DarkCaster:
+                npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<Katanakaze>(), 4));
+                break;
         }
     }
 }

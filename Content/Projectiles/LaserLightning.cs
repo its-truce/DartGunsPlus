@@ -160,6 +160,17 @@ public class LaserLightning : ModProjectile
     public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
     {
         target.immune[Projectile.owner] = 10;
+        
+        if (Main.rand.NextBool(3))
+        {
+            CameraSystem.Screenshake(2, 2);
+            for (int i = 0; i < 4; i++)
+            {
+                Vector2 spawnPos = target.Center + new Vector2(65, 0).RotatedByRandom(MathF.Tau);
+                Projectile.NewProjectile(Projectile.GetSource_OnHit(target), spawnPos, spawnPos.DirectionTo(target.Center) * 2, 
+                    ModContent.ProjectileType<SmallTrail>(), 0, 0, Projectile.owner, Color.HotPink.R, Color.HotPink.G, Color.HotPink.B);
+            }
+        }
     }
 
     public override bool? Colliding(Rectangle projHitbox, Rectangle targetHitbox)

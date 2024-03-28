@@ -14,6 +14,7 @@ public class Blazebringer : ModItem
         Item.width = 48;
         Item.height = 36;
         Item.rare = ItemRarityID.Orange;
+        Item.value = Item.sellPrice(silver: 85);
 
         Item.UseSound = AudioSystem.ReturnSound("dart", 0.3f);
 

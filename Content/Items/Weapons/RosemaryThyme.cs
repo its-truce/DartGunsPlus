@@ -13,7 +13,8 @@ public class RosemaryThyme : ModItem
         Item.width = 62;
         Item.height = 36;
         Item.rare = ItemRarityID.Lime;
-
+        Item.value = Item.sellPrice(gold: 6);
+        
         Item.UseSound = SoundID.DD2_JavelinThrowersAttack;
 
         Item.damage = 42;

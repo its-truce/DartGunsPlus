@@ -6,7 +6,7 @@ It uses the [tModLoader](https://github.com/tModLoader/tModLoader) API and is cu
 
 # Building 🛠️
 
-This mod is currently a work in progress and is not yet available on the Steam workshop. However, you can still use the
+This mod is currently available on the [Steam workshop](https://steamcommunity.com/sharedfiles/filedetails/?id=3204841848&searchtext=). However, you can still use the
 mod by following these instructions:
 
 * Get [tModLoader](https://store.steampowered.com/app/1281930/tModLoader/) from Steam.

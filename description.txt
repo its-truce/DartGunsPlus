@@ -35,6 +35,7 @@ Here's all the people who have directly contributed to the mod. Thanks for helpi
 • otterly (@otterlyc) for a couple of sprites and helping with the mod icon
 • Nurby (@nurbyts) for helping with the fancy tooltip for Styx
 • Playful Potato (@loginatorv) for giving me his custom swing code to adapt ages ago
+• baizhi (@baizhi) for doing the Simplified Chinese translations
 If you contributed to this mod but I forgot to list you, please DM me on [url=https://discord.com/users/626333424965386240]discord[/url].
 
 Here's some other awesome people who didn't contribute to the mod directly:

@@ -1,0 +1,1 @@
+- Fixed an issue which made all projectile's damage scale by distance

@@ -190,7 +190,7 @@ Items: {
 		DisplayName: Enchanted Dartcaster
 		Tooltip:
 			'''
-			Converts darts to [c/436FDE:Enchanted Dart].
+			Converts darts into [c/436FDE:Enchanted Dart]s.
 			Enchanted darts accelerate over time and spawn two more enchanted darts around the target on hit.
 			'''
 	}
@@ -364,7 +364,7 @@ Items: {
 			'''
 			Shoots five darts in a burst. Darts have a chance to be replaced by [c/E0D877:Large Stars].
 			These stars spawn trails of damaging stars while travelling.
-			Chance to spawn [c:FFA8D5/Stellar Slashes] on star hits.
+			Chance to spawn [c:FFAD85/Stellar Slashes] on star hits.
 			Chance to spawn large stars on hit from above on all hits.
 			'''
 	}
@@ -374,7 +374,7 @@ Items: {
 		Tooltip:
 			'''
 			Spawns a damaging [c/5569B5:Rune] around you while holding this weapon.
-			Various dart guns from your journey revolve you around and shoot when you do.
+			Various dart guns from your journey revolve around you and shoot when you do.
 			Damage scales based on distance from the target; you deal more damage the closer you are.
 			[Multiplier ranges from [c/FF2222:0.6 times] damage to [c/22FF3D:1.5 times] damage]
 			'''

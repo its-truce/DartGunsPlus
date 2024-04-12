@@ -50,20 +50,23 @@ public class StyxProjectile : GlobalProjectile
 
     public override void ModifyHitNPC(Projectile projectile, NPC target, ref NPC.HitModifiers modifiers)
     {
-        Vector2 ownerCenter = Main.player[projectile.owner].Center;
-        float distance = Vector2.Distance(ownerCenter, target.Center);
-
-        var distanceMultipliers = new Dictionary<float, float>
+        if (_itemType == ModContent.ItemType<Styx>())
         {
-            { 100f, 1.5f },
-            { 400f, 1.2f },
-            { 1200f, 0.8f },
-            { 3800f, 0.6f }
-        };
+            Vector2 ownerCenter = Main.player[projectile.owner].Center;
+            float distance = Vector2.Distance(ownerCenter, target.Center);
 
-        foreach (float threshold in distanceMultipliers.Keys.OrderByDescending(d => d))
-            if (distance < threshold)
-                modifiers.FinalDamage *= distanceMultipliers[threshold];
+            var distanceMultipliers = new Dictionary<float, float>
+            {
+                { 100f, 1.5f },
+                { 400f, 1.2f },
+                { 1200f, 0.8f },
+                { 3800f, 0.6f }
+            };
+
+            foreach (float threshold in distanceMultipliers.Keys.OrderByDescending(d => d))
+                if (distance < threshold)
+                    modifiers.FinalDamage *= distanceMultipliers[threshold];
+        }
     }
 
     public override bool PreDraw(Projectile projectile, ref Color lightColor)

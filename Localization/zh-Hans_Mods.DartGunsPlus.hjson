@@ -1,0 +1,550 @@
+Items: {
+	VolatileContraption: {
+		DisplayName: 机械警备队
+		Tooltip:
+			'''
+			攻击八次后会发射三发[c/DF3333:机械炸弹]，之后长按蓄力发射激光
+			炸弹在击中敌怪时会变成[c/DF3333:迷你小魔焰眼]、[c/FF4E82:迷你小激光眼]和[c/4EFF70:迷你小探针]
+			蓄力激光会追踪你的光标的位置
+			'''
+	}
+
+	VioletVigilante: {
+		Tooltip: 命中敌怪有几率生成暗影斩击
+		DisplayName: 暗影撕裂
+	}
+
+	VerdantStalker: {
+		Tooltip: 命中敌怪有几率生成叶子
+		DisplayName: 翠绿之影
+	}
+
+	Scatterhook: {
+		Tooltip:
+			'''
+			随机发射五到八枚飞镖
+			命中敌怪有几率在你周围生成[c/AD5517:傀儡之拳]
+			[c/AD5517:傀儡之拳]会在你使用武器时一同攻击
+			'''
+		DisplayName: 巨人之拳
+	}
+
+	RosemaryThyme: {
+		Tooltip:
+			'''
+			发射三枚飞镖
+			命中敌怪有几率在你周围生成[c/17AD4E:迷你世纪之花]
+			[c/17AD4E:迷你世纪之花]会持续发射跟踪绿叶攻击敌怪
+			'''
+		DisplayName: 迷迭香
+	}
+
+	OnyxStorm: {
+		Tooltip: 发射四枚飞镖和[c/4B0082:黑玛瑙]
+		DisplayName: 玛瑙风暴
+	}
+
+	Lilkraken: {
+		Tooltip: “一半是鱿鱼，一半是飞飞镖枪，令人感叹”
+		DisplayName: 克拉肯
+	}
+
+	Katanakaze: {
+		Tooltip:
+			'''
+			命中敌怪在其周围生成斩击
+			右键施展近战攻击，敌方弹幕与近战刀光碰撞时，则视为[c/EBCC44:招架]
+			招架后弹幕向侧方偏转，并向光标位置发射三重剑气
+			成功格挡弹幕会给你再生和敏捷一小段时间
+			每秒最多招架两个弹幕
+			'''
+		DisplayName: 武士
+	}
+
+	Euphoria: {
+		Tooltip: 命中敌怪时会在其周围生成神圣光剑
+		DisplayName: 神圣飞镖枪
+	}
+
+	DartStorm: {
+		Tooltip: 发射四枚飞镖
+		DisplayName: 飞镖风暴
+	}
+
+	Dart: {
+		Tooltip: 简单且锋利的飞镖
+		DisplayName: 金属飞镖
+	}
+
+	CrimsonCobra: {
+		Tooltip:
+			'''
+			命中敌怪时有几率附加[c/C5000A:血腥屠宰]减益，并生成一根[c/C5000A:血刺]
+			重复攻击会叠加减益
+			'''
+		DisplayName: 绯红毒蛇
+	}
+
+	Blazebringer: {
+		Tooltip: 命中敌怪时附加[c/FF8300:着火！]减益，并有几率造成[c/FF8300:爆炸]
+		DisplayName: 烈焰飞镖枪
+	}
+
+	AstralAmalgam: {
+		Tooltip: 每攻击三次发射一道穿透敌怪的[c/00FF32:星体激光]
+		DisplayName: 流星飞镖枪
+	}
+
+	FrostburnDart: {
+		Tooltip: 命中敌怪时有几率附加[c/13A5FF:霜冻]减益，并造成[c/13A5FF:冰霜爆炸]
+		DisplayName: 霜燃飞镖
+	}
+
+	FlamingDart: {
+		Tooltip: 命中敌怪时有几率附加[c/FF8300:着火！]减益，并造成[c/FF8300:爆炸]
+		DisplayName: 烈焰飞镖
+	}
+
+	ChlorophyteDart: {
+		DisplayName: 叶绿飞镖
+		Tooltip:
+			'''
+			追踪附近的敌怪，并在弹幕路径生成[c/AFEB48:孢子]
+			孢子会追踪附近的敌怪，并附加[c/AFEB48:中毒]减益
+			'''
+	}
+
+	VenomDart: {
+		DisplayName: 毒液飞镖
+		Tooltip: 命中敌怪时附加[c/A062B3:毒液]，并有几率生成三个[c/A062B3:毒液云]
+	}
+
+	StellarFrenzy: {
+		DisplayName: 彗星
+		Tooltip: 命中敌怪时有几率从天上召唤一颗星星
+	}
+
+	MeteorDart: {
+		DisplayName: 流星飞镖
+		Tooltip:
+			'''
+			能穿透一个敌怪，在击中物块后会反弹一次
+			命中敌怪时会召唤流星
+			'''
+	}
+
+	TrueEuphoria: {
+		DisplayName: 真神圣飞镖枪
+		Tooltip:
+			'''
+			命中敌怪时有几率在其周围生成神圣光剑
+			右键发射特殊攻击，该效果需要15秒充能，持续期间无法充能
+			右键击中敌怪后，会在其周围产生激光网，再次击中敌怪后激活激光
+			激光网消失时会产生小爆炸
+			'''
+	}
+
+	DartZapper: {
+		DisplayName: 金属飞镖枪
+		Tooltip: 命中敌怪时有小几率产生雷击
+	}
+
+	BumbleBarrage: {
+		DisplayName: 蜜蜂飞镖枪
+		Tooltip: 随机发射三枚飞镖或蜜蜂
+	}
+
+	HighVelocityDart: {
+		DisplayName: 高速飞镖
+		Tooltip:
+			'''
+			“难以置信的速度”
+			命中敌怪时有几率附加[c/C5000A:血腥屠宰]减益
+			可以穿透3个敌怪
+			'''
+	}
+
+	EndlessDartCase: {
+		DisplayName: 无尽飞镖箱
+		Tooltip: 用不完的飞镖
+	}
+
+	SpectreDart: {
+		DisplayName: 幽灵飞镖
+		Tooltip: 可以穿墙，并能够追踪敌怪
+	}
+
+	EnchantedDartcaster: {
+		DisplayName: 附魔飞镖枪
+		Tooltip:
+			'''
+			将飞镖替换为[c/436FDE:附魔飞镖]
+			附魔飞镖会在命中敌怪时在其周围生成额外两枚附魔飞镖
+			'''
+	}
+
+	DartLicense: {
+		DisplayName: 飞镖资格证
+		Tooltip:
+			'''
+			增加10%飞镖伤害
+			增加5%飞镖暴击率
+			'''
+	}
+
+	MartianMarksman: {
+		DisplayName: 磁极电弧枪
+		Tooltip: 命中敌怪积攒能量条，之后长按蓄力发射强力的[c/61E1DD:雷击]
+	}
+
+	Gigakraken: {
+		DisplayName: 海妖
+		Tooltip: “克拉肯的表哥”
+	}
+
+	LuminiteDart: {
+		DisplayName: 夜明飞镖
+		Tooltip: 飞镖会留下一条持续四秒的伤害射线，并在消失时小几率生成三个[c/88FFCC:夜光矢]
+	}
+
+	CherryBlossom: {
+		DisplayName: 樱花
+		Tooltip:
+			'''
+			发射三枚飞镖
+			每攻击三次就会发射三团[c/f990D2:樱花簇]
+			[c/f990D2:樱花簇]飞行途中每隔一段时间就会分裂出五个花瓣
+			'''
+	}
+
+	CrownCascade: {
+		DisplayName: 海蛟皇
+		Tooltip:
+			'''
+			随机发射飞镖，泡泡和鲨鱼
+			击杀敌怪时生成一个[c/0698B4:漩涡],右键可以传送到漩涡处
+			如果没有漩涡，右键会向光标短距离冲刺
+			'''
+	}
+
+	HalloweenHex: {
+		DisplayName: 万圣狂欢
+		Tooltip:
+			'''
+			命中敌怪五次后会在你周围产生一个造成接触伤害的[c/FE8C44:仪式光环]
+			第十次后五个[c/FE8C44:南瓜头]围绕你旋转
+			第十五次[c/FE8C44:南瓜头]会向光标方向飞出造成伤害
+			'''
+	}
+
+	GlacialGeyser: {
+		DisplayName: 冰霜棘
+		Tooltip:
+			'''
+			命中敌怪时有几率从地面生成[c/36A9E9:冰柱]
+			击中敌怪积攒能量，之后发射五发强力的[c/36A9E9:冰冻矢]
+			冰冻矢会从地面产生若干个冰柱
+			'''
+	}
+
+	Dysphoria: {
+		Tooltip: 命中敌怪时有几率在敌怪周围生成[c/8068CF:永夜矢]
+		DisplayName: 永夜飞镖枪
+	}
+
+	TrueDysphoria: {
+		DisplayName: 真永夜飞镖枪
+		Tooltip:
+			'''
+			命中敌怪时有几率在敌怪周围生成[c/8068CF:永夜矢]
+			右键发射特殊攻击，该效果需要15秒充能，持续期间无法充能
+			右键击中敌怪后，会在敌怪身上标记[c/52B884:磁铁]
+			所有永夜弹幕都被吸向磁铁
+			磁铁消失时会爆炸，并把所有弹幕向周围爆发
+			'''
+	}
+
+	Serenity: {
+		DisplayName: 泰拉飞镖枪
+		Tooltip:
+			'''
+			命中敌怪时有几率生成两发[c/22B14C:泰拉矢]，追踪距离最近的敌怪
+			右键发射特殊攻击，该效果需要10秒充能，持续期间无法充能
+			击中敌怪后将标记敌怪，[c/22B14C:泰拉斩击]会持续攻击被标记的敌怪
+			'''
+	}
+
+	HarpyQuillstorm: {
+		DisplayName: 羽毛风暴
+		Tooltip: 发射[c/177FBA:羽毛]和飞镖
+	}
+
+	Luminescence: {
+		DisplayName: 辐光
+		Tooltip:
+			'''
+			命中敌怪时有几率生成[c/95A3EC:彩虹矢]，并有概率生成围绕你旋转的[c/FFAFF5:迷你皇后]
+			[c/FFAFF5:迷你皇后]会定期向光标发射激光
+			'''
+	}
+
+	Charybdis: {
+		DisplayName: 卡律布狄斯
+		Tooltip:
+			'''
+			持续射击会慢慢增加射击速度
+			飞镖有几率会被[c/00F0BC:星璇射线]替换
+			'''
+	}
+
+	LaserTherapy: {
+		DisplayName: 治愈镭射枪
+		Tooltip:
+			'''
+			命中敌怪会积攒能量，能量满后长按蓄力会发射粉色[c/FD0DB1:雷电]
+			[c/FD0DB1:雷电]会分裂出四道额外追踪闪电
+			'''
+	}
+
+	SeekersSpyglass: {
+		DisplayName: 探知镜
+		Tooltip:
+			'''
+			敌怪会显示[c/FF1B05:弱点]
+			攻击弱点会造成250%的伤害和150%的击退
+			'''
+	}
+
+	HeavenlyDart: {
+		DisplayName: 神圣飞镖
+		Tooltip: 命中敌怪时从天空召唤两颗星星
+	}
+
+	Sporeflinger: {
+		DisplayName: 蘑菇飞镖枪
+		Tooltip: 命中敌怪时有几率在其周围生成三个蘑菇孢子
+	}
+
+	GoreNGlory: {
+		DisplayName: 战斗&荣耀
+		Tooltip: 像剑一样挥舞两次，之后发射五到七枚飞镖
+	}
+
+	StellarOutrage: {
+		DisplayName: 星界
+		Tooltip:
+			'''
+			发射五枚飞镖，飞镖有几率被[c/E0D877:恒星]替代
+			[c/E0D877:恒星]在飞行途中会在弹道上留下星星轨迹
+			[c/E0D877:恒星]命中敌怪有几率生成[c/FFA8D5:恒星射线]
+			'''
+	}
+
+	Styx: {
+		DisplayName: 冥河
+		Tooltip:
+			'''
+			手持武器会在你周围生成一个造成接触伤害的[c/5569B5:冥河符文]
+			旅途中的各种飞镖枪围绕着你旋转，并在你攻击时和你一同攻击
+			基于与敌怪距离增减伤害比例，离目标越近造成的伤害就越高
+			伤害倍数从[c/FF2222:远(0.6倍)]最多增加到[c/22FF3D:近(1.5倍)]伤害
+			'''
+	}
+
+	Dartarang: {
+		DisplayName: 达斯维亚
+		Tooltip: 右键会把武器像回旋镖一样扔出去，并在往返途中发射两枚飞镖
+	}
+
+	ExplosiveDart: {
+		DisplayName: 爆炸飞镖
+		Tooltip: 碰撞时产生爆炸
+	}
+
+	AltitudeAnnihilator: {
+		DisplayName: 水平仪
+		Tooltip: 如果你水平高于敌怪，增加25%伤害和33%击退
+	}
+
+	ReflectiveCoating: {
+		DisplayName: 偏振器
+		Tooltip: 在范围内用飞镖击中敌方弹幕会偏转这个弹幕方向(冷却极短)
+	}
+
+	Scylla: {
+		DisplayName: 塞拉
+		Tooltip:
+			'''
+			随机发射七到九枚飞镖
+			飞镖有几率会被[c/00F0BC:星璇射线]替换
+			右键发射[c/00F088:漩涡钩]
+			[c/00F088:漩涡钩]会将小型敌怪拉到你身边，但会把你拉向大型敌怪的身边
+			拉向被钩住的目标时自动发射一发子弹并把自己向后击退
+			'''
+	}
+
+	TranquilizerAttachment: {
+		DisplayName: 镇静剂
+		Tooltip:
+			'''
+			命中敌怪时有几率附加[c/62B340:镇静]减益
+			[c/62B340:镇静]会极大减缓敌怪的速度
+			持续时间根据敌怪的生命值比例变化
+			满血时最长持续时间为1.5秒
+			对boss减益较弱
+			'''
+	}
+}
+
+Projectiles: {
+	RedLaser.DisplayName: 红色激光
+	RedBomb.DisplayName: 红炸弹
+	PlanteraShooter.DisplayName: 植物射手
+	PlanteraSeed.DisplayName: 植物种子
+	MidnightBolt.DisplayName: 永夜矢
+	GolemHook.DisplayName: 巨人拳
+	EuphoriaSword.DisplayName: 光剑
+	AstralBolt.DisplayName: 星体激光
+	FrostburnDartProj.DisplayName: 霜冻镖
+	FlamingDartProj.DisplayName: 火焰镖
+	DartProjectile.DisplayName: 飞镖
+	VenomDartProj.DisplayName: 毒液镖
+	MeteorDartProj.DisplayName: 流星镖
+	Meteor.DisplayName: 流星
+	TrueEuphoriaSword.DisplayName: 真光剑
+	HighVelocityDartProj.DisplayName: 高速镖
+	ChlorophyteDartProj.DisplayName: 叶绿镖
+	SpectreDartProj.DisplayName: 幽灵镖
+	EnchantedDart.DisplayName: 附魔镖
+	MartianLightning.DisplayName: 火星闪电
+	MartianSpark.DisplayName: 火星火花
+	KrakenFish.DisplayName: 海妖鱼
+	LuminiteDartProj.DisplayName: 夜明镖
+	Icicle.DisplayName: 冰柱
+	VisualShock.DisplayName: 视觉冲击
+	Blossom.DisplayName: 花
+	CherryLeaf.DisplayName: 樱桃叶
+	LightningIcon.DisplayName: 闪电
+	HalloweenRitual.DisplayName: 万圣节仪式
+	HalloweenJack.DisplayName: 杰克南瓜头
+	Explosion.DisplayName: 爆炸
+	GolemFist.DisplayName: 巨人拳
+	LuminiteStrike.DisplayName: 夜明镖
+	FrostFire.DisplayName: 霜火
+	FreezeBolt.DisplayName: 冰冻矢
+	FistFlash.DisplayName: 拳头
+	DysphoriaBolt.DisplayName: 暗影矢
+	DysphoriaShock.DisplayName: 暗影撕裂
+	DysphoriaExplosion.DisplayName: 暗影爆炸
+	SereneBolt.DisplayName: 光明
+	SereneShock.DisplayName: 光明震撼
+	SereneSlash.DisplayName: 光明射线
+	Feather.DisplayName: 羽毛
+	EmpressProjectile.DisplayName: 皇后弹幕
+	EmpressLaser.DisplayName: 皇后激光
+	LilEmpress.DisplayName: 皇后激光
+	EmpressBolt.DisplayName: 博尔特皇后
+	CharybdisLaser.DisplayName: 卡律布狄斯激光
+	CharybdisHoldout.DisplayName: 卡律布狄斯
+	DukeWhirlpool.DisplayName: 漩涡
+	Star.DisplayName: 星星
+	StarTrail.DisplayName: 星光轨迹
+	LaserLightning.DisplayName: 激光闪电
+	HomingLightning.DisplayName: 归位闪电
+	TargetCircle.DisplayName: 雷电圈
+	HeavenlyDartProj.DisplayName: 天堂镖
+	BouncingShroom.DisplayName: 弹跳蘑菇
+	GoreHoldout.DisplayName: 戈尔
+	GoreMusket.DisplayName: 戈尔
+	LargeStar.DisplayName: 大星星
+	StellarSlash.DisplayName: 恒星斩击
+	StyxRune.DisplayName: 冥河符文
+	RosemaryRevolving.DisplayName: 迷迭香
+	BumbleRevolving.DisplayName: 黄蜂
+	EnchantedRevolving.DisplayName: 魔法
+	FrenzyRevolving.DisplayName: 燃烧
+	LaserRevolving.DisplayName: 激光
+	MartianRevolving.DisplayName: 火星回转
+	OutrageRevolving.DisplayName: 暴怒
+	SerenityRevolving.DisplayName: 光明
+	ZapperRevolving.DisplayName: 闪电
+	BlackHole.DisplayName: 黑洞
+	ZapperLightning.DisplayName: 闪电
+	DartBoomerang.DisplayName: 飞镖回旋镖
+	MusketSmoke.DisplayName: 火枪
+	OnyxMusket.DisplayName: 玛瑙
+	VenomCloud.DisplayName: 毒液云
+	HalloweenRevolving.DisplayName: 万圣节旋风
+	EuphoriaCircle.DisplayName: 光明环绕
+	EuphoriaSlash.DisplayName: 光明斩
+	EuphoriaSpear.DisplayName: 光明之矛
+	TestSwing.DisplayName: 摆动
+	DukeDash.DisplayName: 达斯维亚
+	DukeTrail.DisplayName: 达斯割裂
+	ChlorophyteSpore.DisplayName: 叶绿孢子
+	Explosive.DisplayName: 爆炸
+	ExplosiveDartProj.DisplayName: 爆炸镖
+	RocketExplosion.DisplayName: 火箭爆炸
+	SmallTrail.DisplayName: 割裂
+	Crystals.DisplayName: 水晶
+	CrystalShard.DisplayName: 水晶碎片
+	CrystalShock.DisplayName: 水晶冲击
+	ShockwaveProjectile.DisplayName: 冲击弹
+	ShotgunMusket.DisplayName: 霰弹枪火枪
+	DysphoriaBoom.DisplayName: 永夜
+	DysphoriaMagnet.DisplayName: 永夜磁铁
+	DysphoriaNail.DisplayName: 永夜矢
+	TrappingDartProj.DisplayName: 飞镖
+	Trap.DisplayName: 陷阱
+	RevolvingSword.DisplayName: 旋转剑
+	EuphoriaRay.DisplayName: 光明射线
+	EuphoriaBoom.DisplayName: 光明爆炸
+	Hook.DisplayName: 钩
+	Shield.DisplayName: 盾
+	VolatileLaser.DisplayName: 暗影激光
+	Probe.DisplayName: 探针
+	VolatileBolt.DisplayName: 暗影矢
+	Retinazer.DisplayName: 弱点
+	RetinazerDash.DisplayName: 弱点
+	Spaz.DisplayName: 弱点
+	SpazFlame.DisplayName: 弱点之火
+	VolatileBomb.DisplayName: 炸弹
+	VolatileExplosion.DisplayName: 爆炸
+	ScyllaShoot.DisplayName: 塞拉矢
+	KatanaSwing.DisplayName: 武士刀斩击
+	Parry.DisplayName: 招架
+	KatanaParry.DisplayName: 武士刀招架
+	KatanaStar.DisplayName: 武士刀剑气
+	LuminiteTrail.DisplayName: 夜明镖
+	VortexBeam.DisplayName: 漩涡光束
+	TerraBoom.DisplayName: 泰拉爆炸
+	TerraBolt.DisplayName: 泰拉矢
+	TerraSpin.DisplayName: 泰拉旋风
+	TerraRay.DisplayName: 泰拉射线
+	TerraSlash.DisplayName: 泰拉斩击
+}
+
+Buffs: {
+	TranquilizerDebuff: {
+		DisplayName: 镇静
+		Description: 你被镇静剂击中了！
+	}
+}
+
+Conditions: {
+	downedSkeletronOrDeerclopsOrHardmode: 骷髅王或鹿角怪或血肉墙被击败后
+	witchDoctorInJungle: 巫医在丛林并且骷髅王被击败后
+	downedSkeletronAndInGraveyard: 在墓地环境并且骷髅王被击败后
+}
+
+Configs: {
+	ScreenshakeConfig: {
+		DisplayName: 屏幕抖动设置
+		Headers.Screenshake: 屏幕抖动
+
+		ScreenshakeMultiplier: {
+			Label: 屏幕抖动乘数
+			Tooltip: 屏幕抖动都乘以此值，设置为0可完全禁用
+		}
+	}
+}

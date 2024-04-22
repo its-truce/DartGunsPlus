@@ -32,11 +32,11 @@ public class Dart : ModItem
 
     public override void AddRecipes()
     {
-        CreateRecipe(10)
+        CreateRecipe(100)
             .AddIngredient(ItemID.TinBar)
             .Register();
 
-        CreateRecipe(10)
+        CreateRecipe(100)
             .AddIngredient(ItemID.CopperBar)
             .Register();
     }
@@ -62,7 +62,7 @@ public class DartProjectile : ModProjectile
     ///     Multiplier which determines how much the X component of the velocity of the projectile is decreased by every tick.
     ///     Defaults to 0.04.
     ///     Every tick after the projectile starts being affected by gravity, its velocity's X component is multiplied by (1 -
-    ///     this propery).
+    ///     this property).
     /// </summary>
     protected virtual float GravityDecreaseX => 0.04f;
 
@@ -122,5 +122,14 @@ public class DartProjectile : ModProjectile
         if (Projectile.type == ModContent.ProjectileType<DartProjectile>() && Projectile.ai[2] == -1)
             Projectile.NewProjectile(Projectile.GetSource_OnHit(target), target.Center, Vector2.Zero, ModContent.ProjectileType<ZapperLightning>(),
                 damageDone * 3, hit.Knockback, Projectile.owner);
+    }
+}
+
+public class DartNPC : GlobalNPC
+{
+    public override void ModifyShop(NPCShop shop)
+    {
+        if (shop.NpcType == NPCID.WitchDoctor)
+            shop.Add<Dart>();
     }
 }

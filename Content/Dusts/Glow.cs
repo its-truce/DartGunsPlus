@@ -15,9 +15,8 @@ public class Glow : ModDust
     {
         dust.noGravity = true;
         dust.frame = new Rectangle(0, 0, 64, 64);
-
-        dust.shader = new ArmorShaderData(new Ref<Effect>(ModContent.Request<Effect>("DartGunsPlus/Content/Effects/GlowingDust",
-            AssetRequestMode.ImmediateLoad).Value), "GlowingDustPass");
+        dust.shader = new ArmorShaderData(new Ref<Effect>(ModContent.Request<Effect>("DartGunsPlus/Content/Effects/GlowingDust", AssetRequestMode.ImmediateLoad).Value), 
+            "GlowingDustPass");
         dust.scale *= 0.75f;
     }
 

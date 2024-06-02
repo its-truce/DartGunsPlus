@@ -78,13 +78,4 @@ public class GlacialGeyser : ModItem
     {
         return new Vector2(-2f, -1f);
     }
-
-    public override void AddRecipes()
-    {
-        CreateRecipe()
-            .AddIngredient(ItemID.FrostCore, 3)
-            .AddIngredient<Blazebringer>()
-            .AddTile(TileID.MythrilAnvil)
-            .Register();
-    }
 }

@@ -55,7 +55,7 @@ public class Gigakraken : ModItem
             .AddIngredient(ItemID.IllegalGunParts)
             .AddIngredient(ItemID.BlackInk, 10)
             .AddIngredient(ItemID.SoulofMight)
-            .AddTile(ItemID.MythrilAnvil)
+            .AddTile(TileID.MythrilAnvil)
             .Register();
     }
 }

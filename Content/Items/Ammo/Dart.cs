@@ -60,11 +60,11 @@ public class DartProjectile : ModProjectile
 
     /// <summary>
     ///     Multiplier which determines how much the X component of the velocity of the projectile is decreased by every tick.
-    ///     Defaults to 0.04.
+    ///     Defaults to 0.
     ///     Every tick after the projectile starts being affected by gravity, its velocity's X component is multiplied by (1 -
     ///     this property).
     /// </summary>
-    protected virtual float GravityDecreaseX => 0.04f;
+    protected virtual float GravityDecreaseX => 0f;
 
     /// <summary>
     ///     Determines how much the Y component of the velocity of the projectile is increased by every tick. Defaults to 0.1f.

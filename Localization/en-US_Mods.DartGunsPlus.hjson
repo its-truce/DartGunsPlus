@@ -335,7 +335,7 @@ Items: {
 		Tooltip:
 			'''
 			[c/FF1B05:Weak-points] appear on nearby enemies.
-			Shoot these weak-points to deal 250% damage and 150% knockback.
+			Shoot these weak-points to deal 175% damage and 150% knockback.
 			'''
 	}
 

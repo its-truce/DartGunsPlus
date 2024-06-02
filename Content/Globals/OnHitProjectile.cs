@@ -197,9 +197,9 @@ public class OnHitProjectile : GlobalProjectile
         else if (_itemType == ModContent.ItemType<RosemaryThyme>())
         {
             Player player = Main.player[projectile.owner];
-            if (Main.rand.NextBool(7) && player.ownedProjectileCounts[ModContent.ProjectileType<PlanteraShooter>()] < 15)
+            if (Main.rand.NextBool(9) && player.ownedProjectileCounts[ModContent.ProjectileType<PlanteraShooter>()] < 9)
                 Projectile.NewProjectile(projectile.GetSource_OnHit(target), target.Center, Vector2.Zero, ModContent.ProjectileType<PlanteraShooter>(),
-                    damageDone, 0, projectile.owner, Main.rand.NextFloat(0, MathF.Tau), ai2: damageDone);
+                    damageDone, 0, projectile.owner, Main.rand.NextFloat(0, MathF.Tau), ai2: damageDone * 0.75f);
         }
 
         else if (_itemType == ModContent.ItemType<Scatterhook>())

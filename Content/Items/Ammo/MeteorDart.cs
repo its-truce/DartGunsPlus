@@ -43,8 +43,7 @@ public class MeteorDart : ModItem
 public class MeteorDartProj : DartProjectile
 {
     public override string Texture => "DartGunsPlus/Content/Items/Ammo/MeteorDart";
-    protected override float GravityDecreaseY => 0;
-    protected override float GravityDecreaseX => 0.02f;
+    protected override float GravityDecreaseY => 0.02f;
     protected override int GravityDelay => 60;
 
     public override void SetDefaults()

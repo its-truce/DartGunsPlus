@@ -47,11 +47,13 @@ public class SpyglassProjectile : GlobalProjectile
 
         foreach (Projectile proj in Main.projectile.AsSpan(0, Main.maxProjectiles))
             if (proj.active && proj.type == ModContent.ProjectileType<TargetCircle>() && proj.owner == projectile.owner && proj.Hitbox.Intersects(projectile.Hitbox) &&
-                proj.ai[0] == target.whoAmI)
+                proj.ai[0] == target.whoAmI && accessoryPlayer.WeakpointTimer == 0)
             {
-                modifiers.FinalDamage *= 2.5f;
+                modifiers.FinalDamage *= 1.75f;
                 modifiers.Knockback *= 1.5f;
                 PopupSystem.PopUp("Weakpoint!", Color.Red, proj.Center - new Vector2(0, 30));
+
+                accessoryPlayer.IncrementWeakpoint = true;
             }
     }
 }

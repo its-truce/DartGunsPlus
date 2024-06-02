@@ -18,6 +18,8 @@ public class AccessoryPlayer : ModPlayer
     public bool HasTranq;
     public bool IncrementShield;
     public int ShieldTimer;
+    public bool IncrementWeakpoint;
+    public int WeakpointTimer;
 
     public override void ResetEffects()
     {
@@ -52,7 +54,7 @@ public class AccessoryPlayer : ModPlayer
         {
             ShieldTimer++;
 
-            if (ShieldTimer == 30)
+            if (ShieldTimer >= 30)
             {
                 IncrementShield = false;
                 ShieldTimer = 0;
@@ -72,6 +74,18 @@ public class AccessoryPlayer : ModPlayer
 
                 Array.Resize(ref _alreadySpawned, _alreadySpawned.Length + 1);
                 _alreadySpawned[^1] = closestTarget;
+            }
+
+            Main.NewText(WeakpointTimer);
+            if (IncrementWeakpoint)
+            {
+                WeakpointTimer++;
+
+                if (WeakpointTimer >= 60)
+                {
+                    IncrementWeakpoint = false;
+                    WeakpointTimer = 0;
+                }
             }
         }
     }

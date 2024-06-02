@@ -1,1 +1,2 @@
-- Fixed an issue which made all projectile's damage scale by distance
+- 1 copper bar now crafts 100 darts
+- Darts can now be purchased from the Witch Doctor

@@ -1,2 +1,2 @@
-- 1 copper bar now crafts 100 darts
-- Darts can now be purchased from the Witch Doctor
+- Enchanted dartcaster crash should be fixed now
+- Also nerfed it for good measure

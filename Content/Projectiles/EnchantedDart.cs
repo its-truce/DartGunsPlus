@@ -10,7 +10,7 @@ namespace DartGunsPlus.Content.Projectiles;
 
 public class EnchantedDart : ModProjectile
 {
-    private static readonly Color[] Colors = { Color.SteelBlue, Color.PaleVioletRed, Color.Gold, Color.HotPink };
+    private static readonly Color[] Colors = [Color.SteelBlue, Color.PaleVioletRed, Color.Gold, Color.HotPink];
     private float _scale = 0.4f;
 
     public override void SetStaticDefaults()
@@ -27,6 +27,12 @@ public class EnchantedDart : ModProjectile
         Projectile.Opacity = 0;
         Projectile.usesLocalNPCImmunity = true;
         Projectile.localNPCHitCooldown = 20;
+    }
+
+    public override void ModifyHitNPC(NPC target, ref NPC.HitModifiers modifiers)
+    {
+        if (target.type is NPCID.EaterofWorldsHead or NPCID.EaterofWorldsBody or NPCID.EaterofWorldsTail)
+            modifiers.FinalDamage *= 0.5f;
     }
 
     public override void AI()
@@ -55,21 +61,19 @@ public class EnchantedDart : ModProjectile
 
     public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
     {
-        if (Projectile.ai[0] == 0)
+        if (Projectile.ai[0] == 0 && Main.rand.NextBool(2))
+        {
             for (int i = 0; i < 2; i++)
             {
-                Vector2 position;
-                do
-                {
-                    position = target.position + new Vector2(Main.rand.Next(-300, 300), Main.rand.Next(-80, 80));
-                } while (Framing.GetTileSafely(position).HasTile);
-
+                Vector2 position = target.position + new Vector2(Main.rand.Next(-300, 300), Main.rand.Next(-80, 80));
+        
                 Projectile.NewProjectile(Projectile.GetSource_OnHit(target), position, position.DirectionTo(target.Center) * 4, Projectile.type,
                     Projectile.damage / 2, Projectile.knockBack, Projectile.owner, 1);
-
+        
                 VisualSystem.SpawnDustPortal(position, position.DirectionTo(target.Center) * 4, DustID.TintableDustLighted,
                     color: Main.rand.NextFromList(Colors));
             }
+        }
     }
 
     public override bool PreDraw(ref Color lightColor)
@@ -83,9 +87,8 @@ public class EnchantedDart : ModProjectile
             float sizec = Projectile.scale * (Projectile.oldPos.Length - k) / (Projectile.oldPos.Length * 0.8f);
             Color color = new(88, 101, 242, 0);
 
-            if (Vector2.Distance(Projectile.oldPos[k], Projectile.Center) > 20)
-                Main.EntitySpriteDraw(texture, drawPos, frame, color, Projectile.oldVelocity.ToRotation(), frame.Size() / 2,
-                    sizec * 0.15f * new Vector2(1, _scale), SpriteEffects.None);
+            Main.EntitySpriteDraw(texture, drawPos - new Vector2(20, 0).RotatedBy(Projectile.oldVelocity.ToRotation()), frame, color, Projectile.oldVelocity.ToRotation(), frame.Size() / 2,
+                sizec * 0.15f * new Vector2(1, _scale), SpriteEffects.None);
         }
 
         return true;

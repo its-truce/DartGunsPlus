@@ -191,7 +191,8 @@ Items: {
 		Tooltip:
 			'''
 			Converts darts into [c/436FDE:Enchanted Dart]s.
-			Enchanted darts accelerate over time and spawn two more enchanted darts around the target on hit.
+			Enchanted darts accelerate over time and have a chance to spawn two more enchanted darts around the target on hit.
+			Enchanted darts deal 50% damage to the Eater of Worlds.
 			'''
 	}
 

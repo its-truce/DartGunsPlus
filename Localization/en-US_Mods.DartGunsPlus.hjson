@@ -365,7 +365,7 @@ Items: {
 			'''
 			Shoots five darts in a burst. Darts have a chance to be replaced by [c/E0D877:Large Stars].
 			These stars spawn trails of damaging stars while travelling.
-			Chance to spawn [c:FFAD85/Stellar Slashes] on star hits.
+			Chance to spawn [c/FFAD85:Stellar Slashes] on star hits.
 			Chance to spawn large stars on hit from above on all hits.
 			'''
 	}
